@@ -55,4 +55,5 @@ dependencies {
     implementation(libs.androidx.splashscreen)
     debugImplementation(libs.compose.ui.tooling)
     implementation(libs.compose.coil)
+    implementation(libs.compose.navigation)
 }

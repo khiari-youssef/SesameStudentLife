@@ -6,6 +6,7 @@ compose-compiler = "1.5.6"
 compose-material3 = "1.1.2"
 constraintlayout = "1.0.1"
 compose-coil  ="2.5.0"
+compose-navigation="2.7.5"
 kotlinxDatetime = "0.4.1"
 androidx-activityCompose = "1.8.1"
 splashscreen = "1.1.0-alpha02"
@@ -24,11 +25,12 @@ compose-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview"
 compose-foundation = { module = "androidx.compose.foundation:foundation", version.ref = "compose"}
 compose-material3 = { module = "androidx.compose.material3:material3", version.ref = "compose-material3" }
 compose-coil={module="io.coil-kt:coil-compose",version.ref= "compose-coil"}
-kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinxDatetime" }
 compose-animation-core ={module = "androidx.compose.animation:animation-core",version.ref="compose"}
 compose-animation-graphics ={module = "androidx.compose.animation:animation-graphics",version.ref="compose"}
+compose-navigation={module="androidx.navigation:navigation-compose",version.ref="compose-navigation"}
 compose-constraintlayout ={module= "androidx.constraintlayout:constraintlayout-compose",version.ref="constraintlayout"}
 kotlin-coroutines ={module = "org.jetbrains.kotlinx:kotlinx-coroutines-core",version.ref = "kcoroutines"}
+kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinxDatetime" }
 kotlin-ktor-core ={module = "io.ktor:ktor-client-core",version.ref = "ktorVersion"}
 kotlin-ktor-content ={module = "io.ktor:ktor-client-content-negotiation",version.ref = "ktorVersion"}
 kotlin-ktor-json ={module ="io.ktor:ktor-serialization-kotlinx-json",version.ref = "ktorVersion"}
