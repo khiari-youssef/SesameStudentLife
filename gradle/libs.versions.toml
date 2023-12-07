@@ -7,6 +7,7 @@ compose-material3 = "1.1.2"
 constraintlayout = "1.0.1"
 compose-coil  ="2.5.0"
 compose-navigation="2.7.5"
+compose-lottie="6.2.0"
 kotlinxDatetime = "0.4.1"
 androidx-activityCompose = "1.8.1"
 splashscreen = "1.1.0-alpha02"
@@ -29,6 +30,7 @@ compose-animation-core ={module = "androidx.compose.animation:animation-core",ve
 compose-animation-graphics ={module = "androidx.compose.animation:animation-graphics",version.ref="compose"}
 compose-navigation={module="androidx.navigation:navigation-compose",version.ref="compose-navigation"}
 compose-constraintlayout ={module= "androidx.constraintlayout:constraintlayout-compose",version.ref="constraintlayout"}
+compose-lottie ={module="com.airbnb.android:lottie-compose",version.ref="compose-lottie"}
 kotlin-coroutines ={module = "org.jetbrains.kotlinx:kotlinx-coroutines-core",version.ref = "kcoroutines"}
 kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinxDatetime" }
 kotlin-ktor-core ={module = "io.ktor:ktor-client-core",version.ref = "ktorVersion"}
@@ -44,6 +46,7 @@ sqldelight-runtime ={module = "app.cash.sqldelight:runtime",version.ref = "sqlde
 sqldelight-driver-android ={module="app.cash.sqldelight:android-driver",version.ref="sqldelight"}
 sqldelight-driver-native ={module = "app.cash.sqldelight:native-driver",version.ref = "sqldelight"}
 sqldelight-adapter ={module="app.cash.sqldelight:primitive-adapters",version.ref ="sqldelight"}
+
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
