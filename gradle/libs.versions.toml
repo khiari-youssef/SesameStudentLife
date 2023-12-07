@@ -1,0 +1,53 @@
+[versions]
+agp = "8.2.0"
+kotlin = "1.9.21"
+compose = "1.5.4"
+compose-compiler = "1.5.6"
+compose-material3 = "1.1.2"
+constraintlayout = "1.0.1"
+compose-coil  ="2.5.0"
+kotlinxDatetime = "0.4.1"
+androidx-activityCompose = "1.8.1"
+splashscreen = "1.1.0-alpha02"
+koin = "3.5.0"
+sqldelight ="2.0.1"
+kcoroutines = "1.8.0-RC"
+ktorVersion = "2.3.5"
+
+[libraries]
+kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
+androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activityCompose" }
+androidx-splashscreen={module = "androidx.core:core-splashscreen",version.ref= "splashscreen"}
+compose-ui = { module = "androidx.compose.ui:ui", version.ref = "compose" }
+compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "compose" }
+compose-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "compose" }
+compose-foundation = { module = "androidx.compose.foundation:foundation", version.ref = "compose"}
+compose-material3 = { module = "androidx.compose.material3:material3", version.ref = "compose-material3" }
+compose-coil={module="io.coil-kt:coil-compose",version.ref= "compose-coil"}
+kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinxDatetime" }
+compose-animation-core ={module = "androidx.compose.animation:animation-core",version.ref="compose"}
+compose-animation-graphics ={module = "androidx.compose.animation:animation-graphics",version.ref="compose"}
+compose-constraintlayout ={module= "androidx.constraintlayout:constraintlayout-compose",version.ref="constraintlayout"}
+kotlin-coroutines ={module = "org.jetbrains.kotlinx:kotlinx-coroutines-core",version.ref = "kcoroutines"}
+kotlin-ktor-core ={module = "io.ktor:ktor-client-core",version.ref = "ktorVersion"}
+kotlin-ktor-content ={module = "io.ktor:ktor-client-content-negotiation",version.ref = "ktorVersion"}
+kotlin-ktor-json ={module ="io.ktor:ktor-serialization-kotlinx-json",version.ref = "ktorVersion"}
+kotlin-ktor-android ={module = "io.ktor:ktor-client-okhttp",version.ref = "ktorVersion"}
+kotlin-ktor-native={module = "io.ktor:ktor-client-darwin",version.ref ="ktorVersion"}
+kotlin-ktor-logging={module = "io.ktor:ktor-client-logging",version.ref = "ktorVersion"}
+koin-core ={module = "io.insert-koin:koin-core",version.ref = "koin"}
+koin-android ={module = "io.insert-koin:koin-android",version.ref = "koin"}
+koin-test ={module = "io.insert-koin:koin-test",version.ref = "koin"}
+sqldelight-runtime ={module = "app.cash.sqldelight:runtime",version.ref = "sqldelight"}
+sqldelight-driver-android ={module="app.cash.sqldelight:android-driver",version.ref="sqldelight"}
+sqldelight-driver-native ={module = "app.cash.sqldelight:native-driver",version.ref = "sqldelight"}
+sqldelight-adapter ={module="app.cash.sqldelight:primitive-adapters",version.ref ="sqldelight"}
+
+[plugins]
+androidApplication = { id = "com.android.application", version.ref = "agp" }
+androidLibrary = { id = "com.android.library", version.ref = "agp" }
+kotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
+kotlinCocoapods = { id = "org.jetbrains.kotlin.native.cocoapods", version.ref = "kotlin" }
+kotlinXSer = {id = "org.jetbrains.kotlin.plugin.serialization",version.ref = "kotlin"}
+sqldelight = {id = "app.cash.sqldelight",version.ref ="sqldelight"}
