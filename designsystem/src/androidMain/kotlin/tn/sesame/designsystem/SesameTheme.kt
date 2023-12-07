@@ -25,13 +25,17 @@ fun SesameTheme(
         darkColorScheme(
             primary = NiceBlue,
             secondary = DuskBlue,
-            tertiary = BlueHosta
+            tertiary = BlueHosta,
+            surfaceVariant = AliceBlue,
+            surface = Alabaster
         )
     } else {
         lightColorScheme(
             primary = NiceBlue,
             secondary = DuskBlue,
-            tertiary = BlueHosta
+            tertiary = BlueHosta,
+            surfaceVariant = AliceBlue,
+            surface = Alabaster
         )
     }
     val typography = Typography(
@@ -42,9 +46,11 @@ fun SesameTheme(
         )
     )
     val shapes = Shapes(
+        extraSmall = RoundedCornerShape(2.dp),
         small = RoundedCornerShape(4.dp),
         medium = RoundedCornerShape(8.dp),
-        large = RoundedCornerShape(12.dp)
+        large = RoundedCornerShape(12.dp),
+        extraLarge = RoundedCornerShape(16.dp)
     )
 
     MaterialTheme(

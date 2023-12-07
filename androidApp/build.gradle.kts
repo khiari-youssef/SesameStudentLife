@@ -56,4 +56,5 @@ dependencies {
     debugImplementation(libs.compose.ui.tooling)
     implementation(libs.compose.coil)
     implementation(libs.compose.navigation)
+    implementation(libs.compose.material)
 }

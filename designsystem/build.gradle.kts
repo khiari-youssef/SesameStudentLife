@@ -37,10 +37,13 @@ kotlin {
             implementation(libs.compose.foundation)
             implementation(libs.androidx.splashscreen)
             implementation(libs.compose.ui.tooling)
+            implementation(libs.compose.navigation)
+            implementation(libs.compose.lottie)
             implementation(libs.compose.animation.core)
             implementation(libs.compose.animation.graphics)
             implementation(libs.compose.constraintlayout)
             implementation(libs.compose.coil)
+            implementation(libs.compose.material)
         }
     }
 }
@@ -50,5 +53,11 @@ android {
     compileSdk = 34
     defaultConfig {
         minSdk = 26
+    }
+    buildFeatures {
+        compose = true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion = libs.versions.compose.compiler.get()
     }
 }
