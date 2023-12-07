@@ -12,7 +12,7 @@ splashscreen = "1.1.0-alpha02"
 koin = "3.5.0"
 sqldelight ="2.0.1"
 kcoroutines = "1.8.0-RC"
-ktorVersion = "2.3.5"
+ktorVersion = "2.3.6"
 
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
