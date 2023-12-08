@@ -2,9 +2,7 @@ package tn.sesame.designsystem.components
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.size
@@ -15,7 +13,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
@@ -25,10 +22,11 @@ import tn.sesame.designsystem.R
 @Composable
 fun NavigationBarScreenTemplate(
     modifier : Modifier = Modifier,
-    onExitNavigation : (route : String)->Unit,
+    onExitNavigation : ()->Unit,
     content :@Composable (modifier : Modifier)->Unit
 ) {
    content(modifier)
+    BackHandler(onBack = onExitNavigation)
 }
 
 @Composable

@@ -4,8 +4,8 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.sp
-import tn.sesame.designsystem.PlaceHolderColor
 import tn.sesame.designsystem.components.SesameFontFamilies
+import tn.sesame.designsystem.onBackgroundShadedLightMode
 
 @Composable
 fun PlaceholderText(
@@ -16,7 +16,7 @@ fun PlaceholderText(
     Text(
         text = text,
         style = TextStyle(
-            color = PlaceHolderColor,
+            color = onBackgroundShadedLightMode,
             fontSize = fontSize,
             fontFamily = SesameFontFamilies.MainMediumFontFamily,
             textAlign = align

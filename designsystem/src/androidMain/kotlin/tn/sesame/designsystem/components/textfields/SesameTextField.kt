@@ -1,12 +1,11 @@
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
-import tn.sesame.designsystem.PlaceHolderColor
 import tn.sesame.designsystem.components.SesameFontFamilies
+import tn.sesame.designsystem.onBackgroundShadedLightMode
 
 @Composable
 fun SesameTextField(
@@ -24,7 +23,7 @@ label = {
   Text(
       text = label,
       style = TextStyle(
-          color = PlaceHolderColor,
+          color = onBackgroundShadedLightMode,
           fontSize = 12.sp,
           fontFamily = SesameFontFamilies.MainMediumFontFamily,
           textAlign = TextAlign.Start

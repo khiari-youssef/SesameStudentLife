@@ -1,6 +1,7 @@
 package tn.sesame.spm.android
 
 data object NavigationRoutingData {
+    const val ExitAppRoute = "exit_app"
     const val Login = "login_screen"
     data object Home{
           val ROOT = toString()

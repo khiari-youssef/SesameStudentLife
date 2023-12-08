@@ -8,13 +8,11 @@ import androidx.compose.material3.Typography
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.Font
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import tn.sesame.designsystem.components.SesameFontFamilies
 
 @Composable
 fun SesameTheme(
@@ -26,8 +24,10 @@ fun SesameTheme(
             primary = NiceBlue,
             secondary = DuskBlue,
             tertiary = BlueHosta,
-            surfaceVariant = AliceBlue,
-            surface = Alabaster
+            surfaceVariant = Charcoal2,
+            surface = Alabaster,
+            primaryContainer = TonedDark,
+            background = Dark
         )
     } else {
         lightColorScheme(
@@ -35,12 +35,13 @@ fun SesameTheme(
             secondary = DuskBlue,
             tertiary = BlueHosta,
             surfaceVariant = AliceBlue,
-            surface = Alabaster
+            surface = Alabaster,
+            primaryContainer = ShadedWhite
         )
     }
     val typography = Typography(
         bodyMedium = TextStyle(
-            fontFamily = FontFamily(listOf(Font(R.font.roboto_regular))),
+            fontFamily = SesameFontFamilies.MainRegularFontFamily,
             fontWeight = FontWeight.Normal,
             fontSize = 16.sp
         )
@@ -59,4 +60,5 @@ fun SesameTheme(
         shapes = shapes,
         content = content
     )
+
 }

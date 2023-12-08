@@ -68,9 +68,6 @@ class MainActivity : ComponentActivity() {
                                 val isAppExistPopupShown = remember {
                                     mutableStateOf(false)
                                 }
-                                BackHandler {
-                                    isAppExistPopupShown.value = true
-                                }
                                 AppExitPopup(
                                     isShown =isAppExistPopupShown.value,
                                     onConfirmAppExit = {
@@ -83,9 +80,16 @@ class MainActivity : ComponentActivity() {
                                 HomeScreen(
                                     homeDestinations = homeDestinations,
                                    onHomeExit = {destination->
-                                       rootNavController.navigate(destination)
+                                       if (destination == NavigationRoutingData.ExitAppRoute){
+                                           isAppExistPopupShown.value = true
+                                       } else {
+                                           rootNavController.navigate(destination)
+                                       }
                                    }
                                 )
+                                BackHandler {
+                                    isAppExistPopupShown.value = true
+                                }
                             }
                         }
                     )

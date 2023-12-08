@@ -1,4 +1,5 @@
 import androidx.compose.foundation.background
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -19,6 +20,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import tn.sesame.designsystem.components.SesameFontFamilies
+import tn.sesame.designsystem.onBackgroundShadedDarkMode
+import tn.sesame.designsystem.onBackgroundShadedLightMode
 
 @Composable
 fun DualButtonPopup(
@@ -37,7 +40,7 @@ fun DualButtonPopup(
         ) {
             Column(
                 modifier = Modifier
-                    .background(MaterialTheme.colorScheme.background)
+                    .background(MaterialTheme.colorScheme.primaryContainer)
                     .padding(
                         top = 16.dp
                     )
@@ -72,7 +75,7 @@ fun DualButtonPopup(
                                 .fillMaxWidth(),
                             text = subtitle,
                             style = TextStyle(
-                                color = Color(0xFF696969),
+                                color = if (isSystemInDarkTheme()) onBackgroundShadedDarkMode else onBackgroundShadedLightMode,
                                 fontFamily = SesameFontFamilies.MainMediumFontFamily,
                                 fontSize = 18.sp,
                                 textAlign = TextAlign.Center
@@ -101,7 +104,7 @@ fun DualButtonPopup(
                         Text(
                             text = positiveButtonText,
                             style = TextStyle(
-                                color = MaterialTheme.colorScheme.secondary,
+                                color = if (isSystemInDarkTheme()) MaterialTheme.colorScheme.tertiary else MaterialTheme.colorScheme.secondary,
                                 fontFamily = SesameFontFamilies.MainMediumFontFamily,
                                 fontSize = 16.sp,
                                 textAlign = TextAlign.Center
@@ -122,7 +125,9 @@ fun DualButtonPopup(
                         Text(
                             text = negativeButtonText,
                             style = TextStyle(
-                                color = MaterialTheme.colorScheme.tertiary,
+                                color = if (isSystemInDarkTheme()) MaterialTheme.colorScheme.primary.copy(
+                                    red = 0.2f
+                                ) else MaterialTheme.colorScheme.primary,
                                 fontFamily = SesameFontFamilies.MainMediumFontFamily,
                                 fontSize = 16.sp,
                                 textAlign = TextAlign.Center
