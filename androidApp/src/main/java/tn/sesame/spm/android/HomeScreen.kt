@@ -1,5 +1,6 @@
 package tn.sesame.spm.android
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -15,7 +16,6 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -25,7 +25,7 @@ import tn.sesame.designsystem.components.bars.SesameBottomNavigationBar
 import tn.sesame.designsystem.components.bars.SesameBottomNavigationBarDefaults
 
 @Composable
-fun NavGraphBuilder.HomeScreen(
+fun HomeScreen(
     homeDestinations : SesameBottomNavigationBarDefaults,
     onHomeExit : (route : String)->Unit
 ) {
@@ -76,7 +76,11 @@ fun NavGraphBuilder.HomeScreen(
                             modifier = modifier.fillMaxSize(),
                             contentAlignment = Alignment.Center
                         ){
-                            Text(text = "Calendar Template", color = MaterialTheme.colorScheme.onBackground)
+                            Text(
+                                modifier = Modifier.clickable {
+                                    onHomeExit(NavigationRoutingData.Login)
+                                },
+                                text = "Calendar Template", color = MaterialTheme.colorScheme.onBackground)
                         }
                     }
                 }

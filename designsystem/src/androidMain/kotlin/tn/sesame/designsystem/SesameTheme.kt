@@ -8,6 +8,7 @@ import androidx.compose.material3.Typography
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -27,7 +28,8 @@ fun SesameTheme(
             surfaceVariant = Charcoal2,
             surface = Alabaster,
             primaryContainer = TonedDark,
-            background = Dark
+            background = Dark,
+            onBackground = Color(0xFFB6B6B6)
         )
     } else {
         lightColorScheme(
