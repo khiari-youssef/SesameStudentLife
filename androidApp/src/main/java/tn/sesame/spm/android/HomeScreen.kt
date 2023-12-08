@@ -1,5 +1,20 @@
 package tn.sesame.spm.android
 
+import SesameDateRangePicker
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.EaseIn
+import androidx.compose.animation.core.EaseInCubic
+import androidx.compose.animation.core.EaseInOut
+import androidx.compose.animation.core.EaseOut
+import androidx.compose.animation.core.EaseOutCirc
+import androidx.compose.animation.core.EaseOutCubic
+import androidx.compose.animation.core.spring
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.slideIn
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -11,10 +26,12 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.NavHost
@@ -41,24 +58,33 @@ fun HomeScreen(
             .setLaunchSingleTop(true)
             .build()
     }
+    val isBottomAppBarVisible = rememberSaveable {
+        mutableStateOf(true)
+    }
     Scaffold(
         modifier = Modifier
             .fillMaxSize(),
         bottomBar = {
-            SesameBottomNavigationBar(
-                modifier = Modifier
-                    .heightIn(min = 24.dp, max = 56.dp)
-                    .fillMaxWidth(),
-                selectedItemIndex = selectedHomeDestinationIndex.intValue,
-                properties = homeDestinations,
-                onItemSelected = {index->
-                    selectedHomeDestinationIndex.intValue = index
-                    homeNavController.navigate(
-                        route = NavigationRoutingData.Home.mapIndexToRoute(index),
-                        navOptions = navOpts
-                    )
-                }
-            )
+            AnimatedVisibility(
+                visible =isBottomAppBarVisible.value,
+                enter = fadeIn(spring()),
+                exit = fadeOut(spring())
+            ) {
+                SesameBottomNavigationBar(
+                    modifier = Modifier
+                        .heightIn(min = 24.dp, max = 56.dp)
+                        .fillMaxWidth(),
+                    selectedItemIndex = selectedHomeDestinationIndex.intValue,
+                    properties = homeDestinations,
+                    onItemSelected = {index->
+                        selectedHomeDestinationIndex.intValue = index
+                        homeNavController.navigate(
+                            route = NavigationRoutingData.Home.mapIndexToRoute(index),
+                            navOptions = navOpts
+                        )
+                    }
+                )
+            }
         },
         content = { paddingValues ->
             NavHost(
@@ -70,19 +96,23 @@ fun HomeScreen(
                     NavigationBarScreenTemplate(
                         modifier = Modifier
                             .padding(paddingValues),
-                        onExitNavigation = { onHomeExit(NavigationRoutingData.ExitAppRoute) },
-                    ){modifier ->
-                        Box(
-                            modifier = modifier.fillMaxSize(),
-                            contentAlignment = Alignment.Center
-                        ){
-                            Text(
-                                modifier = Modifier.clickable {
-                                    onHomeExit(NavigationRoutingData.Login)
-                                },
-                                text = "Calendar Template", color = MaterialTheme.colorScheme.onBackground)
+                        onExitNavigation = remember {
+                            {
+                                onHomeExit(NavigationRoutingData.ExitAppRoute)
+                            }
+                        },
+                        content = remember {
+                            {modifier ->
+                                SesameDateRangePicker(
+                                    modifier = Modifier
+                                        .fillMaxSize()
+                                        .clickable {
+                                            isBottomAppBarVisible.value = isBottomAppBarVisible.value.not()
+                                        }
+                                )
+                            }
                         }
-                    }
+                    )
                 }
                 composable(NavigationRoutingData.Home.Projects){
                     NavigationBarScreenTemplate(

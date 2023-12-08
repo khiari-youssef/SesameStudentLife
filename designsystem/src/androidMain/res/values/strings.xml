@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">SPM</string>
+    <string name="app_name">SesaWorks</string>
     <string name="version_placeholder">Version %s</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
