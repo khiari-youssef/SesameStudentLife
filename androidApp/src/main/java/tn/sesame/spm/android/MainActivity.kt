@@ -1,11 +1,15 @@
 package tn.sesame.spm.android
 
+import AppExitPopup
 import android.os.Bundle
 import androidx.activity.ComponentActivity
+import androidx.activity.compose.BackHandler
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.compose.NavHost
@@ -61,6 +65,21 @@ class MainActivity : ComponentActivity() {
                             composable(
                                 route = "Home"
                             ){ _->
+                                val isAppExistPopupShown = remember {
+                                    mutableStateOf(false)
+                                }
+                                BackHandler {
+                                    isAppExistPopupShown.value = true
+                                }
+                                AppExitPopup(
+                                    isShown =isAppExistPopupShown.value,
+                                    onConfirmAppExit = {
+                                        this@MainActivity.finishAffinity()
+                                    },
+                                    onCancelled = {
+                                        isAppExistPopupShown.value = false
+                                    }
+                                )
                                 HomeScreen(
                                     homeDestinations = homeDestinations,
                                    onHomeExit = {destination->

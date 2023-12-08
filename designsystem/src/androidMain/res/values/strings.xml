@@ -2,4 +2,10 @@
 <resources>
     <string name="app_name">SesameStudentLife</string>
     <string name="version_placeholder">Version %s</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="ok">OK</string>
+    <string name="app_exit_popup_title">Do you really want to quit the app ?</string>
+    <string name="confirm">Confirm</string>
+    <string name="cancel">Cancel</string>
 </resources>
