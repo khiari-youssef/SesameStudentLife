@@ -1,4 +1,4 @@
-package tn.sesame.spm.android
+package tn.sesame.spm.android.ui
 
 import AppExitPopup
 import android.os.Bundle
@@ -13,6 +13,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
@@ -21,7 +22,12 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import tn.sesame.designsystem.SesameTheme
 import tn.sesame.designsystem.components.bars.SesameBottomNavigationBarDefaults
-import tn.sesame.designsystem.components.bars.SesameBottomNavigationBarItem
+import tn.sesame.spm.android.ui.home.HomeScreen
+import tn.sesame.spm.android.base.NavigationRoutingData
+import tn.sesame.spm.android.ui.login.LoginForm
+import tn.sesame.spm.android.ui.login.LoginScreen
+import tn.sesame.spm.android.ui.login.LoginState
+import tn.sesame.spm.android.ui.login.LoginUIStateHolder
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,27 +35,7 @@ class MainActivity : ComponentActivity() {
         installSplashScreen()
         setContent {
             val rootNavController = rememberNavController()
-            val homeDestinations = SesameBottomNavigationBarDefaults(
-                    items = listOf(
-                        SesameBottomNavigationBarItem(
-                            selectedStateIcon = tn.sesame.designsystem.R.drawable.ic_calendar,
-                            unSelectedStateIcon = tn.sesame.designsystem.R.drawable.ic_calendar_outlined
-                        ),
-                        SesameBottomNavigationBarItem(
-                            selectedStateIcon = tn.sesame.designsystem.R.drawable.ic_project,
-                            unSelectedStateIcon = tn.sesame.designsystem.R.drawable.ic_project_outlined
-                        ),
-                        SesameBottomNavigationBarItem(
-                            selectedStateIcon = tn.sesame.designsystem.R.drawable.ic_notifications,
-                            unSelectedStateIcon = tn.sesame.designsystem.R.drawable.ic_notifications_outlined
-                        ),
-                        SesameBottomNavigationBarItem(
-                            selectedStateIcon = tn.sesame.designsystem.R.drawable.ic_profile,
-                            unSelectedStateIcon = tn.sesame.designsystem.R.drawable.ic_profile_outlined
-                        )
-                    )
-                )
-
+            val homeDestinations = SesameBottomNavigationBarDefaults.getDefaultConfiguration()
             SesameTheme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
@@ -58,21 +44,34 @@ class MainActivity : ComponentActivity() {
                     NavHost(
                         modifier = Modifier,
                         route = "MainGraph",
-                        startDestination = "Home",
+                        startDestination = NavigationRoutingData.Login,
                         navController = rootNavController,
                         builder = {
                             composable(
                                 route = NavigationRoutingData.Login
                             ){_->
-                                Box(
+                                val loginUIState = LoginUIStateHolder.rememberLoginUIState(
+                                    loginEmail = rememberSaveable {
+                                        mutableStateOf("")
+                                    },
+                                    loginPassword = rememberSaveable {
+                                        mutableStateOf("")
+                                    },
+                                    loginRequestResult = remember {
+                                        mutableStateOf(LoginState.Idle)
+                                    }
+                                )
+                                LoginScreen(
                                     modifier = Modifier.fillMaxSize(),
-                                    contentAlignment = Alignment.Center
+                                    loginUIStateHolder = loginUIState,
+                                    onEmailChanged = { email ->
+                                       loginUIState.loginEmail.value = email
+                                    },
+                                    onPasswordChanged ={ password ->
+                                       loginUIState.loginPassword.value = password
+                                    }
                                 ){
-                                    Text(
-                                        modifier = Modifier.clickable {
-                                           rootNavController.navigate("Home")
-                                        },
-                                        text = "Login Template", color = MaterialTheme.colorScheme.onBackground)
+                                    loginUIState.loginRequestResult.value = LoginState.Loading
                                 }
                             }
                             composable(

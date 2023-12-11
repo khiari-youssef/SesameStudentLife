@@ -15,6 +15,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = libs.versions.compose.compiler.get()
@@ -26,6 +27,10 @@ android {
         }
     }
     buildTypes {
+        getByName("debug"){
+            isDebuggable = true
+            isMinifyEnabled = false
+        }
         getByName("release") {
             isMinifyEnabled = false
         }
@@ -57,4 +62,11 @@ dependencies {
     implementation(libs.compose.coil)
     implementation(libs.compose.navigation)
     implementation(libs.compose.material)
+    implementation(libs.koin.core)
+    implementation(libs.koin.android)
+    implementation(libs.jetpack.credentialmanager)
+    implementation(libs.jetpack.credentialManagerPlayServices)
+    implementation(libs.jetpack.viewmodel.core)
+    implementation(libs.jetpack.viewmodel.compose)
+    implementation(libs.jetpack.viewmodel.composeutils)
 }

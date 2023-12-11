@@ -36,6 +36,9 @@ kotlin {
             implementation(libs.koin.core)
             implementation(libs.sqldelight.runtime)
             implementation(libs.sqldelight.adapter)
+            implementation(libs.androidx.annotation)
+            implementation(libs.androidx.collection)
+            implementation(libs.androidx.datastore.preferences.core)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
@@ -49,6 +52,7 @@ kotlin {
             implementation(libs.androidx.security.crypto)
             implementation(libs.androidx.security.identity.credential)
             implementation(libs.androidx.security.app.authenticator)
+            implementation(libs.jetpack.viewmodel.core)
         }
         iosMain.dependencies {
 

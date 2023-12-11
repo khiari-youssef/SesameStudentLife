@@ -1,4 +1,4 @@
-package tn.sesame.spm.android
+package tn.sesame.spm.android.base
 
 data object NavigationRoutingData {
     const val ExitAppRoute = "exit_app"
@@ -12,7 +12,7 @@ data object NavigationRoutingData {
 
         fun mapRouteToIndex(route : String) : Int = when (route){
             Calendar -> 0
-            Profile-> 3
+            Profile -> 3
             Notifications -> 2
             Projects -> 1
             else -> throw  IllegalStateException()

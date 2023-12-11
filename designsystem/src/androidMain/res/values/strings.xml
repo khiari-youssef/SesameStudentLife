@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">SesaWorks</string>
+    <string name="app_brand_text_primary" translatable="false">SESAWORKS</string>
+    <string name="app_brand_text_secondary" translatable="false">Student Workspace</string>
     <string name="version_placeholder">Version %s</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
@@ -8,4 +10,9 @@
     <string name="app_exit_popup_title">Do you really want to quit the app ?</string>
     <string name="confirm">Confirm</string>
     <string name="cancel">Cancel</string>
+    <string name="email_address_label">Email address</string>
+    <string name="email_address_placeholder" translatable="false">sesameuser@sesame.com.tn</string>
+    <string name="password_label">Password</string>
+    <string name="password_placeholder">Your password…</string>
+    <string name="login">Se connecter</string>
 </resources>
