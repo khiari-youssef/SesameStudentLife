@@ -2,6 +2,7 @@ import androidx.compose.animation.Crossfade
 import androidx.compose.animation.core.spring
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -25,6 +26,7 @@ enum class SesameButtonVariants{
 }
 @Composable
 fun SesameButton(
+    modifier: Modifier,
     text : String,
     variant : SesameButtonVariants,
     isEnabled : Boolean,
@@ -32,9 +34,7 @@ fun SesameButton(
     onClick: ()->Unit
 ) {
    Button(
-        modifier = Modifier
-            .wrapContentHeight()
-            .fillMaxWidth(),
+        modifier = modifier,
         enabled = isEnabled,
         shape = MaterialTheme.shapes.medium,
         colors = ButtonDefaults.buttonColors(
@@ -46,7 +46,7 @@ fun SesameButton(
         ),
        contentPadding = PaddingValues(
            horizontal = 24.dp,
-           vertical = 8.dp
+           vertical = 12.dp
        ),
         onClick = onClick
     ) {
@@ -57,6 +57,8 @@ fun SesameButton(
        ) {
            if (it){
                CircularProgressIndicator(
+                   modifier = Modifier.size(16.dp),
+                   strokeWidth = 1.dp,
                    color = Color.White
                )
            } else {

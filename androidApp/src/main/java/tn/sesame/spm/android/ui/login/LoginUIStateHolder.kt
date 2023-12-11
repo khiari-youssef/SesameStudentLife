@@ -18,19 +18,17 @@ sealed interface LoginState {
 data class LoginUIStateHolder(
   val loginEmail : MutableState<String>,
   val loginPassword : MutableState<String>,
-  val isAutoLoginEnabled : State<Boolean>,
-  val loginRequestResult : State<LoginState>
+  val loginRequestResult : MutableState<LoginState>
 ){
     companion object{
         @Composable
         fun rememberLoginUIState(
              loginEmail : MutableState<String>,
              loginPassword : MutableState<String>,
-             isAutoLoginEnabled : State<Boolean>,
-             loginRequestResult : State<LoginState>
-        ) : LoginUIStateHolder = remember(loginEmail, loginPassword, isAutoLoginEnabled, loginRequestResult) {
+             loginRequestResult : MutableState<LoginState>
+        ) : LoginUIStateHolder = remember(loginEmail, loginPassword, loginRequestResult) {
             LoginUIStateHolder(
-              loginEmail, loginPassword, isAutoLoginEnabled, loginRequestResult
+              loginEmail, loginPassword, loginRequestResult
             )
         }
     }

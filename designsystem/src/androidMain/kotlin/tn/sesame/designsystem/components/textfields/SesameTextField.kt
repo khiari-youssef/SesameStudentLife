@@ -1,5 +1,7 @@
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
@@ -35,6 +37,7 @@ fun SesameTextField(
     onTextChanged: (text: String) -> Unit
 ) {
     OutlinedTextField(
+        shape = MaterialTheme.shapes.small,
         modifier = Modifier.fillMaxWidth(),
         value = text,
         label = {
@@ -61,11 +64,14 @@ fun SesameTextField(
         leadingIcon = leftIconRes?.run{
             {
                 Icon(
-                    modifier = Modifier.clickable {
+                    modifier = Modifier.clickable(
+                        interactionSource = MutableInteractionSource(),
+                        indication = null,
+                        onClick = {
                         onLeftIconResClicked?.let { callback->
                             callback()
                         }
-                    },
+                    }) ,
                     imageVector = ImageVector.vectorResource(this),
                     contentDescription = "",
                     tint = MaterialTheme.colorScheme.secondary
@@ -75,7 +81,10 @@ fun SesameTextField(
         trailingIcon = rightIconRes?.run{
             {
                 Icon(
-                    modifier = Modifier.clickable {
+                    modifier = Modifier.clickable(
+                        interactionSource = MutableInteractionSource(),
+                        indication = null
+                    ) {
                         onRightIconResClicked?.let { callback->
                             callback()
                         }

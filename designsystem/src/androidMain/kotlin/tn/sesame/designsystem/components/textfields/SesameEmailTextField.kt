@@ -30,52 +30,16 @@ fun SesameEmailTextField(
     onRightIconResClicked : (()->Unit)?=null,
     onEmailChanged: (text: String) -> Unit
 ) {
-    OutlinedTextField(
-        modifier = Modifier.fillMaxWidth(),
-        value = text,
-        label = {
-            Text(
-                text = stringResource(id = R.string.email_address_label),
-                style = TextStyle(
-                    color = onBackgroundShadedLightMode,
-                    fontSize = 12.sp,
-                    fontFamily = SesameFontFamilies.MainMediumFontFamily,
-                    textAlign = TextAlign.Start
-                )
-            )
-        },
-        placeholder = {
-            PlaceholderText(
-                text = stringResource(id = R.string.email_address_placeholder),
-                fontSize = 14.sp
-            )
-        },
-        enabled = isEnabled,
-        readOnly = isReadOnly,
-        isError = isError,
-        singleLine = true,
-        trailingIcon = rightIconRes?.run{
-            {
-                Icon(
-                    modifier = Modifier.clickable {
-                        onRightIconResClicked?.let { callback->
-                            callback()
-                        }
-                    },
-                    imageVector = ImageVector.vectorResource(this),
-                    contentDescription = "",
-                    tint = MaterialTheme.colorScheme.secondary
-                )
-            }
-        },
-        colors = TextFieldDefaults.colors(
-           focusedContainerColor = Color.Unspecified,
-           focusedIndicatorColor = MaterialTheme.colorScheme.secondary,
-            focusedLabelColor = MaterialTheme.colorScheme.secondary,
-            focusedTrailingIconColor = Color.Unspecified,
-            unfocusedContainerColor = Color.Unspecified
-        ),
-        onValueChange = onEmailChanged
-    )
+   SesameTextField(
+       text = text,
+       label = stringResource(id = R.string.email_address_label) ,
+       placeholder = stringResource(id = R.string.email_address_placeholder)  ,
+       isEnabled = isEnabled,
+       isReadOnly = isReadOnly,
+       isError = isError ,
+       rightIconRes =rightIconRes,
+       onRightIconResClicked = onRightIconResClicked,
+       onTextChanged =  onEmailChanged
+   )
 
 }

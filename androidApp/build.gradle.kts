@@ -15,6 +15,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = libs.versions.compose.compiler.get()
@@ -26,6 +27,10 @@ android {
         }
     }
     buildTypes {
+        getByName("debug"){
+            isDebuggable = true
+            isMinifyEnabled = false
+        }
         getByName("release") {
             isMinifyEnabled = false
         }

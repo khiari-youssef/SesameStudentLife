@@ -1,32 +1,86 @@
 package tn.sesame.spm.android.ui.login
 
 import AppBrand
+import AppVersion
+import SesameButton
+import SesameButtonVariants
 import SesameEmailTextField
 import SesamePasswordTextField
 import SesameTextField
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.layoutId
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.constraintlayout.compose.ConstraintLayout
+import tn.sesame.spm.android.BuildConfig
 import tn.sesame.spm.android.R
 
 @Composable
 fun LoginScreen(
+modifier: Modifier = Modifier,
 loginUIStateHolder: LoginUIStateHolder,
-modifier: Modifier = Modifier
+onEmailChanged: (email: String) -> Unit,
+onPasswordChanged: (password: String) -> Unit,
+onLoginClicked : ()->Unit
 ) {
-Column {
+ConstraintLayout(
+    modifier = modifier.padding(
+        horizontal = 20.dp
+    ),
+    constraintSet = LoginScreenConfigurationPortrait
+) {
     AppBrand(
         modifier = Modifier
+            .layoutId("loginAppBrand")
     )
+    LoginForm(
+        modifier = Modifier
+            .layoutId("loginForm"),
+        email = loginUIStateHolder.loginEmail.value,
+        password = loginUIStateHolder.loginPassword.value,
+        onEmailChanged = onEmailChanged,
+        onPasswordChanged = onPasswordChanged
+    )
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .wrapContentHeight()
+            .layoutId("loginButton"),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(8.dp,Alignment.CenterHorizontally)
+    ) {
+       SesameButton(
+           modifier = Modifier
+               .wrapContentHeight()
+               .fillMaxWidth(0.9f),
+           text = stringResource(id = tn.sesame.designsystem.R.string.login),
+           variant = SesameButtonVariants.PrimarySoft,
+           isEnabled = true,
+           isLoading = loginUIStateHolder.loginRequestResult.value is LoginState.Loading,
+           onClick = onLoginClicked
+       )
+    }
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .wrapContentHeight()
+            .layoutId("loginFooter"),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(8.dp,Alignment.Start)
+    ) {
+        AppVersion(version = BuildConfig.VERSION_NAME)
+    }
 }
 
 }
@@ -34,13 +88,14 @@ Column {
 
 @Composable
 fun LoginForm(
+    modifier: Modifier,
     email : String = "",
     password : String = "",
     onEmailChanged : (email : String) -> Unit ={},
     onPasswordChanged : (password : String)->Unit={}
 ) {
  Column(
-     modifier = Modifier
+     modifier = modifier
          .fillMaxWidth()
          .wrapContentHeight(),
      horizontalAlignment = Alignment.CenterHorizontally,
