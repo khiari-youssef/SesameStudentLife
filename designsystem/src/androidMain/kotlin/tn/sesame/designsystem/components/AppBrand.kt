@@ -1,3 +1,4 @@
+package tn.sesame.designsystem.components
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -40,9 +41,10 @@ Row(
         modifier = Modifier
             .wrapContentSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(2.dp, Alignment.CenterVertically)
+        verticalArrangement = Arrangement.spacedBy(1.dp, Alignment.CenterVertically)
     ) {
         Text(
+            modifier = Modifier.wrapContentSize(),
             text = stringResource(id = R.string.app_brand_text_primary),
             style = TextStyle(
                 fontSize = 32.sp,
@@ -53,6 +55,7 @@ Row(
             )
         )
         Text(
+            modifier = Modifier.wrapContentSize(),
             text = stringResource(id = R.string.app_brand_text_secondary),
             style = TextStyle(
                 fontSize = 20.sp,

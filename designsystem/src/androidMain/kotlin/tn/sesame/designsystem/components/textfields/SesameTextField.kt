@@ -1,5 +1,6 @@
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.material3.Icon
@@ -15,10 +16,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
+import tn.sesame.designsystem.LightGreyBlue
 import tn.sesame.designsystem.components.SesameFontFamilies
+import tn.sesame.designsystem.onBackgroundShadedDarkMode
 import tn.sesame.designsystem.onBackgroundShadedLightMode
 
 @Composable
@@ -38,14 +42,20 @@ fun SesameTextField(
 ) {
     OutlinedTextField(
         shape = MaterialTheme.shapes.small,
+        textStyle = TextStyle(
+            fontSize = 14.sp,
+            fontStyle = FontStyle.Normal,
+            fontFamily = SesameFontFamilies.MainRegularFontFamily,
+            letterSpacing = 1.sp,
+            lineHeight = 24.sp
+        ),
         modifier = Modifier.fillMaxWidth(),
         value = text,
         label = {
             Text(
                 text = label,
                 style = TextStyle(
-                    color = onBackgroundShadedLightMode,
-                    fontSize = 12.sp,
+                    fontSize = 14.sp,
                     fontFamily = SesameFontFamilies.MainMediumFontFamily,
                     textAlign = TextAlign.Start
                 )
@@ -97,12 +107,13 @@ fun SesameTextField(
         },
         visualTransformation = visualTransformation,
         colors = OutlinedTextFieldDefaults.colors(
-           focusedContainerColor = Color.Unspecified,
-           cursorColor = MaterialTheme.colorScheme.secondary,
+            focusedContainerColor = Color.Unspecified,
+            cursorColor = MaterialTheme.colorScheme.secondary,
             focusedLabelColor = MaterialTheme.colorScheme.secondary,
             focusedTrailingIconColor = Color.Unspecified,
             unfocusedContainerColor = Color.Unspecified,
-            focusedBorderColor = MaterialTheme.colorScheme.secondary
+            focusedBorderColor = if (isSystemInDarkTheme()) LightGreyBlue else MaterialTheme.colorScheme.secondary,
+            unfocusedLabelColor = if (isSystemInDarkTheme()) onBackgroundShadedDarkMode else onBackgroundShadedLightMode
         ),
         onValueChange = onTextChanged
     )

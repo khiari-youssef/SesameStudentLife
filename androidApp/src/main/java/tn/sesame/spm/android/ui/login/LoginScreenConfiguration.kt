@@ -10,15 +10,20 @@ val LoginScreenConfigurationPortrait = ConstraintSet {
     val loginFormRef = createRefFor("loginForm")
     val loginButtonRef = createRefFor("loginButton")
     val loginFooterRef = createRefFor("loginFooter")
+    val loginAnimation = createRefFor("loginAnim")
 
     constrain(loginBrandRef){
         top.linkTo(parent.top,32.dp)
         start.linkTo(parent.start)
         end.linkTo(parent.end)
-
+    }
+    constrain(loginAnimation){
+        top.linkTo(loginBrandRef.bottom,24.dp)
+        start.linkTo(parent.start)
+        end.linkTo(parent.end)
     }
     constrain(loginFormRef){
-        top.linkTo(loginBrandRef.bottom,24.dp)
+        top.linkTo(loginAnimation.bottom,24.dp)
         start.linkTo(parent.start)
         end.linkTo(parent.end)
         width = Dimension.fillToConstraints
@@ -43,4 +48,5 @@ val LoginScreenConfigurationLandscape = ConstraintSet {
     val loginFormRef = createRefFor("loginForm")
     val loginButtonRef = createRefFor("loginButton")
     val loginFooterRef = createRefFor("loginFooter")
+    val loginAnimation = createRefFor("loginAnim")
 }

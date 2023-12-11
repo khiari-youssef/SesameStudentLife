@@ -1,7 +1,8 @@
 package tn.sesame.spm.android.ui.login
 
-import AppBrand
+
 import AppVersion
+import LoginAnimation
 import SesameButton
 import SesameButtonVariants
 import SesameEmailTextField
@@ -12,7 +13,10 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.runtime.Composable
@@ -23,8 +27,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
+import tn.sesame.designsystem.components.AppBrand
 import tn.sesame.spm.android.BuildConfig
-import tn.sesame.spm.android.R
+
 
 @Composable
 fun LoginScreen(
@@ -43,6 +48,11 @@ ConstraintLayout(
     AppBrand(
         modifier = Modifier
             .layoutId("loginAppBrand")
+    )
+    LoginAnimation(
+        modifier = Modifier
+            .size(200.dp)
+            .layoutId("loginAnim")
     )
     LoginForm(
         modifier = Modifier
