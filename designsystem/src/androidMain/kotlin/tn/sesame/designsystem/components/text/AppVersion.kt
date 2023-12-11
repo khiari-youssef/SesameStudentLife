@@ -11,7 +11,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
 import tn.sesame.designsystem.LightGreyBlue
 import tn.sesame.designsystem.R
-import tn.sesame.designsystem.components.SesameFontFamilies
+import tn.sesame.designsystem.SesameFontFamilies
 
 @Composable
 fun AppVersion(

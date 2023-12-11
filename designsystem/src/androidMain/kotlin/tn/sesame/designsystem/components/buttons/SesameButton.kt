@@ -1,11 +1,9 @@
 import androidx.compose.animation.Crossfade
 import androidx.compose.animation.core.spring
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
@@ -20,7 +18,7 @@ import androidx.compose.ui.unit.sp
 import tn.sesame.designsystem.DuskBlue
 import tn.sesame.designsystem.ErrorColor
 import tn.sesame.designsystem.NiceBlue
-import tn.sesame.designsystem.components.SesameFontFamilies
+import tn.sesame.designsystem.SesameFontFamilies
 
 
 enum class SesameButtonVariants{

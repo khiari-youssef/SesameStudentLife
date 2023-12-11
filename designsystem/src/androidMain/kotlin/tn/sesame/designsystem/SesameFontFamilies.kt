@@ -1,4 +1,4 @@
-package tn.sesame.designsystem.components
+package tn.sesame.designsystem
 
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily

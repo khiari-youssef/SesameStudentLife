@@ -8,8 +8,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
-import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -21,7 +19,7 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
 import tn.sesame.designsystem.LightGreyBlue
-import tn.sesame.designsystem.components.SesameFontFamilies
+import tn.sesame.designsystem.SesameFontFamilies
 import tn.sesame.designsystem.onBackgroundShadedDarkMode
 import tn.sesame.designsystem.onBackgroundShadedLightMode
 
@@ -33,6 +31,7 @@ fun SesameTextField(
     isEnabled: Boolean,
     isReadOnly: Boolean,
     isError: Boolean,
+    keyboardActions: KeyboardActions = KeyboardActions.Default,
     visualTransformation : VisualTransformation = VisualTransformation.None,
     leftIconRes : Int?=null,
     rightIconRes : Int?=null,
@@ -51,6 +50,7 @@ fun SesameTextField(
         ),
         modifier = Modifier.fillMaxWidth(),
         value = text,
+        keyboardActions= keyboardActions,
         label = {
             Text(
                 text = label,
@@ -84,7 +84,7 @@ fun SesameTextField(
                     }) ,
                     imageVector = ImageVector.vectorResource(this),
                     contentDescription = "",
-                    tint = MaterialTheme.colorScheme.secondary
+                    tint = if (isSystemInDarkTheme()) LightGreyBlue else MaterialTheme.colorScheme.secondary
                 )
             }
         },
@@ -101,15 +101,15 @@ fun SesameTextField(
                     },
                     imageVector = ImageVector.vectorResource(this),
                     contentDescription = "",
-                    tint = MaterialTheme.colorScheme.secondary
+                    tint = if (isSystemInDarkTheme()) LightGreyBlue else MaterialTheme.colorScheme.secondary
                 )
             }
         },
         visualTransformation = visualTransformation,
         colors = OutlinedTextFieldDefaults.colors(
             focusedContainerColor = Color.Unspecified,
-            cursorColor = MaterialTheme.colorScheme.secondary,
-            focusedLabelColor = MaterialTheme.colorScheme.secondary,
+            cursorColor = if (isSystemInDarkTheme()) LightGreyBlue else MaterialTheme.colorScheme.secondary,
+            focusedLabelColor = if (isSystemInDarkTheme()) LightGreyBlue else MaterialTheme.colorScheme.secondary,
             focusedTrailingIconColor = Color.Unspecified,
             unfocusedContainerColor = Color.Unspecified,
             focusedBorderColor = if (isSystemInDarkTheme()) LightGreyBlue else MaterialTheme.colorScheme.secondary,

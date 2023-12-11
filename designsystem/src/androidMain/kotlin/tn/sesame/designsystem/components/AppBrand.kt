@@ -19,7 +19,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import tn.sesame.designsystem.R
-import tn.sesame.designsystem.components.SesameFontFamilies
+import tn.sesame.designsystem.SesameFontFamilies
 
 
 @Preview

@@ -1,3 +1,4 @@
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.mutableStateOf
@@ -15,6 +16,7 @@ fun SesamePasswordTextField(
     placeholder : String,
     isEnabled : Boolean,
     isError : Boolean,
+    keyboardActions: KeyboardActions = KeyboardActions.Default,
     onPasswordChanged : (text : String)->Unit
 ) {
     val isPasswordRevealed = remember {
@@ -34,6 +36,7 @@ fun SesamePasswordTextField(
         isEnabled = isEnabled,
         isReadOnly = false ,
         isError = isError,
+        keyboardActions = keyboardActions,
         visualTransformation = visualTransformation.value ,
         rightIconRes = if (isPasswordRevealed.value) R.drawable.ic_password_revealed else R.drawable.ic_password_hidden,
         onRightIconResClicked = remember {
