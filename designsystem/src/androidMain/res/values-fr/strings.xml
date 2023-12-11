@@ -8,4 +8,7 @@
     <string name="app_exit_popup_title">Voulez vous vraiment quitter l\'application ?</string>
     <string name="confirm">Confirmer</string>
     <string name="cancel">Annuler</string>
+    <string name="email_address_label">Addresse Email</string>
+    <string name="password_label">Mot de passe</string>
+    <string name="password_placeholder">Votre mot de passe</string>
 </resources>

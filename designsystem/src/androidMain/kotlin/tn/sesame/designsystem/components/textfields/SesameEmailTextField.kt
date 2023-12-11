@@ -3,7 +3,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
@@ -11,35 +10,32 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
+import tn.sesame.designsystem.R
 import tn.sesame.designsystem.components.SesameFontFamilies
 import tn.sesame.designsystem.onBackgroundShadedLightMode
 
 @Composable
-fun SesameTextField(
+fun SesameEmailTextField(
     text: String,
-    label: String,
-    placeholder: String,
     isEnabled: Boolean,
-    isReadOnly: Boolean,
+    isReadOnly: Boolean = false,
     isError: Boolean,
-    visualTransformation : VisualTransformation = VisualTransformation.None,
-    leftIconRes : Int?=null,
     rightIconRes : Int?=null,
-    onLeftIconResClicked : (()->Unit)?=null,
     onRightIconResClicked : (()->Unit)?=null,
-    onTextChanged: (text: String) -> Unit
+    onEmailChanged: (text: String) -> Unit
 ) {
     OutlinedTextField(
         modifier = Modifier.fillMaxWidth(),
         value = text,
         label = {
             Text(
-                text = label,
+                text = stringResource(id = R.string.email_address_label),
                 style = TextStyle(
                     color = onBackgroundShadedLightMode,
                     fontSize = 12.sp,
@@ -50,7 +46,7 @@ fun SesameTextField(
         },
         placeholder = {
             PlaceholderText(
-                text = placeholder,
+                text = stringResource(id = R.string.email_address_placeholder),
                 fontSize = 14.sp
             )
         },
@@ -58,20 +54,6 @@ fun SesameTextField(
         readOnly = isReadOnly,
         isError = isError,
         singleLine = true,
-        leadingIcon = leftIconRes?.run{
-            {
-                Icon(
-                    modifier = Modifier.clickable {
-                        onLeftIconResClicked?.let { callback->
-                            callback()
-                        }
-                    },
-                    imageVector = ImageVector.vectorResource(this),
-                    contentDescription = "",
-                    tint = MaterialTheme.colorScheme.secondary
-                )
-            }
-        },
         trailingIcon = rightIconRes?.run{
             {
                 Icon(
@@ -86,16 +68,14 @@ fun SesameTextField(
                 )
             }
         },
-        visualTransformation = visualTransformation,
-        colors = OutlinedTextFieldDefaults.colors(
+        colors = TextFieldDefaults.colors(
            focusedContainerColor = Color.Unspecified,
-           cursorColor = MaterialTheme.colorScheme.secondary,
+           focusedIndicatorColor = MaterialTheme.colorScheme.secondary,
             focusedLabelColor = MaterialTheme.colorScheme.secondary,
             focusedTrailingIconColor = Color.Unspecified,
-            unfocusedContainerColor = Color.Unspecified,
-            focusedBorderColor = MaterialTheme.colorScheme.secondary
+            unfocusedContainerColor = Color.Unspecified
         ),
-        onValueChange = onTextChanged
+        onValueChange = onEmailChanged
     )
 
 }
