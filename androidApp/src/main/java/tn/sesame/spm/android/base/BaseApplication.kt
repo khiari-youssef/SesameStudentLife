@@ -1,4 +1,4 @@
-package tn.sesame.spm.android
+package tn.sesame.spm.android.base
 
 import android.app.Application
 

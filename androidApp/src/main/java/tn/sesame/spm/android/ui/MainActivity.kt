@@ -1,4 +1,4 @@
-package tn.sesame.spm.android
+package tn.sesame.spm.android.ui
 
 import AppExitPopup
 import android.os.Bundle
@@ -21,7 +21,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import tn.sesame.designsystem.SesameTheme
 import tn.sesame.designsystem.components.bars.SesameBottomNavigationBarDefaults
-import tn.sesame.designsystem.components.bars.SesameBottomNavigationBarItem
+import tn.sesame.spm.android.ui.home.HomeScreen
+import tn.sesame.spm.android.base.NavigationRoutingData
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,27 +30,7 @@ class MainActivity : ComponentActivity() {
         installSplashScreen()
         setContent {
             val rootNavController = rememberNavController()
-            val homeDestinations = SesameBottomNavigationBarDefaults(
-                    items = listOf(
-                        SesameBottomNavigationBarItem(
-                            selectedStateIcon = tn.sesame.designsystem.R.drawable.ic_calendar,
-                            unSelectedStateIcon = tn.sesame.designsystem.R.drawable.ic_calendar_outlined
-                        ),
-                        SesameBottomNavigationBarItem(
-                            selectedStateIcon = tn.sesame.designsystem.R.drawable.ic_project,
-                            unSelectedStateIcon = tn.sesame.designsystem.R.drawable.ic_project_outlined
-                        ),
-                        SesameBottomNavigationBarItem(
-                            selectedStateIcon = tn.sesame.designsystem.R.drawable.ic_notifications,
-                            unSelectedStateIcon = tn.sesame.designsystem.R.drawable.ic_notifications_outlined
-                        ),
-                        SesameBottomNavigationBarItem(
-                            selectedStateIcon = tn.sesame.designsystem.R.drawable.ic_profile,
-                            unSelectedStateIcon = tn.sesame.designsystem.R.drawable.ic_profile_outlined
-                        )
-                    )
-                )
-
+            val homeDestinations = SesameBottomNavigationBarDefaults.getDefaultConfiguration()
             SesameTheme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),

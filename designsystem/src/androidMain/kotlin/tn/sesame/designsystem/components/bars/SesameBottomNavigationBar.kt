@@ -25,7 +25,31 @@ data class SesameBottomNavigationBarItem(
 @Stable
 value class SesameBottomNavigationBarDefaults(
    val items : List<SesameBottomNavigationBarItem>
-)
+){
+    companion object{
+        @Composable
+        fun getDefaultConfiguration() = SesameBottomNavigationBarDefaults(
+            listOf(
+                SesameBottomNavigationBarItem(
+                    selectedStateIcon = tn.sesame.designsystem.R.drawable.ic_calendar,
+                    unSelectedStateIcon = tn.sesame.designsystem.R.drawable.ic_calendar_outlined
+                ),
+                SesameBottomNavigationBarItem(
+                    selectedStateIcon = tn.sesame.designsystem.R.drawable.ic_project,
+                    unSelectedStateIcon = tn.sesame.designsystem.R.drawable.ic_project_outlined
+                ),
+                SesameBottomNavigationBarItem(
+                    selectedStateIcon = tn.sesame.designsystem.R.drawable.ic_notifications,
+                    unSelectedStateIcon = tn.sesame.designsystem.R.drawable.ic_notifications_outlined
+                ),
+                SesameBottomNavigationBarItem(
+                    selectedStateIcon = tn.sesame.designsystem.R.drawable.ic_profile,
+                    unSelectedStateIcon = tn.sesame.designsystem.R.drawable.ic_profile_outlined
+                )
+            )
+        )
+    }
+}
 
 @Composable
 fun SesameBottomNavigationBar(
