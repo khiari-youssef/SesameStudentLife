@@ -57,4 +57,8 @@ dependencies {
     implementation(libs.compose.coil)
     implementation(libs.compose.navigation)
     implementation(libs.compose.material)
+    implementation(libs.koin.core)
+    implementation(libs.koin.android)
+    implementation(libs.jetpack.credentialmanager)
+    implementation(libs.jetpack.credentialManagerPlayServices)
 }
