@@ -66,4 +66,7 @@ dependencies {
     implementation(libs.koin.android)
     implementation(libs.jetpack.credentialmanager)
     implementation(libs.jetpack.credentialManagerPlayServices)
+    implementation(libs.jetpack.viewmodel.core)
+    implementation(libs.jetpack.viewmodel.compose)
+    implementation(libs.jetpack.viewmodel.composeutils)
 }

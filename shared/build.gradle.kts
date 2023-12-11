@@ -48,6 +48,7 @@ kotlin {
             implementation(libs.kotlin.ktor.android)
             implementation(libs.koin.android)
             implementation(libs.sqldelight.driver.android)
+            implementation(libs.jetpack.viewmodel.core)
         }
         iosMain.dependencies {
 

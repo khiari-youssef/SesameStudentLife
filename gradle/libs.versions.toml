@@ -21,6 +21,7 @@ kcoroutines = "1.8.0-RC"
 ktorVersion = "2.3.6"
 jpCredentialManager = "1.2.0"
 jpCredentialManagerPS = "1.2.0"
+jpLifeCycle = "2.6.2"
 
 [libraries]
 androidx-annotation = { module = "androidx.annotation:annotation", version.ref = "annotation" }
@@ -58,6 +59,10 @@ sqldelight-driver-native ={module = "app.cash.sqldelight:native-driver",version.
 sqldelight-adapter ={module="app.cash.sqldelight:primitive-adapters",version.ref ="sqldelight"}
 jetpack-credentialmanager ={module="androidx.credentials:credentials",version.ref="jpCredentialManager"}
 jetpack-credentialManagerPlayServices = {module="androidx.credentials:credentials-play-services-auth",version.ref="jpCredentialManagerPS"}
+jetpack-viewmodel-compose ={module = "androidx.lifecycle:lifecycle-viewmodel-compose",version.ref="jpLifeCycle"}
+jetpack-viewmodel-core ={module = "androidx.lifecycle:lifecycle-viewmodel-ktx",version.ref="jpLifeCycle"}
+jetpack-viewmodel-composeutils ={module = "androidx.lifecycle:lifecycle-runtime-compose",version.ref="jpLifeCycle"}
+
 
 
 [plugins]
