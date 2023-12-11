@@ -45,6 +45,10 @@ kotlin {
             implementation(libs.kotlin.ktor.android)
             implementation(libs.koin.android)
             implementation(libs.sqldelight.driver.android)
+            implementation(libs.androidx.biometric.ktx)
+            implementation(libs.androidx.security.crypto)
+            implementation(libs.androidx.security.identity.credential)
+            implementation(libs.androidx.security.app.authenticator)
         }
         iosMain.dependencies {
 
