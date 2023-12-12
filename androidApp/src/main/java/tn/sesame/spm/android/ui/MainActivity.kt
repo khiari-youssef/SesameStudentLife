@@ -20,6 +20,7 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import org.koin.android.ext.android.inject
 import tn.sesame.designsystem.SesameTheme
 import tn.sesame.designsystem.components.bars.SesameBottomNavigationBarDefaults
 import tn.sesame.spm.android.ui.home.HomeScreen
@@ -28,11 +29,18 @@ import tn.sesame.spm.android.ui.login.LoginForm
 import tn.sesame.spm.android.ui.login.LoginScreen
 import tn.sesame.spm.android.ui.login.LoginState
 import tn.sesame.spm.android.ui.login.LoginUIStateHolder
+import tn.sesame.spm.security.BiometricAuthService
 
 class MainActivity : ComponentActivity() {
+
+    val bioService : BiometricAuthService by inject()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        installSplashScreen()
+        val isBiometricSupportAvailable = bioService.checkBiometricCapabilitiesState()
+            .isAvailable()
+        installSplashScreen().setKeepOnScreenCondition{
+            isBiometricSupportAvailable.not()
+        }
         setContent {
             val rootNavController = rememberNavController()
             val homeDestinations = SesameBottomNavigationBarDefaults.getDefaultConfiguration()

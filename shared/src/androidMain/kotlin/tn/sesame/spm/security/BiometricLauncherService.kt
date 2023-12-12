@@ -1,4 +1,4 @@
-package com.example.androidutils.systemServices.security.deviceAuthentication
+package tn.sesame.spm.security
 
 import androidx.fragment.app.FragmentActivity
 import javax.crypto.SecretKey
@@ -47,5 +47,8 @@ sealed interface SupportedDeviceAuthenticationMethods{
     data object NoHardware : SupportedDeviceAuthenticationMethods
     data object HardwareUnavailable : SupportedDeviceAuthenticationMethods
     data object Unavailable : SupportedDeviceAuthenticationMethods
-    data class Available( val biometricLauncherService: BiometricLauncherService) : SupportedDeviceAuthenticationMethods
+    data class Available( val biometricLauncherService: BiometricLauncherService) :
+        SupportedDeviceAuthenticationMethods
+
+    fun isAvailable() : Boolean = this is Available
 }

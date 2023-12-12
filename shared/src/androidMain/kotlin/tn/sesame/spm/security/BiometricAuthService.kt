@@ -1,4 +1,4 @@
-package com.example.androidutils.systemServices.security.deviceAuthentication
+package tn.sesame.spm.security
 
 
 import android.app.KeyguardManager
@@ -38,11 +38,15 @@ private val biometricLauncherService : BiometricLauncherService by lazy {
 
 fun checkBiometricCapabilitiesState() : SupportedDeviceAuthenticationMethods {
    return if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.Q){
-        if(keyGuardManager.isDeviceSecure) SupportedDeviceAuthenticationMethods.Available(biometricLauncherService)
+        if(keyGuardManager.isDeviceSecure) SupportedDeviceAuthenticationMethods.Available(
+            biometricLauncherService
+        )
         else SupportedDeviceAuthenticationMethods.Unavailable
     } else {
         when (biometricManager.canAuthenticate(BIOMETRIC_STRONG or DEVICE_CREDENTIAL)) {
-            BiometricManager.BIOMETRIC_SUCCESS -> SupportedDeviceAuthenticationMethods.Available(biometricLauncherService)
+            BiometricManager.BIOMETRIC_SUCCESS -> SupportedDeviceAuthenticationMethods.Available(
+                biometricLauncherService
+            )
 
             BiometricManager.BIOMETRIC_ERROR_NO_HARDWARE -> SupportedDeviceAuthenticationMethods.NoHardware
 
@@ -136,10 +140,12 @@ fun checkBiometricCapabilitiesState() : SupportedDeviceAuthenticationMethods {
         override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
             super.onAuthenticationSucceeded(result)
             authenticationActionListener?.let { callback->
-                callback(BiometricLauncherService.DeviceAuthenticationState.Success(
-                    result.authenticationType,
-                    result.cryptoObject?.cipher?.doFinal()
-                ))
+                callback(
+                    BiometricLauncherService.DeviceAuthenticationState.Success(
+                        result.authenticationType,
+                        result.cryptoObject?.cipher?.doFinal()
+                    )
+                )
             }
 
         }
@@ -147,9 +153,11 @@ fun checkBiometricCapabilitiesState() : SupportedDeviceAuthenticationMethods {
         override fun onAuthenticationError(errorCode: Int, errString: CharSequence) {
             super.onAuthenticationError(errorCode, errString)
             authenticationActionListener?.let { callback->
-                callback(BiometricLauncherService.DeviceAuthenticationState.Error(
-                    errorCode
-                ))
+                callback(
+                    BiometricLauncherService.DeviceAuthenticationState.Error(
+                        errorCode
+                    )
+                )
             }
         }
     }
