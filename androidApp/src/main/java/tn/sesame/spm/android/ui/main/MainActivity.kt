@@ -4,8 +4,6 @@ import BiometricCapabilitiesNotFoundDialog
 import BiometricIdentityNotRegisteredDialog
 import InfoPopup
 import MainNavigation
-import android.app.AlertDialog
-import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.compose.setContent
@@ -165,20 +163,6 @@ class MainActivity : FragmentActivity() {
                 }
             }
         }
-    }
-}
-
-class PurchaseConfirmationDialogFragment : DialogFragment() {
-    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog =
-        AlertDialog.Builder(requireContext())
-            .create()
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
-    companion object {
-        const val TAG = "BiometricAuthDialog"
     }
 }
 

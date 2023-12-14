@@ -7,7 +7,7 @@ import android.provider.Settings
 import androidx.biometric.BiometricManager
 
 
-fun Activity.getRegistrationBiometricIdentityIntent() : Intent {
+fun getRegistrationBiometricIdentityIntent() : Intent {
     return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
         Intent(Settings.ACTION_BIOMETRIC_ENROLL).apply {
             putExtra(Settings.EXTRA_BIOMETRIC_AUTHENTICATORS_ALLOWED,
