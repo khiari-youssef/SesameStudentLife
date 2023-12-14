@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="error_unsupported_biometric_features_title">Accès interdit !</string>
+    <string name="error_unsupported_biometric_features_message">Cet appareil ne supporte pas l\'authentification biometrique !</string>
+    <string name="error_unregistered_biometric_identity_title">Identité biometrique introuvable !</string>
+    <string name="error_unregistered_biometric_identity_message">Vous devez s\'identifier dans les paramètres systèmes !</string>
+    <string name="button_open_system_settings">Accéder aux paramètres</string>
+    <string name="error_biometric_undefined_title">Erreur inconnu!</string>
+    <string name="error_biometric_undefined_message">Impossible d\'accéder aux services biometriques</string>
+    <string name="error_biometric_temporararely_unavailable_title">Erreur temporaire !</string>
+    <string name="error_biometric_temporararely_unavailable_message">Le service biometrique est temporairement indisponible !</string>
+    <string name="biometric_auth_dialog_title">Cette action nécessite une autorisation</string>
+    <string name="biometric_auth_dialog_message">Entrez votre identité biométrique </string>
+    <string name="biometric_auth_failed_title">Erreur d\'authentification</string>
+    <string name="biometric_auth_failed_message">Opération échouée</string>
+    <string name="biometric_auth_cancelled_title">Erreur d\'authentification</string>
+    <string name="biometric_auth_cancelled_message">Opération interrompue</string>
+</resources>

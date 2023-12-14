@@ -1,19 +1,37 @@
 package tn.sesame.spm.security
 
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
+import kotlinx.coroutines.flow.StateFlow
 import javax.crypto.SecretKey
 
 interface BiometricLauncherService {
 
-    fun launch(activity: FragmentActivity)
 
-    fun launchAndEncrypt(activity: FragmentActivity,secretKey: SecretKey)
+    val authenticationResultState : StateFlow<DeviceAuthenticationState>
+    fun launch(activity: FragmentActivity,title : String,
+               subtitle : String)
 
-    fun setOnAuthenticationActionListener(callback : (DeviceAuthenticationState)->Unit)
+    fun launch(fragment: Fragment,title : String,
+               subtitle : String)
+
+    fun launchAndEncrypt(activity: FragmentActivity,secretKey: SecretKey,title : String,
+                         subtitle : String)
+
 
     sealed interface DeviceAuthenticationState{
-        object Failed : DeviceAuthenticationState
-        data class Error(val code : Int) : DeviceAuthenticationState
+
+        data object Idle : DeviceAuthenticationState
+        data object Failed : DeviceAuthenticationState
+        data class Error(val code : Int) : DeviceAuthenticationState{
+            override fun equals(other: Any?): Boolean {
+                return other is Error && other.code == this.code
+            }
+
+            override fun hashCode(): Int {
+                return code
+            }
+        }
         data class Success(
             val method : Int,
             val data : ByteArray?=null
@@ -43,12 +61,12 @@ interface BiometricLauncherService {
 }
 
 sealed interface SupportedDeviceAuthenticationMethods{
+    data object Waiting : SupportedDeviceAuthenticationMethods
     data object Undefined : SupportedDeviceAuthenticationMethods
     data object NoHardware : SupportedDeviceAuthenticationMethods
     data object HardwareUnavailable : SupportedDeviceAuthenticationMethods
     data object Unavailable : SupportedDeviceAuthenticationMethods
-    data class Available( val biometricLauncherService: BiometricLauncherService) :
-        SupportedDeviceAuthenticationMethods
 
-    fun isAvailable() : Boolean = this is Available
+
+    data class Available( val biometricLauncherService: BiometricLauncherService) : SupportedDeviceAuthenticationMethods
 }

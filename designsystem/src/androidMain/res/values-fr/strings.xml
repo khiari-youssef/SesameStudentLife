@@ -12,4 +12,6 @@
     <string name="password_label">Mot de passe</string>
     <string name="password_placeholder">Votre mot de passe</string>
     <string name="login">Se connecter</string>
+    <string name="retry">Réessayer</string>
+
 </resources>

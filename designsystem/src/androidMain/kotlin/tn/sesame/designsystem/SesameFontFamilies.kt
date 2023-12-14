@@ -2,7 +2,6 @@ package tn.sesame.designsystem
 
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
-import tn.sesame.designsystem.R
 
 data object SesameFontFamilies {
     val LogoFontRegular = FontFamily(Font(R.font.brand_font))

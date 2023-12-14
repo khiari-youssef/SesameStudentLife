@@ -14,5 +14,6 @@
     <string name="email_address_placeholder" translatable="false">sesameuser@sesame.com.tn</string>
     <string name="password_label">Password</string>
     <string name="password_placeholder">Your password…</string>
-    <string name="login">Se connecter</string>
+    <string name="login">Login</string>
+    <string name="retry">Retry</string>
 </resources>

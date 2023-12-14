@@ -1,0 +1,185 @@
+package tn.sesame.spm.android.ui.main
+
+import BiometricCapabilitiesNotFoundDialog
+import BiometricIdentityNotRegisteredDialog
+import InfoPopup
+import MainNavigation
+import android.app.AlertDialog
+import android.app.Dialog
+import android.content.Intent
+import android.os.Bundle
+import androidx.activity.compose.setContent
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.runtime.State
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation.compose.rememberNavController
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.update
+import org.koin.android.ext.android.inject
+import tn.sesame.designsystem.SesameTheme
+import tn.sesame.designsystem.components.bars.SesameBottomNavigationBarDefaults
+import tn.sesame.spm.android.R
+import tn.sesame.spm.security.BiometricAuthService
+import tn.sesame.spm.security.BiometricLauncherService
+import tn.sesame.spm.security.SupportedDeviceAuthenticationMethods
+import tn.sesame.spm.ui.getRegistrationBiometricIdentityIntent
+
+class MainActivity : FragmentActivity() {
+
+    private val bioService : BiometricAuthService by inject()
+    private var biometricRegistrationActivityResultLauncher : ActivityResultLauncher<Intent>?=null
+    private val biometricCapabilitiesState : MutableStateFlow<SupportedDeviceAuthenticationMethods>
+    = MutableStateFlow(SupportedDeviceAuthenticationMethods.Waiting)
+
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        biometricRegistrationActivityResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
+            if (it.resultCode == RESULT_OK){
+                biometricCapabilitiesState.update {
+                    bioService.checkBiometricCapabilitiesState()
+                }
+            }
+        }
+        biometricCapabilitiesState.update {
+            bioService.checkBiometricCapabilitiesState()
+        }
+        installSplashScreen()
+        setContent {
+            val biometricSupportState : State<SupportedDeviceAuthenticationMethods>  = biometricCapabilitiesState
+                .collectAsStateWithLifecycle()
+            val rootNavController = rememberNavController()
+            val homeDestinations = SesameBottomNavigationBarDefaults.getDefaultConfiguration()
+
+            SesameTheme {
+                Surface(
+                    modifier = Modifier.fillMaxSize(),
+                    color = MaterialTheme.colorScheme.background
+                ) {
+                    when (val state = biometricSupportState.value){
+                        is SupportedDeviceAuthenticationMethods.Available ->{
+                                val result =  state.biometricLauncherService.authenticationResultState.collectAsStateWithLifecycle()
+                                when (result.value){
+                                    is BiometricLauncherService.DeviceAuthenticationState.Error ->{
+                                           InfoPopup(
+                                               title = stringResource(id = R.string.biometric_auth_cancelled_title) ,
+                                               subtitle = stringResource(id = R.string.biometric_auth_cancelled_message),
+                                               isShown = true,
+                                               buttonText =  stringResource(id = tn.sesame.designsystem.R.string.ok),
+                                               onButtonClicked = {
+                                                   this@MainActivity.finishAffinity()
+                                               }) {
+                                               this@MainActivity.finishAffinity()
+                                           }
+                                    }
+                                    is BiometricLauncherService.DeviceAuthenticationState.Failed ->{
+                                        InfoPopup(
+                                            title = stringResource(id = R.string.biometric_auth_failed_title),
+                                            subtitle = stringResource(id = R.string.biometric_auth_failed_message),
+                                            isShown = true,
+                                            buttonText = stringResource(id = tn.sesame.designsystem.R.string.ok),
+                                            onButtonClicked = {
+                                                this@MainActivity.finishAffinity()
+                                            }) {
+                                            this@MainActivity.finishAffinity()
+                                        }
+                                    }
+                                    is BiometricLauncherService.DeviceAuthenticationState.Success ->{
+                                        MainNavigation(
+                                            modifier = Modifier,
+                                            rootNavController = rootNavController,
+                                            homeDestinations = homeDestinations
+                                        )
+                                    }
+                                    is BiometricLauncherService.DeviceAuthenticationState.Idle ->{
+                                        state.biometricLauncherService.launch(
+                                            activity = this@MainActivity,
+                                            title = stringResource(id = R.string.biometric_auth_dialog_title),
+                                            subtitle = stringResource(id = R.string.biometric_auth_dialog_message)
+                                        )
+                                    }
+                                }
+
+                        }
+                        is SupportedDeviceAuthenticationMethods.Unavailable ->{
+                            BiometricIdentityNotRegisteredDialog(
+                                isShown = true,
+                                onClosed = {
+                                     this@MainActivity.finishAffinity()
+                                },
+                                onOpenSettings = {
+                                    biometricRegistrationActivityResultLauncher
+                                        ?.launch(getRegistrationBiometricIdentityIntent())
+                                }
+                            )
+                        }
+                        is SupportedDeviceAuthenticationMethods.NoHardware ->{
+                            BiometricCapabilitiesNotFoundDialog(
+                                isShown = true,
+                                onClosed = {
+                                    this@MainActivity.finishAffinity()
+                                }
+                            )
+                        }
+                        is SupportedDeviceAuthenticationMethods.HardwareUnavailable->{
+                            InfoPopup(
+                                title = stringResource(id = R.string.error_biometric_undefined_title),
+                                subtitle = stringResource(id = R.string.error_biometric_undefined_message),
+                                isShown = true ,
+                                buttonText = stringResource(id = tn.sesame.designsystem.R.string.retry) ,
+                                onButtonClicked = {
+                                    biometricCapabilitiesState.update {
+                                        bioService.checkBiometricCapabilitiesState()
+                                    }
+                                }) {
+                                this@MainActivity.finishAffinity()
+                            }
+                        }
+                        is SupportedDeviceAuthenticationMethods.Undefined ->{
+                                 InfoPopup(
+                                     title = stringResource(id = R.string.error_biometric_temporararely_unavailable_title),
+                                     subtitle = stringResource(id = R.string.error_biometric_temporararely_unavailable_message),
+                                     isShown = true ,
+                                     buttonText = stringResource(id = tn.sesame.designsystem.R.string.retry) ,
+                                     onButtonClicked = {
+                                         biometricCapabilitiesState.update {
+                                             bioService.checkBiometricCapabilitiesState()
+                                         }
+                                     }) {
+                                      this@MainActivity.finishAffinity()
+                                 }
+                        }
+                        is SupportedDeviceAuthenticationMethods.Waiting ->{
+
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+class PurchaseConfirmationDialogFragment : DialogFragment() {
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog =
+        AlertDialog.Builder(requireContext())
+            .create()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+    }
+
+    companion object {
+        const val TAG = "BiometricAuthDialog"
+    }
+}
+
+
