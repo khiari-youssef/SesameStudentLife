@@ -101,7 +101,7 @@ class MainActivity : FragmentActivity() {
                                     is BiometricLauncherService.DeviceAuthenticationState.Idle ->{
                                         state.biometricLauncherService.launch(
                                             activity = this@MainActivity,
-                                            title = stringResource(id = R.string.biometric_auth_dialog_title),
+                                            title = stringResource(id = R.string.biometric_auth_autologin_check),
                                             subtitle = stringResource(id = R.string.biometric_auth_dialog_message)
                                         )
                                     }

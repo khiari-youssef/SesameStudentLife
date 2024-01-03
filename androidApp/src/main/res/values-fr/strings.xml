@@ -10,6 +10,7 @@
     <string name="error_biometric_temporararely_unavailable_title">Erreur temporaire !</string>
     <string name="error_biometric_temporararely_unavailable_message">Le service biometrique est temporairement indisponible !</string>
     <string name="biometric_auth_dialog_title">Cette action nécessite une autorisation</string>
+    <string name="biometric_auth_autologin_check">l\'auto-connection requière une vérification</string>
     <string name="biometric_auth_dialog_message">Entrez votre identité biométrique </string>
     <string name="biometric_auth_failed_title">Erreur d\'authentification</string>
     <string name="biometric_auth_failed_message">Opération échouée</string>

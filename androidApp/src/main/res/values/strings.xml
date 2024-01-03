@@ -10,9 +10,15 @@
     <string name="error_biometric_temporararely_unavailable_title">Temporary Error !</string>
     <string name="error_biometric_temporararely_unavailable_message">Biometric service is currently unavailable !</string>
     <string name="biometric_auth_dialog_title">This action requires authorization</string>
+    <string name="biometric_auth_autologin_check">Autologging-in requires check</string>
     <string name="biometric_auth_dialog_message">Enter your biometric identity</string>
     <string name="biometric_auth_failed_title">Authentication Error</string>
     <string name="biometric_auth_failed_message">Operation failed </string>
     <string name="biometric_auth_cancelled_title">Authentication Error</string>
     <string name="biometric_auth_cancelled_message">Operation cancelled</string>
+    <string name="asset_statements" translatable="false">
+        [{
+  \"include\": \"https://sesameworks.com/.well-known/assetlinks.json\"
+}]
+    </string>
 </resources>

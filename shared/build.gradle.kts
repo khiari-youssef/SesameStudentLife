@@ -80,7 +80,7 @@ android {
 
 sqldelight {
     databases {
-        create("SesameStudentLifeDatabase") {
+        create("SesameWorksLifeDatabase") {
             packageName.set("tn.sesame.spmdatabase")
             generateAsync.set(true)
         }

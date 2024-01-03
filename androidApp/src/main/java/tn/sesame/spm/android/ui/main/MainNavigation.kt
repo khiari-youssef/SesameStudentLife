@@ -4,11 +4,14 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import tn.sesame.designsystem.components.bars.SesameBottomNavigationBarDefaults
 import tn.sesame.spm.android.base.NavigationRoutingData
 import tn.sesame.spm.android.ui.home.HomeScreen
@@ -42,6 +45,7 @@ fun Activity.MainNavigation(
                         mutableStateOf(LoginState.Idle)
                     }
                 )
+                val fakeScope = rememberCoroutineScope()
                 LoginScreen(
                     modifier = Modifier.fillMaxSize(),
                     loginUIStateHolder = loginUIState,
@@ -53,10 +57,15 @@ fun Activity.MainNavigation(
                     }
                 ){
                     loginUIState.loginRequestResult.value = LoginState.Loading
+                    fakeScope.launch {
+                        delay(1000)
+                        rootNavController.navigate("MainNavigation")
+                    }
+
                 }
             }
             composable(
-                route = "Home"
+                route = "MainNavigation"
             ){ _->
                 val isAppExistPopupShown = remember {
                     mutableStateOf(false)
