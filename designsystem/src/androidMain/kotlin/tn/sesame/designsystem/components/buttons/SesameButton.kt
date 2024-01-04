@@ -1,3 +1,4 @@
+import android.util.Range
 import androidx.compose.animation.Crossfade
 import androidx.compose.animation.core.spring
 import androidx.compose.foundation.layout.PaddingValues
@@ -13,6 +14,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import tn.sesame.designsystem.DuskBlue
@@ -31,11 +34,17 @@ fun SesameButton(
     variant : SesameButtonVariants,
     isEnabled : Boolean,
     isLoading : Boolean,
+    paddingValues: PaddingValues = PaddingValues(
+        horizontal = 20.dp,
+        vertical = 12.dp
+    ),
+    fontSize : TextUnit = 16.sp,
+    heightRangeDP : IntRange =  25..44,
     onClick: ()->Unit
 ) {
    Button(
         modifier = modifier
-            .heightIn(25.dp,44.dp),
+            .heightIn(heightRangeDP.first.dp,heightRangeDP.last.dp),
         enabled = isEnabled,
         shape = MaterialTheme.shapes.medium,
         colors = ButtonDefaults.buttonColors(
@@ -45,10 +54,7 @@ fun SesameButton(
               SesameButtonVariants.PrimarySoft -> NiceBlue
           }
         ),
-       contentPadding = PaddingValues(
-           horizontal = 20.dp,
-           vertical = 12.dp
-       ),
+       contentPadding = paddingValues,
         onClick = onClick
     ) {
        Crossfade(
@@ -69,7 +75,7 @@ fun SesameButton(
                    style = TextStyle(
                        color = Color.White,
                        fontFamily = SesameFontFamilies.MainMediumFontFamily,
-                       fontSize = 16.sp
+                       fontSize = fontSize
                    )
                )
            }

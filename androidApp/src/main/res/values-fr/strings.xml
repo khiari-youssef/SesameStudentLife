@@ -16,4 +16,22 @@
     <string name="biometric_auth_failed_message">Opération échouée</string>
     <string name="biometric_auth_cancelled_title">Erreur d\'authentification</string>
     <string name="biometric_auth_cancelled_message">Opération interrompue</string>
+
+
+
+    <!-- Projects strings-->
+
+    <string name="project_creation_date">Crée le %s à %s</string>
+    <string name="project_supervisor">Encadrant</string>
+    <string name="project_collaborators">Etudiants</string>
+    <string name="project_no_collaborators">Personne n\'a encore rejoint le projet !</string>
+    <string name="project_supervisor_unassigned">Non assigné !</string>
+    <string name="project_duration">Durée : %S  -  %S</string>
+    <string name="project_status_waiting_for_supervisor_approval">En attente de l\'accepation de l\'encadrant </string>
+    <string name="project_status_waiting_for_team_approval">En attente de l\'accepation de l\'équipe</string>
+    <string name="project_status_joined">Rejoint</string>
+    <string name="project_status_rejected">Rejeté</string>
+    <string name="project_button_join">Joindre</string>
+    <string name="project_button_details">Détails</string>
+    <string name="project_button_quit">Quitter</string>
 </resources>

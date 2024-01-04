@@ -21,4 +21,20 @@
   \"include\": \"https://sesameworks.com/.well-known/assetlinks.json\"
 }]
     </string>
+
+    <!-- Projects strings-->
+
+    <string name="project_creation_date">Posted on %s at %s</string>
+    <string name="project_supervisor_unassigned">Unassigned !</string>
+    <string name="project_supervisor">Supervisor</string>
+    <string name="project_collaborators">Students</string>
+    <string name="project_no_collaborators">No body has joined yet</string>
+    <string name="project_duration">Duration : %S  -  %S</string>
+    <string name="project_status_waiting_for_supervisor_approval">Waiting for supervisor approval</string>
+    <string name="project_status_waiting_for_team_approval">Waiting for team approval</string>
+    <string name="project_status_joined">Joined</string>
+    <string name="project_status_rejected">Rejected</string>
+    <string name="project_button_join">Join</string>
+    <string name="project_button_details">Details</string>
+    <string name="project_button_quit">Quit</string>
 </resources>
