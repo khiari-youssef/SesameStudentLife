@@ -1,5 +1,6 @@
 package tn.sesame.spm.android.ui.home
 
+import ProfileScreen
 import SesameDateRangePicker
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.spring
@@ -11,6 +12,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -97,7 +99,8 @@ fun HomeScreen(
                                     modifier = Modifier
                                         .fillMaxSize()
                                         .clickable {
-                                            isBottomAppBarVisible.value = isBottomAppBarVisible.value.not()
+                                            isBottomAppBarVisible.value =
+                                                isBottomAppBarVisible.value.not()
                                         }
                                 )
                             }
@@ -135,15 +138,14 @@ fun HomeScreen(
                 composable(NavigationRoutingData.Home.Profile){
                     NavigationBarScreenTemplate(
                         modifier = Modifier
+                            .systemBarsPadding()
                             .padding(paddingValues),
                         onExitNavigation = { onHomeExit(NavigationRoutingData.ExitAppRoute) },
                     ){modifier ->
-                        Box(
-                            modifier = modifier.fillMaxSize(),
-                            contentAlignment = Alignment.Center
-                        ){
-                            Text(text = "Profile", color = MaterialTheme.colorScheme.onBackground)
-                        }
+                            ProfileScreen(
+                                modifier = modifier
+                                    .fillMaxSize()
+                            )
                     }
                 }
             }
