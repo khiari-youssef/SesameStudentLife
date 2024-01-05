@@ -37,4 +37,10 @@
     <string name="project_button_join">Join</string>
     <string name="project_button_details">Details</string>
     <string name="project_button_quit">Quit</string>
+
+    <!-- Profile strings-->
+
+    <string name="profile_email">Email</string>
+    <string name="profile_logout">Logout</string>
+
 </resources>
