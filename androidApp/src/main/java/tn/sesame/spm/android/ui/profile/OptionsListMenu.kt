@@ -55,7 +55,8 @@ fun OptionsListMenu(
                 modifier = Modifier
                     .padding(8.dp)
                     .fillMaxWidth()
-                    .wrapContentHeight().clickable {
+                    .wrapContentHeight()
+                    .clickable {
                          onOptionClicked(option)
                     },
                 horizontalArrangement = Arrangement.spacedBy(24.dp, Alignment.Start),

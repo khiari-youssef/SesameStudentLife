@@ -63,50 +63,20 @@ class MainActivity : FragmentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    when (val state = biometricSupportState.value){
+                    when (biometricSupportState.value){
                         is SupportedDeviceAuthenticationMethods.Available ->{
-                                val result =  state.biometricLauncherService.authenticationResultState.collectAsStateWithLifecycle()
-                                when (result.value){
-                                    is BiometricLauncherService.DeviceAuthenticationState.Error ->{
-                                           InfoPopup(
-                                               title = stringResource(id = R.string.biometric_auth_cancelled_title) ,
-                                               subtitle = stringResource(id = R.string.biometric_auth_cancelled_message),
-                                               isShown = true,
-                                               buttonText =  stringResource(id = tn.sesame.designsystem.R.string.ok),
-                                               onButtonClicked = {
-                                                   this@MainActivity.finishAffinity()
-                                               }) {
-                                               this@MainActivity.finishAffinity()
-                                           }
-                                    }
-                                    is BiometricLauncherService.DeviceAuthenticationState.Failed ->{
-                                        InfoPopup(
-                                            title = stringResource(id = R.string.biometric_auth_failed_title),
-                                            subtitle = stringResource(id = R.string.biometric_auth_failed_message),
-                                            isShown = true,
-                                            buttonText = stringResource(id = tn.sesame.designsystem.R.string.ok),
-                                            onButtonClicked = {
-                                                this@MainActivity.finishAffinity()
-                                            }) {
-                                            this@MainActivity.finishAffinity()
-                                        }
-                                    }
-                                    is BiometricLauncherService.DeviceAuthenticationState.Success ->{
-                                        MainNavigation(
-                                            modifier = Modifier,
-                                            rootNavController = rootNavController,
-                                            homeDestinations = homeDestinations
-                                        )
-                                    }
-                                    is BiometricLauncherService.DeviceAuthenticationState.Idle ->{
-                                        state.biometricLauncherService.launch(
-                                            activity = this@MainActivity,
-                                            title = stringResource(id = R.string.biometric_auth_autologin_check),
-                                            subtitle = stringResource(id = R.string.biometric_auth_dialog_message)
-                                        )
-                                    }
-                                }
-
+                            MainNavigation(
+                                modifier = Modifier,
+                                rootNavController = rootNavController,
+                                homeDestinations = homeDestinations
+                            )
+                               /* val result =  state.biometricLauncherService.authenticationResultState.collectAsStateWithLifecycle()
+                            state.biometricLauncherService.launch(
+                                activity = this@MainActivity,
+                                title = stringResource(id = R.string.biometric_auth_autologin_check),
+                                subtitle = stringResource(id = R.string.biometric_auth_dialog_message)
+                            )
+                                 */
                         }
                         is SupportedDeviceAuthenticationMethods.Unavailable ->{
                             BiometricIdentityNotRegisteredDialog(
