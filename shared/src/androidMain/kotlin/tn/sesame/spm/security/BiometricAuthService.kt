@@ -15,8 +15,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.channels.awaitClose
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -66,7 +69,7 @@ class BiometricAuthService(
 
     private class BiometricLauncher(
         private val context: Context
-    ) : BiometricLauncherService, BiometricPrompt.AuthenticationCallback() {
+    ) : BiometricLauncherService{
 
         private val _authenticationResultState: MutableStateFlow<BiometricLauncherService.DeviceAuthenticationState>
                 = MutableStateFlow(BiometricLauncherService.DeviceAuthenticationState.Idle)
@@ -90,47 +93,89 @@ class BiometricAuthService(
             activity: FragmentActivity,
             title: String,
             subtitle: String
-        ) {
+        ) : Flow<BiometricLauncherService.DeviceAuthenticationState> = callbackFlow {
             val promptRequest = createBiometricPromptRequest(
                 title, subtitle
             )
+            val callback = object : BiometricPrompt.AuthenticationCallback(){
+                override fun onAuthenticationFailed() {
+                    super.onAuthenticationFailed()
+                    trySend(BiometricLauncherService.DeviceAuthenticationState.Failed)
+                }
+                override fun onAuthenticationError(errorCode: Int, errString: CharSequence) {
+                    super.onAuthenticationError(errorCode, errString)
+                    trySend(BiometricLauncherService.DeviceAuthenticationState.Error(
+                        errorCode
+                    ))
+                }
+
+                override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
+                    super.onAuthenticationSucceeded(result)
+                    trySend( BiometricLauncherService.DeviceAuthenticationState.Success(
+                        result.authenticationType,
+                        result.cryptoObject?.cipher?.doFinal()
+                    ))
+                }
+            }
             val biometricPrompt = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
                 BiometricPrompt(
                     activity,
                     context.mainExecutor,
-                    this
+                    callback
                 )
             } else {
                 BiometricPrompt(
                     activity,
-                    this
+                    callback
                 )
             }
             biometricPrompt.authenticate(
                 promptRequest
             )
+            awaitClose()
         }
 
 
-        override fun launch(fragment: Fragment, title: String, subtitle: String) {
+        override fun launch(fragment: Fragment, title: String, subtitle: String): Flow<BiometricLauncherService.DeviceAuthenticationState> = callbackFlow  {
             val promptRequest = createBiometricPromptRequest(
                 title, subtitle
             )
+            val callback = object : BiometricPrompt.AuthenticationCallback(){
+                override fun onAuthenticationFailed() {
+                    super.onAuthenticationFailed()
+                    trySend(BiometricLauncherService.DeviceAuthenticationState.Failed)
+                }
+                override fun onAuthenticationError(errorCode: Int, errString: CharSequence) {
+                    super.onAuthenticationError(errorCode, errString)
+                    trySend(BiometricLauncherService.DeviceAuthenticationState.Error(
+                        errorCode
+                    ))
+                }
+
+                override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
+                    super.onAuthenticationSucceeded(result)
+                    trySend( BiometricLauncherService.DeviceAuthenticationState.Success(
+                        result.authenticationType,
+                        result.cryptoObject?.cipher?.doFinal()
+                    ))
+                }
+            }
             val biometricPrompt = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
                 BiometricPrompt(
                     fragment,
                     context.mainExecutor,
-                    this
+                    callback
                 )
             } else {
                 BiometricPrompt(
                     fragment,
-                    this
+                    callback
                 )
             }
             biometricPrompt.authenticate(
                 promptRequest
             )
+            awaitClose()
         }
 
         @RequiresApi(Build.VERSION_CODES.R)
@@ -139,17 +184,36 @@ class BiometricAuthService(
             secretKey: SecretKey,
             title: String,
             subtitle: String
-        ) {
+        ) : Flow<BiometricLauncherService.DeviceAuthenticationState> = callbackFlow {
 
             val promptRequest = createBiometricPromptRequest(
                 title, subtitle
             )
+            val callback = object : BiometricPrompt.AuthenticationCallback(){
+                override fun onAuthenticationFailed() {
+                    super.onAuthenticationFailed()
+                    trySend(BiometricLauncherService.DeviceAuthenticationState.Failed)
+                }
+                override fun onAuthenticationError(errorCode: Int, errString: CharSequence) {
+                    super.onAuthenticationError(errorCode, errString)
+                    trySend(BiometricLauncherService.DeviceAuthenticationState.Error(
+                        errorCode
+                    ))
+                }
+
+                override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
+                    super.onAuthenticationSucceeded(result)
+                    trySend( BiometricLauncherService.DeviceAuthenticationState.Success(
+                        result.authenticationType,
+                        result.cryptoObject?.cipher?.doFinal()
+                    ))
+                }
+            }
             val biometricPrompt = BiometricPrompt(
                 activity,
                 context.mainExecutor,
-                this
+                callback
             )
-            CoroutineScope(Dispatchers.Main).launch {
                 val cipher = Cipher.getInstance(
                     KeyProperties.KEY_ALGORITHM_AES + "/"
                             + KeyProperties.BLOCK_MODE_CBC + "/"
@@ -162,41 +226,13 @@ class BiometricAuthService(
                         BiometricPrompt.CryptoObject(cipher)
                     )
                 }
-            }
-
+            awaitClose()
         }
 
         override val authenticationResultState: StateFlow<BiometricLauncherService.DeviceAuthenticationState>
             get() = _authenticationResultState
 
 
-        override fun onAuthenticationFailed() {
-            super.onAuthenticationFailed()
-            _authenticationResultState.update {
-                BiometricLauncherService.DeviceAuthenticationState.Failed
-            }
-        }
-
-        override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
-            super.onAuthenticationSucceeded(result)
-                    _authenticationResultState.update {
-                        BiometricLauncherService.DeviceAuthenticationState.Success(
-                            result.authenticationType,
-                            result.cryptoObject?.cipher?.doFinal()
-                        )
-                    }
-
-        }
-
-        override fun onAuthenticationError(errorCode: Int, errString: CharSequence) {
-            super.onAuthenticationError(errorCode, errString)
-            _authenticationResultState.update {
-                BiometricLauncherService.DeviceAuthenticationState.Error(
-                    errorCode
-                )
-            }
-
-        }
     }
 
 }

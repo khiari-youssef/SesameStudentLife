@@ -33,7 +33,7 @@ import tn.sesame.designsystem.onBackgroundShadedLightMode
 @Composable
 fun UserProfileDetails(
     modifier: Modifier = Modifier,
-    onProfileEmailClicked : (email : String)->Unit
+    onProfileEmailClicked : ((email : String)->Unit)?=null
 ) {
     Column(modifier = modifier){
         Row(
@@ -112,22 +112,35 @@ fun UserProfileDetails(
                     append("ahmed@sesame.com.tn")
                 }
             }
-            ClickableText(
-                text =  annotatedString,
-                style = TextStyle(
-                    fontSize = 16.sp,
-                    fontFamily = SesameFontFamilies.MainMediumFontFamily,
-                    fontWeight = FontWeight(500),
-                    color = MaterialTheme.colorScheme.onBackground,
-                ),
-                onClick = {
-                    annotatedString.getStringAnnotations(it,it).find {
-                        it.tag == "emailTag"
-                    }?.run {
-                        onProfileEmailClicked(this.item)
+            onProfileEmailClicked?.run {
+                ClickableText(
+                    text =  annotatedString,
+                    style = TextStyle(
+                        fontSize = 16.sp,
+                        fontFamily = SesameFontFamilies.MainMediumFontFamily,
+                        fontWeight = FontWeight(500),
+                        color = MaterialTheme.colorScheme.onBackground,
+                    ),
+                    onClick = {
+                        annotatedString.getStringAnnotations(it,it).find {
+                            it.tag == "emailTag"
+                        }?.run {
+                            onProfileEmailClicked(this.item)
+                        }
                     }
-                }
-            )
+                )
+            } ?: run {
+                Text(
+                    text =  annotatedString,
+                    style = TextStyle(
+                        fontSize = 16.sp,
+                        fontFamily = SesameFontFamilies.MainMediumFontFamily,
+                        fontWeight = FontWeight(500),
+                        color = MaterialTheme.colorScheme.onBackground,
+                    )
+                )
+            }
+
         }
     }
 }

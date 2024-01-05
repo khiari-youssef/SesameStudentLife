@@ -47,7 +47,6 @@ import tn.sesame.spm.android.ui.profile.UserProfileDetails
 fun ProfileScreen(
 modifier: Modifier = Modifier,
 onMenuItemClicked : (menuOption : MenuOption)->Unit,
-onProfileEmailClicked : (email : String)->Unit,
 onLogOutClicked : ()->Unit
 ) {
     val isLargeScreen  = LocalConfiguration.current.run {
@@ -78,8 +77,7 @@ onLogOutClicked : ()->Unit
        ){
            UserProfileDetails(
                modifier = Modifier
-                   .wrapContentSize(),
-               onProfileEmailClicked = onProfileEmailClicked
+                   .wrapContentSize()
            )
            ProfileMenu(
                modifier = Modifier
@@ -104,8 +102,7 @@ onLogOutClicked : ()->Unit
             UserProfileDetails(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .wrapContentHeight(),
-                onProfileEmailClicked = onProfileEmailClicked
+                    .wrapContentHeight()
             )
             Divider(
                 modifier = Modifier

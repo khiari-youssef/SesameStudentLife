@@ -8,6 +8,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
+import androidx.navigation.NavOptions
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import kotlinx.coroutines.delay
@@ -84,6 +85,13 @@ fun Activity.MainNavigation(
                     onHomeExit = {destination->
                         if (destination == NavigationRoutingData.ExitAppRoute){
                             isAppExistPopupShown.value = true
+                        }else if (destination == NavigationRoutingData.Login){
+                            rootNavController.navigate(
+                                destination,
+                                NavOptions.Builder()
+                                    .setPopUpTo(NavigationRoutingData.Login,true)
+                                    .build()
+                            )
                         } else {
                             rootNavController.navigate(destination)
                         }

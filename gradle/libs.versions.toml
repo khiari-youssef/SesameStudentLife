@@ -60,6 +60,7 @@ kotlin-ktor-native={module = "io.ktor:ktor-client-darwin",version.ref ="ktorVers
 kotlin-ktor-logging={module = "io.ktor:ktor-client-logging",version.ref = "ktorVersion"}
 koin-core ={module = "io.insert-koin:koin-core",version.ref = "koin"}
 koin-android ={module = "io.insert-koin:koin-android",version.ref = "koin"}
+koin-compose={module="io.insert-koin:koin-androidx-compose",version.ref="koin"}
 koin-test ={module = "io.insert-koin:koin-test",version.ref = "koin"}
 sqldelight-runtime ={module = "app.cash.sqldelight:runtime",version.ref = "sqldelight"}
 sqldelight-driver-android ={module="app.cash.sqldelight:android-driver",version.ref="sqldelight"}

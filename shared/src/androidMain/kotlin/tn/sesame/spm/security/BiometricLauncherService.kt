@@ -2,6 +2,7 @@ package tn.sesame.spm.security
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.StateFlow
 import javax.crypto.SecretKey
 
@@ -10,13 +11,13 @@ interface BiometricLauncherService {
 
     val authenticationResultState : StateFlow<DeviceAuthenticationState>
     fun launch(activity: FragmentActivity,title : String,
-               subtitle : String)
+               subtitle : String) : Flow<DeviceAuthenticationState>
 
     fun launch(fragment: Fragment,title : String,
-               subtitle : String)
+               subtitle : String) : Flow<DeviceAuthenticationState>
 
     fun launchAndEncrypt(activity: FragmentActivity,secretKey: SecretKey,title : String,
-                         subtitle : String)
+                         subtitle : String) : Flow<DeviceAuthenticationState>
 
 
     sealed interface DeviceAuthenticationState{

@@ -1,6 +1,7 @@
 package tn.sesame.spm.android.ui.home
 
 import ProfileScreen
+import ProjectsScreen
 import SesameDateRangePicker
 import android.content.Intent
 import android.net.Uri
@@ -23,20 +24,33 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat.startActivity
+import androidx.fragment.app.FragmentActivity
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
+import okhttp3.internal.cacheGet
+import org.koin.android.ext.android.inject
+import org.koin.androidx.compose.get
+import org.koin.compose.koinInject
 import tn.sesame.designsystem.components.NavigationBarScreenTemplate
 import tn.sesame.designsystem.components.bars.SesameBottomNavigationBar
 import tn.sesame.designsystem.components.bars.SesameBottomNavigationBarDefaults
+import tn.sesame.spm.android.R
 import tn.sesame.spm.android.base.NavigationRoutingData
+import tn.sesame.spm.security.BiometricAuthService
+import tn.sesame.spm.security.BiometricLauncherService
+import tn.sesame.spm.security.SupportedDeviceAuthenticationMethods
 
 
 @Composable
@@ -119,15 +133,7 @@ fun HomeScreen(
                             .padding(paddingValues),
                         onExitNavigation = { onHomeExit(NavigationRoutingData.ExitAppRoute) },
                     ) { modifier ->
-                        Box(
-                            modifier = modifier.fillMaxSize(),
-                            contentAlignment = Alignment.Center
-                        ) {
-                            Text(
-                                text = "Projects Template",
-                                color = MaterialTheme.colorScheme.onBackground
-                            )
-                        }
+                        ProjectsScreen(modifier)
                     }
                 }
                 composable(NavigationRoutingData.Home.Notifications) {
@@ -154,7 +160,11 @@ fun HomeScreen(
                             .padding(paddingValues),
                         onExitNavigation = { onHomeExit(NavigationRoutingData.ExitAppRoute) },
                     ) { modifier ->
-                        val localContext = LocalContext.current
+                         val bioService : BiometricAuthService = koinInject()
+                        val localContext = LocalContext.current as FragmentActivity
+                        val authScope = rememberCoroutineScope()
+                        val bioAuthTitle = stringResource(id = R.string.biometric_auth_dialog_title)
+                        val bioAuthSubtitle = stringResource(id = R.string.biometric_auth_dialog_message)
                         ProfileScreen(
                             modifier = modifier
                                 .fillMaxSize(),
@@ -162,21 +172,20 @@ fun HomeScreen(
 
                             },
                             onLogOutClicked = {
-
-                            },
-                            onProfileEmailClicked = { email ->
-                                val intent = Intent(Intent.ACTION_VIEW)
-                                val data = Uri.parse(
-                                    "mailto:$email?subject=" + Uri.encode("") + "&body=" + Uri.encode(
-                                        ""
-                                    )
-                                )
-                                intent.setData(data)
-                                startActivity(
-                                    localContext, Intent.createChooser(
-                                        intent, "Choose an app"
-                                    ), Bundle()
-                                )
+                                val state = bioService.checkBiometricCapabilitiesState()
+                                if (state is SupportedDeviceAuthenticationMethods.Available){
+                                    authScope.launch {
+                                        state.biometricLauncherService.launch(
+                                            activity = localContext,
+                                            title = bioAuthTitle,
+                                            subtitle = bioAuthSubtitle
+                                        ).collectLatest {state->
+                                              if (state is BiometricLauncherService.DeviceAuthenticationState.Success){
+                                                  onHomeExit(NavigationRoutingData.Login)
+                                              }
+                                        }
+                                    }
+                                }
                             }
                         )
                     }
