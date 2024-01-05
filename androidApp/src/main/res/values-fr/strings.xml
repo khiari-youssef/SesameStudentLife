@@ -38,5 +38,8 @@
     <!-- Profile strings-->
 
     <string name="profile_email">Email</string>
-    <string name="profile_logout">Logout</string>
+    <string name="profile_logout">Se déconnecter</string>
+    <string name="profile_settings">Paramètres</string>
+    <string name="profile_policy">Politique de sécurité</string>
+    <string name="profile_myprojects">Mes projets</string>
 </resources>

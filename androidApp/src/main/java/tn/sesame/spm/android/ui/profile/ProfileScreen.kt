@@ -49,15 +49,15 @@ modifier: Modifier = Modifier
     val menuOptions = MenuOptions(listOf(
         MenuOption(
             iconRes = tn.sesame.designsystem.R.drawable.ic_project_outlined,
-            label = "My projects"
+            label = stringResource(id = R.string.profile_myprojects)
         ),
         MenuOption(
             iconRes = tn.sesame.designsystem.R.drawable.ic_policy ,
-            label = "Policy"
+            label = stringResource(id = R.string.profile_policy)
         ),
         MenuOption(
             iconRes = tn.sesame.designsystem.R.drawable.ic_settings ,
-            label = "Settings"
+            label = stringResource(id = R.string.profile_settings)
         )
     ))
  Column(
