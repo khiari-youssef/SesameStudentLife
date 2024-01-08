@@ -13,6 +13,7 @@ import tn.sesame.designsystem.Charcoal2
 import tn.sesame.designsystem.DuskBlue
 import tn.sesame.designsystem.LightGreyBlue
 import tn.sesame.designsystem.NiceBlue
+import java.time.LocalDateTime
 
 @Preview
 @OptIn(ExperimentalMaterial3Api::class)
@@ -34,8 +35,9 @@ fun SesameDateRangePicker(
      dayInSelectionRangeContentColor = Charcoal2,
      dayContentColor = MaterialTheme.colorScheme.onBackground
  )
+val currentYear = LocalDateTime.now().year
 val state = rememberDateRangePickerState(
-    yearRange = 1990..2050,
+    yearRange = currentYear-1..currentYear+1,
     initialSelectedStartDateMillis = null,
     initialSelectedEndDateMillis = null
 )
