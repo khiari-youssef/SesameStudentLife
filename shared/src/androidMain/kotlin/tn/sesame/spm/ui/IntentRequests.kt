@@ -1,6 +1,5 @@
 package tn.sesame.spm.ui
 
-import android.app.Activity
 import android.content.Intent
 import android.os.Build
 import android.provider.Settings

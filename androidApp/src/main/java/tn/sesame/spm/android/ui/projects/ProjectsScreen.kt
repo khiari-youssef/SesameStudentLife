@@ -11,19 +11,12 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import kotlinx.datetime.toLocalDateTime
-import tn.sesame.designsystem.R
 import tn.sesame.designsystem.components.textfields.SesameSearchField
 import tn.sesame.spm.android.ui.projects.SesameProjectsStateHolder
 import tn.sesame.spm.domain.entities.SesameProject
-import tn.sesame.spm.domain.entities.SesameProjectCollaborator
-import tn.sesame.spm.domain.entities.SesameProjectJoinRequestState
-import tn.sesame.spm.domain.entities.SesameSupervisor
 
 
 @Stable

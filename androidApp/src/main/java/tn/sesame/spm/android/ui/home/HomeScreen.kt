@@ -4,9 +4,6 @@ import ProfileScreen
 import ProjectList
 import ProjectsScreen
 import SesameDateRangePicker
-import android.content.Intent
-import android.net.Uri
-import android.os.Bundle
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.spring
 import androidx.compose.animation.fadeIn
@@ -32,7 +29,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.core.content.ContextCompat.startActivity
 import androidx.fragment.app.FragmentActivity
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.NavHost
@@ -41,9 +37,6 @@ import androidx.navigation.compose.rememberNavController
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import kotlinx.datetime.toLocalDateTime
-import okhttp3.internal.cacheGet
-import org.koin.android.ext.android.inject
-import org.koin.androidx.compose.get
 import org.koin.compose.koinInject
 import tn.sesame.designsystem.components.NavigationBarScreenTemplate
 import tn.sesame.designsystem.components.bars.SesameBottomNavigationBar

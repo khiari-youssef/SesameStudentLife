@@ -16,7 +16,6 @@ import androidx.compose.runtime.State
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.compose.rememberNavController
@@ -27,7 +26,6 @@ import tn.sesame.designsystem.SesameTheme
 import tn.sesame.designsystem.components.bars.SesameBottomNavigationBarDefaults
 import tn.sesame.spm.android.R
 import tn.sesame.spm.security.BiometricAuthService
-import tn.sesame.spm.security.BiometricLauncherService
 import tn.sesame.spm.security.SupportedDeviceAuthenticationMethods
 import tn.sesame.spm.ui.getRegistrationBiometricIdentityIntent
 

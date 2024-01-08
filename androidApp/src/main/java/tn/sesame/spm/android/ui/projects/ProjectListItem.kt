@@ -1,4 +1,3 @@
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -15,15 +14,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
-import kotlinx.datetime.LocalDateTime
-import kotlinx.datetime.toLocalDateTime
 import tn.sesame.designsystem.SesameFontFamilies
-import tn.sesame.spm.android.ui.projects.ProjectCollaboratorsPreviewListItem
 import tn.sesame.spm.android.ui.projects.ProjectCollaboratorsPreviewListItem
 import tn.sesame.spm.android.ui.projects.ProjectCreationDate
 import tn.sesame.spm.android.ui.projects.ProjectDurationListItem
@@ -32,8 +27,6 @@ import tn.sesame.spm.android.ui.projects.ProjectJoinRequestStatus
 import tn.sesame.spm.android.ui.projects.ProjectKeywords
 import tn.sesame.spm.android.ui.projects.ProjectSupervisorListItem
 import tn.sesame.spm.domain.entities.SesameProject
-import tn.sesame.spm.domain.entities.SesameSupervisor
-
 
 
 @Composable

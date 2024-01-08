@@ -1,7 +1,7 @@
 package tn.sesame.spm.android.ui.projects
 
 import SesameButton
-import SesameCircleImageL
+import SesameButtonVariants
 import SesameCircleImageS
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.basicMarquee
