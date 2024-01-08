@@ -35,6 +35,7 @@ fun SesameDateRangePicker(
      dayContentColor = MaterialTheme.colorScheme.onBackground
  )
 val state = rememberDateRangePickerState(
+    yearRange = 1990..2050,
     initialSelectedStartDateMillis = null,
     initialSelectedEndDateMillis = null
 )

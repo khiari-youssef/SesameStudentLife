@@ -1,6 +1,7 @@
 package tn.sesame.spm.android.ui.home
 
 import ProfileScreen
+import ProjectList
 import ProjectsScreen
 import SesameDateRangePicker
 import android.content.Intent
@@ -39,6 +40,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import kotlinx.datetime.toLocalDateTime
 import okhttp3.internal.cacheGet
 import org.koin.android.ext.android.inject
 import org.koin.androidx.compose.get
@@ -48,6 +50,13 @@ import tn.sesame.designsystem.components.bars.SesameBottomNavigationBar
 import tn.sesame.designsystem.components.bars.SesameBottomNavigationBarDefaults
 import tn.sesame.spm.android.R
 import tn.sesame.spm.android.base.NavigationRoutingData
+import tn.sesame.spm.android.ui.projects.SesameProjectsStateHolder
+import tn.sesame.spm.domain.entities.SesameClass
+import tn.sesame.spm.domain.entities.SesameProject
+import tn.sesame.spm.domain.entities.SesameProjectCollaborator
+import tn.sesame.spm.domain.entities.SesameProjectJoinRequestState
+import tn.sesame.spm.domain.entities.SesameStudent
+import tn.sesame.spm.domain.entities.SesameSupervisor
 import tn.sesame.spm.security.BiometricAuthService
 import tn.sesame.spm.security.BiometricLauncherService
 import tn.sesame.spm.security.SupportedDeviceAuthenticationMethods
@@ -116,7 +125,7 @@ fun HomeScreen(
                         content = remember {
                             { modifier ->
                                 SesameDateRangePicker(
-                                    modifier = Modifier
+                                    modifier = modifier
                                         .fillMaxSize()
                                         .clickable {
                                             isBottomAppBarVisible.value =
@@ -128,12 +137,86 @@ fun HomeScreen(
                     )
                 }
                 composable(NavigationRoutingData.Home.Projects) {
+                    val allProjects = ProjectList(List(12){
+                        SesameProject(
+                            id ="fakeid-$it",
+                            type = "StudentLifeWebsite",
+                            description = "Design and build48$it a website for sesame students to ease the access to the services of sesame as well the daily routine of students and staff",
+                            supervisor = SesameSupervisor(
+                                "blabla-id",
+                                "mblala@gmail.com",
+                                "Monsieur blabla",
+                                ""
+                            ),
+                            collaboratorsToJoin = if (it == 6)
+                                listOf(
+                                    SesameProjectCollaborator(
+                                        "collabid",
+                                        "ahmed@sesame.com.tn",
+                                        "Ahmed",
+                                        "",
+                                        SesameProjectJoinRequestState.ACCEPTED
+                                    ),
+                                    SesameProjectCollaborator(
+                                        "youssef-id",
+                                        "youssef.khiari@sesame.com.tn",
+                                        "Youssef",
+                                        "",
+                                        SesameProjectJoinRequestState.WAITING_APPROVAL
+                                    )
+                                )
+                            else listOf(
+                                SesameProjectCollaborator(
+                                    "collabid",
+                                    "ahmed@sesame.com.tn",
+                                    "Ahmed",
+                                    "",
+                                    SesameProjectJoinRequestState.ACCEPTED
+                                )
+                            ),
+                            maxCollaborators = 5,
+                            duration = "2024-03-01T08:30:00".toLocalDateTime().."2024-08-15T08:30:00".toLocalDateTime(),
+                            creationDate = "2023-11-01T20:30:00".toLocalDateTime(),
+                            presentationDate = "2024-07-10T08:30:00".toLocalDateTime(),
+                            keywords = listOf("WebDev","UI","Backend"),
+                            techStack = listOf(
+                                "Angular",
+                                "NodeJS",
+                                "MySql"
+                            )
+                        )
+                    })
                     NavigationBarScreenTemplate(
                         modifier = Modifier
                             .padding(paddingValues),
                         onExitNavigation = { onHomeExit(NavigationRoutingData.ExitAppRoute) },
                     ) { modifier ->
-                        ProjectsScreen(modifier)
+                        val uiState = SesameProjectsStateHolder.rememberSesameProjectsState(
+                            currentSearchQuery = rememberSaveable {
+                                mutableStateOf("")
+                            },
+                            currentProjects = remember {
+                                mutableStateOf(allProjects)
+                            }
+                        )
+                        ProjectsScreen(
+                            modifier = modifier,
+                            uiState = uiState,
+                            onSearchQueryChanged = { newQuery->
+                                 uiState.currentSearchQuery.value = newQuery
+                                uiState.currentProjects.value = ProjectList(
+                                    allProjects.projects.filter {
+                                        it.description.contains(newQuery)
+                                    }
+                                )
+                            },
+                            onViewDetails = {
+
+                            },
+                            onJoinRequest = {
+
+                            }
+                        )
                     }
                 }
                 composable(NavigationRoutingData.Home.Notifications) {
@@ -166,6 +249,21 @@ fun HomeScreen(
                         val bioAuthTitle = stringResource(id = R.string.biometric_auth_dialog_title)
                         val bioAuthSubtitle = stringResource(id = R.string.biometric_auth_dialog_message)
                         ProfileScreen(
+                            sesameUser = SesameStudent(
+                                "aehf",
+                                "Khiari",
+                                "Youssef",
+                                "khiari.youssef98@gmail.com",
+                                "",
+                                "",
+                                "Android Engineer",
+                                SesameClass(
+                                    "ingta4-c",
+                                    "INGTA",
+                                    "4",
+                                    "C"
+                                )
+                            ),
                             modifier = modifier
                                 .fillMaxSize(),
                             onMenuItemClicked = {

@@ -42,6 +42,7 @@ import tn.sesame.designsystem.SuccessColor
 import tn.sesame.designsystem.onBackgroundShadedDarkMode
 import tn.sesame.designsystem.onBackgroundShadedLightMode
 import tn.sesame.spm.android.R
+import tn.sesame.spm.domain.entities.SesameSupervisor
 
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -89,8 +90,7 @@ fun ProjectCreationDate(
 @Composable
 fun ProjectSupervisorListItem(
     modifier: Modifier = Modifier,
-    profileName : String?,
-    profileURI : String
+    sesameSupervisor: SesameSupervisor?
 ) {
     Column(
         modifier = modifier,
@@ -108,7 +108,7 @@ fun ProjectSupervisorListItem(
                 color = MaterialTheme.colorScheme.onBackground,
             )
         )
-        profileName?.takeUnless { it.isBlank() }?.run {
+        sesameSupervisor?.fullName?.takeUnless { it.isBlank() }?.run {
            Row(
                modifier = Modifier
                    .wrapContentSize(),
@@ -118,12 +118,12 @@ fun ProjectSupervisorListItem(
                )
            ) {
              SesameCircleImageS(
-                 uri = profileURI,
+                 uri = sesameSupervisor.photo,
                  placeholderRes = tn.sesame.designsystem.R.drawable.profile_placeholder ,
                  errorRes = tn.sesame.designsystem.R.drawable.profile_placeholder
              )
                Text(
-                   text = profileName,
+                   text = this@run,
                    style = TextStyle(
                        fontSize = 10.sp,
                        fontFamily = SesameFontFamilies.MainMediumFontFamily,
@@ -236,7 +236,10 @@ fun ProjectDurationListItem(
 
 @Composable
 fun ProjectItemListFooter(
-    status: ProjectJoinRequestStatus
+    status: ProjectJoinRequestStatus,
+    iamMember : Boolean,
+    onViewDetails : ()->Unit,
+    onJoinRequest : ()->Unit
 ) {
     ConstraintLayout(
         modifier = Modifier
@@ -245,17 +248,19 @@ fun ProjectItemListFooter(
     ) {
         val (statusRef,detailRef,actionRef) = createRefs()
         val verticalGuidline  = createGuidelineFromAbsoluteLeft(0.6f)
-        ProjectStatus(
-            modifier = Modifier
-                .constrainAs(statusRef){
-                    start.linkTo(parent.start)
-                    top.linkTo(parent.top)
-                    bottom.linkTo(parent.bottom)
-                    end.linkTo(verticalGuidline)
-                    width = Dimension.fillToConstraints
-                },
-            status = status
-        )
+        if (iamMember){
+            ProjectStatus(
+                modifier = Modifier
+                    .constrainAs(statusRef){
+                        start.linkTo(parent.start)
+                        top.linkTo(parent.top)
+                        bottom.linkTo(parent.bottom)
+                        end.linkTo(verticalGuidline)
+                        width = Dimension.fillToConstraints
+                    },
+                status = status
+            )
+        }
         SesameButton(
             modifier = Modifier.constrainAs(detailRef){
                 top.linkTo(parent.top)
@@ -270,10 +275,9 @@ fun ProjectItemListFooter(
             heightRangeDP = 16..32 ,
             variant = SesameButtonVariants.PrimarySoft,
             isEnabled = true,
-            isLoading =  false
-        ) {
-            
-        }
+            isLoading =  false,
+            onClick = onViewDetails
+        )
         SesameButton(
             modifier = Modifier.constrainAs(actionRef){
                 top.linkTo(parent.top)
@@ -288,16 +292,14 @@ fun ProjectItemListFooter(
             heightRangeDP = 16..32 ,
             variant = SesameButtonVariants.PrimaryHard,
             isEnabled = true,
-            isLoading =  false
-        ) {
-
-        }
+            isLoading =  false,
+            onClick = onJoinRequest
+        )
     }
 }
 
 enum class ProjectJoinRequestStatus{
-    WAITING_FOR_TEAM_APPROVAL,
-    WAITING_FOR_SUPERVISOR_APPROVAL,
+    WAITING_FOR_APPROVAL,
     REJECTED,
     JOINED,
     IDLE
@@ -333,13 +335,14 @@ status: ProjectJoinRequestStatus = ProjectJoinRequestStatus.IDLE
                     textAlign = TextAlign.Start,
                 )
             }
-            ProjectJoinRequestStatus.WAITING_FOR_SUPERVISOR_APPROVAL ->{
+            ProjectJoinRequestStatus.WAITING_FOR_APPROVAL ->{
                 CircularProgressIndicator(
                     color = Color(0xFFD98D0F),
-                    modifier = Modifier.size(12.dp)
+                    modifier = Modifier.size(12.dp),
+                    strokeWidth = 0.5f.dp
                 )
                 Text(
-                    text = stringResource(id = R.string.project_status_waiting_for_supervisor_approval),
+                    text = stringResource(id = R.string.project_status_waiting_for_approval),
                     style = TextStyle(
                         fontSize = 10.sp,
                         fontFamily = SesameFontFamilies.MainMediumFontFamily),
@@ -361,21 +364,6 @@ status: ProjectJoinRequestStatus = ProjectJoinRequestStatus.IDLE
                         fontFamily = SesameFontFamilies.MainMediumFontFamily),
                     fontWeight = FontWeight(500),
                     color = ErrorColor,
-                    textAlign = TextAlign.Start,
-                )
-            }
-            ProjectJoinRequestStatus.WAITING_FOR_TEAM_APPROVAL ->{
-                CircularProgressIndicator(
-                    color = Color(0xFFD98D0F),
-                    modifier = Modifier.size(12.dp)
-                )
-                Text(
-                    text = stringResource(id = R.string.project_status_waiting_for_team_approval),
-                    style = TextStyle(
-                        fontSize = 10.sp,
-                        fontFamily = SesameFontFamilies.MainMediumFontFamily),
-                    fontWeight = FontWeight(500),
-                    color = Color(0xFFD98D0F),
                     textAlign = TextAlign.Start,
                 )
             }

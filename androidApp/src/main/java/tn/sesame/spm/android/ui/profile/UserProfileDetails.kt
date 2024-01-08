@@ -29,9 +29,13 @@ import tn.sesame.designsystem.R
 import tn.sesame.designsystem.SesameFontFamilies
 import tn.sesame.designsystem.onBackgroundShadedDarkMode
 import tn.sesame.designsystem.onBackgroundShadedLightMode
+import tn.sesame.spm.domain.entities.SesameStudent
+import tn.sesame.spm.domain.entities.SesameTeacher
+import tn.sesame.spm.domain.entities.SesameUser
 
 @Composable
 fun UserProfileDetails(
+    sesameUser : SesameUser,
     modifier: Modifier = Modifier,
     onProfileEmailClicked : ((email : String)->Unit)?=null
 ) {
@@ -47,7 +51,7 @@ fun UserProfileDetails(
             )
         ) {
             SesameCircleImageXL(
-                uri = "",
+                uri = sesameUser.profilePicture,
                 placeholderRes = R.drawable.profile_placeholder ,
                 errorRes = R.drawable.profile_placeholder
             )
@@ -56,7 +60,7 @@ fun UserProfileDetails(
                     .wrapContentSize()
             ) {
                 Text(
-                    text = "Ahmed",
+                    text = sesameUser.getFullName(),
                     style = TextStyle(
                         fontSize = 24.sp,
                         fontFamily = SesameFontFamilies.MainBoldFontFamily,
@@ -65,7 +69,11 @@ fun UserProfileDetails(
                     )
                 )
                 Text(
-                    text = "Student",
+                    text = when (sesameUser){
+                      is SesameStudent-> stringResource(id = tn.sesame.spm.android.R.string.profile_student)
+                      is SesameTeacher -> stringResource(id = tn.sesame.spm.android.R.string.profile_teacher)
+                      else -> stringResource(id = tn.sesame.spm.android.R.string.profile_user)
+                     },
                     style = TextStyle(
                         fontSize = 16.sp,
                         fontFamily = SesameFontFamilies.MainMediumFontFamily,
@@ -73,24 +81,39 @@ fun UserProfileDetails(
                         color = if (isSystemInDarkTheme()) onBackgroundShadedDarkMode else onBackgroundShadedLightMode,
                     )
                 )
-                Text(
-                    text = "INGTA-3C",
-                    style = TextStyle(
-                        fontSize = 16.sp,
-                        fontFamily = SesameFontFamilies.MainMediumFontFamily,
-                        fontWeight = FontWeight(500),
-                        color = if (isSystemInDarkTheme()) onBackgroundShadedDarkMode else onBackgroundShadedLightMode,
+                if (sesameUser is SesameStudent){
+                    Text(
+                        text = sesameUser.sesameClass.getDisplayName(),
+                        style = TextStyle(
+                            fontSize = 16.sp,
+                            fontFamily = SesameFontFamilies.MainMediumFontFamily,
+                            fontWeight = FontWeight(500),
+                            color = if (isSystemInDarkTheme()) onBackgroundShadedDarkMode else onBackgroundShadedLightMode,
+                        )
                     )
-                )
-                Text(
-                    text = "Software engineer",
-                    style = TextStyle(
-                        fontSize = 16.sp,
-                        fontFamily = SesameFontFamilies.MainMediumFontFamily,
-                        fontWeight = FontWeight(500),
-                        color = if (isSystemInDarkTheme()) onBackgroundShadedDarkMode else onBackgroundShadedLightMode,
+                    sesameUser.job?.takeIf { it.isNotBlank() }?.run {
+                        Text(
+                            text = this,
+                            style = TextStyle(
+                                fontSize = 16.sp,
+                                fontFamily = SesameFontFamilies.MainMediumFontFamily,
+                                fontWeight = FontWeight(500),
+                                color = if (isSystemInDarkTheme()) onBackgroundShadedDarkMode else onBackgroundShadedLightMode,
+                            )
+                        )
+                    }
+                } else if (sesameUser is SesameTeacher){
+                    Text(
+                        text = sesameUser.profBackground,
+                        style = TextStyle(
+                            fontSize = 16.sp,
+                            fontFamily = SesameFontFamilies.MainMediumFontFamily,
+                            fontWeight = FontWeight(500),
+                            color = if (isSystemInDarkTheme()) onBackgroundShadedDarkMode else onBackgroundShadedLightMode,
+                        )
                     )
-                )
+                }
+
             }
         }
         Row(
@@ -108,7 +131,7 @@ fun UserProfileDetails(
                         textDecoration = TextDecoration.Underline
                     )
                 ){
-                    pushStringAnnotation(tag = "emailTag", annotation = "ahmed@sesame.com.tn")
+                    pushStringAnnotation(tag = "emailTag", annotation = sesameUser.email)
                     append("ahmed@sesame.com.tn")
                 }
             }

@@ -9,9 +9,11 @@ import androidx.compose.ui.window.Dialog
 import androidx.core.content.ContextCompat
 import tn.sesame.spm.android.R
 import tn.sesame.spm.android.ui.profile.UserProfileDetails
+import tn.sesame.spm.domain.entities.SesameUser
 
 @Composable
 fun ViewUserProfilePopup(
+    sesameUser : SesameUser,
     isShown : Boolean,
     onDismissRequest : ()->Unit
 ) {
@@ -20,6 +22,7 @@ fun ViewUserProfilePopup(
         Dialog(onDismissRequest = onDismissRequest) {
             val title = stringResource(id = R.string.profile_send_email_via,"Ahmed")
              UserProfileDetails(
+                 sesameUser = sesameUser,
                  onProfileEmailClicked = {email->
                      val intent = Intent(Intent.ACTION_VIEW)
                      val data = Uri.parse(

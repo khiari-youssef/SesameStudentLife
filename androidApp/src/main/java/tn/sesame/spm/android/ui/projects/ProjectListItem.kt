@@ -1,3 +1,4 @@
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -19,6 +20,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
+import kotlinx.datetime.LocalDateTime
+import kotlinx.datetime.toLocalDateTime
 import tn.sesame.designsystem.SesameFontFamilies
 import tn.sesame.spm.android.ui.projects.ProjectCollaboratorsPreviewListItem
 import tn.sesame.spm.android.ui.projects.ProjectCollaboratorsPreviewListItem
@@ -28,11 +31,18 @@ import tn.sesame.spm.android.ui.projects.ProjectItemListFooter
 import tn.sesame.spm.android.ui.projects.ProjectJoinRequestStatus
 import tn.sesame.spm.android.ui.projects.ProjectKeywords
 import tn.sesame.spm.android.ui.projects.ProjectSupervisorListItem
+import tn.sesame.spm.domain.entities.SesameProject
+import tn.sesame.spm.domain.entities.SesameSupervisor
 
 
-@Preview(widthDp = 360)
+
 @Composable
-fun ProjectListItem() {
+fun ProjectListItem(
+    myID : String,
+    sesameProject: SesameProject,
+    onViewDetails : ()->Unit,
+    onJoinRequest: ()->Unit
+) {
     Card(
       modifier = Modifier
           .fillMaxWidth()
@@ -67,9 +77,7 @@ fun ProjectListItem() {
                      end.linkTo(verticalChain,16.dp)
                      width = Dimension.fillToConstraints
                   },
-                  keywords = listOf(
-                      "Big data","AI","database","anything"
-                 ),
+                  keywords = sesameProject.keywords,
               )
               ProjectCreationDate(
                   modifier = Modifier.constrainAs(datetime){
@@ -78,8 +86,8 @@ fun ProjectListItem() {
                       top.linkTo(parent.top)
                       bottom.linkTo(parent.bottom)
                   },
-                  date = "15/01/2023",
-                  time = "15/01/2023"
+                  date = sesameProject.displayCreationDate,
+                  time = sesameProject.displayCreationTime
               )
           }
           Column(
@@ -89,7 +97,7 @@ fun ProjectListItem() {
               horizontalAlignment = Alignment.Start
           ) {
               Text(
-                  text = "Personal project",
+                  text = sesameProject.type,
                   style = TextStyle(
                       fontSize = 14.sp,
                       fontFamily = SesameFontFamilies.MainMediumFontFamily,
@@ -99,7 +107,7 @@ fun ProjectListItem() {
                   maxLines = 1
               )
               Text(
-                  text = "In the Give Life: Predict Blood Donations project, you will predict whether or not a donor will give blood in a given time window. The dataset used in the project is from a mobile blood donation vehicle in Taiwan, and as part of a blood donation drive, the blood transfusion service center drives to various universities to collect the blood.",
+                  text = sesameProject.description,
                   style = TextStyle(
                       fontSize = 13.sp,
                       fontFamily = SesameFontFamilies.MainRegularFontFamily,
@@ -123,24 +131,28 @@ fun ProjectListItem() {
                       .weight(0.5f)
                       .fillMaxWidth()
                       .wrapContentHeight(),
-                  profileName = "Avatar",
-                  profileURI = ""
+                  sesameSupervisor = sesameProject.supervisor
               )
               ProjectCollaboratorsPreviewListItem(
                   modifier = Modifier
                       .weight(0.5f)
                       .fillMaxWidth()
                       .wrapContentHeight(),
-                  maxCollaborators = 5,
-                  listOf()
+                  maxCollaborators = sesameProject.maxCollaborators,
+                  sesameProject.joinedCollaborators.map { it.photo }
               )
           }
           ProjectDurationListItem(
-              startDate = "15/04/2023",
-              endDate = "03/07/2023"
+              startDate = sesameProject.displayStartDate,
+              endDate = sesameProject.displayEndDate
           )
           ProjectItemListFooter(
-              status = ProjectJoinRequestStatus.WAITING_FOR_SUPERVISOR_APPROVAL
+              status = ProjectJoinRequestStatus.WAITING_FOR_APPROVAL,
+              iamMember = sesameProject.collaboratorsToJoin.any {
+                  it.id == myID
+              },
+              onViewDetails = onViewDetails,
+              onJoinRequest = onJoinRequest
           )
 
       }

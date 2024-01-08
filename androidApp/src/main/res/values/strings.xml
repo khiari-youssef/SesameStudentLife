@@ -30,13 +30,13 @@
     <string name="project_collaborators">Students</string>
     <string name="project_no_collaborators">No body has joined yet</string>
     <string name="project_duration">Duration : %S  -  %S</string>
-    <string name="project_status_waiting_for_supervisor_approval">Waiting for supervisor approval</string>
-    <string name="project_status_waiting_for_team_approval">Waiting for team approval</string>
+    <string name="project_status_waiting_for_approval">Waiting for approval</string>
     <string name="project_status_joined">Joined</string>
     <string name="project_status_rejected">Rejected</string>
     <string name="project_button_join">Join</string>
     <string name="project_button_details">Details</string>
     <string name="project_button_quit">Quit</string>
+    <string name="projects_search">Search projects</string>
 
     <!-- Profile strings-->
 
@@ -46,5 +46,10 @@
     <string name="profile_policy">Security Policy</string>
     <string name="profile_myprojects">My projects</string>
     <string name="profile_send_email_via">Contact %s via</string>
+    <string name="profile_user">User</string>
+    <string name="profile_student">Student</string>
+    <string name="profile_teacher">Teacher</string>
+
+
 
 </resources>

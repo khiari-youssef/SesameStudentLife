@@ -16,4 +16,6 @@
     <string name="password_placeholder">Your password…</string>
     <string name="login">Login</string>
     <string name="retry">Retry</string>
+    <string name="search">Search</string>
+    <string name="result_not_found">No result !</string>
 </resources>

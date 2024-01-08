@@ -13,5 +13,7 @@
     <string name="password_placeholder">Votre mot de passe</string>
     <string name="login">Se connecter</string>
     <string name="retry">Réessayer</string>
+    <string name="search">Rechercher</string>
+    <string name="result_not_found">Pas de résultat !</string>
 
 </resources>

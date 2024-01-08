@@ -27,14 +27,13 @@
     <string name="project_no_collaborators">Personne n\'a encore rejoint le projet !</string>
     <string name="project_supervisor_unassigned">Non assigné !</string>
     <string name="project_duration">Durée : %S  -  %S</string>
-    <string name="project_status_waiting_for_supervisor_approval">En attente de l\'accepation de l\'encadrant </string>
-    <string name="project_status_waiting_for_team_approval">En attente de l\'accepation de l\'équipe</string>
+    <string name="project_status_waiting_for_approval">Demande en cours </string>
     <string name="project_status_joined">Rejoint</string>
     <string name="project_status_rejected">Rejeté</string>
     <string name="project_button_join">Joindre</string>
     <string name="project_button_details">Détails</string>
     <string name="project_button_quit">Quitter</string>
-
+    <string name="projects_search">Rechercher des projets</string>
     <!-- Profile strings-->
 
     <string name="profile_email">Email</string>
@@ -43,4 +42,7 @@
     <string name="profile_policy">Politique de sécurité</string>
     <string name="profile_myprojects">Mes projets</string>
     <string name="profile_send_email_via">Contactez %s via</string>
+    <string name="profile_user">Utilisateur</string>
+    <string name="profile_student">Etudiant</string>
+    <string name="profile_teacher">Enseignant</string>
 </resources>

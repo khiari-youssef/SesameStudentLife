@@ -41,11 +41,13 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import tn.sesame.designsystem.SesameFontFamilies
 import tn.sesame.spm.android.R
 import tn.sesame.spm.android.ui.profile.UserProfileDetails
+import tn.sesame.spm.domain.entities.SesameUser
 
 
 @Composable
 fun ProfileScreen(
 modifier: Modifier = Modifier,
+sesameUser: SesameUser,
 onMenuItemClicked : (menuOption : MenuOption)->Unit,
 onLogOutClicked : ()->Unit
 ) {
@@ -76,6 +78,7 @@ onLogOutClicked : ()->Unit
            horizontalArrangement = Arrangement.Center
        ){
            UserProfileDetails(
+               sesameUser = sesameUser,
                modifier = Modifier
                    .wrapContentSize()
            )
@@ -100,6 +103,7 @@ onLogOutClicked : ()->Unit
             )
         ) {
             UserProfileDetails(
+                sesameUser = sesameUser,
                 modifier = Modifier
                     .fillMaxWidth()
                     .wrapContentHeight()
