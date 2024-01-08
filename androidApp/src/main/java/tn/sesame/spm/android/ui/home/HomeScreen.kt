@@ -128,8 +128,7 @@ fun HomeScreen(
                                     modifier = modifier
                                         .fillMaxSize()
                                         .clickable {
-                                            isBottomAppBarVisible.value =
-                                                isBottomAppBarVisible.value.not()
+                                            isBottomAppBarVisible.value = isBottomAppBarVisible.value.not()
                                         }
                                 )
                             }
@@ -210,8 +209,8 @@ fun HomeScreen(
                                     }
                                 )
                             },
-                            onViewDetails = {
-
+                            onViewDetails = {projectID->
+                             onHomeExit("${NavigationRoutingData.ProjectDetails}/$projectID")
                             },
                             onJoinRequest = {
 

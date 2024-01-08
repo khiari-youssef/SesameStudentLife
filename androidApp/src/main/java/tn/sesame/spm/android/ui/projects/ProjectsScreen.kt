@@ -37,7 +37,7 @@ fun ProjectsScreen(
     modifier: Modifier = Modifier,
     uiState : SesameProjectsStateHolder,
     onSearchQueryChanged : (query : String)->Unit,
-    onViewDetails : (sesameProject: SesameProject)->Unit,
+    onViewDetails : (sesameProjectID: String)->Unit,
     onJoinRequest: (projectID : String)->Unit
 ) {
 Column(
@@ -73,7 +73,7 @@ Column(
 fun ColumnScope.ProjectsList(
     modifier: Modifier = Modifier,
     projectList : ProjectList,
-    onViewDetails : (sesameProject: SesameProject)->Unit,
+    onViewDetails : (sesameProjectID: String)->Unit,
     onJoinRequest: (projectID : String)->Unit
 ) {
     val listState = rememberLazyListState()
@@ -104,7 +104,7 @@ fun ColumnScope.ProjectsList(
                         onJoinRequest(project.id)
                       },
                       onViewDetails = {
-                         onViewDetails(project)
+                         onViewDetails(project.id)
                       }
                   )
                 }

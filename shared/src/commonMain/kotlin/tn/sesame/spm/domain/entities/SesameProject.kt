@@ -6,6 +6,7 @@ import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.LocalTime
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
+import kotlinx.serialization.Serializable
 
 enum class SesameProjectJoinRequestState{
     ACCEPTED,REJECTED,WAITING_APPROVAL
@@ -38,7 +39,7 @@ class SesameProject(
     val presentationDate : LocalDateTime,
     val keywords : List<String>,
     val techStack : List<String>
-){
+) {
 
     val joinedCollaborators : List<SesameProjectCollaborator> = collaboratorsToJoin
         .filter { state->
