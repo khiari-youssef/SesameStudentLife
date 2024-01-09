@@ -31,6 +31,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -38,6 +39,7 @@ import androidx.navigation.compose.rememberNavController
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import kotlinx.datetime.toLocalDateTime
+import org.koin.androidx.compose.getViewModel
 import org.koin.compose.koinInject
 import tn.sesame.designsystem.components.NavigationBarScreenTemplate
 import tn.sesame.designsystem.components.animations.shimmerEffect
@@ -45,6 +47,8 @@ import tn.sesame.designsystem.components.bars.SesameBottomNavigationBar
 import tn.sesame.designsystem.components.bars.SesameBottomNavigationBarDefaults
 import tn.sesame.spm.android.R
 import tn.sesame.spm.android.base.NavigationRoutingData
+import tn.sesame.spm.android.ui.notifications.NotificationsListState
+import tn.sesame.spm.android.ui.notifications.NotificationsViewModel
 import tn.sesame.spm.android.ui.projects.SesameProjectsStateHolder
 import tn.sesame.spm.domain.entities.SesameClass
 import tn.sesame.spm.domain.entities.SesameProject
@@ -215,13 +219,18 @@ fun HomeScreen(
                     }
                 }
                 composable(NavigationRoutingData.Home.Notifications) {
+                    val viewModel = getViewModel<NotificationsViewModel>()
                     NavigationBarScreenTemplate(
                         modifier = Modifier
                             .padding(paddingValues),
                         onExitNavigation = { onHomeExit(NavigationRoutingData.ExitAppRoute) },
                     ) { modifier ->
                         NotificationsScreen(
-                            modifier = modifier
+                            modifier = modifier,
+                            notificationsListState = viewModel.getLastNotifications()
+                                .collectAsStateWithLifecycle(
+                                    initialValue = NotificationsListState.Loading
+                                ).value
                         )
                     }
                 }

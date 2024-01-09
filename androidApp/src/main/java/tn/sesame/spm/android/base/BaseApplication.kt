@@ -4,6 +4,7 @@ import android.app.Application
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.loadKoinModules
 import org.koin.core.context.startKoin
+import tn.sesame.spm.android.di.viewModelsModule
 import tn.sesame.spm.di.androidSecurityModule
 
 
@@ -13,7 +14,12 @@ class BaseApplication : Application() {
         super.onCreate()
         startKoin {
             androidContext(this@BaseApplication)
-            loadKoinModules(androidSecurityModule)
+            loadKoinModules(
+               listOf(
+                   viewModelsModule,
+                   androidSecurityModule
+               )
+            )
         }
     }
 }
