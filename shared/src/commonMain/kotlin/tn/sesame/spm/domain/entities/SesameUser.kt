@@ -21,10 +21,11 @@ open class SesameUser(
  val firstName : String,
  val lastName : String,
  val email : String,
+ val sex : Char,
  val profilePicture : String
 ){
 
-    val isSesameUser : Boolean = email.endsWith("@sesame.com.tn")
+  val isSesameUser : Boolean = email.endsWith("@sesame.com.tn")
    fun getFullName() : String = "$firstName $lastName"
 
    protected val roles : SesameRole = SesameRole(id=NONE)
@@ -48,11 +49,12 @@ open class SesameUser(
    firstName : String,
    lastName : String,
    email : String,
+   sex : Char,
    profilePicture : String,
   val portfolioId : String,
   val job : String?=null,
   val sesameClass : SesameClass
- ) : SesameUser(registrationID, firstName, lastName, email, profilePicture){
+ ) : SesameUser(registrationID, firstName, lastName, email,sex, profilePicture){
 
      override val canViewProjects : SesamePermissionState = SesamePermissionState.GRANTED
      override val canCreateProjects : SesamePermissionState = SesamePermissionState.DENIED
@@ -71,9 +73,10 @@ class SesameTeacher(
  firstName : String,
  lastName : String,
  email : String,
+ sex : Char,
  profilePicture : String,
  val profBackground : String
-): SesameUser(registrationID, firstName, lastName, email, profilePicture){
+): SesameUser(registrationID, firstName, lastName, email,sex, profilePicture){
     override val canViewProjects : SesamePermissionState = SesamePermissionState.GRANTED
     override val canCreateProjects : SesamePermissionState = SesamePermissionState.GRANTED
     override val canJoinProjects : SesamePermissionState = SesamePermissionState.DENIED

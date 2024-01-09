@@ -129,7 +129,7 @@ fun UserProfileDetails(
                     )
                 ){
                     pushStringAnnotation(tag = "emailTag", annotation = sesameUser.email)
-                    append("ahmed@sesame.com.tn")
+                    append(sesameUser.email)
                 }
             }
             onProfileEmailClicked?.run {

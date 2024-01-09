@@ -1,5 +1,6 @@
 package tn.sesame.spm.android.ui.home
 
+import NotificationsScreen
 import ProfileScreen
 import ProjectList
 import ProjectsScreen
@@ -121,7 +122,8 @@ fun HomeScreen(
                                     modifier = modifier
                                         .fillMaxSize()
                                         .clickable {
-                                            isBottomAppBarVisible.value = isBottomAppBarVisible.value.not()
+                                            isBottomAppBarVisible.value =
+                                                isBottomAppBarVisible.value.not()
                                         }
                                 )
                             }
@@ -217,15 +219,9 @@ fun HomeScreen(
                             .padding(paddingValues),
                         onExitNavigation = { onHomeExit(NavigationRoutingData.ExitAppRoute) },
                     ) { modifier ->
-                        Box(
-                            modifier = modifier.fillMaxSize(),
-                            contentAlignment = Alignment.Center
-                        ) {
-                            Text(
-                                text = "Notifications",
-                                color = MaterialTheme.colorScheme.onBackground
-                            )
-                        }
+                        NotificationsScreen(
+                            modifier = modifier
+                        )
                     }
                 }
                 composable(NavigationRoutingData.Home.Profile) {
@@ -246,6 +242,7 @@ fun HomeScreen(
                                 "Khiari",
                                 "Youssef",
                                 "khiari.youssef98@gmail.com",
+                                'M',
                                 "",
                                 "",
                                 "Android Engineer",
