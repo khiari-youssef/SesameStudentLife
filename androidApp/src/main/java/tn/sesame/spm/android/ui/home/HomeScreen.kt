@@ -40,6 +40,7 @@ import kotlinx.coroutines.launch
 import kotlinx.datetime.toLocalDateTime
 import org.koin.compose.koinInject
 import tn.sesame.designsystem.components.NavigationBarScreenTemplate
+import tn.sesame.designsystem.components.animations.shimmerEffect
 import tn.sesame.designsystem.components.bars.SesameBottomNavigationBar
 import tn.sesame.designsystem.components.bars.SesameBottomNavigationBarDefaults
 import tn.sesame.spm.android.R
