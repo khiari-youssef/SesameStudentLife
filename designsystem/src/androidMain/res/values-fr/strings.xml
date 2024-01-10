@@ -15,5 +15,8 @@
     <string name="retry">Réessayer</string>
     <string name="search">Rechercher</string>
     <string name="result_not_found">Pas de résultat !</string>
+    <string name="error_network_title">Erreur réseau !</string>
+    <string name="error_network_internal_server_details">Erreur serveur interne</string>
+    <string name="error_network_no_internet_details">La connexion internet est indisponible</string>
 
 </resources>

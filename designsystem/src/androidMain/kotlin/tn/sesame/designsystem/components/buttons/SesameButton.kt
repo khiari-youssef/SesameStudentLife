@@ -27,7 +27,7 @@ enum class SesameButtonVariants{
 }
 @Composable
 fun SesameButton(
-    modifier: Modifier,
+    modifier: Modifier = Modifier,
     text : String,
     variant : SesameButtonVariants,
     isEnabled : Boolean,
@@ -43,7 +43,7 @@ fun SesameButton(
    Button(
         modifier = modifier
             .heightIn(heightRangeDP.first.dp,heightRangeDP.last.dp),
-        enabled = isEnabled,
+        enabled = isEnabled or isLoading,
         shape = MaterialTheme.shapes.medium,
         colors = ButtonDefaults.buttonColors(
           containerColor = when (variant){
