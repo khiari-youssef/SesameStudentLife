@@ -45,8 +45,8 @@ import tn.sesame.spm.domain.entities.SesameClass
 import tn.sesame.spm.domain.entities.SesameProject
 import tn.sesame.spm.domain.entities.SesameProjectCollaborator
 import tn.sesame.spm.domain.entities.SesameProjectJoinRequestState
-import tn.sesame.spm.domain.entities.SesameStudent
 import tn.sesame.spm.domain.entities.SesameProjectSupervisor
+import tn.sesame.spm.domain.entities.SesameStudent
 import tn.sesame.spm.security.BiometricLauncherService
 
 
