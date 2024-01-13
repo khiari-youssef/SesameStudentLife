@@ -21,4 +21,6 @@
     <string name="error_network_title">Network error</string>
     <string name="error_network_internal_server_details">Internal Server Error</string>
     <string name="error_network_no_internet_details">Internet connection is unavailable !</string>
+    <string name="accepted">Accepted</string>
+    <string name="rejected">Rejected</string>
 </resources>

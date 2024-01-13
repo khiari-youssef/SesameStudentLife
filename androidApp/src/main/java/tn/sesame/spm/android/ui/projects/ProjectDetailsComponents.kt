@@ -42,7 +42,7 @@ import tn.sesame.designsystem.SuccessColor
 import tn.sesame.designsystem.onBackgroundShadedDarkMode
 import tn.sesame.designsystem.onBackgroundShadedLightMode
 import tn.sesame.spm.android.R
-import tn.sesame.spm.domain.entities.SesameSupervisor
+import tn.sesame.spm.domain.entities.SesameProjectSupervisor
 
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -90,7 +90,7 @@ fun ProjectCreationDate(
 @Composable
 fun ProjectSupervisorListItem(
     modifier: Modifier = Modifier,
-    sesameSupervisor: SesameSupervisor?
+    sesameSupervisor: SesameProjectSupervisor?
 ) {
     Column(
         modifier = modifier,

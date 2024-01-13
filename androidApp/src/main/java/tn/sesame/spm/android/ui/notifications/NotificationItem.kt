@@ -20,6 +20,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextStyle
@@ -212,7 +213,9 @@ fun NotificationResponseItem(
                             }
                             .padding(8.dp)
                             .wrapContentSize(),
-                        text = if (sesameProjectNotification.isAccepted) "Accepted" else "Rejected",
+                        text = stringResource(
+                            id = if (sesameProjectNotification.isAccepted) tn.sesame.designsystem.R.string.accepted else tn.sesame.designsystem.R.string.rejected
+                        ),
                         style = TextStyle(
                             fontSize = 16.sp,
                             fontFamily = SesameFontFamilies.MainBoldFontFamily,

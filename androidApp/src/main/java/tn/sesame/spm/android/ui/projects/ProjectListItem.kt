@@ -90,7 +90,7 @@ fun ProjectListItem(
               horizontalAlignment = Alignment.Start
           ) {
               Text(
-                  text = sesameProject.type,
+                  text = sesameProject.type.toString(),
                   style = TextStyle(
                       fontSize = 14.sp,
                       fontFamily = SesameFontFamilies.MainMediumFontFamily,

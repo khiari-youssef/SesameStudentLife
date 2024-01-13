@@ -18,5 +18,7 @@
     <string name="error_network_title">Erreur réseau !</string>
     <string name="error_network_internal_server_details">Erreur serveur interne</string>
     <string name="error_network_no_internet_details">La connexion internet est indisponible</string>
+    <string name="accepted">Accepté</string>
+    <string name="rejected">Rejeté</string>
 
 </resources>

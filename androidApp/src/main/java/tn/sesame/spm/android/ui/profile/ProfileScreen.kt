@@ -40,7 +40,7 @@ fun ProfileScreen(
 modifier: Modifier = Modifier,
 sesameUser: SesameUser,
 onMenuItemClicked : (menuOption : MenuOption)->Unit,
-onLogOutClicked : ()->Unit
+onLogOutClicked :  ()->Unit
 ) {
     val isLargeScreen  = LocalConfiguration.current.run {
         (orientation == Configuration.ORIENTATION_LANDSCAPE) or (this.screenWidthDp >= 600)
