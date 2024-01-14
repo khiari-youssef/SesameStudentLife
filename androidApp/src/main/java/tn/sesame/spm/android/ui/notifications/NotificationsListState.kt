@@ -14,5 +14,5 @@ sealed interface NotificationsListState{
     data class Error(val code : Int) : NotificationsListState
 
     @Stable
-    data class Success(val notificationsList: List<SesameProjectNotification>,val isRefreshingMore : Boolean = false) : NotificationsListState
+    data class Success(val notificationsList: List<SesameProjectNotification>,val isRefreshingMoreUpwards : Boolean = false,val isRefreshingMoreDownwards : Boolean = false) : NotificationsListState
 }

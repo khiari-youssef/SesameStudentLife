@@ -22,19 +22,19 @@ class NotificationsViewModel : ViewModel() {
     val list1 = List(10){
         if (it.mod(2) == 0){
             SesameProjectNotification.SesameProjectRequestNotification(
-                "id$it",
-                "",
-                "Ahmed",
-                "#PPE${it*10}",
-                ""
+                senderID= "id$it",
+                senderImage = "",
+                senderFullName=  "Ahmed",
+                projectRef= "#PPE${it*10}",
+                requestType =""
             )
         } else {
             SesameProjectNotification.SesameProjectInfoNotification(
-                "id$it",
-                "",
-                "Yassine",
-                "#PDS${it*10}",
-                SesameProjectNotification.SesameProjectInfoNotification.ACTION_ASSIGNMENT
+                senderID= "id$it",
+                senderImage ="",
+                senderFullName= "Yassine",
+                projectRef= "#PDS${it*10}",
+                infoType = SesameProjectNotification.SesameProjectInfoNotification.ACTION_ASSIGNMENT
             )
         }
     }
@@ -48,12 +48,15 @@ class NotificationsViewModel : ViewModel() {
             )
 
     }
+
+
+
 fun getLastNotifications() {
 viewModelScope.launch {
     _latestNotificationsState.update {currentState->
-        if (currentState is NotificationsListState.Success && currentState.isRefreshingMore){
+        if (currentState is NotificationsListState.Success && currentState.isRefreshingMoreUpwards){
             currentState.copy(
-                isRefreshingMore = true
+                isRefreshingMoreUpwards = true
             )
         } else currentState
     }
@@ -61,7 +64,9 @@ viewModelScope.launch {
     _latestNotificationsState.update {currentState->
         if (currentState is NotificationsListState.Success){
             NotificationsListState.Success(
-                list2+ currentState.notificationsList
+                (list2+ currentState.notificationsList).distinctBy {
+                    it.id
+                }
             )
         } else NotificationsListState.Success(list1)
     }

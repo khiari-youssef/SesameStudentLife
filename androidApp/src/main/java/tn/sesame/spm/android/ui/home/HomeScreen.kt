@@ -219,7 +219,11 @@ fun HomeScreen(
                             modifier = modifier,
                             notificationsListState = viewModel.latestNotificationsState.collectAsStateWithLifecycle().value,
                             onRefreshNotifications = {
-                                viewModel.getLastNotifications()
+                                val state = viewModel.latestNotificationsState.value
+                                val isAlreadyRefreshing = state is NotificationsListState.Success && state.isRefreshingMoreUpwards
+                                if (isAlreadyRefreshing.not()) {
+                                    viewModel.getLastNotifications()
+                                }
                             }
                         )
                     }
