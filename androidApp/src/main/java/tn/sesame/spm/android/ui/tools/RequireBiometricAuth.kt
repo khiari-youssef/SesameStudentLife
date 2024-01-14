@@ -3,9 +3,11 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import org.koin.compose.koinInject
+import tn.sesame.spm.android.R
 import tn.sesame.spm.security.BiometricAuthService
 import tn.sesame.spm.security.BiometricLauncherService
 import tn.sesame.spm.security.SupportedDeviceAuthenticationMethods
@@ -14,9 +16,9 @@ import tn.sesame.spm.ui.getRegistrationBiometricIdentityIntent
 @Composable
 fun RequireBiometricAuth(
     bioService : BiometricAuthService = koinInject(),
-    bioAuthTitle : String,
-    bioAuthSubtitle : String,
-   onBiometricPassResult : (BiometricLauncherService.DeviceAuthenticationState)->Unit
+    bioAuthTitle : String =  stringResource(id = R.string.biometric_auth_dialog_message),
+    bioAuthSubtitle : String = stringResource(id = R.string.biometric_auth_dialog_title),
+    onBiometricPassResult : (BiometricLauncherService.DeviceAuthenticationState)->Unit
 ) {
     val activityResultLauncher = rememberLauncherForActivityResult(contract = ActivityResultContracts.StartActivityForResult(), onResult ={
         if (it.resultCode == FragmentActivity.RESULT_OK){

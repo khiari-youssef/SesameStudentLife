@@ -209,6 +209,7 @@ fun HomeScreen(
                 }
                 composable(NavigationRoutingData.Home.Notifications) {
                     val viewModel = getViewModel<NotificationsViewModel>()
+
                     NavigationBarScreenTemplate(
                         modifier = Modifier
                             .padding(paddingValues),
@@ -216,10 +217,10 @@ fun HomeScreen(
                     ) { modifier ->
                         NotificationsScreen(
                             modifier = modifier,
-                            notificationsListState = viewModel.getLastNotifications()
-                                .collectAsStateWithLifecycle(
-                                    initialValue = NotificationsListState.Loading
-                                ).value
+                            notificationsListState = viewModel.latestNotificationsState.collectAsStateWithLifecycle().value,
+                            onRefreshNotifications = {
+                                viewModel.getLastNotifications()
+                            }
                         )
                     }
                 }
@@ -228,13 +229,8 @@ fun HomeScreen(
                         mutableStateOf(false)
                     }
                     if (displayBioAth.value){
-                        val bioAuthTitle = stringResource(id = R.string.biometric_auth_dialog_title)
-                        val bioAuthSubtitle = stringResource(id = R.string.biometric_auth_dialog_message)
                         RequireBiometricAuth(
-                            bioAuthTitle = bioAuthTitle,
-                            bioAuthSubtitle = bioAuthSubtitle,
                             onBiometricPassResult = { state->
-                                displayBioAth.value = false
                                 if (state is BiometricLauncherService.DeviceAuthenticationState.Success){
                                     onHomeExit(NavigationRoutingData.Login)
                                 }
