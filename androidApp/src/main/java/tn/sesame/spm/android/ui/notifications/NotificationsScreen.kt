@@ -1,3 +1,5 @@
+package tn.sesame.spm.android.ui.notifications
+
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -27,6 +29,7 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
+import tn.sesame.designsystem.components.loading.shimmerEffect
 import tn.sesame.spm.android.ui.notifications.NotificationsListState
 import tn.sesame.spm.domain.entities.SesameProjectNotification
 
@@ -34,12 +37,13 @@ import tn.sesame.spm.domain.entities.SesameProjectNotification
 @Composable
 fun NotificationsScreen(
     modifier: Modifier = Modifier,
-    notificationsListState : NotificationsListState,
+    screenState : NotificationScreenStateHolder,
     onRefreshNotifications: ()->Unit
 ) {
+    val notificationsListState = screenState.notificationsListState.value
     val isPullRefreshing = remember {
         derivedStateOf {
-            notificationsListState is NotificationsListState.Success && notificationsListState.isRefreshingMore
+           (notificationsListState is NotificationsListState.NotificationsLoading && notificationsListState.isRefresh)
         }
     }
  val listState = rememberLazyListState()
@@ -104,25 +108,25 @@ fun NotificationsScreen(
                            it.id
                        }
                    ) { notification->
+                       val itemModifier = Modifier
+                           .shimmerEffect(notificationsListState.isRefreshingMore)
+                           .fillMaxWidth()
                        when (notification){
                            is SesameProjectNotification.SesameProjectRequestNotification->{
                                NotificationRequestItem(
-                                   modifier = Modifier
-                                       .fillMaxWidth(),
+                                   modifier = itemModifier,
                                    sesameProjectNotification = notification
                                )
                            }
                            is SesameProjectNotification.SesameProjectInfoNotification->{
                                NotificationItem(
-                                   modifier = Modifier
-                                       .fillMaxWidth(),
+                                   modifier = itemModifier,
                                    sesameProjectNotification = notification
                                )
                            }
                            is SesameProjectNotification.SesameProjectResponseNotification->{
                                NotificationResponseItem(
-                                   modifier = Modifier
-                                       .fillMaxWidth(),
+                                   modifier = itemModifier,
                                    sesameProjectNotification = notification
                                )
                            }

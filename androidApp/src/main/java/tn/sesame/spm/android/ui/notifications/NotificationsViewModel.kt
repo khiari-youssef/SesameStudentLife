@@ -12,7 +12,7 @@ import tn.sesame.spm.domain.entities.SesameProjectNotification
 class NotificationsViewModel : ViewModel() {
 
 
-    private val _latestNotificationsState : MutableStateFlow<NotificationsListState> = MutableStateFlow(NotificationsListState.NotificationsLoading)
+    private val _latestNotificationsState : MutableStateFlow<NotificationsListState> = MutableStateFlow(NotificationsListState.NotificationsLoading())
     val latestNotificationsState : StateFlow<NotificationsListState> = _latestNotificationsState
 
     init {
@@ -48,22 +48,14 @@ class NotificationsViewModel : ViewModel() {
             )
 
     }
-fun getLastNotifications() {
+fun getLastNotifications(isRefresh : Boolean = false) {
 viewModelScope.launch {
     _latestNotificationsState.update {currentState->
-        if (currentState is NotificationsListState.Success && currentState.isRefreshingMore){
-            currentState.copy(
-                isRefreshingMore = true
-            )
-        } else currentState
+        NotificationsListState.NotificationsLoading(isRefresh)
     }
     delay(2000)
     _latestNotificationsState.update {currentState->
-        if (currentState is NotificationsListState.Success){
-            NotificationsListState.Success(
-                list2+ currentState.notificationsList
-            )
-        } else NotificationsListState.Success(list1)
+       NotificationsListState.Success(list1)
     }
 }
 }

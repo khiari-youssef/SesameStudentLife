@@ -1,4 +1,4 @@
-package tn.sesame.designsystem.components.animations
+package tn.sesame.designsystem.components.loading
 
 import androidx.compose.animation.core.RepeatMode
 import androidx.compose.animation.core.VectorConverter

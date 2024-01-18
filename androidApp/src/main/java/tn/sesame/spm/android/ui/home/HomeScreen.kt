@@ -1,6 +1,6 @@
 package tn.sesame.spm.android.ui.home
 
-import NotificationsScreen
+
 import ProfileScreen
 import ProjectList
 import ProjectsScreen
@@ -37,7 +37,9 @@ import tn.sesame.designsystem.components.bars.SesameBottomNavigationBar
 import tn.sesame.designsystem.components.bars.SesameBottomNavigationBarDefaults
 import tn.sesame.spm.android.R
 import tn.sesame.spm.android.base.NavigationRoutingData
+import tn.sesame.spm.android.ui.notifications.NotificationScreenStateHolder
 import tn.sesame.spm.android.ui.notifications.NotificationsListState
+import tn.sesame.spm.android.ui.notifications.NotificationsScreen
 import tn.sesame.spm.android.ui.notifications.NotificationsViewModel
 import tn.sesame.spm.android.ui.projects.SesameProjectsStateHolder
 import tn.sesame.spm.domain.entities.ProjectType
@@ -209,7 +211,13 @@ fun HomeScreen(
                 }
                 composable(NavigationRoutingData.Home.Notifications) {
                     val viewModel = getViewModel<NotificationsViewModel>()
-
+                    val screenState =  NotificationScreenStateHolder
+                        .rememberNotificationScreenState(
+                            notificationsListState = viewModel.latestNotificationsState.collectAsStateWithLifecycle(),
+                            currentPage = rememberSaveable {
+                                mutableIntStateOf(0)
+                            }
+                        )
                     NavigationBarScreenTemplate(
                         modifier = Modifier
                             .padding(paddingValues),
@@ -217,9 +225,9 @@ fun HomeScreen(
                     ) { modifier ->
                         NotificationsScreen(
                             modifier = modifier,
-                            notificationsListState = viewModel.latestNotificationsState.collectAsStateWithLifecycle().value,
+                            screenState =  screenState,
                             onRefreshNotifications = {
-                                viewModel.getLastNotifications()
+                                viewModel.getLastNotifications(isRefresh = true)
                             }
                         )
                     }

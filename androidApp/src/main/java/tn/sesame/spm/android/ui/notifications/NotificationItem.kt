@@ -1,3 +1,6 @@
+package tn.sesame.spm.android.ui.notifications
+
+import SesameCircleImageM
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -27,9 +30,10 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import tn.sesame.designsystem.ErrorColor
+import tn.sesame.designsystem.R
 import tn.sesame.designsystem.SesameFontFamilies
 import tn.sesame.designsystem.SuccessColor
-import tn.sesame.designsystem.components.animations.shimmerEffect
+import tn.sesame.designsystem.components.loading.shimmerEffect
 import tn.sesame.spm.domain.entities.SesameProjectNotification
 
 
@@ -194,7 +198,7 @@ fun NotificationResponseItem(
                 ) {
                     Icon(
                         imageVector = ImageVector.vectorResource(
-                            id = if (isAccepted) tn.sesame.designsystem.R.drawable.success else tn.sesame.designsystem.R.drawable.ic_clear
+                            id = if (isAccepted) R.drawable.success else R.drawable.ic_clear
                         ),
                         contentDescription = "",
                         tint = if (isAccepted) SuccessColor else ErrorColor
@@ -207,7 +211,7 @@ fun NotificationResponseItem(
                             .padding(8.dp)
                             .wrapContentSize(),
                         text = stringResource(
-                            id = if (sesameProjectNotification.isAccepted) tn.sesame.designsystem.R.string.accepted else tn.sesame.designsystem.R.string.rejected
+                            id = if (sesameProjectNotification.isAccepted) R.string.accepted else R.string.rejected
                         ),
                         style = TextStyle(
                             fontSize = 16.sp,

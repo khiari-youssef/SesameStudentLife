@@ -8,7 +8,7 @@ import tn.sesame.spm.domain.entities.SesameProjectNotification
 sealed interface NotificationsListState{
 
     @Stable
-    data object NotificationsLoading  : NotificationsListState
+    data class NotificationsLoading(val isRefresh : Boolean = false)  : NotificationsListState
 
     @Stable
     data class Error(val code : Int) : NotificationsListState

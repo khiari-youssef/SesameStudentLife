@@ -6,7 +6,7 @@ import androidx.compose.ui.platform.LocalContext
 import coil.compose.AsyncImage
 import coil.compose.AsyncImagePainter
 import coil.request.ImageRequest
-import tn.sesame.designsystem.components.animations.shimmerEffect
+import tn.sesame.designsystem.components.loading.shimmerEffect
 
 @Composable
 fun SesameCircleImage(

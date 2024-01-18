@@ -7,7 +7,18 @@ sealed class SesameProjectNotification(
     val senderFullName : String,
     val projectRef : String
 ){
-     class SesameProjectRequestNotification(
+
+    override fun equals(other: Any?): Boolean = other is SesameProjectNotification && other.id == id
+    override fun hashCode(): Int {
+        var result = id.hashCode()
+        result = 31 * result + senderID.hashCode()
+        result = 31 * result + senderImage.hashCode()
+        result = 31 * result + senderFullName.hashCode()
+        result = 31 * result + projectRef.hashCode()
+        return result
+    }
+
+    class SesameProjectRequestNotification(
          senderID : String,
          senderImage : String,
          senderFullName : String,
