@@ -42,7 +42,9 @@ import tn.sesame.designsystem.SuccessColor
 import tn.sesame.designsystem.onBackgroundShadedDarkMode
 import tn.sesame.designsystem.onBackgroundShadedLightMode
 import tn.sesame.spm.android.R
+import tn.sesame.spm.domain.entities.SesameProjectCollaborator
 import tn.sesame.spm.domain.entities.SesameProjectSupervisor
+import tn.sesame.spm.domain.entities.SesameUserSex
 
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -117,10 +119,13 @@ fun ProjectSupervisorListItem(
                    8.dp,Alignment.Start
                )
            ) {
+               val placeholderRes = if (sesameSupervisor.sex == SesameUserSex.Male) {
+                   tn.sesame.designsystem.R.drawable.ic_profile_placeholder_male
+               } else tn.sesame.designsystem.R.drawable.ic_profile_placeholder_female
              SesameCircleImageS(
                  uri = sesameSupervisor.photo,
-                 placeholderRes = tn.sesame.designsystem.R.drawable.profile_placeholder ,
-                 errorRes = tn.sesame.designsystem.R.drawable.profile_placeholder
+                 placeholderRes = placeholderRes ,
+                 errorRes = placeholderRes
              )
                Text(
                    text = this@run,
@@ -150,7 +155,7 @@ fun ProjectSupervisorListItem(
 fun ProjectCollaboratorsPreviewListItem(
     modifier: Modifier = Modifier,
     maxCollaborators : Int,
-   profileURIs : List<String>?
+    collaborators : List<SesameProjectCollaborator>?
 ) {
     Column(
         modifier = modifier,
@@ -163,7 +168,7 @@ fun ProjectCollaboratorsPreviewListItem(
                 text = buildAnnotatedString {
                     this.append("${stringResource(id = R.string.project_collaborators)} : ")
                               withStyle(SpanStyle(color = if (isSystemInDarkTheme()) onBackgroundShadedDarkMode else onBackgroundShadedLightMode )){
-                                  append("(${profileURIs?.size?.coerceIn(0,maxCollaborators)}/$maxCollaborators)")
+                                  append("(${collaborators?.size?.coerceIn(0,maxCollaborators)}/$maxCollaborators)")
                               }
                 },
                 style = TextStyle(
@@ -173,7 +178,7 @@ fun ProjectCollaboratorsPreviewListItem(
                     color = MaterialTheme.colorScheme.onBackground,
                 )
             )
-        profileURIs?.takeUnless { it.isEmpty() }?.run {
+        collaborators?.takeUnless { it.isEmpty() }?.run {
             Row(
                 modifier = Modifier
                     .wrapContentSize(),
@@ -182,11 +187,14 @@ fun ProjectCollaboratorsPreviewListItem(
                     8.dp,Alignment.Start
                 )
             ) {
-                forEach { collaboratorURI->
+                forEach { collaborator->
+                    val placeholderRes = if (collaborator.sex == SesameUserSex.Male) {
+                        tn.sesame.designsystem.R.drawable.ic_profile_placeholder_male
+                    } else tn.sesame.designsystem.R.drawable.ic_profile_placeholder_female
                     SesameCircleImageS(
-                        uri = collaboratorURI,
-                        placeholderRes = tn.sesame.designsystem.R.drawable.profile_placeholder ,
-                        errorRes = tn.sesame.designsystem.R.drawable.profile_placeholder
+                        uri = collaborator.photo,
+                        placeholderRes = placeholderRes,
+                        errorRes = placeholderRes
                     )
                 }
             }

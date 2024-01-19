@@ -49,6 +49,7 @@ import tn.sesame.spm.domain.entities.SesameProjectCollaborator
 import tn.sesame.spm.domain.entities.SesameProjectJoinRequestState
 import tn.sesame.spm.domain.entities.SesameProjectSupervisor
 import tn.sesame.spm.domain.entities.SesameStudent
+import tn.sesame.spm.domain.entities.SesameUserSex
 import tn.sesame.spm.security.BiometricLauncherService
 
 
@@ -136,7 +137,8 @@ fun HomeScreen(
                                 "blabla-id",
                                 "mblala@gmail.com",
                                 "Monsieur blabla",
-                                ""
+                                "",
+                                SesameUserSex.Male
                             ),
                             collaboratorsToJoin = if (it == 6)
                                 listOf(
@@ -145,14 +147,16 @@ fun HomeScreen(
                                         "ahmed@sesame.com.tn",
                                         "Ahmed",
                                         "",
-                                        SesameProjectJoinRequestState.ACCEPTED
+                                        SesameProjectJoinRequestState.ACCEPTED,
+                                        SesameUserSex.Male
                                     ),
                                     SesameProjectCollaborator(
                                         "youssef-id",
                                         "youssef.khiari@sesame.com.tn",
                                         "Youssef",
                                         "",
-                                        SesameProjectJoinRequestState.WAITING_APPROVAL
+                                        SesameProjectJoinRequestState.WAITING_APPROVAL,
+                                        SesameUserSex.Male
                                     )
                                 )
                             else listOf(
@@ -161,7 +165,8 @@ fun HomeScreen(
                                     "ahmed@sesame.com.tn",
                                     "Ahmed",
                                     "",
-                                    SesameProjectJoinRequestState.ACCEPTED
+                                    SesameProjectJoinRequestState.ACCEPTED,
+                                    SesameUserSex.Male
                                 )
                             ),
                             maxCollaborators = 5,
@@ -257,7 +262,7 @@ fun HomeScreen(
                                 "Khiari",
                                 "Youssef",
                                 "khiari.youssef98@gmail.com",
-                                'M',
+                                SesameUserSex.Male,
                                 "",
                                 "",
                                 "Android Engineer",

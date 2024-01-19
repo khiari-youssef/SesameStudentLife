@@ -1,6 +1,10 @@
 package tn.sesame.spm.domain.entities
 
 import tn.sesame.spm.domain.entities.SesameRole.Companion.NONE
+enum class SesameUserSex{
+    Male,Female
+}
+
 
 data class SesameLogin(
     val password : String,
@@ -21,7 +25,7 @@ open class SesameUser(
  val firstName : String,
  val lastName : String,
  val email : String,
- val sex : Char,
+ val sex : SesameUserSex,
  val profilePicture : String
 ){
 
@@ -49,7 +53,7 @@ open class SesameUser(
    firstName : String,
    lastName : String,
    email : String,
-   sex : Char,
+   sex : SesameUserSex,
    profilePicture : String,
   val portfolioId : String,
   val job : String?=null,
@@ -73,7 +77,7 @@ class SesameTeacher(
  firstName : String,
  lastName : String,
  email : String,
- sex : Char,
+ sex : SesameUserSex,
  profilePicture : String,
  val profBackground : String
 ): SesameUser(registrationID, firstName, lastName, email,sex, profilePicture){

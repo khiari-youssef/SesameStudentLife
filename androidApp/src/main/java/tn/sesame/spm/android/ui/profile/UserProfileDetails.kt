@@ -29,6 +29,7 @@ import tn.sesame.designsystem.onBackgroundShadedLightMode
 import tn.sesame.spm.domain.entities.SesameStudent
 import tn.sesame.spm.domain.entities.SesameTeacher
 import tn.sesame.spm.domain.entities.SesameUser
+import tn.sesame.spm.domain.entities.SesameUserSex
 
 @Composable
 fun UserProfileDetails(
@@ -47,10 +48,11 @@ fun UserProfileDetails(
                 Alignment.CenterHorizontally
             )
         ) {
+            val placeholder = if (sesameUser.sex == SesameUserSex.Male) R.drawable.ic_profile_placeholder_male else R.drawable.ic_profile_placeholder_female
             SesameCircleImageXL(
                 uri = sesameUser.profilePicture,
-                placeholderRes = R.drawable.profile_placeholder ,
-                errorRes = R.drawable.profile_placeholder
+                placeholderRes = placeholder ,
+                errorRes = placeholder
             )
             Column(
                 modifier = Modifier

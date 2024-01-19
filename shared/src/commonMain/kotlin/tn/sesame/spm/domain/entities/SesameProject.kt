@@ -7,6 +7,8 @@ import kotlinx.datetime.toLocalDateTime
 import tn.sesame.spm.domain.formatDMY
 import tn.sesame.spm.domain.formatHHMM
 
+
+
 enum class SesameProjectJoinRequestState{
     ACCEPTED,REJECTED,WAITING_APPROVAL
 }
@@ -15,7 +17,8 @@ class SesameProjectSupervisor(
     val id : String,
     val email : String,
     val fullName : String,
-    val photo : String
+    val photo : String,
+    val sex : SesameUserSex
 )
 
 class SesameProjectCollaborator(
@@ -23,7 +26,8 @@ class SesameProjectCollaborator(
     val email : String,
     val fullName : String,
     val photo : String,
-    val joinStatus : SesameProjectJoinRequestState
+    val joinStatus : SesameProjectJoinRequestState,
+    val sex : SesameUserSex
 )
 
 
@@ -45,6 +49,8 @@ data class SesameProject(
     val techStack : List<String>
 ) {
 
+    override fun equals(other: Any?): Boolean = other is SesameProject && other.id == id
+
     val joinedCollaborators : List<SesameProjectCollaborator> = collaboratorsToJoin
         .filter { state->
             state.joinStatus == SesameProjectJoinRequestState.ACCEPTED
@@ -62,6 +68,26 @@ data class SesameProject(
  = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()) in duration
 
  fun isOver() : Boolean = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()) > duration.endInclusive
+    override fun hashCode(): Int {
+        var result = id.hashCode()
+        result = 31 * result + type.hashCode()
+        result = 31 * result + description.hashCode()
+        result = 31 * result + supervisor.hashCode()
+        result = 31 * result + collaboratorsToJoin.hashCode()
+        result = 31 * result + maxCollaborators
+        result = 31 * result + duration.hashCode()
+        result = 31 * result + creationDate.hashCode()
+        result = 31 * result + presentationDate.hashCode()
+        result = 31 * result + keywords.hashCode()
+        result = 31 * result + techStack.hashCode()
+        result = 31 * result + joinedCollaborators.hashCode()
+        result = 31 * result + displayCreationDate.hashCode()
+        result = 31 * result + displayStartDate.hashCode()
+        result = 31 * result + displayEndDate.hashCode()
+        result = 31 * result + displayPresentationDate.hashCode()
+        result = 31 * result + displayCreationTime.hashCode()
+        return result
+    }
 
 
 }
