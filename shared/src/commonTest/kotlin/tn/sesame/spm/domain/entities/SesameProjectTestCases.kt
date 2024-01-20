@@ -18,25 +18,28 @@ class SesameProjectTestCases {
         "",
         "",
         "Supervisor",
-        ""
+        "",
+        SesameUserSex.Male
     )
     val noProjectCollaborators : List<SesameProjectCollaborator> = listOf()
     val projectCollaborators : List<SesameProjectCollaborator> = List(5){
         SesameProjectCollaborator(
-            "id$it",
-            "email$it@mail.com",
-            "name$it",
-            "",
-            if (it <3) SesameProjectJoinRequestState.ACCEPTED else SesameProjectJoinRequestState.WAITING_APPROVAL
+            id = "id$it",
+            email = "email$it@mail.com",
+            fullName = "name$it",
+            photo = "",
+            sex = SesameUserSex.Male,
+            joinStatus = if (it <3) SesameProjectJoinRequestState.ACCEPTED else SesameProjectJoinRequestState.WAITING_APPROVAL
         )
     }
     val fullProjectCollaborators : List<SesameProjectCollaborator> = List(5){
         SesameProjectCollaborator(
-            "id$it",
-            "email$it@mail.com",
-            "name$it",
-            "",
-            SesameProjectJoinRequestState.ACCEPTED
+            id = "id$it",
+            email = "email$it@mail.com",
+            fullName = "name$it",
+            photo ="",
+            sex = SesameUserSex.Male,
+            joinStatus = SesameProjectJoinRequestState.ACCEPTED
         )
     }
     val sesameProject = SesameProject(

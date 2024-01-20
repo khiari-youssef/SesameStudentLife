@@ -1,6 +1,8 @@
 package tn.sesame.designsystem.components
 
 import androidx.activity.compose.BackHandler
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.basicMarquee
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -12,9 +14,16 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import tn.sesame.designsystem.R
 
@@ -29,10 +38,11 @@ fun NavigationBarScreenTemplate(
     BackHandler(onBack = onExitNavigation)
 }
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun DetailsScreenTemplate(
-    title : String,
     modifier : Modifier = Modifier,
+    title : String,
     onBackPressed : ()->Unit,
     content :@Composable ()->Unit
 ) {
@@ -61,13 +71,23 @@ fun DetailsScreenTemplate(
                tint = MaterialTheme.colorScheme.primary
            )
            Text(
-               modifier = Modifier.constrainAs(text){
+               modifier = Modifier
+                   .basicMarquee()
+                   .constrainAs(text){
                    start.linkTo(parent.start,48.dp)
                    top.linkTo(parent.top,8.dp)
                    bottom.linkTo(parent.bottom,8.dp)
                    end.linkTo(parent.end,48.dp)
                },
-               text = title
+               text = title,
+               style = TextStyle(
+                       fontSize = 18.sp,
+                       fontFamily = FontFamily(Font(R.font.roboto_regular)),
+                       fontWeight = FontWeight(500),
+                       color = MaterialTheme.colorScheme.secondary,
+                       textAlign = TextAlign.Center,
+                   )
+
            )
        }
        content()

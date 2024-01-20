@@ -114,11 +114,11 @@ fun Activity.MainNavigation(
                     type = NavType.StringType
                 })
             ){args->
+                val projectId = args.arguments?.getString("projectID")
                 ProjectDetailsScreen(
                     modifier = Modifier
                         .systemBarsPadding()
-                        .fillMaxSize(),
-                    projectID = args.arguments?.getString("projectID")
+                        .fillMaxSize()
                 )
             }
         }

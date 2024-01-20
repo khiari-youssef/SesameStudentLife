@@ -34,6 +34,9 @@
     <string name="project_button_details">Détails</string>
     <string name="project_button_quit">Quitter</string>
     <string name="projects_search">Rechercher des projets</string>
+    <string name="project_details_title_graduation_internship">PFE</string>
+
+
     <!-- Profile strings-->
 
     <string name="profile_email">Email</string>
