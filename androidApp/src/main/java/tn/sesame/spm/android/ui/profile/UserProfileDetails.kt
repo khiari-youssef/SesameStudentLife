@@ -8,12 +8,15 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.text.ClickableText
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.buildAnnotatedString
@@ -58,15 +61,32 @@ fun UserProfileDetails(
                 modifier = Modifier
                     .wrapContentSize()
             ) {
-                Text(
-                    text = sesameUser.getFullName(),
-                    style = TextStyle(
-                        fontSize = 24.sp,
-                        fontFamily = SesameFontFamilies.MainBoldFontFamily,
-                        fontWeight = FontWeight(700),
-                        color = MaterialTheme.colorScheme.onBackground,
+                Row(
+                    modifier = Modifier
+                        .wrapContentSize(),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(
+                        8.dp,Alignment.Start
                     )
-                )
+                ) {
+                    Icon(
+                        imageVector = ImageVector.vectorResource(when (sesameUser.sex) {
+                            SesameUserSex.Female -> R.drawable.ic_sex_female
+                            SesameUserSex.Male -> R.drawable.ic_sex_male
+                        }) ,
+                        contentDescription = "",
+                        tint = MaterialTheme.colorScheme.tertiary
+                    )
+                    Text(
+                        text = sesameUser.getFullName(),
+                        style = TextStyle(
+                            fontSize = 24.sp,
+                            fontFamily = SesameFontFamilies.MainBoldFontFamily,
+                            fontWeight = FontWeight(700),
+                            color = MaterialTheme.colorScheme.onBackground,
+                        )
+                    )
+                }
                 Text(
                     text = when (sesameUser){
                       is SesameStudent-> stringResource(id = tn.sesame.spm.android.R.string.profile_student)

@@ -23,4 +23,6 @@
     <string name="error_network_no_internet_details">Internet connection is unavailable !</string>
     <string name="accepted">Accepted</string>
     <string name="rejected">Rejected</string>
+    <string name="sex_male">Male</string>
+    <string name="sex_female">Female</string>
 </resources>

@@ -1,0 +1,26 @@
+CREATE TABLE SesameStudent(
+registrationID Text PRIMARY KEY,
+firstName Text NOT NULL,
+lastName Text,
+email Text NOT NULL,
+token Text NOT NULL,
+sex Text NOT NULL,
+profile_picture_uri Text,
+portfolio_id Text,
+job Text,
+class Text,
+roles_id Text
+);
+
+CREATE TABLE SesameTeacher(
+registrationID Text PRIMARY KEY,
+firstName Text NOT NULL,
+lastName Text,
+email Text NOT NULL,
+token Text NOT NULL,
+sex Text NOT NULL,
+profile_picture_uri Text,
+assignedClassesID Text,
+roles_id Text
+);
+

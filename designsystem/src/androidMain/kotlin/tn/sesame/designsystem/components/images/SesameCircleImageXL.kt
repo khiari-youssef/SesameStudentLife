@@ -12,17 +12,11 @@ fun SesameCircleImageXL(
     placeholderRes : Int,
     errorRes : Int
 ) {
-    val currentContext = LocalContext.current
- AsyncImage(
-     modifier = Modifier
-         .requiredSize(96.dp),
-     model = ImageRequest
-     .Builder(currentContext)
-     .data(uri)
-     .placeholder(placeholderRes)
-     .error(errorRes)
-     .build(),
-     contentDescription = ""
- )
+    SesameCircleImage(
+        uri = uri,
+        placeholderRes = placeholderRes,
+        errorRes = errorRes,
+        size = 96.dp
+    )
 }
 

@@ -79,7 +79,8 @@ class SesameTeacher(
  email : String,
  sex : SesameUserSex,
  profilePicture : String,
- val profBackground : String
+ val profBackground : String,
+ val assignedClasses : List<SesameClass>
 ): SesameUser(registrationID, firstName, lastName, email,sex, profilePicture){
     override val canViewProjects : SesamePermissionState = SesamePermissionState.GRANTED
     override val canCreateProjects : SesamePermissionState = SesamePermissionState.GRANTED

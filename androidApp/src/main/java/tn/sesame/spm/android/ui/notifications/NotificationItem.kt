@@ -94,8 +94,8 @@ fun NotificationItem(
         ) {
             SesameCircleImageM(
                 uri = sesameProjectNotification?.senderImage ?: "",
-                placeholderRes = tn.sesame.designsystem.R.drawable.profile_placeholder,
-                errorRes = tn.sesame.designsystem.R.drawable.profile_placeholder
+                placeholderRes = R.drawable.profile_placeholder,
+                errorRes = R.drawable.profile_placeholder
             )
             ClickableText(
                 modifier = Modifier
