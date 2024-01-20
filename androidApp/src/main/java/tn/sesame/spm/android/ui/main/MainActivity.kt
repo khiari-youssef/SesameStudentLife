@@ -40,11 +40,9 @@ class MainActivity : FragmentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         biometricRegistrationActivityResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
-            if (it.resultCode == RESULT_OK){
                 biometricCapabilitiesState.update {
                     bioService.checkBiometricCapabilitiesState()
                 }
-            }
         }
         biometricCapabilitiesState.update {
             bioService.checkBiometricCapabilitiesState()
