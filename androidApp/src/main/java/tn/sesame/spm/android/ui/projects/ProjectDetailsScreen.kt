@@ -45,11 +45,13 @@ import tn.sesame.spm.domain.entities.SesameUser
 fun ProjectDetailsScreen(
     modifier: Modifier = Modifier,
     project : SesameProject,
-    onShowMember : (member : SesameUser)->Unit
+    onShowMember : (member : SesameUser)->Unit,
+    onBackPressed : ()->Unit
 ) {
     DetailsScreenTemplate(
         modifier = modifier,
-        title = stringResource(id = R.string.project_details_title_graduation_internship)
+        title = stringResource(id = R.string.project_details_title_graduation_internship),
+        onBackPressed = onBackPressed
     ){
         val verticalScrollState = rememberScrollState()
        ConstraintLayout(

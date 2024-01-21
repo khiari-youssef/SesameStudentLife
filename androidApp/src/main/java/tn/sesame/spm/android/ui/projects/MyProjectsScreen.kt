@@ -33,11 +33,13 @@ fun MyProjectsScreen(
     modifier: Modifier = Modifier,
     uiState : SesameProjectsStateHolder,
     onSearchQueryChanged : (query : String)->Unit,
-    onViewDetails : (sesameProjectID: String)->Unit
+    onViewDetails : (sesameProjectID: String)->Unit,
+    onBackPressed : ()->Unit
 ) {
     DetailsScreenTemplate(
         modifier = modifier,
-        title = stringResource(id = R.string.project_title_myprojects)
+        title = stringResource(id = R.string.project_title_myprojects),
+        onBackPressed = onBackPressed
     ) {
         Column(
             modifier = Modifier

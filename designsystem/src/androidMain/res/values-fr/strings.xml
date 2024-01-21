@@ -22,5 +22,7 @@
     <string name="rejected">Rejeté</string>
     <string name="sex_male">Homme</string>
     <string name="sex_female">Femme</string>
+    <string name="error_destination_not_found_title">Erreur de navigation</string>
+    <string name="error_destination_not_found_detail">Chemin introuvable !</string>
 
 </resources>

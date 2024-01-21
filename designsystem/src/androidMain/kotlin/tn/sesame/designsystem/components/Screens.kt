@@ -44,13 +44,10 @@ fun NavigationBarScreenTemplate(
 fun DetailsScreenTemplate(
     modifier : Modifier = Modifier,
     title : String,
-    onBackPressed : (()->Unit)?=null,
+    onBackPressed : ()->Unit,
     content :@Composable ()->Unit
 ) {
-    onBackPressed?.let { callback->
-        BackHandler(onBack = callback )
-    }
-
+        BackHandler(onBack = onBackPressed )
     Column(
         modifier = modifier
             .background(color = MaterialTheme.colorScheme.surfaceVariant)
@@ -62,10 +59,9 @@ fun DetailsScreenTemplate(
                .fillMaxWidth()
        ) {
            val (icon,text) = createRefs()
-           val iconModifier = onBackPressed?.let { callback->
+           val iconModifier =
                Modifier
-                   .clickable(onClick = callback)
-           } ?: Modifier
+                   .clickable(onClick = onBackPressed)
            Icon(
                modifier = iconModifier
                    .constrainAs(icon) {

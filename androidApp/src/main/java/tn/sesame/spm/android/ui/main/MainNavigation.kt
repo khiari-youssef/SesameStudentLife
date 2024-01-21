@@ -1,5 +1,6 @@
 import android.app.Activity
 import androidx.activity.compose.BackHandler
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.runtime.Composable
@@ -9,6 +10,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
@@ -21,6 +23,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.getViewModel
 import tn.sesame.designsystem.components.bars.SesameBottomNavigationBarDefaults
+import tn.sesame.designsystem.components.modals.NavigationNotFoundModal
 import tn.sesame.spm.android.base.NavigationRoutingData
 import tn.sesame.spm.android.ui.home.HomeScreen
 import tn.sesame.spm.android.ui.login.LoginScreen
@@ -133,7 +136,7 @@ fun Activity.MainNavigation(
                     isUserProfilePopupShown.value = null
                 }
                 val projectId = args.arguments?.getString("projectID")
-                projectId?.run {
+                projectId?.takeIf { it.isNotBlank() }?.run {
                     val viewModel : ProjectsViewModel = getViewModel()
                     val project = viewModel.getProjectById(projectId).collectAsStateWithLifecycle(
                         initialValue = null
@@ -146,10 +149,13 @@ fun Activity.MainNavigation(
                             project = this,
                             onShowMember = { member->
                                 isUserProfilePopupShown.value = member
+                            },
+                            onBackPressed = {
+                                rootNavController.popBackStack()
                             }
                         )
-                    }
-                }
+                    } ?: NavigationNotFoundModal()
+                } ?: NavigationNotFoundModal()
             }
             composable(
                 route = "${NavigationRoutingData.MyProjects}/{userID}",
@@ -179,8 +185,23 @@ fun Activity.MainNavigation(
                     },
                     onViewDetails = { projectID->
 
+                    },
+                    onBackPressed = {
+                        rootNavController.popBackStack()
                     }
                 )
+            }
+            composable(
+                route = NavigationRoutingData.NavigationNotFound
+            ){
+                Box(
+                    modifier = Modifier.fillMaxSize(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    NavigationNotFoundModal(
+                        modifier = Modifier
+                    )
+                }
             }
         }
     )
