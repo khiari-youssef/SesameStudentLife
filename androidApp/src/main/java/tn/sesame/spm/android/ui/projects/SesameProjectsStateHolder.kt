@@ -1,19 +1,19 @@
 package tn.sesame.spm.android.ui.projects
 
-import ProjectList
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.State
 import androidx.compose.runtime.remember
 
 data class SesameProjectsStateHolder(
     val currentSearchQuery : MutableState<String>,
-    val currentProjects : MutableState<ProjectList>
+    val projectsState : State<SesameProjectsState>
 ){
     companion object{
         @Composable
         fun rememberSesameProjectsState(
             currentSearchQuery : MutableState<String>,
-            currentProjects : MutableState<ProjectList>
+            currentProjects : State<SesameProjectsState>
         ) : SesameProjectsStateHolder = remember(currentSearchQuery,currentProjects) {
             SesameProjectsStateHolder(
                 currentSearchQuery, currentProjects

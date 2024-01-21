@@ -3,11 +3,13 @@ import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import androidx.navigation.NavOptions
 import androidx.navigation.NavType
@@ -16,12 +18,16 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import org.koin.androidx.compose.getViewModel
 import tn.sesame.designsystem.components.bars.SesameBottomNavigationBarDefaults
 import tn.sesame.spm.android.base.NavigationRoutingData
 import tn.sesame.spm.android.ui.home.HomeScreen
 import tn.sesame.spm.android.ui.login.LoginScreen
 import tn.sesame.spm.android.ui.login.LoginState
 import tn.sesame.spm.android.ui.login.LoginUIStateHolder
+import tn.sesame.spm.android.ui.projects.ProjectsViewModel
+import tn.sesame.spm.domain.entities.SesameProjectMember
+import tn.sesame.spm.domain.entities.SesameUser
 
 @Composable
 fun Activity.MainNavigation(
@@ -114,12 +120,33 @@ fun Activity.MainNavigation(
                     type = NavType.StringType
                 })
             ){args->
+                val isUserProfilePopupShown : MutableState<SesameUser?> = remember {
+                    mutableStateOf(null)
+                }
+                ViewUserProfilePopup(
+                    sesameUser = isUserProfilePopupShown.value,
+                    isShown =isUserProfilePopupShown.value != null
+                ) {
+                    isUserProfilePopupShown.value = null
+                }
                 val projectId = args.arguments?.getString("projectID")
-                ProjectDetailsScreen(
-                    modifier = Modifier
-                        .systemBarsPadding()
-                        .fillMaxSize()
-                )
+                projectId?.run {
+                    val viewModel : ProjectsViewModel = getViewModel()
+                    val project = viewModel.getProjectById(projectId).collectAsStateWithLifecycle(
+                        initialValue = null
+                    )
+                    project.value?.run {
+                        ProjectDetailsScreen(
+                            modifier = Modifier
+                                .systemBarsPadding()
+                                .fillMaxSize(),
+                            project = this,
+                            onShowMember = { member->
+                                isUserProfilePopupShown.value = member
+                            }
+                        )
+                    }
+                }
             }
         }
     )

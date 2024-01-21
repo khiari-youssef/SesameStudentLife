@@ -145,7 +145,7 @@ fun ProjectListItem(
           ProjectItemListFooter(
               status = ProjectJoinRequestStatus.WAITING_FOR_APPROVAL,
               iamMember = sesameProject.collaboratorsToJoin.any {
-                  it.id == myID
+                  it.key.registrationID == myID
               },
               onViewDetails = onViewDetails,
               onJoinRequest = onJoinRequest

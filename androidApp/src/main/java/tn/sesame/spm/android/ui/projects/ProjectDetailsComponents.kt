@@ -13,7 +13,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentSize
@@ -45,8 +44,10 @@ import tn.sesame.designsystem.SuccessColor
 import tn.sesame.designsystem.onBackgroundShadedDarkMode
 import tn.sesame.designsystem.onBackgroundShadedLightMode
 import tn.sesame.spm.android.R
-import tn.sesame.spm.domain.entities.SesameProjectCollaborator
-import tn.sesame.spm.domain.entities.SesameProjectSupervisor
+import tn.sesame.spm.domain.entities.SesameProjectStudentMember
+import tn.sesame.spm.domain.entities.SesameProjectMember
+import tn.sesame.spm.domain.entities.SesameStudent
+import tn.sesame.spm.domain.entities.SesameTeacher
 import tn.sesame.spm.domain.entities.SesameUserSex
 
 
@@ -99,7 +100,7 @@ fun ProjectCreationDate(
 @Composable
 fun ProjectHumanResourceDetailItem(
     modifier: Modifier = Modifier,
-    sesameSupervisor : SesameProjectSupervisor
+    sesameSupervisor : SesameProjectMember
 ) {
     Row(
         modifier = Modifier
@@ -134,7 +135,7 @@ fun ProjectHumanResourceDetailItem(
 @Composable
 fun ProjectSupervisorDetailItem(
     modifier: Modifier = Modifier,
-    sesameSupervisor: SesameProjectSupervisor?,
+    sesameSupervisor: SesameTeacher?,
     onClicked : ()->Unit
 ) {
     Column(
@@ -157,7 +158,7 @@ fun ProjectSupervisorDetailItem(
                 textAlign = TextAlign.Start
             )
         )
-        sesameSupervisor?.fullName?.takeUnless { it.isBlank() }?.run {
+        sesameSupervisor?.getFullName()?.takeUnless { it.isBlank() }?.run {
             Row(
                 modifier = Modifier
                     .clickable(onClick = onClicked)
@@ -172,7 +173,7 @@ fun ProjectSupervisorDetailItem(
                     tn.sesame.designsystem.R.drawable.ic_profile_placeholder_male
                 } else tn.sesame.designsystem.R.drawable.ic_profile_placeholder_female
                 SesameCircleImageL(
-                    uri = sesameSupervisor.photo,
+                    uri = sesameSupervisor.profilePicture,
                     placeholderRes = placeholderRes ,
                     errorRes = placeholderRes
                 )
@@ -203,7 +204,7 @@ fun ProjectSupervisorDetailItem(
 @Composable
 fun ProjectSupervisorListItem(
     modifier: Modifier = Modifier,
-    sesameSupervisor: SesameProjectSupervisor?
+    sesameSupervisor: SesameTeacher?
 ) {
     Column(
         modifier = modifier,
@@ -221,7 +222,7 @@ fun ProjectSupervisorListItem(
                 color = MaterialTheme.colorScheme.onBackground,
             )
         )
-        sesameSupervisor?.fullName?.takeUnless { it.isBlank() }?.run {
+        sesameSupervisor?.getFullName()?.takeUnless { it.isBlank() }?.run {
            Row(
                modifier = Modifier
                    .wrapContentSize(),
@@ -234,7 +235,7 @@ fun ProjectSupervisorListItem(
                    tn.sesame.designsystem.R.drawable.ic_profile_placeholder_male
                } else tn.sesame.designsystem.R.drawable.ic_profile_placeholder_female
              SesameCircleImageS(
-                 uri = sesameSupervisor.photo,
+                 uri = sesameSupervisor.profilePicture,
                  placeholderRes = placeholderRes ,
                  errorRes = placeholderRes
              )
@@ -266,8 +267,8 @@ fun ProjectSupervisorListItem(
 fun ProjectCollaboratorsDetailItem(
     modifier: Modifier = Modifier,
     maxCollaborators : Int,
-    collaborators : List<SesameProjectCollaborator>?,
-    onCollaboratorClicked : (collaborator : SesameProjectCollaborator)->Unit
+    collaborators : List<SesameStudent>?,
+    onCollaboratorClicked : (collaborator : SesameStudent)->Unit
 ) {
     Column(
         modifier = modifier,
@@ -312,12 +313,12 @@ fun ProjectCollaboratorsDetailItem(
                         tn.sesame.designsystem.R.drawable.ic_profile_placeholder_male
                     } else tn.sesame.designsystem.R.drawable.ic_profile_placeholder_female
                     SesameCircleImageL(
-                        uri = collaborator.photo,
+                        uri = collaborator.profilePicture,
                         placeholderRes = placeholderRes,
                         errorRes = placeholderRes
                     )
                     Text(
-                        text = collaborator.fullName,
+                        text = collaborator.getFullName(),
                         style = TextStyle(
                             fontSize = 14.sp,
                             fontFamily = SesameFontFamilies.MainMediumFontFamily,
@@ -350,7 +351,7 @@ fun ProjectCollaboratorsDetailItem(
 fun ProjectCollaboratorsPreviewListItem(
     modifier: Modifier = Modifier,
     maxCollaborators : Int,
-    collaborators : List<SesameProjectCollaborator>?
+    collaborators : List<SesameStudent>?
 ) {
     Column(
         modifier = modifier,
@@ -387,7 +388,7 @@ fun ProjectCollaboratorsPreviewListItem(
                         tn.sesame.designsystem.R.drawable.ic_profile_placeholder_male
                     } else tn.sesame.designsystem.R.drawable.ic_profile_placeholder_female
                     SesameCircleImageS(
-                        uri = collaborator.photo,
+                        uri = collaborator.profilePicture,
                         placeholderRes = placeholderRes,
                         errorRes = placeholderRes
                     )

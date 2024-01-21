@@ -13,7 +13,7 @@ enum class SesameProjectJoinRequestState{
     ACCEPTED,REJECTED,WAITING_APPROVAL
 }
 
-class SesameProjectSupervisor(
+open class SesameProjectMember(
     val id : String,
     val email : String,
     val fullName : String,
@@ -21,14 +21,14 @@ class SesameProjectSupervisor(
     val sex : SesameUserSex
 )
 
-class SesameProjectCollaborator(
-    val id : String,
-    val email : String,
-    val fullName : String,
-    val photo : String,
+class SesameProjectStudentMember (
+     id : String,
+     email : String,
+     fullName : String,
+     photo : String,
     val joinStatus : SesameProjectJoinRequestState,
-    val sex : SesameUserSex
-)
+     sex : SesameUserSex
+) : SesameProjectMember(id, email, fullName, photo, sex)
 
 
 enum class ProjectType{
@@ -39,8 +39,8 @@ data class SesameProject(
     val id : String,
     val type : ProjectType,
     val description : String,
-    val supervisor : SesameProjectSupervisor,
-    val collaboratorsToJoin : List<SesameProjectCollaborator>,
+    val supervisor : SesameTeacher,
+    val collaboratorsToJoin : Map<SesameStudent,SesameProjectJoinRequestState>,
     val maxCollaborators : Int,
     val duration : ClosedRange<LocalDateTime>,
     val creationDate : LocalDateTime,
@@ -51,10 +51,10 @@ data class SesameProject(
 
     override fun equals(other: Any?): Boolean = other is SesameProject && other.id == id
 
-    val joinedCollaborators : List<SesameProjectCollaborator> = collaboratorsToJoin
-        .filter { state->
-            state.joinStatus == SesameProjectJoinRequestState.ACCEPTED
-        }
+    val joinedCollaborators : List<SesameStudent> = collaboratorsToJoin
+        .filter { (student,requestState)->
+            requestState == SesameProjectJoinRequestState.ACCEPTED
+        }.keys.toList()
 
     val displayCreationDate : String = creationDate.date.formatDMY()
     val displayStartDate : String = duration.start.date.formatDMY()

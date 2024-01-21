@@ -1,9 +1,7 @@
 import androidx.compose.animation.animateContentSize
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
-import androidx.compose.foundation.layout.FlowColumn
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -12,7 +10,6 @@ import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
@@ -25,13 +22,10 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
-import kotlinx.datetime.LocalDateTime
-import kotlinx.datetime.Month
 import tn.sesame.designsystem.SesameFontFamilies
 import tn.sesame.designsystem.components.DetailsScreenTemplate
 import tn.sesame.designsystem.components.text.DateText
@@ -42,47 +36,16 @@ import tn.sesame.spm.android.ui.projects.ProjectCollaboratorsDetailItem
 import tn.sesame.spm.android.ui.projects.ProjectCreationDate
 import tn.sesame.spm.android.ui.projects.ProjectKeywords
 import tn.sesame.spm.android.ui.projects.ProjectSupervisorDetailItem
-import tn.sesame.spm.domain.entities.ProjectType
 import tn.sesame.spm.domain.entities.SesameProject
-import tn.sesame.spm.domain.entities.SesameProjectCollaborator
-import tn.sesame.spm.domain.entities.SesameProjectJoinRequestState
-import tn.sesame.spm.domain.entities.SesameProjectSupervisor
-import tn.sesame.spm.domain.entities.SesameUserSex
+import tn.sesame.spm.domain.entities.SesameProjectMember
+import tn.sesame.spm.domain.entities.SesameUser
 
 
-@Preview
 @Composable
 fun ProjectDetailsScreen(
     modifier: Modifier = Modifier,
-    project : SesameProject =
-        SesameProject(
-        "idp",
-        ProjectType.PFE,
-        "lorepsum ".repeat(20),
-            SesameProjectSupervisor(
-                "",
-                "",
-                "Mariem",
-                "",
-                SesameUserSex.Female
-            ),
-List(5){
-    SesameProjectCollaborator(
-        id = "id$it",
-        email = "email$it@mail.com",
-        fullName = "name$it",
-        photo ="",
-        sex = SesameUserSex.Male,
-        joinStatus = SesameProjectJoinRequestState.ACCEPTED
-    )
-},
-        5,
-        LocalDateTime(dayOfMonth = 1, month = Month.MARCH, year = 2024, hour = 23, minute = 23)..LocalDateTime(dayOfMonth = 1, month = Month.SEPTEMBER, year = 2024, hour = 23, minute = 23),
-        LocalDateTime(dayOfMonth = 23, month = Month.FEBRUARY, year = 2024, hour = 8, minute = 23),
-        LocalDateTime(dayOfMonth = 23, month = Month.DECEMBER, year = 2024, hour = 8, minute = 23),
-        listOf("Bigdata","analytics","hadoop"),
-        listOf("hadoop","kafka","cassandra","rabbitmq","nodejs","postgresSql","AWS")
-    )
+    project : SesameProject,
+    onShowMember : (member : SesameUser)->Unit
 ) {
     DetailsScreenTemplate(
         modifier = modifier,
@@ -148,7 +111,7 @@ List(5){
                },
                sesameSupervisor = project.supervisor,
                onClicked = {
-
+                   onShowMember(project.supervisor)
                }
            )
            ProjectCollaboratorsDetailItem(
@@ -160,8 +123,8 @@ List(5){
                },
               project.maxCollaborators,
               project.joinedCollaborators,
-               onCollaboratorClicked = {
-
+               onCollaboratorClicked = { student->
+                   onShowMember(student)
                }
            )
            Column(

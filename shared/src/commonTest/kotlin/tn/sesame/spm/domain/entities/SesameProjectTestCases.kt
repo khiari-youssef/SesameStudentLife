@@ -14,35 +14,46 @@ import kotlin.test.asserter
 
 class SesameProjectTestCases {
 
-    val projectSuperVisor : SesameProjectSupervisor = SesameProjectSupervisor(
-        "",
-        "",
-        "Supervisor",
-        "",
-        SesameUserSex.Male
+    private val projectSuperVisor : SesameTeacher = SesameTeacher(
+        registrationID = "",
+        firstName = "Supervisor",
+        lastName = "",
+        email = "",
+        sex = SesameUserSex.Male,
+        profilePicture = "",
+        profBackground = "Software design engineer",
+        assignedClasses = listOf(SesameClass("ingta4c","ingt","4","c"))
     )
-    val noProjectCollaborators : List<SesameProjectCollaborator> = listOf()
-    val projectCollaborators : List<SesameProjectCollaborator> = List(5){
-        SesameProjectCollaborator(
-            id = "id$it",
-            email = "email$it@mail.com",
-            fullName = "name$it",
-            photo = "",
-            sex = SesameUserSex.Male,
-            joinStatus = if (it <3) SesameProjectJoinRequestState.ACCEPTED else SesameProjectJoinRequestState.WAITING_APPROVAL
-        )
+    private val noProjectCollaborators : Map<SesameStudent,SesameProjectJoinRequestState> = mapOf()
+    private val projectCollaborators : Map<SesameStudent,SesameProjectJoinRequestState> = buildMap{
+        repeat(5){
+            SesameStudent(
+                registrationID = "id$it",
+                email = "email$it@mail.com",
+                firstName = "firstname$it",
+                lastName = "",
+                profilePicture = "",
+                portfolioId = "",
+                sex = SesameUserSex.Male,
+                sesameClass = SesameClass("ingta4c","ingt","4","c")
+            ) to (if (it <3) SesameProjectJoinRequestState.ACCEPTED else SesameProjectJoinRequestState.WAITING_APPROVAL)
+        }
     }
-    val fullProjectCollaborators : List<SesameProjectCollaborator> = List(5){
-        SesameProjectCollaborator(
-            id = "id$it",
-            email = "email$it@mail.com",
-            fullName = "name$it",
-            photo ="",
-            sex = SesameUserSex.Male,
-            joinStatus = SesameProjectJoinRequestState.ACCEPTED
-        )
+    private val fullProjectCollaborators : Map<SesameStudent,SesameProjectJoinRequestState> = buildMap{
+        repeat(5){
+            SesameStudent(
+                registrationID = "id$it",
+                email = "email$it@mail.com",
+                firstName = "firstname$it",
+                lastName = "",
+                profilePicture = "",
+                portfolioId = "",
+                sex = SesameUserSex.Male,
+                sesameClass = SesameClass("ingta4c","ingt","4","c")
+            ) to  SesameProjectJoinRequestState.ACCEPTED
+        }
     }
-    val sesameProject = SesameProject(
+    private val sesameProject = SesameProject(
         "idp",
         ProjectType.PFE,
         "",

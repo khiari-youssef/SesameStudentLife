@@ -36,8 +36,9 @@ import tn.sesame.spm.domain.entities.SesameUserSex
 
 @Composable
 fun UserProfileDetails(
-    sesameUser : SesameUser,
     modifier: Modifier = Modifier,
+    sesameUser : SesameUser,
+    showSex : Boolean = true,
     onProfileEmailClicked : ((email : String)->Unit)?=null
 ) {
     Column(modifier = modifier){
@@ -69,14 +70,16 @@ fun UserProfileDetails(
                         8.dp,Alignment.Start
                     )
                 ) {
-                    Icon(
-                        imageVector = ImageVector.vectorResource(when (sesameUser.sex) {
-                            SesameUserSex.Female -> R.drawable.ic_sex_female
-                            SesameUserSex.Male -> R.drawable.ic_sex_male
-                        }) ,
-                        contentDescription = "",
-                        tint = MaterialTheme.colorScheme.tertiary
-                    )
+                    if (showSex) {
+                        Icon(
+                            imageVector = ImageVector.vectorResource(when (sesameUser.sex) {
+                                SesameUserSex.Female -> R.drawable.ic_sex_female
+                                SesameUserSex.Male -> R.drawable.ic_sex_male
+                            }) ,
+                            contentDescription = "",
+                            tint = MaterialTheme.colorScheme.tertiary
+                        )
+                    }
                     Text(
                         text = sesameUser.getFullName(),
                         style = TextStyle(
