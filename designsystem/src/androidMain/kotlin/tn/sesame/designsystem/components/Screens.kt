@@ -2,6 +2,7 @@ package tn.sesame.designsystem.components
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.background
 import androidx.compose.foundation.basicMarquee
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -43,12 +44,16 @@ fun NavigationBarScreenTemplate(
 fun DetailsScreenTemplate(
     modifier : Modifier = Modifier,
     title : String,
-    onBackPressed : ()->Unit,
+    onBackPressed : (()->Unit)?=null,
     content :@Composable ()->Unit
 ) {
-    BackHandler(onBack = onBackPressed)
+    onBackPressed?.let { callback->
+        BackHandler(onBack = callback )
+    }
+
     Column(
         modifier = modifier
+            .background(color = MaterialTheme.colorScheme.surfaceVariant)
             .imePadding()
             .systemBarsPadding()
     ){
@@ -57,13 +62,16 @@ fun DetailsScreenTemplate(
                .fillMaxWidth()
        ) {
            val (icon,text) = createRefs()
+           val iconModifier = onBackPressed?.let { callback->
+               Modifier
+                   .clickable(onClick = callback)
+           } ?: Modifier
            Icon(
-               modifier = Modifier
-                   .clickable(onClick = onBackPressed)
+               modifier = iconModifier
                    .constrainAs(icon) {
                        start.linkTo(parent.start, 12.dp)
-                       top.linkTo(parent.top, 8.dp)
-                       bottom.linkTo(parent.bottom, 8.dp)
+                       top.linkTo(parent.top,12.dp)
+                       bottom.linkTo(parent.bottom,12.dp)
                    }
                    .size(24.dp),
                imageVector = ImageVector.vectorResource(id = R.drawable.ic_back),
@@ -75,14 +83,14 @@ fun DetailsScreenTemplate(
                    .basicMarquee()
                    .constrainAs(text){
                    start.linkTo(parent.start,48.dp)
-                   top.linkTo(parent.top,8.dp)
-                   bottom.linkTo(parent.bottom,8.dp)
+                   top.linkTo(parent.top,12.dp)
+                   bottom.linkTo(parent.bottom,12.dp)
                    end.linkTo(parent.end,48.dp)
                },
                text = title,
                style = TextStyle(
                        fontSize = 18.sp,
-                       fontFamily = FontFamily(Font(R.font.roboto_regular)),
+                       fontFamily = FontFamily(Font(R.font.roboto_medium)),
                        fontWeight = FontWeight(500),
                        color = MaterialTheme.colorScheme.secondary,
                        textAlign = TextAlign.Center,

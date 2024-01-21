@@ -1,6 +1,6 @@
 package tn.sesame.designsystem.components.textfields
 
-import PlaceholderText
+
 import androidx.compose.foundation.clickable
 import androidx.compose.material.Icon
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -13,6 +13,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.sp
 import tn.sesame.designsystem.R
+import tn.sesame.designsystem.components.text.PlaceholderText
 
 
 @OptIn(ExperimentalMaterial3Api::class)

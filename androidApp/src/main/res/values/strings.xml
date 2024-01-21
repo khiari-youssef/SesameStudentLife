@@ -38,6 +38,14 @@
     <string name="project_button_quit">Quit</string>
     <string name="projects_search">Search projects</string>
     <string name="project_details_title_graduation_internship">Graduation internship project</string>
+    <string name="project_details_no_description">No description available !</string>
+    <string name="project_start_date">Start date</string>
+    <string name="project_end_date">End date</string>
+    <string name="project_presentation_date">Presentation date</string>
+    <string name="project_date_unavailable">Date unavailable !</string>
+    <string name="project_date_to_be_assigned">A date will be assigned later !</string>
+    <string name="project_tech_stack_title">Technologies &amp; Tools</string>
+    <string name="project_tech_stack_placeholder">No technologies specified !</string>
 
     <!-- Profile strings-->
 

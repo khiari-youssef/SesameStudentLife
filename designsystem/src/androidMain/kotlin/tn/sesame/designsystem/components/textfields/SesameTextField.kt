@@ -20,6 +20,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
 import tn.sesame.designsystem.LightGreyBlue
 import tn.sesame.designsystem.SesameFontFamilies
+import tn.sesame.designsystem.components.text.PlaceholderText
 import tn.sesame.designsystem.onBackgroundShadedDarkMode
 import tn.sesame.designsystem.onBackgroundShadedLightMode
 

@@ -2,15 +2,18 @@ package tn.sesame.spm.android.ui.projects
 
 import SesameButton
 import SesameButtonVariants
+import SesameCircleImageL
 import SesameCircleImageS
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.basicMarquee
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentSize
@@ -52,7 +55,8 @@ import tn.sesame.spm.domain.entities.SesameUserSex
 fun ProjectKeywords(
  modifier: Modifier = Modifier,
  keywords : List<String> ,
- fontSize : TextUnit = 10.sp
+ fontSize : TextUnit = 10.sp,
+ textAlign: TextAlign = TextAlign.Start
 ) {
     Text(
         modifier =modifier.basicMarquee(),
@@ -64,6 +68,7 @@ fun ProjectKeywords(
             fontFamily = SesameFontFamilies.MainRegularFontFamily,
             fontWeight = FontWeight(400),
             color = if (isSystemInDarkTheme()) Color(0xFFCACACA) else Color(0xFF696969),
+            textAlign =textAlign
         )
     )
 }
@@ -74,7 +79,8 @@ fun ProjectCreationDate(
  modifier: Modifier = Modifier,
  date : String,
  time : String,
- fontSize : TextUnit = 10.sp
+ fontSize : TextUnit = 10.sp,
+ textAlign : TextAlign = TextAlign.Center
 ) {
     Text(
         modifier = modifier,
@@ -84,11 +90,116 @@ fun ProjectCreationDate(
             fontFamily = SesameFontFamilies.MainRegularFontFamily,
             fontWeight = FontWeight(400),
             color = if (isSystemInDarkTheme()) Color(0xFFCACACA) else Color(0xFF696969),
+            textAlign = textAlign
         )
     )
 }
 
 
+@Composable
+fun ProjectHumanResourceDetailItem(
+    modifier: Modifier = Modifier,
+    sesameSupervisor : SesameProjectSupervisor
+) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .wrapContentHeight(),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(
+            8.dp,Alignment.Start
+        )
+    ) {
+        val placeholderRes = if (sesameSupervisor.sex == SesameUserSex.Male) {
+            tn.sesame.designsystem.R.drawable.ic_profile_placeholder_male
+        } else tn.sesame.designsystem.R.drawable.ic_profile_placeholder_female
+        SesameCircleImageL(
+            uri = sesameSupervisor.photo,
+            placeholderRes = placeholderRes ,
+            errorRes = placeholderRes
+        )
+        Text(
+            text = sesameSupervisor.fullName,
+            style = TextStyle(
+                fontSize = 14.sp,
+                fontFamily = SesameFontFamilies.MainMediumFontFamily,
+                fontWeight = FontWeight(500),
+                color = MaterialTheme.colorScheme.onBackground,
+                textAlign = TextAlign.Start
+            )
+        )
+    }
+}
+
+@Composable
+fun ProjectSupervisorDetailItem(
+    modifier: Modifier = Modifier,
+    sesameSupervisor: SesameProjectSupervisor?,
+    onClicked : ()->Unit
+) {
+    Column(
+        modifier = modifier,
+        horizontalAlignment = Alignment.Start,
+        verticalArrangement = Arrangement.spacedBy(
+            8.dp,Alignment.CenterVertically
+        )
+    ) {
+        Text(
+            modifier = Modifier
+                .fillMaxWidth()
+                .wrapContentHeight(),
+            text = "${stringResource(id = R.string.project_supervisor)} :",
+            style = TextStyle(
+                fontSize = 16.sp,
+                fontFamily = SesameFontFamilies.MainMediumFontFamily,
+                fontWeight = FontWeight(500),
+                color = MaterialTheme.colorScheme.secondary,
+                textAlign = TextAlign.Start
+            )
+        )
+        sesameSupervisor?.fullName?.takeUnless { it.isBlank() }?.run {
+            Row(
+                modifier = Modifier
+                    .clickable(onClick = onClicked)
+                    .fillMaxWidth()
+                    .wrapContentHeight(),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(
+                    8.dp,Alignment.Start
+                )
+            ) {
+                val placeholderRes = if (sesameSupervisor.sex == SesameUserSex.Male) {
+                    tn.sesame.designsystem.R.drawable.ic_profile_placeholder_male
+                } else tn.sesame.designsystem.R.drawable.ic_profile_placeholder_female
+                SesameCircleImageL(
+                    uri = sesameSupervisor.photo,
+                    placeholderRes = placeholderRes ,
+                    errorRes = placeholderRes
+                )
+                Text(
+                    text = this@run,
+                    style = TextStyle(
+                        fontSize = 14.sp,
+                        fontFamily = SesameFontFamilies.MainMediumFontFamily,
+                        fontWeight = FontWeight(500),
+                        color = MaterialTheme.colorScheme.onBackground,
+                    )
+                )
+            }
+        } ?: run {
+            Text(
+                text = stringResource(id = R.string.project_supervisor_unassigned),
+                style = TextStyle(
+                    fontSize = 10.sp,
+                    fontFamily = SesameFontFamilies.MainMediumFontFamily,
+                    fontWeight = FontWeight(500),
+                    color = if (isSystemInDarkTheme()) onBackgroundShadedDarkMode else onBackgroundShadedLightMode,
+                )
+            )
+        }
+    }
+
+}
 @Composable
 fun ProjectSupervisorListItem(
     modifier: Modifier = Modifier,
@@ -151,6 +262,90 @@ fun ProjectSupervisorListItem(
     }
 }
 
+@Composable
+fun ProjectCollaboratorsDetailItem(
+    modifier: Modifier = Modifier,
+    maxCollaborators : Int,
+    collaborators : List<SesameProjectCollaborator>?,
+    onCollaboratorClicked : (collaborator : SesameProjectCollaborator)->Unit
+) {
+    Column(
+        modifier = modifier,
+        horizontalAlignment = Alignment.Start,
+        verticalArrangement = Arrangement.spacedBy(
+            8.dp,Alignment.CenterVertically
+        )
+    ) {
+        Text(
+            modifier = Modifier
+                .fillMaxWidth()
+                .wrapContentHeight(),
+            text = buildAnnotatedString {
+                this.append("${stringResource(id = R.string.project_collaborators)} : ")
+                withStyle(SpanStyle(color = if (isSystemInDarkTheme()) onBackgroundShadedDarkMode else onBackgroundShadedLightMode )){
+                    append("(${collaborators?.size?.coerceIn(0,maxCollaborators)}/$maxCollaborators)")
+                }
+            },
+            style = TextStyle(
+                fontSize = 16.sp,
+                fontFamily = SesameFontFamilies.MainMediumFontFamily,
+                fontWeight = FontWeight(500),
+                color = MaterialTheme.colorScheme.secondary,
+                textAlign = TextAlign.Start
+            )
+        )
+        collaborators?.takeUnless { it.isEmpty() }?.run {
+            forEach { collaborator->
+                Row(
+                    modifier = Modifier
+                        .clickable {
+                            onCollaboratorClicked(collaborator)
+                        }
+                        .fillMaxWidth()
+                        .wrapContentHeight(),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(
+                        8.dp,Alignment.Start
+                    )
+                ) {
+                    val placeholderRes = if (collaborator.sex == SesameUserSex.Male) {
+                        tn.sesame.designsystem.R.drawable.ic_profile_placeholder_male
+                    } else tn.sesame.designsystem.R.drawable.ic_profile_placeholder_female
+                    SesameCircleImageL(
+                        uri = collaborator.photo,
+                        placeholderRes = placeholderRes,
+                        errorRes = placeholderRes
+                    )
+                    Text(
+                        text = collaborator.fullName,
+                        style = TextStyle(
+                            fontSize = 14.sp,
+                            fontFamily = SesameFontFamilies.MainMediumFontFamily,
+                            fontWeight = FontWeight(500),
+                            color = MaterialTheme.colorScheme.onBackground,
+                            textAlign = TextAlign.Start
+                        )
+                    )
+                }
+            }
+
+        } ?: run {
+            Text(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .wrapContentHeight(),
+                text = stringResource(id = R.string.project_no_collaborators),
+                style = TextStyle(
+                    fontSize = 10.sp,
+                    fontFamily = SesameFontFamilies.MainMediumFontFamily,
+                    fontWeight = FontWeight(500),
+                    color = if (isSystemInDarkTheme()) onBackgroundShadedDarkMode else onBackgroundShadedLightMode,
+                    textAlign = TextAlign.Center
+                )
+            )
+        }
+    }
+}
 @Composable
 fun ProjectCollaboratorsPreviewListItem(
     modifier: Modifier = Modifier,
