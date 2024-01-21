@@ -101,7 +101,7 @@ fun ColumnScope.ProjectsList(
     modifier: Modifier = Modifier,
     projectList : ProjectList,
     onViewDetails : (sesameProjectID: String)->Unit,
-    onJoinRequest: (projectID : String)->Unit
+    onJoinRequest: ((projectID : String)->Unit)?=null
 ) {
     val listState = rememberLazyListState()
     LazyColumn(
@@ -128,7 +128,9 @@ fun ColumnScope.ProjectsList(
                       sesameProject = project,
                       myID = "youssef-id",
                       onJoinRequest = {
-                        onJoinRequest(project.id)
+                        onJoinRequest?.let {cb->
+                            cb(project.id)
+                      }
                       },
                       onViewDetails = {
                          onViewDetails(project.id)

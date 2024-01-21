@@ -105,11 +105,13 @@ fun refreshProjects(userID : String?=null,keywordsFilter : String?=null) {
     }
     viewModelScope.launch {
         delay(1000)
-        val filteredProjects = keywordsFilter?.takeIf { it.isNotBlank() }?.let { keyword->
+        val filteredProjects = if (userID.isNullOrBlank()) {
+            keywordsFilter?.takeIf { it.isNotBlank() }?.let { keyword->
                 allProjects.filter {
                     it.description.contains(keyword)
                 }
             } ?: allProjects
+        } else listOf()
         currentProjectsMutableState.update {
             SesameProjectsState.Success(filteredProjects)
         }

@@ -3,6 +3,7 @@ import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -26,6 +27,8 @@ import tn.sesame.spm.android.ui.login.LoginScreen
 import tn.sesame.spm.android.ui.login.LoginState
 import tn.sesame.spm.android.ui.login.LoginUIStateHolder
 import tn.sesame.spm.android.ui.projects.ProjectsViewModel
+import tn.sesame.spm.android.ui.projects.SesameProjectsState
+import tn.sesame.spm.android.ui.projects.SesameProjectsStateHolder
 import tn.sesame.spm.domain.entities.SesameProjectMember
 import tn.sesame.spm.domain.entities.SesameUser
 
@@ -147,6 +150,37 @@ fun Activity.MainNavigation(
                         )
                     }
                 }
+            }
+            composable(
+                route = "${NavigationRoutingData.MyProjects}/{userID}",
+                arguments = listOf(navArgument("userID") {
+                    type = NavType.StringType
+                })
+            ) { backStackEntry->
+                val viewModel : ProjectsViewModel = getViewModel()
+                val uiState = SesameProjectsStateHolder.rememberSesameProjectsState(
+                    currentSearchQuery = rememberSaveable {
+                        mutableStateOf("")
+                    },
+                    currentProjects = viewModel.currentProjectsState.collectAsStateWithLifecycle(
+                        initialValue = SesameProjectsState.Loading
+                    )
+                )
+                val userID = backStackEntry.arguments?.getString("userID")
+                LaunchedEffect(key1 = uiState.currentSearchQuery.value, block = {
+                    viewModel.refreshProjects(userID = userID,keywordsFilter = uiState.currentSearchQuery.value)
+                } )
+                MyProjectsScreen(
+                   modifier = Modifier
+                       .fillMaxSize(),
+                    uiState = uiState ,
+                    onSearchQueryChanged = { newQuery->
+
+                    },
+                    onViewDetails = { projectID->
+
+                    }
+                )
             }
         }
     )

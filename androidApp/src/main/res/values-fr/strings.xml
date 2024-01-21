@@ -43,6 +43,7 @@
     <string name="project_date_to_be_assigned">Une date sera affectée plus tard !</string>
     <string name="project_tech_stack_title">Technologies &amp; Outils</string>
     <string name="project_tech_stack_placeholder">Technologies non specifiés !</string>
+    <string name="project_title_myprojects">Mes projets</string>
 
 
     <!-- Profile strings-->

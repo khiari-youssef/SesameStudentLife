@@ -4,6 +4,7 @@ data object NavigationRoutingData {
     const val ExitAppRoute = "exit_app"
     const val Login = "login_screen"
     const val ProjectDetails = "project_details_screen"
+    const val MyProjects = "my_projects_screen"
     data object Home{
           val ROOT = toString()
         const val Calendar = "calendar_screen"

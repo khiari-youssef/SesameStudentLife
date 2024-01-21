@@ -46,6 +46,7 @@
     <string name="project_date_to_be_assigned">A date will be assigned later !</string>
     <string name="project_tech_stack_title">Technologies &amp; Tools</string>
     <string name="project_tech_stack_placeholder">No technologies specified !</string>
+    <string name="project_title_myprojects">My projects</string>
 
     <!-- Profile strings-->
 

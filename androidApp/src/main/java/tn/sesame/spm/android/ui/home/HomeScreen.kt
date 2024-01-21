@@ -29,9 +29,11 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.withCreated
 import androidx.navigation.NavOptions
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import org.koin.androidx.compose.getViewModel
 import tn.sesame.designsystem.components.NavigationBarScreenTemplate
 import tn.sesame.designsystem.components.bars.SesameBottomNavigationBar
@@ -123,7 +125,9 @@ fun HomeScreen(
                         }
                     )
                 }
-                composable(NavigationRoutingData.Home.Projects) {
+                composable(
+                    route = NavigationRoutingData.Home.Projects
+                ) {
                     val viewModel : ProjectsViewModel = getViewModel()
 
                     NavigationBarScreenTemplate(
@@ -222,7 +226,7 @@ fun HomeScreen(
                             modifier = modifier
                                 .fillMaxSize(),
                             onMenuItemClicked = {
-
+                              onHomeExit("${NavigationRoutingData.MyProjects}/1a2dhsd5h5fhsf2s2")
                             },
                             onLogOutClicked = {
                                 displayBioAth.value = true
