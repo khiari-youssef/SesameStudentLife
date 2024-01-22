@@ -1,6 +1,13 @@
 package tn.sesame.designsystem.components
 
 import androidx.activity.compose.BackHandler
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.Crossfade
+import androidx.compose.animation.core.spring
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.slideIn
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.basicMarquee
@@ -10,6 +17,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.systemBarsPadding
+import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -44,73 +53,74 @@ fun NavigationBarScreenTemplate(
 fun DetailsScreenTemplate(
     modifier : Modifier = Modifier,
     title : String,
+    isTitleBarVisible : Boolean = true,
     onBackPressed : (()->Unit)?=null,
     content :@Composable ()->Unit
 ) {
     onBackPressed?.let { callback->
         BackHandler(onBack = callback )
     }
+    Crossfade(
+        modifier = modifier,
+        targetState = isTitleBarVisible,
+        label = "DetailsScreenTitleBarAnimation"
+    ) {isVisible->
+        if (isVisible){
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .wrapContentHeight()
+                    .background(color = MaterialTheme.colorScheme.surfaceVariant)
+                    .imePadding()
+                    .systemBarsPadding()
+            ){
+                ConstraintLayout(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                ) {
+                    val (icon,text) = createRefs()
+                    val iconModifier = onBackPressed?.let { callback->
+                        Modifier
+                            .clickable(onClick = callback)
+                    } ?: Modifier
+                    Icon(
+                        modifier = iconModifier
+                            .constrainAs(icon) {
+                                start.linkTo(parent.start, 12.dp)
+                                top.linkTo(parent.top,12.dp)
+                                bottom.linkTo(parent.bottom,12.dp)
+                            }
+                            .size(24.dp),
+                        imageVector = ImageVector.vectorResource(id = R.drawable.ic_back),
+                        contentDescription = "",
+                        tint = MaterialTheme.colorScheme.primary
+                    )
+                    Text(
+                        modifier = Modifier
+                            .basicMarquee()
+                            .constrainAs(text){
+                                start.linkTo(parent.start,48.dp)
+                                top.linkTo(parent.top,12.dp)
+                                bottom.linkTo(parent.bottom,12.dp)
+                                end.linkTo(parent.end,48.dp)
+                            },
+                        text = title,
+                        style = TextStyle(
+                            fontSize = 18.sp,
+                            fontFamily = FontFamily(Font(R.font.roboto_medium)),
+                            fontWeight = FontWeight(500),
+                            color = MaterialTheme.colorScheme.secondary,
+                            textAlign = TextAlign.Center,
+                        )
 
-    Column(
-        modifier = modifier
-            .background(color = MaterialTheme.colorScheme.surfaceVariant)
-            .imePadding()
-            .systemBarsPadding()
-    ){
-       ConstraintLayout(
-           modifier = Modifier
-               .fillMaxWidth()
-       ) {
-           val (icon,text) = createRefs()
-           val iconModifier = onBackPressed?.let { callback->
-               Modifier
-                   .clickable(onClick = callback)
-           } ?: Modifier
-           Icon(
-               modifier = iconModifier
-                   .constrainAs(icon) {
-                       start.linkTo(parent.start, 12.dp)
-                       top.linkTo(parent.top,12.dp)
-                       bottom.linkTo(parent.bottom,12.dp)
-                   }
-                   .size(24.dp),
-               imageVector = ImageVector.vectorResource(id = R.drawable.ic_back),
-               contentDescription = "",
-               tint = MaterialTheme.colorScheme.primary
-           )
-           Text(
-               modifier = Modifier
-                   .basicMarquee()
-                   .constrainAs(text){
-                   start.linkTo(parent.start,48.dp)
-                   top.linkTo(parent.top,12.dp)
-                   bottom.linkTo(parent.bottom,12.dp)
-                   end.linkTo(parent.end,48.dp)
-               },
-               text = title,
-               style = TextStyle(
-                       fontSize = 18.sp,
-                       fontFamily = FontFamily(Font(R.font.roboto_medium)),
-                       fontWeight = FontWeight(500),
-                       color = MaterialTheme.colorScheme.secondary,
-                       textAlign = TextAlign.Center,
-                   )
-
-           )
-       }
-       content()
+                    )
+                }
+                content()
+            }
+        } else {
+          content()
+        }
     }
 }
-
-@Composable
-fun PopUpScreenTemplate() {
-
-}
-
-@Composable
-fun FormScreenTemplate() {
-
-}
-
 
 
