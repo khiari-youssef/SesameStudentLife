@@ -38,6 +38,7 @@ import tn.sesame.spm.domain.entities.SesameProjectNotification
 fun NotificationsScreen(
     modifier: Modifier = Modifier,
     screenState : NotificationScreenStateHolder,
+    onProjectReferenceClicked : (String)->Unit,
     onRefreshNotifications: ()->Unit
 ) {
     val notificationsListState = screenState.notificationsListState.value
@@ -86,7 +87,8 @@ fun NotificationsScreen(
                                modifier = Modifier
                                    .height(60.dp)
                                    .fillMaxWidth(),
-                               sesameProjectNotification = null
+                               sesameProjectNotification = null,
+                               onProjectReferenceClicked = {}
                            )
                            Divider(
                                modifier = Modifier
@@ -115,19 +117,22 @@ fun NotificationsScreen(
                            is SesameProjectNotification.SesameProjectRequestNotification->{
                                NotificationRequestItem(
                                    modifier = itemModifier,
-                                   sesameProjectNotification = notification
+                                   sesameProjectNotification = notification,
+                                   onProjectReferenceClicked = onProjectReferenceClicked
                                )
                            }
                            is SesameProjectNotification.SesameProjectInfoNotification->{
                                NotificationItem(
                                    modifier = itemModifier,
-                                   sesameProjectNotification = notification
+                                   sesameProjectNotification = notification,
+                                   onProjectReferenceClicked = onProjectReferenceClicked
                                )
                            }
                            is SesameProjectNotification.SesameProjectResponseNotification->{
                                NotificationResponseItem(
                                    modifier = itemModifier,
-                                   sesameProjectNotification = notification
+                                   sesameProjectNotification = notification,
+                                   onProjectReferenceClicked = onProjectReferenceClicked
                                )
                            }
                        }

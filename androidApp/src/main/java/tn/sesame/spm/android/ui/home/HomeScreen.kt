@@ -181,6 +181,11 @@ fun HomeScreen(
                         NotificationsScreen(
                             modifier = modifier,
                             screenState =  screenState,
+                            onProjectReferenceClicked = {projectRef->
+                                if (projectRef.isNotBlank()){
+                                    onHomeExit("${NavigationRoutingData.ProjectDetails}/$projectRef")
+                                }
+                            },
                             onRefreshNotifications = {
                                 viewModel.getLastNotifications(isRefresh = true)
                             }
