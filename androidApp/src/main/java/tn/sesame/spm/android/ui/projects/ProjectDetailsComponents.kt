@@ -335,7 +335,11 @@ fun ProjectCollaboratorsDetailItem(
 
         } ?: run {
             PlaceholderText(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .padding(
+                        vertical = 12.dp
+                    )
+                    .fillMaxWidth(),
                 text = stringResource(id = R.string.project_no_collaborators),
                 align = TextAlign.Center,
                 fontSize = 14.sp
