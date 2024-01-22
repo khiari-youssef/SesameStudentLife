@@ -41,6 +41,7 @@ import tn.sesame.spm.domain.entities.SesameProjectNotification
 fun NotificationItem(
     modifier: Modifier = Modifier,
     sesameProjectNotification: SesameProjectNotification?,
+    onProjectReferenceClicked : (ref: String)->Unit,
     builder: (@Composable () -> Unit)? = null
 ) {
     Column(
@@ -80,6 +81,7 @@ fun NotificationItem(
                         textDecoration = TextDecoration.Underline
                     )
                 ) {
+                    pushStringAnnotation(tag = "projectRef", annotation = sesameProjectNotification.projectRef)
                     append(sesameProjectNotification.projectRef)
                 }
             } ?: append("")
@@ -108,7 +110,11 @@ fun NotificationItem(
                     color = MaterialTheme.colorScheme.onBackground,
                 ),
                 onClick = { offset ->
-
+                   notificationContent.getStringAnnotations(offset,offset).find {
+                       it.tag == "projectRef"
+                   }?.run {
+                       onProjectReferenceClicked(item)
+                   }
                 }
             )
         }
@@ -121,11 +127,13 @@ fun NotificationItem(
 @Composable
 fun NotificationRequestItem(
     modifier: Modifier = Modifier,
+    onProjectReferenceClicked : (ref : String)->Unit,
     sesameProjectNotification: SesameProjectNotification.SesameProjectRequestNotification?
 ) {
     NotificationItem(
         modifier = modifier,
         sesameProjectNotification = sesameProjectNotification,
+        onProjectReferenceClicked = onProjectReferenceClicked,
         builder = {
             Row(
                 modifier = Modifier
@@ -178,11 +186,13 @@ fun NotificationRequestItem(
 @Composable
 fun NotificationResponseItem(
     modifier: Modifier = Modifier,
+    onProjectReferenceClicked : (ref : String)->Unit,
     sesameProjectNotification: SesameProjectNotification.SesameProjectResponseNotification?
 ) {
     NotificationItem(
         modifier = modifier,
         sesameProjectNotification = sesameProjectNotification,
+        onProjectReferenceClicked = onProjectReferenceClicked,
         builder = sesameProjectNotification?.run {
             {
                 Row(

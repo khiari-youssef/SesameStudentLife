@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentSize
@@ -41,6 +42,7 @@ import androidx.constraintlayout.compose.Dimension
 import tn.sesame.designsystem.ErrorColor
 import tn.sesame.designsystem.SesameFontFamilies
 import tn.sesame.designsystem.SuccessColor
+import tn.sesame.designsystem.components.text.PlaceholderText
 import tn.sesame.designsystem.onBackgroundShadedDarkMode
 import tn.sesame.designsystem.onBackgroundShadedLightMode
 import tn.sesame.spm.android.R
@@ -188,14 +190,15 @@ fun ProjectSupervisorDetailItem(
                 )
             }
         } ?: run {
-            Text(
+            PlaceholderText(
+                modifier = Modifier
+                    .padding(
+                        vertical = 12.dp
+                    )
+                    .fillMaxWidth(),
                 text = stringResource(id = R.string.project_supervisor_unassigned),
-                style = TextStyle(
-                    fontSize = 10.sp,
-                    fontFamily = SesameFontFamilies.MainMediumFontFamily,
-                    fontWeight = FontWeight(500),
-                    color = if (isSystemInDarkTheme()) onBackgroundShadedDarkMode else onBackgroundShadedLightMode,
-                )
+                align = TextAlign.Center,
+                fontSize = 14.sp
             )
         }
     }
@@ -331,18 +334,15 @@ fun ProjectCollaboratorsDetailItem(
             }
 
         } ?: run {
-            Text(
+            PlaceholderText(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .wrapContentHeight(),
+                    .padding(
+                        vertical = 12.dp
+                    )
+                    .fillMaxWidth(),
                 text = stringResource(id = R.string.project_no_collaborators),
-                style = TextStyle(
-                    fontSize = 10.sp,
-                    fontFamily = SesameFontFamilies.MainMediumFontFamily,
-                    fontWeight = FontWeight(500),
-                    color = if (isSystemInDarkTheme()) onBackgroundShadedDarkMode else onBackgroundShadedLightMode,
-                    textAlign = TextAlign.Center
-                )
+                align = TextAlign.Center,
+                fontSize = 14.sp
             )
         }
     }

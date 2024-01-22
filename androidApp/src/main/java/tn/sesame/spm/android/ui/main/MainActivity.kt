@@ -66,13 +66,6 @@ class MainActivity : FragmentActivity() {
                                 rootNavController = rootNavController,
                                 homeDestinations = homeDestinations
                             )
-                               /* val result =  state.biometricLauncherService.authenticationResultState.collectAsStateWithLifecycle()
-                            state.biometricLauncherService.launch(
-                                activity = this@MainActivity,
-                                title = stringResource(id = R.string.biometric_auth_autologin_check),
-                                subtitle = stringResource(id = R.string.biometric_auth_dialog_message)
-                            )
-                                 */
                         }
                         is SupportedDeviceAuthenticationMethods.Unavailable ->{
                             BiometricIdentityNotRegisteredDialog(

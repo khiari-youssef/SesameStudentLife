@@ -39,7 +39,7 @@ import tn.sesame.spm.domain.entities.SesameUser
 fun ProfileScreen(
 modifier: Modifier = Modifier,
 sesameUser: SesameUser,
-onMenuItemClicked : (menuOption : MenuOption)->Unit,
+onMenuItemClicked : (optionIndex : Int)->Unit,
 onLogOutClicked :  ()->Unit
 ) {
     val isLargeScreen  = LocalConfiguration.current.run {
@@ -122,7 +122,7 @@ onLogOutClicked :  ()->Unit
 fun ProfileMenu(
     modifier: Modifier = Modifier,
     menuOptions : MenuOptions,
-    onMenuItemClicked: (menuOption: MenuOption) -> Unit,
+    onMenuItemClicked: (optionIndex : Int) -> Unit,
     onLogOutClicked: () -> Unit
 ) {
     ConstraintLayout(

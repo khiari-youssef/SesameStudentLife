@@ -30,8 +30,8 @@ fun SesameButton(
     modifier: Modifier = Modifier,
     text : String,
     variant : SesameButtonVariants,
-    isEnabled : Boolean,
-    isLoading : Boolean,
+    isEnabled : Boolean = true,
+    isLoading : Boolean = false,
     paddingValues: PaddingValues = PaddingValues(
         horizontal = 20.dp,
         vertical = 12.dp

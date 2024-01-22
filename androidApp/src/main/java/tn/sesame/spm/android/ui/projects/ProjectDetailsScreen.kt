@@ -1,8 +1,15 @@
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateContentSize
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
@@ -15,6 +22,8 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -54,113 +63,148 @@ fun ProjectDetailsScreen(
         onBackPressed = onBackPressed
     ){
         val verticalScrollState = rememberScrollState()
-       ConstraintLayout(
-           modifier = Modifier
-               .verticalScroll(verticalScrollState)
-               .padding(
-                   horizontal = 12.dp,
-                   vertical = 12.dp
-               )
-               .fillMaxWidth()
-               .wrapContentHeight()
-       ) {
-          val (descRef,datesRef,techstackRef,supervisorRef,collaboratorsRef,footerRef) = createRefs()
+        val isJoinButtonVisible = remember {
+            derivedStateOf {
+                verticalScrollState.isScrollInProgress.not()
+            }
+        }
+        Box(
+            modifier = Modifier
+                .fillMaxSize(),
+            contentAlignment = Alignment.TopCenter
+        ){
+            ConstraintLayout(
+                modifier = Modifier
+                    .verticalScroll(verticalScrollState)
+                    .padding(
+                        horizontal = 12.dp,
+                        vertical = 12.dp
+                    )
+                    .fillMaxWidth()
+                    .wrapContentHeight()
+            ) {
+                val (descRef, datesRef, techstackRef, supervisorRef, collaboratorsRef, footerRef, joinButtonRef) = createRefs()
 
-           val descriptionModifier = Modifier
-               .constrainAs(descRef) {
-                   top.linkTo(parent.top)
-                   start.linkTo(parent.start)
-                   end.linkTo(parent.end)
-                   width = Dimension.fillToConstraints
-               }
-               .animateContentSize()
-               .fillMaxWidth()
-               .wrapContentHeight()
-           SesameParagraphText(
-               modifier = descriptionModifier,
-               paragraph = project.description,
-               placeholderRes = R.string.project_details_no_description
-           )
-           ProjectDatesSection(
-               modifier = Modifier
-                   .constrainAs(datesRef) {
-                       top.linkTo(descRef.bottom, 24.dp)
-                       start.linkTo(parent.start)
-                       end.linkTo(parent.end)
-                       width = Dimension.fillToConstraints
-                   },
-               startDate = project.displayStartDate,
-               endDate =  project.displayEndDate,
-               presentationDate = project.displayPresentationDate
-           )
-           TechStackMatrix(
-               modifier = Modifier.constrainAs(techstackRef) {
-                   top.linkTo(datesRef.bottom, 24.dp)
-                   start.linkTo(parent.start)
-                   end.linkTo(parent.end)
-                   width = Dimension.fillToConstraints
-               },
-               title = stringResource(id =R.string.project_tech_stack_title ),
-               techStackList = project.techStack,
-               placeholderResID = R.string.project_tech_stack_placeholder
-           )
-           ProjectSupervisorDetailItem(
-               modifier = Modifier.constrainAs(supervisorRef) {
-                   top.linkTo(techstackRef.bottom, 24.dp)
-                   start.linkTo(parent.start)
-                   end.linkTo(parent.end)
-                   width = Dimension.fillToConstraints
-               },
-               sesameSupervisor = project.supervisor,
-               onClicked = {
-                   onShowMember(project.supervisor)
-               }
-           )
-           ProjectCollaboratorsDetailItem(
-               modifier = Modifier.constrainAs(collaboratorsRef) {
-                   top.linkTo(supervisorRef.bottom, 24.dp)
-                   start.linkTo(parent.start)
-                   end.linkTo(parent.end)
-                   width = Dimension.fillToConstraints
-               },
-              project.maxCollaborators,
-              project.joinedCollaborators,
-               onCollaboratorClicked = { student->
-                   onShowMember(student)
-               }
-           )
-           Column(
-               modifier = Modifier.constrainAs(footerRef){
-                   top.linkTo(collaboratorsRef.bottom, 24.dp)
-                   start.linkTo(parent.start)
-                   end.linkTo(parent.end)
-                   bottom.linkTo(parent.bottom,24.dp)
-                   width = Dimension.fillToConstraints
-               },
-               horizontalAlignment = Alignment.CenterHorizontally,
-               verticalArrangement = Arrangement.spacedBy(
-                   8.dp,Alignment.CenterVertically
-               )
-           ) {
-               ProjectKeywords(
-                   modifier = Modifier
-                       .wrapContentHeight()
-                       .fillMaxWidth(),
-                   keywords = project.keywords,
-                   textAlign = TextAlign.Center,
-                   fontSize = 16.sp
-               )
-               ProjectCreationDate(
-                   modifier = Modifier
-                       .wrapContentHeight()
-                       .fillMaxWidth(),
-                   date = project.displayCreationDate,
-                   time = project.displayCreationTime,
-                   fontSize = 16.sp,
-                   textAlign = TextAlign.Center
-               )
-           }
-       }
+                val descriptionModifier = Modifier
+                    .constrainAs(descRef) {
+                        top.linkTo(parent.top)
+                        start.linkTo(parent.start)
+                        end.linkTo(parent.end)
+                        width = Dimension.fillToConstraints
+                    }
+                    .animateContentSize()
+                    .fillMaxWidth()
+                    .wrapContentHeight()
+                SesameParagraphText(
+                    modifier = descriptionModifier,
+                    paragraph = project.description,
+                    placeholderRes = R.string.project_details_no_description
+                )
+                ProjectDatesSection(
+                    modifier = Modifier
+                        .constrainAs(datesRef) {
+                            top.linkTo(descRef.bottom, 24.dp)
+                            start.linkTo(parent.start)
+                            end.linkTo(parent.end)
+                            width = Dimension.fillToConstraints
+                        },
+                    startDate = project.displayStartDate,
+                    endDate = project.displayEndDate,
+                    presentationDate = project.displayPresentationDate
+                )
+                TechStackMatrix(
+                    modifier = Modifier.constrainAs(techstackRef) {
+                        top.linkTo(datesRef.bottom, 24.dp)
+                        start.linkTo(parent.start)
+                        end.linkTo(parent.end)
+                        width = Dimension.fillToConstraints
+                    },
+                    title = stringResource(id = R.string.project_tech_stack_title),
+                    techStackList = project.techStack,
+                    placeholderResID = R.string.project_tech_stack_placeholder
+                )
+                ProjectSupervisorDetailItem(
+                    modifier = Modifier.constrainAs(supervisorRef) {
+                        top.linkTo(techstackRef.bottom, 24.dp)
+                        start.linkTo(parent.start)
+                        end.linkTo(parent.end)
+                        width = Dimension.fillToConstraints
+                    },
+                    sesameSupervisor = project.supervisor,
+                    onClicked = {
+                        onShowMember(project.supervisor)
+                    }
+                )
+                ProjectCollaboratorsDetailItem(
+                    modifier = Modifier.constrainAs(collaboratorsRef) {
+                        top.linkTo(supervisorRef.bottom, 24.dp)
+                        start.linkTo(parent.start)
+                        end.linkTo(parent.end)
+                        width = Dimension.fillToConstraints
+                    },
+                    project.maxCollaborators,
+                    project.joinedCollaborators,
+                    onCollaboratorClicked = { student ->
+                        onShowMember(student)
+                    }
+                )
+                Column(
+                    modifier = Modifier.constrainAs(footerRef) {
+                        top.linkTo(collaboratorsRef.bottom, 24.dp)
+                        start.linkTo(parent.start)
+                        end.linkTo(parent.end)
+                        bottom.linkTo(parent.bottom, 60.dp)
+                        width = Dimension.fillToConstraints
+                    },
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.spacedBy(
+                        8.dp, Alignment.CenterVertically
+                    )
+                ) {
+                    ProjectKeywords(
+                        modifier = Modifier
+                            .wrapContentHeight()
+                            .fillMaxWidth(),
+                        keywords = project.keywords,
+                        textAlign = TextAlign.Center,
+                        fontSize = 16.sp
+                    )
+                    ProjectCreationDate(
+                        modifier = Modifier
+                            .wrapContentHeight()
+                            .fillMaxWidth(),
+                        date = project.displayCreationDate,
+                        time = project.displayCreationTime,
+                        fontSize = 16.sp,
+                        textAlign = TextAlign.Center
+                    )
+                }
+            }
+            AnimatedVisibility(
+                modifier = Modifier
+                    .padding(
+                        bottom = 16.dp
+                    )
+                    .padding(
+                        horizontal = 24.dp
+                    )
+                    .align(Alignment.BottomCenter)
+                    .fillMaxWidth(),
+                enter = fadeIn(),
+                exit = fadeOut(),
+                visible = isJoinButtonVisible.value
+            ) {
+                SesameButton(
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                    text = stringResource(id = R.string.project_button_join) ,
+                    variant = SesameButtonVariants.PrimaryHard
+                ) {
+
+                }
+            }
+        }
+
     }
 }
 

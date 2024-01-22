@@ -1,6 +1,13 @@
 package tn.sesame.designsystem.components
 
 import androidx.activity.compose.BackHandler
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.Crossfade
+import androidx.compose.animation.core.spring
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.slideIn
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.basicMarquee
@@ -10,6 +17,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.systemBarsPadding
+import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -44,6 +53,7 @@ fun NavigationBarScreenTemplate(
 fun DetailsScreenTemplate(
     modifier : Modifier = Modifier,
     title : String,
+    isTitleBarVisible : Boolean = true,
     onBackPressed : ()->Unit,
     content :@Composable ()->Unit
 ) {
@@ -98,15 +108,7 @@ fun DetailsScreenTemplate(
     }
 }
 
-@Composable
-fun PopUpScreenTemplate() {
 
-}
-
-@Composable
-fun FormScreenTemplate() {
-
-}
 
 
 
