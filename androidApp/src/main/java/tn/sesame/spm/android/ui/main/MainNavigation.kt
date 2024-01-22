@@ -182,6 +182,16 @@ fun Activity.MainNavigation(
                     }
                 )
             }
+            composable(
+                route = NavigationRoutingData.PrivacyPolicyScreen
+            ){
+
+            }
+            composable(
+                route = NavigationRoutingData.Settings
+            ){
+
+            }
         }
     )
 

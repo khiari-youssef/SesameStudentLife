@@ -230,8 +230,21 @@ fun HomeScreen(
                             ),
                             modifier = modifier
                                 .fillMaxSize(),
-                            onMenuItemClicked = {
-                              onHomeExit("${NavigationRoutingData.MyProjects}/1a2dhsd5h5fhsf2s2")
+                            onMenuItemClicked = {optionIndex->
+                              when (optionIndex){
+                                  0-> {
+                                      onHomeExit("${NavigationRoutingData.MyProjects}/1a2dhsd5h5fhsf2s2")
+                                  }
+                                  1-> {
+                                      onHomeExit(NavigationRoutingData.PrivacyPolicyScreen)
+                                  }
+                                  2-> {
+                                      onHomeExit(NavigationRoutingData.Settings)
+                                  }
+                                  else -> {
+
+                                  }
+                              }
                             },
                             onLogOutClicked = {
                                 displayBioAth.value = true

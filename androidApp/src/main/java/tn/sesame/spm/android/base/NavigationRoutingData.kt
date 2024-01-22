@@ -5,6 +5,8 @@ data object NavigationRoutingData {
     const val Login = "login_screen"
     const val ProjectDetails = "project_details_screen"
     const val MyProjects = "my_projects_screen"
+    const val Settings = "settings_screen"
+    const val PrivacyPolicyScreen = "PrivacyPolicyScreen_screen"
     data object Home{
           val ROOT = toString()
         const val Calendar = "calendar_screen"

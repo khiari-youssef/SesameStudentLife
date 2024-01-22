@@ -39,7 +39,7 @@ value class MenuOptions(
 fun OptionsListMenu(
     modifier: Modifier = Modifier,
     menuOptions : MenuOptions,
-    onOptionClicked : (menuOptions : MenuOption)->Unit
+    onOptionClicked : (optionIndex : Int)->Unit
 ) {
     val scrollState = rememberScrollState()
     Column(
@@ -50,14 +50,14 @@ fun OptionsListMenu(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        menuOptions.options.forEach { option->
+        menuOptions.options.forEachIndexed { index, option->
             Row(
                 modifier = Modifier
                     .padding(8.dp)
                     .fillMaxWidth()
                     .wrapContentHeight()
                     .clickable {
-                         onOptionClicked(option)
+                         onOptionClicked(index)
                     },
                 horizontalArrangement = Arrangement.spacedBy(24.dp, Alignment.Start),
                 verticalAlignment = Alignment.CenterVertically,
