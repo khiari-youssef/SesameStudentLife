@@ -1,15 +1,23 @@
+import kotlin.ULong;
+
+CREATE TABLE SesameLogin(
+token Text PRIMARY KEY,
+role_id Text NOT NULL,
+registrationID Text NOT NULL,
+timestamp INTEGER AS ULong DEFAULT CURRENT_TIMESTAMP
+);
+
+
 CREATE TABLE SesameStudent(
 registrationID Text PRIMARY KEY,
 firstName Text NOT NULL,
 lastName Text,
 email Text NOT NULL,
-token Text NOT NULL,
 sex Text NOT NULL,
 profile_picture_uri Text,
 portfolio_id Text,
 job Text,
-class Text,
-roles_id Text
+class Text
 );
 
 CREATE TABLE SesameTeacher(
@@ -17,10 +25,44 @@ registrationID Text PRIMARY KEY,
 firstName Text NOT NULL,
 lastName Text,
 email Text NOT NULL,
-token Text NOT NULL,
 sex Text NOT NULL,
 profile_picture_uri Text,
-assignedClassesID Text,
-roles_id Text
+assignedClassesID Text
 );
 
+
+CREATE TABLE UserRoles(
+roles_id Text PRIMARY KEY,
+project_read INTEGER NOT NULL,
+project_write INTEGER NOT NULL,
+project_join INTEGER NOT NULL,
+project_remove INTEGER NOT NULL,
+project_edit INTEGER NOT NULL,
+project_assign_members INTEGER NOT NULL,
+project_evict_members INTEGER NOT NULL,
+users_manage INTEGER DEFAULT -1,
+users_view_profiles INTEGER DEFAULT 1,
+users_login INTEGER DEFAULT 1
+);
+
+
+insertNewStudent:
+INSERT INTO SesameStudent VALUES(?,?,?,?,?,?,?,?,?);
+
+insertTeacherProfile:
+INSERT INTO SesameTeacher VALUES(?,?,?,?,?,?,?);
+
+insertNewLogin:
+INSERT INTO SesameLogin VALUES(?,?,?,?);
+
+insertNewRole:
+INSERT INTO UserRoles VALUES(?,?,?,?,?,?,?,?,?,?,?);
+
+selecteMostRecentlySavedLogin:
+SELECT * FROM SesameLogin ORDER BY SesameLogin.timestamp LIMIT 1;
+
+selectStudentProfileById:
+SELECT * FROM SesameStudent WHERE SesameStudent.registrationID = ? LIMIT 1;
+
+selectTeacherProfileById:
+SELECT * FROM SesameTeacher WHERE SesameTeacher.registrationID = ? LIMIT 1;

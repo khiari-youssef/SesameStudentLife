@@ -21,16 +21,6 @@ open class SesameProjectMember(
     val sex : SesameUserSex
 )
 
-class SesameProjectStudentMember (
-     id : String,
-     email : String,
-     fullName : String,
-     photo : String,
-    val joinStatus : SesameProjectJoinRequestState,
-     sex : SesameUserSex
-) : SesameProjectMember(id, email, fullName, photo, sex)
-
-
 enum class ProjectType{
     PFE,PDS,PPE
 }
@@ -54,7 +44,7 @@ data class SesameProject(
     val joinedCollaborators : List<SesameStudent> = collaboratorsToJoin
         .filter { (student,requestState)->
             requestState == SesameProjectJoinRequestState.ACCEPTED
-        }.keys.toList()
+        }.keys.toList().take(maxCollaborators)
 
     val displayCreationDate : String = creationDate.date.formatDMY()
     val displayStartDate : String = duration.start.date.formatDMY()

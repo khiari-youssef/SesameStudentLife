@@ -5,11 +5,18 @@ enum class SesameUserSex{
     Male,Female
 }
 
+sealed interface SesameLoginInterface{
 
-data class SesameLogin(
-    val password : String,
-    val email : String
-)
+    data class SesameTokenLogin(
+        val value : String
+    ) : SesameLoginInterface
+
+    data class SesameCredentialsLogin(
+        val password : String,
+        val email : String
+    ) : SesameLoginInterface
+}
+
 
 data class SesameClass(
  val id : String,

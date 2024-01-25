@@ -37,6 +37,8 @@ sealed interface SesameProjectsState{
 
 class ProjectsViewModel : ViewModel() {
 
+
+
     private val allProjects = List(12){
         SesameProject(
             id ="fakeid-$it",

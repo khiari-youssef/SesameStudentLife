@@ -103,6 +103,27 @@ class SesameProjectTestCases {
                 message = "This project's collaborators have reached the max limit !",
             )
     }
+    @Test
+    fun `GIVEN a 5 maximum Collaborators project AND 8 mistakenly accepted collaborators THEN total collaborators should be 5`() {
+        val project = sesameProject
+            .copy(
+                collaboratorsToJoin = fullProjectCollaborators + (SesameStudent(
+                    registrationID = "id2$1",
+                    email = "email2@mail.com",
+                    firstName = "firstname3",
+                    lastName = "",
+                    profilePicture = "",
+                    portfolioId = "",
+                    sex = SesameUserSex.Male,
+                    sesameClass = SesameClass("ingta4c","ingt","4","c")
+                ) to  SesameProjectJoinRequestState.ACCEPTED)
+            )
+        asserter
+            .assertTrue(
+                actual = project.isFullOfCollaborators(),
+                message = "This project's collaborators have reached the max limit !",
+            )
+    }
 
     @Test
     fun `GIVEN a project with a incoming start date THEN the project should not be active`() {

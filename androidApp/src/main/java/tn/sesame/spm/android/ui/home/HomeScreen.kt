@@ -23,17 +23,12 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.lifecycle.withCreated
 import androidx.navigation.NavOptions
-import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import androidx.navigation.navArgument
 import org.koin.androidx.compose.getViewModel
 import tn.sesame.designsystem.components.NavigationBarScreenTemplate
 import tn.sesame.designsystem.components.bars.SesameBottomNavigationBar

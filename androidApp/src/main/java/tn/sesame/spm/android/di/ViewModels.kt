@@ -6,8 +6,10 @@ import tn.sesame.spm.android.ui.login.LoginViewModel
 import tn.sesame.spm.android.ui.notifications.NotificationsViewModel
 import tn.sesame.spm.android.ui.profile.MyProfileViewModel
 import tn.sesame.spm.android.ui.projects.ProjectsViewModel
+import tn.sesame.spm.di.domainModule
 
 val viewModelsModule = module {
+    includes(domainModule)
     viewModel {
         NotificationsViewModel()
     }
@@ -15,7 +17,7 @@ val viewModelsModule = module {
         MyProfileViewModel()
     }
     viewModel {
-        LoginViewModel()
+        LoginViewModel(get())
     }
     viewModel {
         ProjectsViewModel()

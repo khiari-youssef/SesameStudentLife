@@ -29,10 +29,10 @@ import tn.sesame.spm.android.ui.home.HomeScreen
 import tn.sesame.spm.android.ui.login.LoginScreen
 import tn.sesame.spm.android.ui.login.LoginState
 import tn.sesame.spm.android.ui.login.LoginUIStateHolder
+import tn.sesame.spm.android.ui.login.LoginViewModel
 import tn.sesame.spm.android.ui.projects.ProjectsViewModel
 import tn.sesame.spm.android.ui.projects.SesameProjectsState
 import tn.sesame.spm.android.ui.projects.SesameProjectsStateHolder
-import tn.sesame.spm.domain.entities.SesameProjectMember
 import tn.sesame.spm.domain.entities.SesameUser
 
 @Composable
@@ -49,7 +49,8 @@ fun Activity.MainNavigation(
         builder = {
             composable(
                 route = NavigationRoutingData.Login
-            ){_->
+            ){
+                val viewModel : LoginViewModel = getViewModel()
                 val loginUIState = LoginUIStateHolder.rememberLoginUIState(
                     loginEmail = rememberSaveable {
                         mutableStateOf("")

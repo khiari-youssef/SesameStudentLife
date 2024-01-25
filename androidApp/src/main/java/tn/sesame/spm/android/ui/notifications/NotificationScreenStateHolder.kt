@@ -1,11 +1,8 @@
 package tn.sesame.spm.android.ui.notifications
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.IntState
 import androidx.compose.runtime.MutableIntState
 import androidx.compose.runtime.State
-import androidx.compose.runtime.derivedStateOf
-import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 
 class NotificationScreenStateHolder(

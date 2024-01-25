@@ -46,7 +46,6 @@ import tn.sesame.designsystem.components.text.PlaceholderText
 import tn.sesame.designsystem.onBackgroundShadedDarkMode
 import tn.sesame.designsystem.onBackgroundShadedLightMode
 import tn.sesame.spm.android.R
-import tn.sesame.spm.domain.entities.SesameProjectStudentMember
 import tn.sesame.spm.domain.entities.SesameProjectMember
 import tn.sesame.spm.domain.entities.SesameStudent
 import tn.sesame.spm.domain.entities.SesameTeacher
