@@ -55,7 +55,8 @@ kotlin {
             implementation(libs.jetpack.viewmodel.core)
         }
         iosMain.dependencies {
-
+            implementation("co.touchlab:stately-common:2.0.6")
+            implementation(libs.sqldelight.driver.native)
         }
     }
 }
