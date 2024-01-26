@@ -8,6 +8,6 @@ internal val UsersRepositoryTag = named("UsersRepository")
 val repositoriesModule = module {
     includes(dataSourcesModule)
     factory< UsersRepositoryInterface>(UsersRepositoryTag) {
-        UsersRepository(get())
+        UsersRepository(get(),get())
     }
 }

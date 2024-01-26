@@ -1,10 +1,12 @@
 package tn.sesame.spm.data.repositories.users
 
 import tn.sesame.spm.data.dataSources.UsersLocalDAO
+import tn.sesame.spm.data.dataSources.UsersRemoteDAO
 import tn.sesame.spm.domain.entities.SesameUser
 
 internal class UsersRepository(
-    private val usersLocalDAO: UsersLocalDAO
+    private val usersLocalDAO: UsersLocalDAO,
+    private val usersRemoteDAO: UsersRemoteDAO
 ) : UsersRepositoryInterface {
 
     override suspend fun loginWithEmailAndPassword(email : String,password : String) : SesameUser {
