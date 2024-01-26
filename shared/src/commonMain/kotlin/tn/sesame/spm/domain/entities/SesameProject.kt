@@ -42,7 +42,7 @@ data class SesameProject(
     override fun equals(other: Any?): Boolean = other is SesameProject && other.id == id
 
     val joinedCollaborators : List<SesameStudent> = collaboratorsToJoin
-        .filter { (student,requestState)->
+        .filter { (_,requestState)->
             requestState == SesameProjectJoinRequestState.ACCEPTED
         }.keys.toList().take(maxCollaborators)
 
