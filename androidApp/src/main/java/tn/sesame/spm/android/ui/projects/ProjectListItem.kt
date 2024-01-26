@@ -118,7 +118,9 @@ fun ProjectListItem(
                   .fillMaxWidth()
                   .wrapContentHeight(),
               verticalAlignment = Alignment.CenterVertically,
-              horizontalArrangement = Arrangement.Start
+              horizontalArrangement = Arrangement.spacedBy(
+                  8.dp,Alignment.CenterHorizontally
+              )
           ) {
               ProjectSupervisorListItem(
                   modifier = Modifier

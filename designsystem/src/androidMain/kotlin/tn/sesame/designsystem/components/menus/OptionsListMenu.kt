@@ -1,4 +1,8 @@
+package tn.sesame.designsystem.components.menus
+
+
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -20,6 +24,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import tn.sesame.designsystem.LightGreyBlue
 import tn.sesame.designsystem.SesameFontFamilies
 
 data class MenuOption(
@@ -50,6 +55,7 @@ fun OptionsListMenu(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
+        val itemColor = if (isSystemInDarkTheme()) LightGreyBlue else MaterialTheme.colorScheme.secondary
         menuOptions.options.forEachIndexed { index, option->
             Row(
                 modifier = Modifier
@@ -57,7 +63,7 @@ fun OptionsListMenu(
                     .fillMaxWidth()
                     .wrapContentHeight()
                     .clickable {
-                         onOptionClicked(index)
+                        onOptionClicked(index)
                     },
                 horizontalArrangement = Arrangement.spacedBy(24.dp, Alignment.Start),
                 verticalAlignment = Alignment.CenterVertically,
@@ -65,7 +71,7 @@ fun OptionsListMenu(
                 Icon(
                     imageVector = ImageVector.vectorResource(option.iconRes) ,
                     contentDescription = "",
-                    tint = MaterialTheme.colorScheme.secondary
+                    tint = itemColor
                 )
                 Text(
                     text = option.label,
@@ -73,7 +79,7 @@ fun OptionsListMenu(
                         fontSize = 18.sp,
                         fontFamily = SesameFontFamilies.MainMediumFontFamily,
                         fontWeight = FontWeight(500),
-                        color = MaterialTheme.colorScheme.secondary,
+                        color = itemColor,
                     )
                 )
             }

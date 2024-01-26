@@ -12,6 +12,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
 import androidx.compose.ui.Alignment
@@ -56,9 +57,12 @@ Column(
     when(val state = uiState.projectsState.value) {
         is SesameProjectsState.Loading -> {
             LazyColumn(
-                modifier =  Modifier
+                modifier = Modifier
                     .systemBarsPadding()
-                    .padding(8.dp)
+                    .padding(
+                        vertical = 8.dp,
+                        horizontal = 16.dp
+                    )
                     .fillMaxSize(),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.spacedBy(8.dp,Alignment.Top),
@@ -66,12 +70,12 @@ Column(
                     items(
                         10
                     ) {
-                        Box(
-                            modifier = Modifier
-                                .shimmerEffect(true, shape = MaterialTheme.shapes.medium)
-                                .fillMaxWidth()
-                                .height(170.dp)
-                        )
+                            Box(
+                                modifier = Modifier
+                                    .shimmerEffect(true, shape = MaterialTheme.shapes.medium)
+                                    .fillMaxWidth()
+                                    .height(170.dp)
+                            )
                     }
                 })
         }
@@ -82,7 +86,10 @@ Column(
             ProjectsList(
                 modifier = Modifier
                     .systemBarsPadding()
-                    .padding(8.dp)
+                    .padding(
+                        vertical = 8.dp,
+                        horizontal = 16.dp
+                    )
                     .fillMaxSize(),
                 projectList = ProjectList(state.projects),
                 onViewDetails = onViewDetails,
@@ -108,7 +115,7 @@ fun ColumnScope.ProjectsList(
         modifier = modifier,
         state = listState,
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(8.dp,Alignment.Top),
+        verticalArrangement = Arrangement.spacedBy(12.dp,Alignment.Top),
         content = {
             if (projectList.projects.isEmpty()){
                 item(key = "empty"){

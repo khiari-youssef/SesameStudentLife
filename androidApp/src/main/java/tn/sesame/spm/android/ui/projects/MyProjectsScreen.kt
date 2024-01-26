@@ -68,7 +68,7 @@ fun MyProjectsScreen(
                                     modifier = Modifier
                                         .shimmerEffect(true, shape = MaterialTheme.shapes.medium)
                                         .fillMaxWidth()
-                                        .height(170.dp)
+                                        .height(190.dp)
                                 )
                             }
                         })

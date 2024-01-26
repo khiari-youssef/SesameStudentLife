@@ -64,7 +64,7 @@ fun Modifier.shimmerEffect(
             start = Offset(transitionXOffsetState.value.toFloat(),0f),
             end = Offset(transitionXOffsetState.value+layoutSizeState.value.width.toFloat(),layoutSizeState.value.height.toFloat())
         )
-        background(shimmerBrush)
+        background(shimmerBrush,shape = shape)
             .onGloballyPositioned {
                 layoutSizeState.value = it.size
             }
