@@ -143,7 +143,12 @@ fun HomeScreen(
                                 viewModel.refreshProjects(keywordsFilter = uiState.currentSearchQuery.value)
                         } )
                         ProjectsScreen(
-                            modifier = modifier,
+                            modifier = modifier
+                                .padding(
+                                    horizontal = 16.dp
+                                ).padding(
+                                    top = 12.dp
+                                ),
                             uiState = uiState,
                             onSearchQueryChanged = { newQuery->
                                 if (newQuery.trim().lowercase() != uiState.currentSearchQuery.value.trim().lowercase()) {

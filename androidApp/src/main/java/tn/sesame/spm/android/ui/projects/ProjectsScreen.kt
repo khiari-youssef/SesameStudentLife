@@ -49,7 +49,7 @@ Column(
     SesameSearchField(
         modifier = Modifier
             .wrapContentHeight()
-            .fillMaxWidth(0.95f),
+            .fillMaxWidth(),
         query = uiState.currentSearchQuery.value,
         placeholderRes = tn.sesame.spm.android.R.string.projects_search,
         onSearchQueryChanged = onSearchQueryChanged
@@ -60,8 +60,7 @@ Column(
                 modifier = Modifier
                     .systemBarsPadding()
                     .padding(
-                        vertical = 8.dp,
-                        horizontal = 16.dp
+                        vertical = 8.dp
                     )
                     .fillMaxSize(),
                 horizontalAlignment = Alignment.CenterHorizontally,
@@ -87,8 +86,7 @@ Column(
                 modifier = Modifier
                     .systemBarsPadding()
                     .padding(
-                        vertical = 8.dp,
-                        horizontal = 16.dp
+                        vertical = 8.dp
                     )
                     .fillMaxSize(),
                 projectList = ProjectList(state.projects),
