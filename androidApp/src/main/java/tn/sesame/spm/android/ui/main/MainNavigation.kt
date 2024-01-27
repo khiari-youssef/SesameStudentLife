@@ -76,7 +76,8 @@ fun Activity.MainNavigation(
                     loginUIState.loginRequestResult.value = LoginState.Loading
                     fakeScope.launch {
                         delay(1000)
-                        rootNavController.navigate("MainNavigation")
+                        loginUIState.loginRequestResult.value = LoginState.LoginResult.Error(0)
+                       // rootNavController.navigate("MainNavigation")
                     }
 
                 }

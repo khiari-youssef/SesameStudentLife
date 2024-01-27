@@ -11,7 +11,12 @@ val LoginScreenConfigurationPortrait = ConstraintSet {
     val loginButtonRef = createRefFor("loginButton")
     val loginFooterRef = createRefFor("loginFooter")
     val loginAnimation = createRefFor("loginAnim")
-
+    val loginToastRef = createRefFor("toast")
+    constrain(loginToastRef){
+        start.linkTo(parent.start)
+        end.linkTo(parent.end)
+        bottom.linkTo(parent.bottom,24.dp)
+    }
     constrain(loginBrandRef){
         top.linkTo(parent.top,32.dp)
         start.linkTo(parent.start)
@@ -49,7 +54,14 @@ val LoginScreenConfigurationLandscape = ConstraintSet {
     val loginButtonRef = createRefFor("loginButton")
     val loginFooterRef = createRefFor("loginFooter")
     val loginAnimation = createRefFor("loginAnim")
+    val loginToastRef = createRefFor("toast")
     val horizentalGuideline = createGuidelineFromBottom(0.3f)
+
+    constrain(loginToastRef){
+        start.linkTo(parent.start,16.dp)
+        end.linkTo(parent.end,16.dp)
+        bottom.linkTo(parent.bottom,24.dp)
+    }
     constrain(loginBrandRef){
         top.linkTo(parent.top,16.dp)
         start.linkTo(parent.start)
