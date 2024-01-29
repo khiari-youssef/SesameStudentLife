@@ -156,7 +156,7 @@ fun HomeScreen(
                                 }
                             },
                             onViewDetails = {projectID->
-                             onHomeExit("${NavigationRoutingData.ProjectDetails}/$projectID")
+                             onHomeExit("${NavigationRoutingData.ProjectJoinProcedure.ProjectDetailsScreen}/$projectID")
                             },
                             onJoinRequest = {
 
@@ -183,7 +183,7 @@ fun HomeScreen(
                             screenState =  screenState,
                             onProjectReferenceClicked = {projectRef->
                                 if (projectRef.isNotBlank()){
-                                    onHomeExit("${NavigationRoutingData.ProjectDetails}/$projectRef")
+                                    onHomeExit("${NavigationRoutingData.ProjectJoinProcedure.ProjectDetailsScreen}/$projectRef")
                                 }
                             },
                             onRefreshNotifications = {
