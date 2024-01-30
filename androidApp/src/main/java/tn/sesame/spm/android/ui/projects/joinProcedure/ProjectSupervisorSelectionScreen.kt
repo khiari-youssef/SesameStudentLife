@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.MaterialTheme
@@ -25,8 +24,8 @@ import tn.sesame.designsystem.SesameFontFamilies
 import tn.sesame.designsystem.components.DetailsScreenTemplate
 import tn.sesame.designsystem.components.loading.shimmerEffect
 import tn.sesame.spm.android.R
-import tn.sesame.spm.android.ui.projects.SesameProjectActorsListState
-import tn.sesame.spm.android.ui.projects.SesameProjectJoinRequestSupervisorSelectionStateHolder
+import tn.sesame.spm.android.ui.projects.joinProcedure.SesameProjectActorsListState
+import tn.sesame.spm.android.ui.projects.joinProcedure.SesameProjectJoinRequestSupervisorSelectionStateHolder
 import tn.sesame.spm.domain.entities.SesameUserSex
 
 @Composable
@@ -34,6 +33,7 @@ fun ProjectSupervisorSelectionScreen(
     modifier: Modifier = Modifier,
     uiState: SesameProjectJoinRequestSupervisorSelectionStateHolder,
     onBackPressed: () -> Unit,
+    onItemSelectedIndexStateChanged : (selectedIndex : Int)->Unit,
     onNextStepButtonClicked : ()->Unit
 ) {
     DetailsScreenTemplate(
@@ -45,8 +45,9 @@ fun ProjectSupervisorSelectionScreen(
         Box(
             modifier = Modifier
                 .padding(
-                16.dp
-            ).fillMaxSize(),
+                    16.dp
+                )
+                .fillMaxSize(),
             contentAlignment = Alignment.TopCenter
         ) {
             Row(
@@ -108,12 +109,13 @@ fun ProjectSupervisorSelectionScreen(
                                     placeholderResID = if (actor.sex == SesameUserSex.Male) {
                                         tn.sesame.designsystem.R.drawable.ic_profile_placeholder_male
                                     } else tn.sesame.designsystem.R.drawable.ic_profile_placeholder_female,
-                                    isSelected = uiState.selectedSupervisorIndex.value == index
-                                ) { isSelected ->
-                                    if (isSelected) {
-                                        uiState.selectedSupervisorIndex.value = index
+                                    isSelected = uiState.selectedSupervisorIndex.value == index,
+                                    onItemSelectedStateChanged= { isSelected->
+                                        if (isSelected){
+                                            onItemSelectedIndexStateChanged(index)
+                                        }
                                     }
-                                }
+                                )
                             }
                         }
                     }
@@ -123,7 +125,7 @@ fun ProjectSupervisorSelectionScreen(
                 modifier = Modifier
                     .align(Alignment.BottomCenter)
                     .fillMaxWidth(),
-                text = stringResource(id = R.string.next_step) ,
+                text = stringResource(id = tn.sesame.designsystem.R.string.next_step) ,
                 variant = SesameButtonVariants.PrimaryHard,
                 onClick = onNextStepButtonClicked
             )

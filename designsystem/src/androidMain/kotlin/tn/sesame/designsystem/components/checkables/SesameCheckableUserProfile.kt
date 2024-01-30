@@ -68,7 +68,7 @@ fun SesameCheckableUserProfile(
               start.linkTo(profileImgRef.end,16.dp)
               top.linkTo(parent.top)
               bottom.linkTo(parent.bottom)
-              end.linkTo(checkboxRef.end,16.dp)
+              end.linkTo(checkboxRef.start,16.dp)
               width = Dimension.fillToConstraints
           },
           text = fullName,
@@ -84,7 +84,7 @@ fun SesameCheckableUserProfile(
           modifier = Modifier.constrainAs(checkboxRef){
               top.linkTo(parent.top)
               bottom.linkTo(parent.bottom)
-              end.linkTo(parent.end,8.dp)
+              end.linkTo(parent.end,12.dp)
           },
           checked = isSelected,
           onCheckedChange = onItemSelectedStateChanged,

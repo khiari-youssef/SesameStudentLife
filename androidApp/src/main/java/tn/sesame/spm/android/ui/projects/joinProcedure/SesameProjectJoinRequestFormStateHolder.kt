@@ -1,9 +1,8 @@
-package tn.sesame.spm.android.ui.projects
+package tn.sesame.spm.android.ui.projects.joinProcedure
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.Stable
 import androidx.compose.runtime.State
 import androidx.compose.runtime.remember
 import tn.sesame.spm.domain.entities.SesameUser
@@ -42,13 +41,30 @@ data class SesameProjectJoinRequestSupervisorSelectionStateHolder(
     companion object{
         @Composable
         fun rememberSesameProjectJoinRequestFormState(
-             availableSuperVisors : State<SesameProjectActorsListState>,
-             selectedSupervisorIndex : MutableState<Int?>
+            availableSuperVisors : State<SesameProjectActorsListState>,
+            selectedSupervisorIndex : MutableState<Int?>
         ) : SesameProjectJoinRequestSupervisorSelectionStateHolder = remember(
             availableSuperVisors,selectedSupervisorIndex
         ){
             SesameProjectJoinRequestSupervisorSelectionStateHolder(
                 availableSuperVisors, selectedSupervisorIndex
+            )
+        }
+    }
+}
+
+data class SesameProjectJoinRequestCollaboratorsSelectionStateHolder(
+    val availableSuperVisors : State<SesameProjectActorsListState>
+) {
+    companion object{
+        @Composable
+        fun rememberSesameProjectJoinRequestFormState(
+            availableSuperVisors : State<SesameProjectActorsListState>
+        ) : SesameProjectJoinRequestCollaboratorsSelectionStateHolder = remember(
+            availableSuperVisors
+        ){
+            SesameProjectJoinRequestCollaboratorsSelectionStateHolder(
+                availableSuperVisors
             )
         }
     }

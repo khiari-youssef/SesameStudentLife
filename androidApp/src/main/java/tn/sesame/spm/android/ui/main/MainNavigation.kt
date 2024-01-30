@@ -32,11 +32,11 @@ import tn.sesame.spm.android.ui.login.LoginState
 import tn.sesame.spm.android.ui.login.LoginUIStateHolder
 import tn.sesame.spm.android.ui.login.LoginViewModel
 import tn.sesame.spm.android.ui.projects.ProjectsViewModel
-import tn.sesame.spm.android.ui.projects.SesameProjectActors
-import tn.sesame.spm.android.ui.projects.SesameProjectActorsListState
-import tn.sesame.spm.android.ui.projects.SesameProjectJoinRequestSupervisorSelectionStateHolder
+import tn.sesame.spm.android.ui.projects.joinProcedure.SesameProjectActorsListState
+import tn.sesame.spm.android.ui.projects.joinProcedure.SesameProjectJoinRequestSupervisorSelectionStateHolder
 import tn.sesame.spm.android.ui.projects.SesameProjectsState
 import tn.sesame.spm.android.ui.projects.SesameProjectsStateHolder
+import tn.sesame.spm.android.ui.projects.joinProcedure.SesameProjectJoinRequestCollaboratorsSelectionStateHolder
 import tn.sesame.spm.domain.entities.SesameUser
 
 @Composable
@@ -245,6 +245,9 @@ fun Activity.MainNavigation(
                                  .fillMaxSize(),
                              uiState = uiState,
                              onBackPressed = goBackToPreviousScreenAction,
+                             onItemSelectedIndexStateChanged = {index ->
+                                 uiState.selectedSupervisorIndex.value = index
+                             },
                              onNextStepButtonClicked = {
                                  rootNavController.navigate(
                                      route = TeammatesSelectionScreen
@@ -253,11 +256,29 @@ fun Activity.MainNavigation(
                          )
                     }
                     composable(TeammatesSelectionScreen){
+                        val viewModel : ProjectsViewModel = getViewModel()
+                        val uiState = SesameProjectJoinRequestCollaboratorsSelectionStateHolder
+                            .rememberSesameProjectJoinRequestFormState(
+                                availableSuperVisors = viewModel.getAvailableCollaborators().collectAsStateWithLifecycle(
+                                    initialValue = SesameProjectActorsListState.Loading
+                                )
+                            )
                         ProjectTeammatesSelectionScreen(
                             modifier = Modifier
                                 .systemBarsPadding()
                                 .fillMaxSize(),
-                            onBackPressed = goBackToPreviousScreenAction
+                            onBackPressed = goBackToPreviousScreenAction,
+                            uiState = uiState ,
+                            onNextStepButtonClicked = {
+                                rootNavController.navigate(
+                                    route = TechnologiesSelectionScreen
+                                )
+                            },
+                            onItemSelectedStateChanged = {isSelected ->
+                                if (isSelected) {
+
+                                }
+                            }
                         )
                     }
                     composable(TechnologiesSelectionScreen){
