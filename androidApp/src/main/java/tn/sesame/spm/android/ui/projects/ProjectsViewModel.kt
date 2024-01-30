@@ -162,5 +162,22 @@ fun getProjectById(project : String) : Flow<SesameProject?> = flow {
 }
 
 
+fun getAvailableCollaborators() : Flow<SesameProjectActorsListState> = flow {
+   val students = List(5){
+        SesameStudent(
+            registrationID = "id$it",
+            email = "email$it@mail.com",
+            firstName = "firstname$it",
+            lastName = "",
+            profilePicture = "",
+            portfolioId = "",
+            sex = SesameUserSex.Male,
+            sesameClass = SesameClass("ingta4c","ingt","4","c")
+        ) to (if (it <3) SesameProjectJoinRequestState.ACCEPTED else SesameProjectJoinRequestState.WAITING_APPROVAL)
+    }
+    emit(SesameProjectActorsListState.Success(SesameProjectActors(students.map { it.first })))
+}
+
+
 
 }

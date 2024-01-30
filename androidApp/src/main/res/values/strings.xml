@@ -47,6 +47,7 @@
     <string name="project_tech_stack_title">Technologies &amp; Tools</string>
     <string name="project_tech_stack_placeholder">No technologies specified !</string>
     <string name="project_title_myprojects">My projects</string>
+    <string name="project_form_choose_your_supervisor">Select your supervisor :</string>
 
     <!-- Profile strings-->
 

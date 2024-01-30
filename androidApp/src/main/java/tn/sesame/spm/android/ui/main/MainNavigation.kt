@@ -32,6 +32,9 @@ import tn.sesame.spm.android.ui.login.LoginState
 import tn.sesame.spm.android.ui.login.LoginUIStateHolder
 import tn.sesame.spm.android.ui.login.LoginViewModel
 import tn.sesame.spm.android.ui.projects.ProjectsViewModel
+import tn.sesame.spm.android.ui.projects.SesameProjectActors
+import tn.sesame.spm.android.ui.projects.SesameProjectActorsListState
+import tn.sesame.spm.android.ui.projects.SesameProjectJoinRequestSupervisorSelectionStateHolder
 import tn.sesame.spm.android.ui.projects.SesameProjectsState
 import tn.sesame.spm.android.ui.projects.SesameProjectsStateHolder
 import tn.sesame.spm.domain.entities.SesameUser
@@ -226,27 +229,58 @@ fun Activity.MainNavigation(
                         } ?: NavigationNotFoundModal()
                     }
                     composable(SupervisorSelectionScreen){
+                        val viewModel : ProjectsViewModel = getViewModel()
+                        val uiState = SesameProjectJoinRequestSupervisorSelectionStateHolder
+                            .rememberSesameProjectJoinRequestFormState(
+                                availableSuperVisors = viewModel.getAvailableCollaborators().collectAsStateWithLifecycle(
+                                    initialValue = SesameProjectActorsListState.Loading
+                                ),
+                                selectedSupervisorIndex = remember {
+                                    mutableStateOf(null)
+                                }
+                            )
                          ProjectSupervisorSelectionScreen(
-                             onBackPressed = goBackToPreviousScreenAction
+                             modifier = Modifier
+                                 .systemBarsPadding()
+                                 .fillMaxSize(),
+                             uiState = uiState,
+                             onBackPressed = goBackToPreviousScreenAction,
+                             onNextStepButtonClicked = {
+                                 rootNavController.navigate(
+                                     route = TeammatesSelectionScreen
+                                 )
+                             }
                          )
                     }
                     composable(TeammatesSelectionScreen){
                         ProjectTeammatesSelectionScreen(
+                            modifier = Modifier
+                                .systemBarsPadding()
+                                .fillMaxSize(),
                             onBackPressed = goBackToPreviousScreenAction
                         )
                     }
                     composable(TechnologiesSelectionScreen){
                         ProjectTechnologiesSelectionScreen(
+                            modifier = Modifier
+                                .systemBarsPadding()
+                                .fillMaxSize(),
                             onBackPressed = goBackToPreviousScreenAction
                         )
                     }
                     composable(ProjectDocumentsDepositScreen){
                         ProjectDocumentsDepositScreen(
+                            modifier = Modifier
+                                .systemBarsPadding()
+                                .fillMaxSize(),
                             onBackPressed = goBackToPreviousScreenAction
                         )
                     }
                     composable(JoinRequestResultScreen){
                         ProjectJoinProcedureResultScreen(
+                            modifier = Modifier
+                                .systemBarsPadding()
+                                .fillMaxSize(),
                             onBackPressed = {
 
                             }
