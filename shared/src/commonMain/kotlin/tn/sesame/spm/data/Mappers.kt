@@ -71,7 +71,7 @@ internal fun UserRolesDTO.toDomainModel() : SesameRole? = runCatching {
                 id = it.id,
                 description = it.description ,
                 state = when (it.state) {
-                    "granted" -> SesamePermissionState.GRANTED,
+                    "granted" -> SesamePermissionState.GRANTED
                     "granted_with_auth" -> SesamePermissionState.REQ_AUTH
                     else -> SesamePermissionState.DENIED
                 }
