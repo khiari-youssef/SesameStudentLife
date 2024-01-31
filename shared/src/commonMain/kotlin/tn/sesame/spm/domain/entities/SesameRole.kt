@@ -5,8 +5,8 @@ enum class SesamePermissionState{
 }
 
 class SesameRole(
-    val id : String,
-    val permissions : List<SesamePermission> = listOf()
+    val id : String?=null,
+    val permissions : List<SesamePermission>? = listOf()
 ){
     companion object{
         const val NONE : String = "0x00"

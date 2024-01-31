@@ -51,6 +51,7 @@ open class SesameUser(
     open val canManageUsers : SesamePermissionState = SesamePermissionState.DENIED
     open val canViewProfiles : SesamePermissionState = SesamePermissionState.DENIED
     open val canLogin : SesamePermissionState = SesamePermissionState.DENIED
+    open val canManageRequest : SesamePermissionState = SesamePermissionState.DENIED
 
 }
 
@@ -62,19 +63,13 @@ open class SesameUser(
    email : String,
    sex : SesameUserSex,
    profilePicture : String,
-  val portfolioId : String,
+  val portfolioId : String?=null,
   val job : String?=null,
   val sesameClass : SesameClass
  ) : SesameUser(registrationID, firstName, lastName, email,sex, profilePicture){
 
      override val canViewProjects : SesamePermissionState = SesamePermissionState.GRANTED
-     override val canCreateProjects : SesamePermissionState = SesamePermissionState.DENIED
      override val canJoinProjects : SesamePermissionState = SesamePermissionState.REQ_AUTH
-     override val canRemoveProjects : SesamePermissionState = SesamePermissionState.DENIED
-     override val canEditProjects : SesamePermissionState = SesamePermissionState.DENIED
-     override val canAssignMembersToProject : SesamePermissionState = SesamePermissionState.DENIED
-     override val canUnassignMembersFromProject : SesamePermissionState = SesamePermissionState.DENIED
-     override val canManageUsers : SesamePermissionState = SesamePermissionState.DENIED
      override val canViewProfiles : SesamePermissionState = SesamePermissionState.GRANTED
      override val canLogin : SesamePermissionState = SesamePermissionState.GRANTED
  }
@@ -86,17 +81,12 @@ class SesameTeacher(
  email : String,
  sex : SesameUserSex,
  profilePicture : String,
+ val portfolioId : String?=null,
  val profBackground : String,
  val assignedClasses : List<SesameClass>
 ): SesameUser(registrationID, firstName, lastName, email,sex, profilePicture){
     override val canViewProjects : SesamePermissionState = SesamePermissionState.GRANTED
     override val canCreateProjects : SesamePermissionState = SesamePermissionState.GRANTED
-    override val canJoinProjects : SesamePermissionState = SesamePermissionState.DENIED
-    override val canRemoveProjects : SesamePermissionState = SesamePermissionState.DENIED
-    override val canEditProjects : SesamePermissionState = SesamePermissionState.DENIED
-    override val canAssignMembersToProject : SesamePermissionState = SesamePermissionState.DENIED
-    override val canUnassignMembersFromProject : SesamePermissionState = SesamePermissionState.DENIED
-    override val canManageUsers : SesamePermissionState = SesamePermissionState.DENIED
     override val canViewProfiles : SesamePermissionState = SesamePermissionState.GRANTED
     override val canLogin : SesamePermissionState = SesamePermissionState.GRANTED
 }

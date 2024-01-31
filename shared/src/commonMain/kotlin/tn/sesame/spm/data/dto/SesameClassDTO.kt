@@ -4,9 +4,9 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class SesameClassDTO(
- @SerialName("id")   val id : String,
- @SerialName("name")   val name : String,
- @SerialName("level")  val level : String,
- @SerialName("group")    val group : String
+internal data class SesameClassDTO(
+ @SerialName("id")   val id : String?=null,
+ @SerialName("name")   val name :  String?=null,
+ @SerialName("level")  val level :  String?=null,
+ @SerialName("group")    val group :  String?=null
 )

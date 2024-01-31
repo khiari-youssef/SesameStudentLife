@@ -6,14 +6,14 @@ import tn.sesame.spm.domain.entities.SesamePermission
 import tn.sesame.spm.domain.entities.SesamePermissionState
 
 @Serializable
-data class RolePermission(
+internal data class RolePermission(
     @SerialName("id")   val id : String,
     @SerialName("description")  val description : String,
     @SerialName("state")  val state : String
 )
 
 @Serializable
-data class UserRolesDTO(
+internal data class UserRolesDTO(
   @SerialName("id")  val id : String,
   @SerialName("permissions")  val permissions : List<RolePermission>
 )
