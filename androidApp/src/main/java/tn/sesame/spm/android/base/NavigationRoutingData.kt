@@ -3,11 +3,11 @@ package tn.sesame.spm.android.base
 data object NavigationRoutingData {
     const val ExitAppRoute = "exit_app"
     const val Login = "login_screen"
-    const val ProjectDetails = "project_details_screen"
     const val MyProjects = "my_projects_screen"
     const val NavigationNotFound = "navigation_not_found_screen"
     const val Settings = "settings_screen"
     const val PrivacyPolicyScreen = "PrivacyPolicyScreen_screen"
+
     data object Home{
           val ROOT = toString()
         const val Calendar = "calendar_screen"
@@ -30,6 +30,15 @@ data object NavigationRoutingData {
             3 -> Profile
            else -> throw IndexOutOfBoundsException()
         }
+    }
+
+    data object ProjectJoinProcedure{
+        const val ProjectDetailsScreen = "project_details_screen"
+        const val SupervisorSelectionScreen : String = "SupervisorSelectionScreen"
+        const val TeammatesSelectionScreen : String = "TeammatesSelectionScreen"
+        const val TechnologiesSelectionScreen : String = "TechnologiesSelectionScreen"
+        const val ProjectDocumentsDepositScreen : String = "ProjectDocumentsDepositScreen"
+        const val JoinRequestResultScreen : String = "JoinRequestResultScreen"
     }
 
 }

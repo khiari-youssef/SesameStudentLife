@@ -27,4 +27,5 @@
     <string name="sex_female">Female</string>
     <string name="error_destination_not_found_title">Navigation error</string>
     <string name="error_destination_not_found_detail">Path not found</string>
+    <string name="next_step">Next</string>
 </resources>

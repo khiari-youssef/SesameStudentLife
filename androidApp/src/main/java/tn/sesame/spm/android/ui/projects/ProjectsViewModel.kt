@@ -13,6 +13,8 @@ import kotlinx.coroutines.launch
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.Month
 import kotlinx.datetime.toLocalDateTime
+import tn.sesame.spm.android.ui.projects.joinProcedure.SesameProjectActors
+import tn.sesame.spm.android.ui.projects.joinProcedure.SesameProjectActorsListState
 import tn.sesame.spm.domain.entities.ProjectType
 import tn.sesame.spm.domain.entities.SesameClass
 import tn.sesame.spm.domain.entities.SesameProject
@@ -159,6 +161,23 @@ fun getProjectById(project : String) : Flow<SesameProject?> = flow {
             listOf("hadoop","kafka","cassandra","rabbitmq","nodejs","postgresSql","AWS")
         )
     )
+}
+
+
+fun getAvailableCollaborators() : Flow<SesameProjectActorsListState> = flow {
+   val students = List(5){
+        SesameStudent(
+            registrationID = "id$it",
+            email = "email$it@mail.com",
+            firstName = "firstname$it",
+            lastName = "",
+            profilePicture = "",
+            portfolioId = "",
+            sex = SesameUserSex.Male,
+            sesameClass = SesameClass("ingta4c","ingt","4","c")
+        ) to (if (it <3) SesameProjectJoinRequestState.ACCEPTED else SesameProjectJoinRequestState.WAITING_APPROVAL)
+    }
+    emit(SesameProjectActorsListState.Success(SesameProjectActors(students.map { it.first })))
 }
 
 

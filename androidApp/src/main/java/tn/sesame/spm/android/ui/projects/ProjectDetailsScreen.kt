@@ -52,7 +52,8 @@ fun ProjectDetailsScreen(
     modifier: Modifier = Modifier,
     project : SesameProject,
     onShowMember : (member : SesameUser)->Unit,
-    onBackPressed : ()->Unit
+    onBackPressed : ()->Unit,
+    onJoinButtonClicked: ()->Unit
 ) {
     DetailsScreenTemplate(
         modifier = modifier,
@@ -195,10 +196,9 @@ fun ProjectDetailsScreen(
                     modifier = Modifier
                         .fillMaxWidth(),
                     text = stringResource(id = R.string.project_button_join) ,
-                    variant = SesameButtonVariants.PrimaryHard
-                ) {
-
-                }
+                    variant = SesameButtonVariants.PrimaryHard,
+                    onClick = onJoinButtonClicked
+                )
             }
         }
 

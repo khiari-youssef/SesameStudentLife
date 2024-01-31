@@ -19,6 +19,7 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import androidx.navigation.navigation
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.getViewModel
@@ -31,8 +32,11 @@ import tn.sesame.spm.android.ui.login.LoginState
 import tn.sesame.spm.android.ui.login.LoginUIStateHolder
 import tn.sesame.spm.android.ui.login.LoginViewModel
 import tn.sesame.spm.android.ui.projects.ProjectsViewModel
+import tn.sesame.spm.android.ui.projects.joinProcedure.SesameProjectActorsListState
+import tn.sesame.spm.android.ui.projects.joinProcedure.SesameProjectJoinRequestSupervisorSelectionStateHolder
 import tn.sesame.spm.android.ui.projects.SesameProjectsState
 import tn.sesame.spm.android.ui.projects.SesameProjectsStateHolder
+import tn.sesame.spm.android.ui.projects.joinProcedure.SesameProjectJoinRequestCollaboratorsSelectionStateHolder
 import tn.sesame.spm.domain.entities.SesameUser
 
 @Composable
@@ -76,8 +80,8 @@ fun Activity.MainNavigation(
                     loginUIState.loginRequestResult.value = LoginState.Loading
                     fakeScope.launch {
                         delay(1000)
-                        loginUIState.loginRequestResult.value = LoginState.LoginResult.Error(0)
-                       // rootNavController.navigate("MainNavigation")
+                       //loginUIState.loginRequestResult.value = LoginState.LoginResult.Success()
+                        rootNavController.navigate("MainNavigation")
                     }
 
                 }
@@ -121,43 +125,6 @@ fun Activity.MainNavigation(
                 BackHandler {
                     isAppExistPopupShown.value = true
                 }
-            }
-            composable(
-                route = "${NavigationRoutingData.ProjectDetails}/{projectID}",
-                arguments = listOf(navArgument("projectID") {
-                    type = NavType.StringType
-                })
-            ){args->
-                val isUserProfilePopupShown : MutableState<SesameUser?> = remember {
-                    mutableStateOf(null)
-                }
-                ViewUserProfilePopup(
-                    sesameUser = isUserProfilePopupShown.value,
-                    isShown =isUserProfilePopupShown.value != null
-                ) {
-                    isUserProfilePopupShown.value = null
-                }
-                val projectId = args.arguments?.getString("projectID")
-                projectId?.takeIf { it.isNotBlank() }?.run {
-                    val viewModel : ProjectsViewModel = getViewModel()
-                    val project = viewModel.getProjectById(projectId).collectAsStateWithLifecycle(
-                        initialValue = null
-                    )
-                    project.value?.run {
-                        ProjectDetailsScreen(
-                            modifier = Modifier
-                                .systemBarsPadding()
-                                .fillMaxSize(),
-                            project = this,
-                            onShowMember = { member->
-                                isUserProfilePopupShown.value = member
-                            },
-                            onBackPressed = {
-                                rootNavController.popBackStack()
-                            }
-                        )
-                    } ?: NavigationNotFoundModal()
-                } ?: NavigationNotFoundModal()
             }
             composable(
                 route = "${NavigationRoutingData.MyProjects}/{userID}",
@@ -213,6 +180,134 @@ fun Activity.MainNavigation(
             composable(
                 route = NavigationRoutingData.Settings
             ){
+
+            }
+            navigation(
+                route = "${NavigationRoutingData.ProjectJoinProcedure}",
+                startDestination = NavigationRoutingData.ProjectJoinProcedure.ProjectDetailsScreen
+            ){
+                val goBackToPreviousScreenAction : ()->Unit = {
+                    rootNavController.popBackStack()
+                }
+                NavigationRoutingData.ProjectJoinProcedure.run {
+                    composable(
+                        route = "$ProjectDetailsScreen/{projectID}",
+                        arguments = listOf(navArgument("projectID") {
+                            type = NavType.StringType
+                        })
+                    ){args->
+                        val isUserProfilePopupShown : MutableState<SesameUser?> = remember {
+                            mutableStateOf(null)
+                        }
+                        ViewUserProfilePopup(
+                            sesameUser = isUserProfilePopupShown.value,
+                            isShown =isUserProfilePopupShown.value != null
+                        ) {
+                            isUserProfilePopupShown.value = null
+                        }
+                        val projectId = args.arguments?.getString("projectID")
+                        projectId?.takeIf { it.isNotBlank() }?.run {
+                            val viewModel : ProjectsViewModel = getViewModel()
+                            val project = viewModel.getProjectById(projectId).collectAsStateWithLifecycle(
+                                initialValue = null
+                            )
+                            project.value?.run {
+                                ProjectDetailsScreen(
+                                    modifier = Modifier
+                                        .systemBarsPadding()
+                                        .fillMaxSize(),
+                                    project = this,
+                                    onShowMember = { member->
+                                        isUserProfilePopupShown.value = member
+                                    },
+                                    onBackPressed = goBackToPreviousScreenAction,
+                                    onJoinButtonClicked = {
+                                        rootNavController.navigate(route = SupervisorSelectionScreen)
+                                    }
+                                )
+                            } ?: NavigationNotFoundModal()
+                        } ?: NavigationNotFoundModal()
+                    }
+                    composable(SupervisorSelectionScreen){
+                        val viewModel : ProjectsViewModel = getViewModel()
+                        val uiState = SesameProjectJoinRequestSupervisorSelectionStateHolder
+                            .rememberSesameProjectJoinRequestFormState(
+                                availableSuperVisors = viewModel.getAvailableCollaborators().collectAsStateWithLifecycle(
+                                    initialValue = SesameProjectActorsListState.Loading
+                                ),
+                                selectedSupervisorIndex = remember {
+                                    mutableStateOf(null)
+                                }
+                            )
+                         ProjectSupervisorSelectionScreen(
+                             modifier = Modifier
+                                 .systemBarsPadding()
+                                 .fillMaxSize(),
+                             uiState = uiState,
+                             onBackPressed = goBackToPreviousScreenAction,
+                             onItemSelectedIndexStateChanged = {index ->
+                                 uiState.selectedSupervisorIndex.value = index
+                             },
+                             onNextStepButtonClicked = {
+                                 rootNavController.navigate(
+                                     route = TeammatesSelectionScreen
+                                 )
+                             }
+                         )
+                    }
+                    composable(TeammatesSelectionScreen){
+                        val viewModel : ProjectsViewModel = getViewModel()
+                        val uiState = SesameProjectJoinRequestCollaboratorsSelectionStateHolder
+                            .rememberSesameProjectJoinRequestFormState(
+                                availableSuperVisors = viewModel.getAvailableCollaborators().collectAsStateWithLifecycle(
+                                    initialValue = SesameProjectActorsListState.Loading
+                                )
+                            )
+                        ProjectTeammatesSelectionScreen(
+                            modifier = Modifier
+                                .systemBarsPadding()
+                                .fillMaxSize(),
+                            onBackPressed = goBackToPreviousScreenAction,
+                            uiState = uiState ,
+                            onNextStepButtonClicked = {
+                                rootNavController.navigate(
+                                    route = TechnologiesSelectionScreen
+                                )
+                            },
+                            onItemSelectedStateChanged = {isSelected ->
+                                if (isSelected) {
+
+                                }
+                            }
+                        )
+                    }
+                    composable(TechnologiesSelectionScreen){
+                        ProjectTechnologiesSelectionScreen(
+                            modifier = Modifier
+                                .systemBarsPadding()
+                                .fillMaxSize(),
+                            onBackPressed = goBackToPreviousScreenAction
+                        )
+                    }
+                    composable(ProjectDocumentsDepositScreen){
+                        ProjectDocumentsDepositScreen(
+                            modifier = Modifier
+                                .systemBarsPadding()
+                                .fillMaxSize(),
+                            onBackPressed = goBackToPreviousScreenAction
+                        )
+                    }
+                    composable(JoinRequestResultScreen){
+                        ProjectJoinProcedureResultScreen(
+                            modifier = Modifier
+                                .systemBarsPadding()
+                                .fillMaxSize(),
+                            onBackPressed = {
+
+                            }
+                        )
+                    }
+                }
 
             }
         }
