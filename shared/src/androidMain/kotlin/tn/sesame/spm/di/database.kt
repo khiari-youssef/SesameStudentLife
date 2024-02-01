@@ -13,15 +13,19 @@ actual val databaseModule : Module = module {
     single<SqlDriver> {
         AndroidSqliteDriver(SesameWorksLifeDatabase.Schema.synchronous(), get(), DATABASE_FILE_NAME)
     }
+    single<ColumnAdapter<Long,ULong >> {
+        object :ColumnAdapter<Long, ULong>{
+            override fun decode(databaseValue: ULong): Long = databaseValue.toLong()
+
+            override fun encode(value: Long): ULong = value.toULong()
+        }
+    }
     single<SesameWorksLifeDatabase>{
         SesameWorksLifeDatabase(
             get<SqlDriver>(),
            SesameLoginAdapter = SesameLogin.Adapter(
-               object :ColumnAdapter<ULong, Long>{
-                   override fun decode(databaseValue: Long): ULong = databaseValue.toULong()
-
-                   override fun encode(value: ULong): Long = value.toLong()
-               }
+              expirationTimestampAdapter = get(),
+               loginTimestampAdapter = get()
            )
         )
     }

@@ -4,7 +4,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class SesameUserDTO(
+internal data class SesameUserDTO(
   @SerialName("registrationID")  val registrationID : String,
   @SerialName("firstName")   val firstName : String,
   @SerialName("lastName")   val lastName : String?=null,
@@ -16,5 +16,5 @@ data class SesameUserDTO(
   @SerialName("sesameClass") val sesameClass : SesameClassDTO?=null,
   @SerialName("profBackground") val profBackground : String?=null,
   @SerialName("assignedClasses") val assignedClasses : List<SesameClassDTO>?=null,
-  @SerialName("roles") val roles : List<UserRolesDTO>?=null
+  @SerialName("role") val role : UserRolesDTO?=null
 )
