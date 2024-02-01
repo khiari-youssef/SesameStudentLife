@@ -274,9 +274,11 @@ fun Activity.MainNavigation(
                                     route = TechnologiesSelectionScreen
                                 )
                             },
-                            onItemSelectedStateChanged = {isSelected ->
-                                if (isSelected) {
-
+                            onItemSelectedStateChanged = {index,isSelected ->
+                                if (isSelected){
+                                    uiState.collaboratorsSelectionStateArray.add(index)
+                                } else {
+                                    uiState.collaboratorsSelectionStateArray.remove(index)
                                 }
                             }
                         )

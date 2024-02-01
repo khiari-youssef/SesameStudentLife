@@ -5,6 +5,7 @@ import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.snapshots.SnapshotStateList
 import tn.sesame.spm.domain.entities.SesameUser
 import java.lang.Exception
 
@@ -23,7 +24,7 @@ value class SesameProjectTechnologies(
 @Immutable
 @JvmInline
 value class SelectedIndexes(
-    val list : List<Int>
+    val data : Array<Boolean>
 )
 
 sealed interface SesameProjectActorsListState{
@@ -54,17 +55,22 @@ data class SesameProjectJoinRequestSupervisorSelectionStateHolder(
 }
 
 data class SesameProjectJoinRequestCollaboratorsSelectionStateHolder(
-    val availableSuperVisors : State<SesameProjectActorsListState>
+    val availableSuperVisors : State<SesameProjectActorsListState>,
+    val collaboratorsSelectionStateArray : SnapshotStateList<Int>
 ) {
     companion object{
         @Composable
         fun rememberSesameProjectJoinRequestFormState(
-            availableSuperVisors : State<SesameProjectActorsListState>
+            availableSuperVisors : State<SesameProjectActorsListState>,
+            collaboratorsSelectionStateArray : SnapshotStateList<Int> = remember {
+            SnapshotStateList<Int>()
+        }
         ) : SesameProjectJoinRequestCollaboratorsSelectionStateHolder = remember(
-            availableSuperVisors
+            availableSuperVisors,collaboratorsSelectionStateArray
         ){
             SesameProjectJoinRequestCollaboratorsSelectionStateHolder(
-                availableSuperVisors
+                availableSuperVisors,collaboratorsSelectionStateArray
+
             )
         }
     }

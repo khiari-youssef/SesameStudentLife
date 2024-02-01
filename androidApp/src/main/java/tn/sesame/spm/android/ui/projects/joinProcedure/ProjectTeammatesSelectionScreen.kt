@@ -12,6 +12,9 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -24,6 +27,7 @@ import tn.sesame.designsystem.SesameFontFamilies
 import tn.sesame.designsystem.components.DetailsScreenTemplate
 import tn.sesame.designsystem.components.loading.shimmerEffect
 import tn.sesame.spm.android.R
+import tn.sesame.spm.android.ui.projects.joinProcedure.SelectedIndexes
 import tn.sesame.spm.android.ui.projects.joinProcedure.SesameProjectActorsListState
 import tn.sesame.spm.android.ui.projects.joinProcedure.SesameProjectJoinRequestCollaboratorsSelectionStateHolder
 import tn.sesame.spm.android.ui.projects.joinProcedure.SesameProjectJoinRequestSupervisorSelectionStateHolder
@@ -34,7 +38,7 @@ fun ProjectTeammatesSelectionScreen(
     modifier: Modifier = Modifier,
     onBackPressed: () -> Unit,
     uiState: SesameProjectJoinRequestCollaboratorsSelectionStateHolder,
-    onItemSelectedStateChanged : (isSelected : Boolean)->Unit,
+    onItemSelectedStateChanged : (index : Int,isSelected : Boolean)->Unit,
     onNextStepButtonClicked : ()->Unit
 ) {
     DetailsScreenTemplate(
@@ -47,7 +51,8 @@ fun ProjectTeammatesSelectionScreen(
             modifier = Modifier
                 .padding(
                     16.dp
-                ).fillMaxSize(),
+                )
+                .fillMaxSize(),
             contentAlignment = Alignment.TopCenter
         ) {
             Row(
@@ -68,17 +73,17 @@ fun ProjectTeammatesSelectionScreen(
                     )
                 )
             }
-            LazyColumn(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .wrapContentHeight(),
-                verticalArrangement = Arrangement.spacedBy(
-                    8.dp, Alignment.CenterVertically
-                ),
-                state = listState,
-                content = {
-                    when (val state = uiState.availableSuperVisors.value) {
-                        is SesameProjectActorsListState.Loading -> {
+            when (val state = uiState.availableSuperVisors.value) {
+                is SesameProjectActorsListState.Loading -> {
+                    LazyColumn(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .wrapContentHeight(),
+                        verticalArrangement = Arrangement.spacedBy(
+                            8.dp, Alignment.CenterVertically
+                        ),
+                        state = listState,
+                        content = {
                             items(15) {
                                 Box(
                                     modifier = Modifier
@@ -90,18 +95,27 @@ fun ProjectTeammatesSelectionScreen(
                                         .height(60.dp)
                                 )
                             }
-                        }
+                        })
+                }
 
-                        is SesameProjectActorsListState.Error -> {
-                            item {
-                                Box(modifier = Modifier.fillMaxSize()) {
+                is SesameProjectActorsListState.Error -> {
+                    Box(modifier = Modifier.fillMaxSize()) {
 
-                                }
-                            }
-                        }
+                    }
+                }
 
-                        is SesameProjectActorsListState.Success -> {
+                is SesameProjectActorsListState.Success -> {
+                    LazyColumn(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .wrapContentHeight(),
+                        verticalArrangement = Arrangement.spacedBy(
+                            8.dp, Alignment.CenterVertically
+                        ),
+                        state = listState,
+                        content = {
                             itemsIndexed(state.actors.list) { index, actor ->
+
                                 SesameCheckableUserProfile(
                                     modifier = Modifier,
                                     fullName = actor.getFullName(),
@@ -109,22 +123,26 @@ fun ProjectTeammatesSelectionScreen(
                                     placeholderResID = if (actor.sex == SesameUserSex.Male) {
                                         tn.sesame.designsystem.R.drawable.ic_profile_placeholder_male
                                     } else tn.sesame.designsystem.R.drawable.ic_profile_placeholder_female,
-                                    isSelected = false,
-                                    onItemSelectedStateChanged = onItemSelectedStateChanged
+                                    isSelected = index in uiState.collaboratorsSelectionStateArray ,
+                                    onItemSelectedStateChanged = {
+                                        onItemSelectedStateChanged(
+                                            index,it
+                                        )
+                                    }
                                 )
                             }
-                        }
-                    }
+                        })
                 }
-            )
+            }
+
             SesameButton(
                 modifier = Modifier
                     .align(Alignment.BottomCenter)
                     .fillMaxWidth(),
-                text = stringResource(id = tn.sesame.designsystem.R.string.next_step) ,
+                text = stringResource(id = tn.sesame.designsystem.R.string.next_step),
                 variant = SesameButtonVariants.PrimaryHard,
                 onClick = onNextStepButtonClicked
             )
         }
     }
-}
+    }
