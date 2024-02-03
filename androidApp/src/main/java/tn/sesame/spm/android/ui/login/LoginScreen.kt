@@ -16,6 +16,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -23,14 +25,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.layoutId
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
+import tn.sesame.designsystem.R
 import tn.sesame.designsystem.components.AppBrand
 import tn.sesame.designsystem.components.popups.SesameToastDefaults
 import tn.sesame.designsystem.components.popups.SesameToastPopup
 import tn.sesame.spm.android.BuildConfig
+import tn.sesame.spm.domain.exception.DomainErrorType
 
+typealias ToastState = Pair<Int,String>
 
 @Composable
 fun LoginScreen(
@@ -43,9 +49,29 @@ onLoginClicked : ()->Unit
    val isLargeScreen  = LocalConfiguration.current.run {
        (orientation == Configuration.ORIENTATION_LANDSCAPE) or (this.screenWidthDp >= 600)
    }
-    val isToastShow = remember(loginUIStateHolder.loginRequestResult.value) {
-        mutableStateOf(loginUIStateHolder.loginRequestResult.value is LoginState.LoginResult.Error)
+    val toastState : MutableState<ToastState?> = remember(loginUIStateHolder.loginRequestResult.value) {
+        mutableStateOf(null)
     }
+    val localContext = LocalContext.current
+    LaunchedEffect(
+        key1 =loginUIStateHolder.loginRequestResult.value,
+        block ={
+        val state = loginUIStateHolder.loginRequestResult.value
+        toastState.value = if (state is LoginState.Error)
+            (R.drawable.ic_alert to when(state.errorType){
+                DomainErrorType.AccountLocked -> {
+                   localContext.getString(R.string.error_toast_locked)
+                }
+                DomainErrorType.AuthenticationFailed ->{
+                    localContext.getString(R.string.error_toast_unauthorized)
+                }
+                DomainErrorType.InvalidCredentials ->{
+                    localContext.getString(R.string.error_toast_invalid_credentials)
+                }
+                else -> localContext.getString(R.string.error_toast_unknown)
+            })
+        else null
+    } )
 ConstraintLayout(
     modifier = modifier.padding(
         horizontal = if (isLargeScreen) 12.dp else 20.dp
@@ -105,14 +131,12 @@ ConstraintLayout(
             )
             .fillMaxWidth()
             .layoutId("toast"),
-        isShown = isToastShow.value,
-        message = "Test error",
-        sesameToastDefaults = SesameToastDefaults(
-            backgroundColor = Color(0xFFFF8500),
-            iconsTint = Color.Black
-        ),
+        isShown = toastState.value != null,
+        message = toastState.value?.second ?: "",
+        iconResID = toastState.value?.first ?: R.drawable.ic_alert,
+        sesameToastDefaults = SesameToastDefaults.getAlertToastStyle(),
         onDismissRequest = {
-            isToastShow.value = false
+            toastState.value = null
         }
     )
 }

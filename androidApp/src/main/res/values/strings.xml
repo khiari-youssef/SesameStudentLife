@@ -62,5 +62,10 @@
     <string name="profile_teacher">Teacher</string>
 
 
+    <!-- Settings strings-->
+
+    <string name="settings_auto_login_option_label">Enable auto login</string>
+
+
 
 </resources>

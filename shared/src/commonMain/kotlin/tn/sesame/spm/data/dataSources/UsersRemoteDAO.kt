@@ -1,27 +1,15 @@
 package tn.sesame.spm.data.dataSources
 
 import io.ktor.client.HttpClient
-import io.ktor.client.call.body
-import io.ktor.client.request.get
-import io.ktor.client.request.header
-import io.ktor.client.request.post
-import io.ktor.client.request.setBody
-import io.ktor.http.Headers
-import io.ktor.http.HttpHeaders
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext
-import kotlinx.datetime.Clock
 import tn.sesame.spm.data.dto.RolePermission
-import tn.sesame.spm.data.dto.SesameAuthToken
 import tn.sesame.spm.data.dto.SesameClassDTO
 import tn.sesame.spm.data.dto.SesameLoginResponseWrapper
 import tn.sesame.spm.data.dto.SesameUserDTO
 import tn.sesame.spm.data.dto.UserRolesDTO
-import tn.sesame.spm.domain.entities.SesameClass
-import tn.sesame.spmdatabase.UserRoles
-import kotlin.time.Duration.Companion.days
 
 internal class UsersRemoteDAO(
     private val restClient : HttpClient
@@ -182,10 +170,7 @@ internal class UsersRemoteDAO(
                 it.value == email
             }?.key ?: "gigep52dhh5"
             SesameLoginResponseWrapper(
-                token = SesameAuthToken(
-                    value = generateToken,
-                    expirationTimeStamp = Clock.System.now().plus(10.days).toEpochMilliseconds()
-                ),
+                token = generateToken,
                 data = profile
             )
         } else throw Exception()
@@ -199,10 +184,7 @@ internal class UsersRemoteDAO(
                 it.email == email
             }
             SesameLoginResponseWrapper(
-                token = SesameAuthToken(
-                    value = token,
-                    expirationTimeStamp = Clock.System.now().plus(10.days).toEpochMilliseconds()
-                ),
+                token = token,
                 data = profile
             )
         } ?: throw Exception()

@@ -3,7 +3,12 @@ package tn.sesame.spm.domain.exception
 
 
 enum class DomainErrorType{
-    InvalidCredentials,AuthenticationFailed,InvalidSesameEmailAddress,Undefined,IllegalEntityAttributes
+    InvalidCredentials,
+    AccountLocked,
+    AuthenticationFailed,
+    Undefined,
+    IllegalEntityAttributes,
+    Unauthorized
 }
  class DomainException(
     override val cause: Throwable?,

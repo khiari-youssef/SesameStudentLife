@@ -25,6 +25,9 @@
     <string name="error_destination_not_found_title">Erreur de navigation</string>
     <string name="error_destination_not_found_detail">Chemin introuvable !</string>
     <string name="next_step">Suivant</string>
-
+    <string name="error_toast_unknown">Un erreur s\'est produit !</string>
+    <string name="error_toast_invalid_credentials">Login invalide !</string>
+    <string name="error_toast_unauthorized">Action non autorisée !</string>
+    <string name="error_toast_locked">Compte verouillé !</string>
 
 </resources>

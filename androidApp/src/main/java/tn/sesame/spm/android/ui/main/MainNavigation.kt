@@ -37,6 +37,8 @@ import tn.sesame.spm.android.ui.projects.joinProcedure.SesameProjectJoinRequestS
 import tn.sesame.spm.android.ui.projects.SesameProjectsState
 import tn.sesame.spm.android.ui.projects.SesameProjectsStateHolder
 import tn.sesame.spm.android.ui.projects.joinProcedure.SesameProjectJoinRequestCollaboratorsSelectionStateHolder
+import tn.sesame.spm.android.ui.settings.AppSettingsStateHolder
+import tn.sesame.spm.android.ui.settings.SettingsViewModel
 import tn.sesame.spm.domain.entities.SesameUser
 
 @Composable
@@ -62,11 +64,14 @@ fun Activity.MainNavigation(
                     loginPassword = rememberSaveable {
                         mutableStateOf("")
                     },
-                    loginRequestResult = remember {
-                        mutableStateOf(LoginState.Idle)
-                    }
+                    loginRequestResult = viewModel.loginResultState.collectAsStateWithLifecycle()
                 )
-                val fakeScope = rememberCoroutineScope()
+                LaunchedEffect(key1 = loginUIState.loginRequestResult.value, block = {
+                    if (loginUIState.loginRequestResult.value is LoginState.Success){
+                        rootNavController.navigate("MainNavigation")
+                    }
+                } )
+
                 LoginScreen(
                     modifier = Modifier.fillMaxSize(),
                     loginUIStateHolder = loginUIState,
@@ -77,13 +82,10 @@ fun Activity.MainNavigation(
                         loginUIState.loginPassword.value = password
                     }
                 ){
-                    loginUIState.loginRequestResult.value = LoginState.Loading
-                    fakeScope.launch {
-                        delay(1000)
-                       //loginUIState.loginRequestResult.value = LoginState.LoginResult.Success()
-                        rootNavController.navigate("MainNavigation")
-                    }
-
+                    viewModel.loginWithEmailAndPassword(
+                        loginUIState.loginEmail.value,
+                        loginUIState.loginPassword.value
+                    )
                 }
             }
             composable(
@@ -180,7 +182,24 @@ fun Activity.MainNavigation(
             composable(
                 route = NavigationRoutingData.Settings
             ){
-
+                val viewModel : SettingsViewModel = getViewModel()
+                val uiState = AppSettingsStateHolder
+                    .rememberAppSettingsState(
+                        isAutoLoginEnabled =viewModel.getAutoLoginEnabled().collectAsStateWithLifecycle(
+                            initialValue = false
+                        )
+                    )
+                SettingsScreen(
+                    modifier = Modifier
+                        .fillMaxSize(),
+                    uiState = uiState,
+                    onItemSelectedStateChanged ={
+                        viewModel.setAutoLoginEnabled(it)
+                    },
+                    onBackPressed = {
+                        rootNavController.popBackStack()
+                    }
+                )
             }
             navigation(
                 route = "${NavigationRoutingData.ProjectJoinProcedure}",

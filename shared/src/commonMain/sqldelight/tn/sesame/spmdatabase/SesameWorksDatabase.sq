@@ -4,8 +4,7 @@ CREATE TABLE SesameLogin(
 token Text PRIMARY KEY,
 role_id Text,
 registrationID Text NOT NULL,
-loginTimestamp INTEGER AS ULong DEFAULT CURRENT_TIMESTAMP,
-expirationTimestamp INTEGER AS ULong DEFAULT CURRENT_TIMESTAMP
+loginTimestamp INTEGER AS ULong DEFAULT CURRENT_TIMESTAMP
 );
 
 
@@ -54,7 +53,7 @@ insertTeacherProfile:
 INSERT INTO SesameTeacher VALUES(?,?,?,?,?,?,?);
 
 insertNewLogin:
-INSERT INTO SesameLogin VALUES(?,?,?,?,?);
+INSERT INTO SesameLogin VALUES(?,?,?,?);
 
 insertNewRole:
 INSERT INTO UserRoles VALUES(?,?,?,?,?,?,?,?,?,?,?);
@@ -67,3 +66,4 @@ SELECT * FROM SesameStudent WHERE SesameStudent.registrationID = ? LIMIT 1;
 
 selectTeacherProfileById:
 SELECT * FROM SesameTeacher WHERE SesameTeacher.registrationID = ? LIMIT 1;
+

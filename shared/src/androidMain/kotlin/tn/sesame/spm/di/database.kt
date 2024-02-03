@@ -24,7 +24,6 @@ actual val databaseModule : Module = module {
         SesameWorksLifeDatabase(
             get<SqlDriver>(),
            SesameLoginAdapter = SesameLogin.Adapter(
-              expirationTimestampAdapter = get(),
                loginTimestampAdapter = get()
            )
         )

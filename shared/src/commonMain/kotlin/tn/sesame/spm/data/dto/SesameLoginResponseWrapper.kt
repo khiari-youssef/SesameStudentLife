@@ -6,6 +6,6 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 internal data class SesameLoginResponseWrapper(
-  @SerialName("token")  val token : SesameAuthToken,
-  @SerialName("user_profile")  val data : SesameUserDTO
+  @SerialName("token")  val token : String,
+  @SerialName("data")  val data : SesameUserDTO
 )

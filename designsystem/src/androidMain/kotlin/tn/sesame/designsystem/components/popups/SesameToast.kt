@@ -33,6 +33,7 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import tn.sesame.designsystem.R
 import tn.sesame.designsystem.SesameFontFamilies
+import tn.sesame.designsystem.SuccessColor
 
 @Stable
 data class SesameToastDefaults(
@@ -45,7 +46,43 @@ data class SesameToastDefaults(
       textAlign = TextAlign.Center
   ),
   val iconsTint : Color
-)
+){
+    companion object{
+
+        private val textStyle = TextStyle(
+        fontSize = 14.sp,
+        fontFamily = SesameFontFamilies.MainMediumFontFamily,
+        fontWeight = FontWeight(500),
+        color = Color.Black,
+        textAlign = TextAlign.Center
+        )
+
+        @Composable
+        fun getAlertToastStyle() : SesameToastDefaults = SesameToastDefaults(
+            backgroundColor = Color(0xFFFF8500),
+            textStyle = textStyle,
+            iconsTint = Color.Black
+        )
+
+        @Composable
+        fun getInfoToastStyle() : SesameToastDefaults = SesameToastDefaults(
+            backgroundColor = MaterialTheme.colorScheme.secondary,
+            textStyle = textStyle.copy(
+                color = Color.White
+            ),
+             iconsTint = Color.White
+        )
+
+        @Composable
+        fun getSuccessToastStyle() : SesameToastDefaults = SesameToastDefaults(
+            backgroundColor = SuccessColor,
+            textStyle = textStyle.copy(
+                color = Color.White
+            ),
+            iconsTint = Color.White
+        )
+    }
+}
 
 @Composable
 fun SesameToast(
@@ -113,7 +150,6 @@ fun SesameToast(
      }
  }
 }
-
 
 @Composable
 fun SesameToastPopup(

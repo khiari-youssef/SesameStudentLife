@@ -23,10 +23,12 @@ internal class UsersRepository(
     }
     override suspend fun loginWithToken(token : String) : SesameUser = usersRemoteDAO.fetchTokenLoginAPI(token).data.toDomainModel()!!
 
-    override suspend fun isAutoLoginEnabled(): Flow<Boolean?> = userPreferencesStore.isAutoLoginEnabled()
+    override fun isAutoLoginEnabled(): Flow<Boolean?> = userPreferencesStore.isAutoLoginEnabled()
 
     override suspend fun setAutoLoginEnabled(isEnabled: Boolean){
         userPreferencesStore.setAutoLoginEnabled(isEnabled)
     }
+
+    override suspend fun getLastSignedInUserToken(): String? = usersLocalDAO.getLastUsedLogin()?.token
 
 }
