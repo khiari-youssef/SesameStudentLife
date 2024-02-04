@@ -106,7 +106,7 @@ ConstraintLayout(
            modifier = Modifier
                .wrapContentHeight()
                .fillMaxWidth(0.9f),
-           text = stringResource(id = tn.sesame.designsystem.R.string.login),
+           text = stringResource(id = R.string.login),
            variant = SesameButtonVariants.PrimarySoft,
            isEnabled = true,
            isLoading = loginUIStateHolder.loginRequestResult.value is LoginState.Loading,
@@ -162,7 +162,7 @@ fun LoginForm(
          text = email,
          isEnabled = true,
          isError = false,
-         rightIconRes = tn.sesame.designsystem.R.drawable.ic_clear,
+         rightIconRes = R.drawable.ic_clear,
          onRightIconResClicked ={
              onEmailChanged("")
          },
@@ -170,8 +170,8 @@ fun LoginForm(
      )
      SesamePasswordTextField(
          password = password,
-         label = stringResource(id = tn.sesame.designsystem.R.string.password_label) ,
-         placeholder =stringResource(id = tn.sesame.designsystem.R.string.password_placeholder),
+         label = stringResource(id = R.string.password_label) ,
+         placeholder =stringResource(id = R.string.password_placeholder),
          isEnabled = true,
          isError = false,
          onPasswordChanged = onPasswordChanged

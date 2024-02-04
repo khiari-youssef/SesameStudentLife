@@ -10,6 +10,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -40,6 +41,7 @@ fun SesameCheckableUserProfile(
  ) {
   ConstraintLayout(
       modifier = Modifier
+          .alpha(if (isEnabled) 1f else 0.4f)
           .padding(8.dp)
           .fillMaxWidth()
           .wrapContentHeight()
@@ -82,6 +84,7 @@ fun SesameCheckableUserProfile(
               end.linkTo(parent.end,12.dp)
           },
           checked = isSelected,
+          enabled = isEnabled,
           onCheckedChange = onItemSelectedStateChanged,
           colors = CheckboxDefaults.colors(
               checkedColor = MaterialTheme.colorScheme.secondary

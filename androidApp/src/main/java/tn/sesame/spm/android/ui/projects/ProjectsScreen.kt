@@ -101,7 +101,7 @@ Column(
 
 
 @Composable
-fun ColumnScope.ProjectsList(
+fun ProjectsList(
     modifier: Modifier = Modifier,
     projectList : ProjectList,
     onViewDetails : (sesameProjectID: String)->Unit,
