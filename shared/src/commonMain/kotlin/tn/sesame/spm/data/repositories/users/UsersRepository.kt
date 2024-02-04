@@ -4,14 +4,9 @@ import kotlinx.coroutines.flow.Flow
 import tn.sesame.spm.data.dataSources.UserPreferencesStore
 import tn.sesame.spm.data.dataSources.UsersLocalDAO
 import tn.sesame.spm.data.dataSources.UsersRemoteDAO
-import tn.sesame.spm.data.exceptions.CustomHttpException
-import tn.sesame.spm.data.exceptions.HttpErrorType
 import tn.sesame.spm.data.toDomainModel
 import tn.sesame.spm.domain.entities.SesameUser
 import tn.sesame.spm.domain.entities.SesameUserAccount
-import tn.sesame.spm.domain.exception.DomainErrorType
-import tn.sesame.spm.domain.exception.DomainException
-import tn.sesame.spmdatabase.SesameLogin
 
 internal class UsersRepository(
     private val usersLocalDAO: UsersLocalDAO,

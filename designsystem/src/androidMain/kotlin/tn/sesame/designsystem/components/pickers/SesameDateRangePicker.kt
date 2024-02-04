@@ -12,7 +12,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import tn.sesame.designsystem.AliceBlue
-import tn.sesame.designsystem.Charcoal2
 import tn.sesame.designsystem.DuskBlue
 import tn.sesame.designsystem.LightGreyBlue
 import tn.sesame.designsystem.NiceBlue

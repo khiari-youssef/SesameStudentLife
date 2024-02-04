@@ -3,7 +3,6 @@ package tn.sesame.spm.data.repositories.users
 import kotlinx.coroutines.flow.Flow
 import tn.sesame.spm.domain.entities.SesameUser
 import tn.sesame.spm.domain.entities.SesameUserAccount
-import tn.sesame.spmdatabase.SesameLogin
 
 interface UsersRepositoryInterface {
 

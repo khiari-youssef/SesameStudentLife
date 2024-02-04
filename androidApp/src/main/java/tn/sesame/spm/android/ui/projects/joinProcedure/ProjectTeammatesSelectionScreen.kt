@@ -12,9 +12,6 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -27,10 +24,8 @@ import tn.sesame.designsystem.SesameFontFamilies
 import tn.sesame.designsystem.components.DetailsScreenTemplate
 import tn.sesame.designsystem.components.loading.shimmerEffect
 import tn.sesame.spm.android.R
-import tn.sesame.spm.android.ui.projects.joinProcedure.SelectedIndexes
 import tn.sesame.spm.android.ui.projects.joinProcedure.SesameProjectActorsListState
 import tn.sesame.spm.android.ui.projects.joinProcedure.SesameProjectJoinRequestCollaboratorsSelectionStateHolder
-import tn.sesame.spm.android.ui.projects.joinProcedure.SesameProjectJoinRequestSupervisorSelectionStateHolder
 import tn.sesame.spm.domain.entities.SesameUserSex
 
 @Composable

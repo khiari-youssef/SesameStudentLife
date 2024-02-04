@@ -1,4 +1,3 @@
-import android.app.Activity
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -8,7 +7,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -20,8 +18,6 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import androidx.navigation.navigation
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import org.koin.androidx.compose.getViewModel
 import tn.sesame.designsystem.components.bars.SesameBottomNavigationBarDefaults
 import tn.sesame.designsystem.components.modals.NavigationNotFoundModal
@@ -33,11 +29,11 @@ import tn.sesame.spm.android.ui.login.LoginUIStateHolder
 import tn.sesame.spm.android.ui.login.LoginViewModel
 import tn.sesame.spm.android.ui.main.MainActivity
 import tn.sesame.spm.android.ui.projects.ProjectsViewModel
-import tn.sesame.spm.android.ui.projects.joinProcedure.SesameProjectActorsListState
-import tn.sesame.spm.android.ui.projects.joinProcedure.SesameProjectJoinRequestSupervisorSelectionStateHolder
 import tn.sesame.spm.android.ui.projects.SesameProjectsState
 import tn.sesame.spm.android.ui.projects.SesameProjectsStateHolder
+import tn.sesame.spm.android.ui.projects.joinProcedure.SesameProjectActorsListState
 import tn.sesame.spm.android.ui.projects.joinProcedure.SesameProjectJoinRequestCollaboratorsSelectionStateHolder
+import tn.sesame.spm.android.ui.projects.joinProcedure.SesameProjectJoinRequestSupervisorSelectionStateHolder
 import tn.sesame.spm.android.ui.settings.AppSettingsStateHolder
 import tn.sesame.spm.android.ui.settings.SettingsViewModel
 import tn.sesame.spm.domain.entities.SesameUser

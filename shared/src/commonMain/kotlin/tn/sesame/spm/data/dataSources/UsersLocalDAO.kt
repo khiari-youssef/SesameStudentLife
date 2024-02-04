@@ -7,7 +7,6 @@ import tn.sesame.spm.data.toDTOString
 import tn.sesame.spm.data.toEnumSex
 import tn.sesame.spm.data.toSesameClass
 import tn.sesame.spm.data.toSesameClasses
-import tn.sesame.spm.domain.entities.SesameClass
 import tn.sesame.spm.domain.entities.SesameRole
 import tn.sesame.spm.domain.entities.SesameStudent
 import tn.sesame.spm.domain.entities.SesameTeacher

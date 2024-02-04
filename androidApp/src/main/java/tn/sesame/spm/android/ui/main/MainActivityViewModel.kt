@@ -2,14 +2,9 @@ package tn.sesame.spm.android.ui.main
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.flowOn
-import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import tn.sesame.spm.android.ui.login.LoginState
@@ -19,8 +14,6 @@ import tn.sesame.spm.data.repositories.users.UsersRepositoryInterface
 import tn.sesame.spm.domain.entities.SesameUser
 import tn.sesame.spm.domain.exception.DomainErrorType
 import tn.sesame.spm.domain.exception.DomainException
-import tn.sesame.spm.domain.usecases.SesameUsersUsecase
-
 
 
 class MainActivityViewModel(

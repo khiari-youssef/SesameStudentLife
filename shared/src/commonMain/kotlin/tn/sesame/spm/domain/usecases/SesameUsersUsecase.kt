@@ -2,15 +2,10 @@ package tn.sesame.spm.domain.usecases
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import tn.sesame.spm.data.exceptions.CustomHttpException
-import tn.sesame.spm.data.exceptions.HttpErrorType
-import tn.sesame.spm.data.repositories.users.UsersRepository
 import tn.sesame.spm.data.repositories.users.UsersRepositoryInterface
 import tn.sesame.spm.domain.entities.SesameLoginInterface
 import tn.sesame.spm.domain.entities.SesameUser
 import tn.sesame.spm.domain.entities.SesameUserAccount
-import tn.sesame.spm.domain.exception.DomainErrorType
-import tn.sesame.spm.domain.exception.DomainException
 
 
 class SesameUsersUsecase(

@@ -41,9 +41,6 @@ import tn.sesame.spm.android.ui.profile.MyProfileViewModel
 import tn.sesame.spm.android.ui.projects.ProjectsViewModel
 import tn.sesame.spm.android.ui.projects.SesameProjectsState
 import tn.sesame.spm.android.ui.projects.SesameProjectsStateHolder
-import tn.sesame.spm.domain.entities.SesameClass
-import tn.sesame.spm.domain.entities.SesameStudent
-import tn.sesame.spm.domain.entities.SesameUserSex
 import tn.sesame.spm.security.BiometricLauncherService
 
 

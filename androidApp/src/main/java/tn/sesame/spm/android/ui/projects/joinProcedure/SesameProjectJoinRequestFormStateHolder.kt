@@ -7,7 +7,6 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import tn.sesame.spm.domain.entities.SesameUser
-import java.lang.Exception
 
 @Immutable
 @JvmInline
