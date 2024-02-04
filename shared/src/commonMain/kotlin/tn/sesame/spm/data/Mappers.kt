@@ -12,6 +12,32 @@ import tn.sesame.spm.domain.entities.SesameTeacher
 import tn.sesame.spm.domain.entities.SesameUser
 import tn.sesame.spm.domain.entities.SesameUserSex
 
+internal fun SesameClass.toDTOString() : String = "$id:$name:$level:$group"
+internal fun String.toSesameClass() : SesameClass? = split(":").runCatching {
+    SesameClass(
+        id = get(0),
+        name = get(1),
+        level = get(2),
+        group = get(3)
+    )
+}.getOrNull()
+
+internal fun List<SesameClass>.toDTOString() : String = joinToString(",") {
+    it.toDTOString()
+}
+
+internal fun String.toSesameClasses() : List<SesameClass?> = split(",").map {
+    it.toSesameClass()
+}
+
+internal fun SesameUserSex.toDTOString() = when (this){
+    SesameUserSex.Male -> "m"
+    SesameUserSex.Female -> "f"
+}
+internal fun String.toEnumSex() : SesameUserSex= when (this){
+    "f" -> SesameUserSex.Female
+    else -> SesameUserSex.Male
+}
 
 internal fun SesameUserDTO.toDomainModel() : SesameUser? = runCatching {
     when(role?.id) {
@@ -21,13 +47,14 @@ internal fun SesameUserDTO.toDomainModel() : SesameUser? = runCatching {
                 firstName = firstName,
                 lastName  = lastName ?: "",
                 email  = email,
-                sex = if (sex == "h") SesameUserSex.Male else SesameUserSex.Female,
+                sex = sex.toEnumSex(),
                 profilePicture = profilePicture,
                 portfolioId = portfolioId,
                 assignedClasses = assignedClasses?.mapNotNull {
                     it.toDomainModel()
                 }!!,
-                profBackground = profBackground ?: ""
+                profBackground = profBackground ?: "",
+                role = role.toDomainModel() ?: SesameRole.getDefaultRoleForID(SesameRole.TEACHER)
             )
         }
         "student_role" -> {
@@ -36,11 +63,12 @@ internal fun SesameUserDTO.toDomainModel() : SesameUser? = runCatching {
                 firstName = firstName,
                 lastName  = lastName ?: "",
                 email  = email,
-                sex = if (sex == "h") SesameUserSex.Male else SesameUserSex.Female,
+                sex = sex.toEnumSex(),
                 profilePicture = profilePicture,
                 portfolioId = portfolioId,
                 job = job ?: "",
-                sesameClass = sesameClass?.toDomainModel() ?: throw NullPointerException()
+                sesameClass = sesameClass?.toDomainModel() ?: throw NullPointerException(),
+                role = role.toDomainModel() ?: SesameRole.getDefaultRoleForID(SesameRole.STUDENT)
             )
         }
         else -> SesameUser(
@@ -48,7 +76,7 @@ internal fun SesameUserDTO.toDomainModel() : SesameUser? = runCatching {
             firstName = firstName,
             lastName  = lastName ?: "",
             email  = email,
-            sex = if (sex == "h") SesameUserSex.Male else SesameUserSex.Female,
+            sex = sex.toEnumSex(),
             profilePicture = profilePicture
         )
     }

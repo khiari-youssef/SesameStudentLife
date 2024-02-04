@@ -1,14 +1,17 @@
 package tn.sesame.spm.data.repositories.users
 
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.filterNotNull
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.mapNotNull
 import tn.sesame.spm.data.dataSources.UserPreferencesStore
 import tn.sesame.spm.data.dataSources.UsersLocalDAO
 import tn.sesame.spm.data.dataSources.UsersRemoteDAO
+import tn.sesame.spm.data.exceptions.CustomHttpException
+import tn.sesame.spm.data.exceptions.HttpErrorType
 import tn.sesame.spm.data.toDomainModel
 import tn.sesame.spm.domain.entities.SesameUser
+import tn.sesame.spm.domain.entities.SesameUserAccount
+import tn.sesame.spm.domain.exception.DomainErrorType
+import tn.sesame.spm.domain.exception.DomainException
+import tn.sesame.spmdatabase.SesameLogin
 
 internal class UsersRepository(
     private val usersLocalDAO: UsersLocalDAO,
@@ -16,19 +19,57 @@ internal class UsersRepository(
     private val userPreferencesStore: UserPreferencesStore
 ) : UsersRepositoryInterface {
 
-    override suspend fun loginWithEmailAndPassword(email : String,password : String) : SesameUser {
-         val result = usersRemoteDAO.fetchEmailAndPasswordLoginAPI(email, password)
-         usersLocalDAO.saveUserLogin(result.token,result.data.role?.id,result.data.registrationID,)
-        return result.data.toDomainModel()!!
+    override suspend fun loginWithEmailAndPassword(email: String, password: String): SesameUser {
+        return toDomainAuthenticationError(withCredentials = true) {
+            val result = usersRemoteDAO.fetchEmailAndPasswordLoginAPI(email, password)
+            val userData = result.data.toDomainModel()!!
+            val hasTransactionSucceeded = usersLocalDAO.saveUserData(result.token, userData)
+            if (hasTransactionSucceeded) result.data.toDomainModel()!! else throw IllegalStateException(
+                "Local database transaction failed while saving user data!"
+            )
+        }
     }
-    override suspend fun loginWithToken(token : String) : SesameUser = usersRemoteDAO.fetchTokenLoginAPI(token).data.toDomainModel()!!
+
+    override suspend fun loginWithToken(token: String): SesameUser {
+        return  toDomainAuthenticationError(withCredentials = false){
+            val result = usersRemoteDAO.fetchTokenLoginAPI(token)
+            val userData = result.data.toDomainModel()!!
+            val hasTransactionSucceeded = usersLocalDAO.saveUserData(result.token, userData)
+            if (hasTransactionSucceeded) result.data.toDomainModel()!! else throw IllegalStateException(
+                "Local database transaction failed while saving user data!"
+            )
+        }
+    }
 
     override fun isAutoLoginEnabled(): Flow<Boolean?> = userPreferencesStore.isAutoLoginEnabled()
 
-    override suspend fun setAutoLoginEnabled(isEnabled: Boolean){
+    override suspend fun setAutoLoginEnabled(isEnabled: Boolean) {
         userPreferencesStore.setAutoLoginEnabled(isEnabled)
     }
 
-    override suspend fun getLastSignedInUserToken(): String? = usersLocalDAO.getLastUsedLogin()?.token
+    override suspend fun getLastUsedLogin(): String? =
+        usersLocalDAO.getLastUsedLogin()?.token
+
+    override suspend fun clearUsersFromLocalStorage() {
+        usersLocalDAO.deleteUsers()
+    }
+
+    override suspend fun getMyProfile(
+        email: String,
+        roleID : String
+    ): SesameUser? = runCatching {
+        usersLocalDAO.getLoggedInUserProfile(emailParam = email, roleIDParam = roleID)
+    }.onFailure {
+        it.printStackTrace()
+    }.getOrNull()
+
+    override suspend fun getLoggedInUserAccount(): SesameUserAccount?  = runCatching {
+        usersLocalDAO.getLoggedInUserAccount()
+    }.onFailure {
+        it.printStackTrace()
+    }.getOrNull()
+
+
 
 }
+

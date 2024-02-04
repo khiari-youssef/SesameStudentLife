@@ -10,6 +10,8 @@ import tn.sesame.spm.data.dto.SesameClassDTO
 import tn.sesame.spm.data.dto.SesameLoginResponseWrapper
 import tn.sesame.spm.data.dto.SesameUserDTO
 import tn.sesame.spm.data.dto.UserRolesDTO
+import tn.sesame.spm.data.exceptions.CustomHttpException
+import tn.sesame.spm.data.exceptions.HttpErrorType
 
 internal class UsersRemoteDAO(
     private val restClient : HttpClient
@@ -102,10 +104,7 @@ internal class UsersRemoteDAO(
         )
     )
 
-    private val credentialsLogins : Map<String,String> = mapOf(
-        "youssef.khiari@sesame.com.tn" to "007007",
-        "amira@sesame.com.tn" to "1111"
-    )
+
 
     private val tokenLogins : Map<String,String> = mapOf(
         "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InlvdXNzZWYua2hpYXJpQHNlc2FtZS5jb20udG4iLCJwYXNzd29yZCI6IjAwNzAwNyJ9.6a4KlE6CaP6NUyA1zDhPgHzQ7irJS5Y3MNw-RCEqzSM" to "youssef.khiari@sesame.com.tn",
@@ -119,9 +118,9 @@ internal class UsersRemoteDAO(
             lastName = "Khiari",
             email = "youssef.khiari@sesame.com.tn",
             sex = "h",
-            profilePicture = "https://scontent.ftun1-2.fna.fbcdn.net/v/t39.30808-6/221326371_3098397677063019_1217079727753827358_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=efb6e6&_nc_ohc=hcnmyhzRLXgAX-4at3u&_nc_ht=scontent.ftun1-2.fna&oh=00_AfA1eolX_v17fV3X6z2dEUfjmOZGPjRCbgvgjF2TVkazpw&oe=65B9E918",
+            profilePicture = "https://img.freepik.com/free-photo/androgynous-avatar-non-binary-queer-person_23-2151100177.jpg",
             portfolioId = "",
-            job = "",
+            job = "Android developer",
             sesameClass = sesameClasses.first(),
             role = roles.find {
                 it.id == "student_role"
@@ -158,36 +157,21 @@ internal class UsersRemoteDAO(
     suspend fun fetchEmailAndPasswordLoginAPI(
         email : String,password : String
     ) : SesameLoginResponseWrapper = withContext(Dispatchers.IO){
-         delay(1000)
-       val userExists = credentialsLogins.entries.any { (dbemail,dbpassword)->
-            dbemail == email && dbpassword == password
-        }
-        if (userExists) {
-           val profile = users.first {
-                it.email == email
-            }
-            val generateToken : String = tokenLogins.entries.find {
-                it.value == email
-            }?.key ?: "gigep52dhh5"
-            SesameLoginResponseWrapper(
-                token = generateToken,
-                data = profile
-            )
-        } else throw Exception()
+         delay(500)
+       if (email == "youssef.khiari@sesame.com.tn" && password == "007007") SesameLoginResponseWrapper(
+           data = users.first() ,
+           token = tokenLogins.keys.first()
+       ) else throw CustomHttpException(errorType = HttpErrorType.UnauthorizedAccess)
     }
 
     suspend fun fetchTokenLoginAPI(
        token : String
     ) : SesameLoginResponseWrapper  = withContext(Dispatchers.IO) {
-        tokenLogins[token]?.let { email ->
-            val profile = users.first {
-                it.email == email
-            }
-            SesameLoginResponseWrapper(
-                token = token,
-                data = profile
-            )
-        } ?: throw Exception()
+        delay(300)
+        if (token == tokenLogins.keys.first()) SesameLoginResponseWrapper(
+            data = users.first() ,
+            token = tokenLogins.keys.first()
+        ) else throw CustomHttpException(errorType = HttpErrorType.UnauthorizedAccess)
     }
 
 }

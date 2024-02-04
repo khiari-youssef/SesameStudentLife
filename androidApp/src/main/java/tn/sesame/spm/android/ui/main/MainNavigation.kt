@@ -31,6 +31,7 @@ import tn.sesame.spm.android.ui.login.LoginScreen
 import tn.sesame.spm.android.ui.login.LoginState
 import tn.sesame.spm.android.ui.login.LoginUIStateHolder
 import tn.sesame.spm.android.ui.login.LoginViewModel
+import tn.sesame.spm.android.ui.main.MainActivity
 import tn.sesame.spm.android.ui.projects.ProjectsViewModel
 import tn.sesame.spm.android.ui.projects.joinProcedure.SesameProjectActorsListState
 import tn.sesame.spm.android.ui.projects.joinProcedure.SesameProjectJoinRequestSupervisorSelectionStateHolder
@@ -42,15 +43,16 @@ import tn.sesame.spm.android.ui.settings.SettingsViewModel
 import tn.sesame.spm.domain.entities.SesameUser
 
 @Composable
-fun Activity.MainNavigation(
+fun MainActivity.MainNavigation(
     modifier: Modifier = Modifier,
     rootNavController : NavHostController,
-    homeDestinations : SesameBottomNavigationBarDefaults
+    homeDestinations : SesameBottomNavigationBarDefaults,
+    skipLogin : Boolean = false
 ) {
     NavHost(
         modifier = modifier,
         route = "MainGraph",
-        startDestination = NavigationRoutingData.Login,
+        startDestination = if (skipLogin) "MainNavigation" else NavigationRoutingData.Login,
         navController = rootNavController,
         builder = {
             composable(

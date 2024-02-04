@@ -64,6 +64,8 @@
 
     <!-- Settings strings-->
 
+
+    <string name="settings_screen_title">Settings</string>
     <string name="settings_auto_login_option_label">Enable auto login</string>
 
 

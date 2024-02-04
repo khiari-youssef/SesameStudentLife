@@ -8,8 +8,11 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import tn.sesame.spm.domain.entities.SesameLoginInterface
 import tn.sesame.spm.domain.exception.DomainErrorType
+import tn.sesame.spm.domain.exception.DomainException
 import tn.sesame.spm.domain.usecases.SesameUsersUsecase
 
 class LoginViewModel(
@@ -20,10 +23,33 @@ class LoginViewModel(
     val loginResultState : StateFlow<LoginState> = loginResultMutableState
 
     fun loginWithEmailAndPassword(email : String,password : String){
-        viewModelScope.launch {
-            loginResultMutableState.value = LoginState.Loading
-            delay(1000)
-            loginResultMutableState.value = LoginState.Success("")
+        if (email.isBlank() or password.isBlank()){
+            loginResultMutableState.value = LoginState.Error(
+                errorType = DomainErrorType.InvalidCredentials
+            )
+        } else {
+            viewModelScope.launch {
+                loginResultMutableState.value = LoginState.Loading
+                runCatching {
+                    return@runCatching sesameUsersUsecase.loginUser(
+                        SesameLoginInterface.SesameCredentialsLogin(
+                            email = email.trim(),
+                            password = password.trim()
+                        )
+                    )
+                }.onFailure { th->
+                    th.printStackTrace()
+                    loginResultMutableState.update {
+                        LoginState.Error(
+                            errorType = if (th is DomainException) th.errorType else DomainErrorType.Undefined
+                        )
+                    }
+                }.onSuccess { sesameUser->
+                    loginResultMutableState.update {
+                        LoginState.Success(sesameUser)
+                    }
+                }
+            }
         }
     }
 

@@ -19,7 +19,7 @@ val viewModelsModule = module {
         NotificationsViewModel()
     }
     viewModel {
-        MyProfileViewModel()
+        MyProfileViewModel(get())
     }
     viewModel {
         LoginViewModel(get())

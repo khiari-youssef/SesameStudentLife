@@ -22,10 +22,7 @@ actual val databaseModule : Module = module {
     }
     single<SesameWorksLifeDatabase>{
         SesameWorksLifeDatabase(
-            get<SqlDriver>(),
-           SesameLoginAdapter = SesameLogin.Adapter(
-               loginTimestampAdapter = get()
-           )
+            get<SqlDriver>()
         )
     }
 }

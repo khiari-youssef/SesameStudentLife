@@ -2,9 +2,8 @@ import kotlin.ULong;
 
 CREATE TABLE SesameLogin(
 token Text PRIMARY KEY,
-role_id Text,
-registrationID Text NOT NULL,
-loginTimestamp INTEGER AS ULong DEFAULT CURRENT_TIMESTAMP
+role_id Text NOT NULL,
+email Text NOT NULL
 );
 
 
@@ -17,7 +16,7 @@ sex Text NOT NULL,
 profile_picture_uri Text,
 portfolio_id Text,
 job Text,
-class Text
+sesameClass Text
 );
 
 CREATE TABLE SesameTeacher(
@@ -27,6 +26,8 @@ lastName Text,
 email Text NOT NULL,
 sex Text NOT NULL,
 profile_picture_uri Text,
+profBackground TEXT,
+portfolio_id Text,
 assignedClassesID Text
 );
 
@@ -46,24 +47,34 @@ users_login INTEGER DEFAULT 1
 );
 
 
-insertNewStudent:
-INSERT INTO SesameStudent VALUES(?,?,?,?,?,?,?,?,?);
+
+insertStudentProfile:
+INSERT OR REPLACE INTO SesameStudent VALUES(?,?,?,?,?,?,?,?,?);
 
 insertTeacherProfile:
-INSERT INTO SesameTeacher VALUES(?,?,?,?,?,?,?);
+INSERT OR REPLACE INTO SesameTeacher VALUES(?,?,?,?,?,?,?,?,?);
 
 insertNewLogin:
-INSERT INTO SesameLogin VALUES(?,?,?,?);
+INSERT OR REPLACE INTO SesameLogin VALUES(?,?,?);
 
 insertNewRole:
 INSERT INTO UserRoles VALUES(?,?,?,?,?,?,?,?,?,?,?);
 
-selecteMostRecentlySavedLogin:
-SELECT * FROM SesameLogin ORDER BY SesameLogin.loginTimestamp LIMIT 1;
+selecteSavedLogin:
+SELECT * FROM SesameLogin LIMIT 1;
 
-selectStudentProfileById:
-SELECT * FROM SesameStudent WHERE SesameStudent.registrationID = ? LIMIT 1;
+selectStudentProfileByEmail:
+SELECT * FROM SesameStudent WHERE SesameStudent.email = ? LIMIT 1;
 
-selectTeacherProfileById:
-SELECT * FROM SesameTeacher WHERE SesameTeacher.registrationID = ? LIMIT 1;
+selectTeacherProfileByEmail:
+SELECT * FROM SesameTeacher WHERE SesameTeacher.email = ? LIMIT 1;
+
+deleteLoginData:
+DELETE FROM SesameLogin;
+
+deleteTeachers:
+DELETE FROM SesameTeacher;
+
+deleteStudents:
+DELETE FROM SesameStudent;
 

@@ -20,7 +20,7 @@ fun SettingsScreen(
 ) {
  DetailsScreenTemplate(
      modifier =modifier,
-     title = stringResource(id = R.string.project_details_title_graduation_internship),
+     title = stringResource(id = R.string.settings_screen_title),
      onBackPressed = onBackPressed
  ) {
    Column(

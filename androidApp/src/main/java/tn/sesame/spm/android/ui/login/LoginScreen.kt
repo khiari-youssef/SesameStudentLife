@@ -62,7 +62,7 @@ onLoginClicked : ()->Unit
                 DomainErrorType.AccountLocked -> {
                    localContext.getString(R.string.error_toast_locked)
                 }
-                DomainErrorType.AuthenticationFailed ->{
+                DomainErrorType.Unauthorized ->{
                     localContext.getString(R.string.error_toast_unauthorized)
                 }
                 DomainErrorType.InvalidCredentials ->{

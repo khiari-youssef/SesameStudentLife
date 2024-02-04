@@ -1,6 +1,8 @@
 package tn.sesame.spm.domain.entities
 
 import tn.sesame.spm.domain.entities.SesameRole.Companion.NONE
+import tn.sesame.spm.domain.entities.SesameRole.Companion.getDefaultRoleForID
+
 enum class SesameUserSex{
     Male,Female
 }
@@ -17,7 +19,11 @@ sealed interface SesameLoginInterface{
     ) : SesameLoginInterface
 }
 
-
+data class SesameUserAccount(
+    val token : String,
+    val role_id : String,
+    val email : String
+)
 data class SesameClass(
  val id : String,
  val name : String,
@@ -33,13 +39,13 @@ open class SesameUser(
  val lastName : String,
  val email : String,
  val sex : SesameUserSex,
- val profilePicture : String
+ val profilePicture : String,
+ val role : SesameRole = SesameRole(id=NONE)
 ){
 
   val isSesameUser : Boolean = email.endsWith("@sesame.com.tn")
    fun getFullName() : String = "$firstName $lastName"
 
-   protected val roles : SesameRole = SesameRole(id=NONE)
 
     open val canViewProjects : SesamePermissionState = SesamePermissionState.DENIED
     open val canCreateProjects : SesamePermissionState = SesamePermissionState.DENIED
@@ -65,8 +71,9 @@ open class SesameUser(
    profilePicture : String,
   val portfolioId : String?=null,
   val job : String?=null,
-  val sesameClass : SesameClass
- ) : SesameUser(registrationID, firstName, lastName, email,sex, profilePicture){
+  val sesameClass : SesameClass,
+   role : SesameRole=  getDefaultRoleForID(SesameRole.STUDENT)
+ ) : SesameUser(registrationID, firstName, lastName, email,sex, profilePicture,role){
 
      override val canViewProjects : SesamePermissionState = SesamePermissionState.GRANTED
      override val canJoinProjects : SesamePermissionState = SesamePermissionState.REQ_AUTH
@@ -75,16 +82,17 @@ open class SesameUser(
  }
 
 class SesameTeacher(
- registrationID : String,
- firstName : String,
- lastName : String,
- email : String,
- sex : SesameUserSex,
- profilePicture : String,
- val portfolioId : String?=null,
- val profBackground : String,
- val assignedClasses : List<SesameClass>
-): SesameUser(registrationID, firstName, lastName, email,sex, profilePicture){
+    registrationID : String,
+    firstName : String,
+    lastName : String,
+    email : String,
+    sex : SesameUserSex,
+    profilePicture : String,
+    val portfolioId : String?=null,
+    val profBackground : String,
+    val assignedClasses : List<SesameClass>,
+    role : SesameRole = getDefaultRoleForID(SesameRole.TEACHER),
+): SesameUser(registrationID, firstName, lastName, email,sex, profilePicture,role){
     override val canViewProjects : SesamePermissionState = SesamePermissionState.GRANTED
     override val canCreateProjects : SesamePermissionState = SesamePermissionState.GRANTED
     override val canViewProfiles : SesamePermissionState = SesamePermissionState.GRANTED

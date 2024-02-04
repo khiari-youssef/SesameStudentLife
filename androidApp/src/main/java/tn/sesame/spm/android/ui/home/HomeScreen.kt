@@ -37,6 +37,7 @@ import tn.sesame.spm.android.base.NavigationRoutingData
 import tn.sesame.spm.android.ui.notifications.NotificationScreenStateHolder
 import tn.sesame.spm.android.ui.notifications.NotificationsScreen
 import tn.sesame.spm.android.ui.notifications.NotificationsViewModel
+import tn.sesame.spm.android.ui.profile.MyProfileViewModel
 import tn.sesame.spm.android.ui.projects.ProjectsViewModel
 import tn.sesame.spm.android.ui.projects.SesameProjectsState
 import tn.sesame.spm.android.ui.projects.SesameProjectsStateHolder
@@ -146,7 +147,8 @@ fun HomeScreen(
                             modifier = modifier
                                 .padding(
                                     horizontal = 16.dp
-                                ).padding(
+                                )
+                                .padding(
                                     top = 12.dp
                                 ),
                             uiState = uiState,
@@ -193,6 +195,7 @@ fun HomeScreen(
                     }
                 }
                 composable(NavigationRoutingData.Home.Profile) {
+                    val profileViewModel : MyProfileViewModel = getViewModel()
                     val displayBioAth = remember {
                         mutableStateOf(false)
                     }
@@ -200,6 +203,7 @@ fun HomeScreen(
                         RequireBiometricAuth(
                             onBiometricPassResult = { state->
                                 if (state is BiometricLauncherService.DeviceAuthenticationState.Success){
+                                    profileViewModel.logout()
                                     onHomeExit(NavigationRoutingData.Login)
                                 }
                             }
@@ -211,45 +215,36 @@ fun HomeScreen(
                             .padding(paddingValues),
                         onExitNavigation = { onHomeExit(NavigationRoutingData.ExitAppRoute) },
                     ) { modifier ->
-                        ProfileScreen(
-                            sesameUser = SesameStudent(
-                                "aehf",
-                                "Khiari",
-                                "Youssef",
-                                "khiari.youssef98@gmail.com",
-                                SesameUserSex.Male,
-                                "",
-                                "",
-                                "Android Engineer",
-                                SesameClass(
-                                    "ingta4-c",
-                                    "INGTA",
-                                    "4",
-                                    "C"
-                                )
-                            ),
-                            modifier = modifier
-                                .fillMaxSize(),
-                            onMenuItemClicked = {optionIndex->
-                              when (optionIndex){
-                                  0-> {
-                                      onHomeExit("${NavigationRoutingData.MyProjects}/1a2dhsd5h5fhsf2s2")
-                                  }
-                                  1-> {
-                                      onHomeExit(NavigationRoutingData.PrivacyPolicyScreen)
-                                  }
-                                  2-> {
-                                      onHomeExit(NavigationRoutingData.Settings)
-                                  }
-                                  else -> {
-
-                                  }
-                              }
-                            },
-                            onLogOutClicked = {
-                                displayBioAth.value = true
-                            }
+                        val myProfile  = profileViewModel.getMyProfile().collectAsStateWithLifecycle(
+                            initialValue = null
                         )
+                        myProfile.value?.run {
+                            ProfileScreen(
+                                sesameUser = this ,
+                                modifier = modifier
+                                    .fillMaxSize(),
+                                onMenuItemClicked = {optionIndex->
+                                    when (optionIndex){
+                                        0-> {
+                                            onHomeExit("${NavigationRoutingData.MyProjects}/1a2dhsd5h5fhsf2s2")
+                                        }
+                                        1-> {
+                                            onHomeExit(NavigationRoutingData.PrivacyPolicyScreen)
+                                        }
+                                        2-> {
+                                            onHomeExit(NavigationRoutingData.Settings)
+                                        }
+                                        else -> {
+
+                                        }
+                                    }
+                                },
+                                onLogOutClicked = {
+                                    displayBioAth.value = true
+                                }
+                            )
+                        }
+
                     }
                 }
             }
