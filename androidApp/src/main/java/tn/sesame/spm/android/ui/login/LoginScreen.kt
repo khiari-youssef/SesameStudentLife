@@ -26,6 +26,8 @@ import androidx.compose.ui.layout.layoutId
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import tn.sesame.designsystem.R
@@ -104,6 +106,9 @@ ConstraintLayout(
     ) {
        SesameButton(
            modifier = Modifier
+               .semantics {
+                   contentDescription = "LoginButton"
+               }
                .wrapContentHeight()
                .fillMaxWidth(0.9f),
            text = stringResource(id = R.string.login),
@@ -125,6 +130,9 @@ ConstraintLayout(
     }
     SesameToastPopup(
         modifier = Modifier
+            .semantics {
+                contentDescription = "LoginResultToast"
+            }
             .padding(
                 horizontal = 16.dp
             )
@@ -159,6 +167,9 @@ fun LoginForm(
      verticalArrangement = Arrangement.spacedBy(16.dp, Alignment.CenterVertically)
  ) {
      SesameEmailTextField(
+         modifier = Modifier.semantics {
+            contentDescription = "LoginEmailTextField"
+         },
          text = email,
          isEnabled = true,
          isError = false,
@@ -169,6 +180,9 @@ fun LoginForm(
          onEmailChanged = onEmailChanged
      )
      SesamePasswordTextField(
+         modifier = Modifier.semantics {
+             contentDescription = "LoginPasswordTextField"
+         },
          password = password,
          label = stringResource(id = R.string.password_label) ,
          placeholder =stringResource(id = R.string.password_placeholder),

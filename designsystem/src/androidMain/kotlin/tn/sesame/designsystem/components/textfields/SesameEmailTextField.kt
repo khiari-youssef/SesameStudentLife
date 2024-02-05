@@ -1,10 +1,12 @@
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import tn.sesame.designsystem.R
 
 @Composable
 fun SesameEmailTextField(
+    modifier : Modifier = Modifier,
     text: String,
     isEnabled: Boolean,
     isReadOnly: Boolean = false,
@@ -15,6 +17,7 @@ fun SesameEmailTextField(
     onEmailChanged: (text: String) -> Unit
 ) {
    SesameTextField(
+       modifier = modifier,
        text = text,
        label = stringResource(id = R.string.email_address_label) ,
        placeholder = stringResource(id = R.string.email_address_placeholder)  ,

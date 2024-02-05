@@ -13,6 +13,7 @@ android {
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
     buildFeatures {
         compose = true
@@ -71,4 +72,8 @@ dependencies {
     implementation(libs.jetpack.viewmodel.core)
     implementation(libs.jetpack.viewmodel.compose)
     implementation(libs.jetpack.viewmodel.composeutils)
+    androidTestImplementation(libs.androidx.test.runner)
+    androidTestImplementation(libs.androidx.test.rules)
+    androidTestImplementation(libs.compose.test.junit)
+    debugImplementation(libs.compose.test.rule)
 }

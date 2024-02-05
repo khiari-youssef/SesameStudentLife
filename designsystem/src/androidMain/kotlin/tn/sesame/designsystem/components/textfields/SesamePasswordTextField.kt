@@ -3,6 +3,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import tn.sesame.designsystem.R
@@ -10,6 +11,7 @@ import tn.sesame.designsystem.R
 
 @Composable
 fun SesamePasswordTextField(
+    modifier : Modifier = Modifier,
     password : String,
     label : String,
     placeholder : String,
@@ -29,6 +31,7 @@ fun SesamePasswordTextField(
         }
     }
     SesameTextField(
+        modifier =modifier,
         text = password,
         label = label ,
         placeholder = placeholder,

@@ -12,6 +12,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
@@ -20,6 +22,7 @@ import tn.sesame.designsystem.DuskBlue
 import tn.sesame.designsystem.ErrorColor
 import tn.sesame.designsystem.NiceBlue
 import tn.sesame.designsystem.SesameFontFamilies
+import tn.sesame.designsystem.components.loading.SesameCircularProgressBar
 
 
 enum class SesameButtonVariants{
@@ -62,8 +65,10 @@ fun SesameButton(
            animationSpec = spring()
        ) {
            if (it){
-               CircularProgressIndicator(
-                   modifier = Modifier.size(20.dp),
+               SesameCircularProgressBar(
+                   modifier = Modifier.semantics {
+                       contentDescription = "SesameButtonLoadingCircularProgressBar"
+                   }.size(20.dp),
                    strokeWidth = 2.dp,
                    color = Color.White
                )

@@ -26,6 +26,7 @@ import tn.sesame.designsystem.onBackgroundShadedLightMode
 
 @Composable
 fun SesameTextField(
+    modifier: Modifier =Modifier,
     text: String,
     label: String,
     placeholder: String,
@@ -41,6 +42,7 @@ fun SesameTextField(
     onTextChanged: (text: String) -> Unit
 ) {
     OutlinedTextField(
+        modifier = modifier,
         shape = MaterialTheme.shapes.small,
         textStyle = TextStyle(
             fontSize = 14.sp,
@@ -49,7 +51,6 @@ fun SesameTextField(
             letterSpacing = 1.sp,
             lineHeight = 24.sp
         ),
-        modifier = Modifier.fillMaxWidth(),
         value = text,
         keyboardActions= keyboardActions,
         label = {
