@@ -1,13 +1,8 @@
 package ui.login
 
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.ui.test.SemanticsMatcher
-import androidx.compose.ui.test.filter
 import androidx.compose.ui.test.junit4.createComposeRule
-import androidx.compose.ui.test.onChild
-import androidx.compose.ui.test.onChildren
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTextInput
