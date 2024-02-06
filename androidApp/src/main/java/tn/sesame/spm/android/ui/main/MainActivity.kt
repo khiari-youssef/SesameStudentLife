@@ -1,6 +1,9 @@
 package tn.sesame.spm.android.ui.main
 
+import AutoLoginLoadingScreen
+import BiometricCapabilitiesCheckUIHandler
 import BiometricCapabilitiesNotFoundDialog
+import BiometricCapabilitiesUIState
 import BiometricIdentityNotRegisteredDialog
 import InfoPopup
 import MainNavigation
@@ -79,40 +82,15 @@ class MainActivity : FragmentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    when (biometricSupportState.value){
-                        is SupportedDeviceAuthenticationMethods.Available ->{
+                    BiometricCapabilitiesCheckUIHandler(
+                        biometricCapabilitiesState = BiometricCapabilitiesUIState(
+                            biometricSupportState.value
+                        ) ,
+                        onSuccessContent = {
                             if ( autoLoginState.value is LoginState.Loading){
-                                Box(
-                                    modifier = Modifier.fillMaxSize(),
-                                    contentAlignment = Alignment.Center
-                                ){
-
-                                    Column(
-                                        modifier = Modifier.fillMaxSize(),
-                                        horizontalAlignment = Alignment.CenterHorizontally,
-                                        verticalArrangement = Arrangement.spacedBy(
-                                            12.dp,Alignment.CenterVertically
-                                        )
-                                    ) {
-                                        CircularProgressIndicator(
-                                            modifier = Modifier.requiredSize(24.dp),
-                                            color = MaterialTheme.colorScheme.primary,
-                                            strokeWidth = 2.dp
-                                        )
-                                        Text(
-                                            modifier = Modifier
-                                                .animateContentSize()
-                                                .fillMaxWidth(),
-                                            text = "Logging you in",
-                                            style = TextStyle(
-                                                color = MaterialTheme.colorScheme.primary,
-                                                fontFamily = SesameFontFamilies.MainMediumFontFamily,
-                                                fontSize = 20.sp,
-                                                textAlign = TextAlign.Center
-                                            )
-                                        )
-                                    }
-                                }
+                                AutoLoginLoadingScreen(
+                                    modifier = Modifier.fillMaxSize()
+                                )
                             } else {
                                 MainNavigation(
                                     modifier = Modifier,
@@ -121,60 +99,15 @@ class MainActivity : FragmentActivity() {
                                     skipLogin = autoLoginState.value is LoginState.Success
                                 )
                             }
-
+                        },
+                        onQuitApp = {
+                            this@MainActivity.finishAffinity()
+                        },
+                        onOpenSettings = {
+                            biometricRegistrationActivityResultLauncher
+                                ?.launch(getRegistrationBiometricIdentityIntent())
                         }
-                        is SupportedDeviceAuthenticationMethods.Unavailable ->{
-                            BiometricIdentityNotRegisteredDialog(
-                                isShown = true,
-                                onClosed = {
-                                     this@MainActivity.finishAffinity()
-                                },
-                                onOpenSettings = {
-                                    biometricRegistrationActivityResultLauncher
-                                        ?.launch(getRegistrationBiometricIdentityIntent())
-                                }
-                            )
-                        }
-                        is SupportedDeviceAuthenticationMethods.NoHardware ->{
-                            BiometricCapabilitiesNotFoundDialog(
-                                isShown = true,
-                                onClosed = {
-                                    this@MainActivity.finishAffinity()
-                                }
-                            )
-                        }
-                        is SupportedDeviceAuthenticationMethods.HardwareUnavailable->{
-                            InfoPopup(
-                                title = stringResource(id = R.string.error_biometric_undefined_title),
-                                subtitle = stringResource(id = R.string.error_biometric_undefined_message),
-                                isShown = true ,
-                                buttonText = stringResource(id = tn.sesame.designsystem.R.string.retry) ,
-                                onButtonClicked = {
-                                    biometricCapabilitiesState.update {
-                                        bioService.checkBiometricCapabilitiesState()
-                                    }
-                                }) {
-                                this@MainActivity.finishAffinity()
-                            }
-                        }
-                        is SupportedDeviceAuthenticationMethods.Undefined ->{
-                                 InfoPopup(
-                                     title = stringResource(id = R.string.error_biometric_temporararely_unavailable_title),
-                                     subtitle = stringResource(id = R.string.error_biometric_temporararely_unavailable_message),
-                                     isShown = true ,
-                                     buttonText = stringResource(id = tn.sesame.designsystem.R.string.retry) ,
-                                     onButtonClicked = {
-                                         biometricCapabilitiesState.update {
-                                             bioService.checkBiometricCapabilitiesState()
-                                         }
-                                     }) {
-                                      this@MainActivity.finishAffinity()
-                                 }
-                        }
-                        is SupportedDeviceAuthenticationMethods.Waiting ->{
-
-                        }
-                    }
+                    )
                 }
             }
         }
