@@ -1,3 +1,5 @@
+import com.android.build.api.dsl.UnitTestOptions
+
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.kotlinAndroid)

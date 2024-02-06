@@ -28,7 +28,7 @@
     <string name="error_destination_not_found_title">Navigation error</string>
     <string name="error_destination_not_found_detail">Path not found</string>
     <string name="next_step">Next</string>
-    <string name="error_toast_unknown">An error has occured</string>
+    <string name="error_toast_unknown">An error has occurred</string>
     <string name="error_toast_invalid_credentials">Invalid login!</string>
     <string name="error_toast_unauthorized">Action unauthorized</string>
     <string name="error_toast_locked">Account locked !</string>

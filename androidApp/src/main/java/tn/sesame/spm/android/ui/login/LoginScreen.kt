@@ -130,9 +130,6 @@ ConstraintLayout(
     }
     SesameToastPopup(
         modifier = Modifier
-            .semantics {
-                contentDescription = "LoginResultToast"
-            }
             .padding(
                 horizontal = 16.dp
             )

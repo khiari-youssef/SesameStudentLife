@@ -21,6 +21,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -107,6 +109,9 @@ fun SesameToast(
          val (iconRef,textRef,closeIconRef) = createRefs()
           Icon(
               modifier = Modifier
+                  .semantics {
+                      contentDescription = "ToastVariantIcon"
+                  }
                   .constrainAs(iconRef) {
                       start.linkTo(parent.start)
                       top.linkTo(parent.top)
@@ -120,7 +125,9 @@ fun SesameToast(
               tint = sesameToastDefaults.iconsTint
           )
          Text(
-             modifier = Modifier.constrainAs(textRef){
+             modifier = Modifier.semantics {
+                 contentDescription = "ToastTextContent"
+             }.constrainAs(textRef){
                  start.linkTo(iconRef.end,8.dp)
                  end.linkTo(closeIconRef.start,8.dp)
                  width  = Dimension.fillToConstraints
@@ -171,6 +178,9 @@ fun SesameToastPopup(
     ) {
         SesameToast(
             Modifier
+                .semantics {
+                    contentDescription = "LoginToastPopup"
+                }
                 .fillMaxWidth()
                 .wrapContentHeight(),
             message,
