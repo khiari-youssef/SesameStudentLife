@@ -9,11 +9,13 @@ import tn.sesame.spm.android.ui.profile.MyProfileViewModel
 import tn.sesame.spm.android.ui.projects.ProjectsViewModel
 import tn.sesame.spm.android.ui.settings.SettingsViewModel
 import tn.sesame.spm.di.UsersRepositoryTag
+import tn.sesame.spm.di.androidSecurityModule
 import tn.sesame.spm.di.domainModule
 import tn.sesame.spm.di.repositoriesModule
 
 val viewModelsModule = module {
     includes(domainModule)
+    includes(androidSecurityModule)
     includes(repositoriesModule)
     viewModel {
         NotificationsViewModel()
@@ -31,6 +33,9 @@ val viewModelsModule = module {
         SettingsViewModel(get(UsersRepositoryTag))
     }
     viewModel {
-        MainActivityViewModel(get(UsersRepositoryTag))
+        MainActivityViewModel(
+            get(UsersRepositoryTag),
+            get()
+        )
     }
 }

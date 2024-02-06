@@ -1,5 +1,6 @@
 package tn.sesame.spm.android.ui.main
 
+import androidx.compose.runtime.State
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -14,11 +15,18 @@ import tn.sesame.spm.data.repositories.users.UsersRepositoryInterface
 import tn.sesame.spm.domain.entities.SesameUser
 import tn.sesame.spm.domain.exception.DomainErrorType
 import tn.sesame.spm.domain.exception.DomainException
+import tn.sesame.spm.security.BiometricAuthService
+import tn.sesame.spm.security.SupportedDeviceAuthenticationMethods
 
 
 class MainActivityViewModel(
-    private val usersRepositoryInterface: UsersRepositoryInterface
+    private val usersRepositoryInterface: UsersRepositoryInterface,
+    private val bioService : BiometricAuthService
 ) : ViewModel() {
+
+    private val biometricCapabilitiesMutableState : MutableStateFlow<SupportedDeviceAuthenticationMethods>
+            = MutableStateFlow(SupportedDeviceAuthenticationMethods.Waiting)
+    val biometricCapabilitiesState : StateFlow<SupportedDeviceAuthenticationMethods> = biometricCapabilitiesMutableState
 
     private val autoLoginMutableState : MutableStateFlow<LoginState> = MutableStateFlow(
         LoginState.Loading
@@ -26,8 +34,15 @@ class MainActivityViewModel(
     val autoLoginState : StateFlow<LoginState>  = autoLoginMutableState
 
     init {
+        checkBiometricCapabilitiesState()
         checkAutoLoginState()
     }
+
+
+    fun checkBiometricCapabilitiesState(){
+        biometricCapabilitiesMutableState.value = bioService.checkBiometricCapabilitiesState()
+    }
+
     private fun checkAutoLoginState() {
         viewModelScope.launch {
             usersRepositoryInterface.isAutoLoginEnabled()

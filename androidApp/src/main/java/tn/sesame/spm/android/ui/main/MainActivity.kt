@@ -6,6 +6,7 @@ import BiometricCapabilitiesNotFoundDialog
 import BiometricCapabilitiesUIState
 import BiometricIdentityNotRegisteredDialog
 import InfoPopup
+import MainActivityScreen
 import MainNavigation
 import android.content.Intent
 import android.os.Bundle
@@ -33,6 +34,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.compose.LifecycleStartEffect
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.compose.rememberNavController
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -50,62 +52,32 @@ import tn.sesame.spm.ui.getRegistrationBiometricIdentityIntent
 
 class MainActivity : FragmentActivity() {
 
-    private val bioService : BiometricAuthService by inject()
-    private var biometricRegistrationActivityResultLauncher : ActivityResultLauncher<Intent>?=null
-    private val biometricCapabilitiesState : MutableStateFlow<SupportedDeviceAuthenticationMethods>
-    = MutableStateFlow(SupportedDeviceAuthenticationMethods.Waiting)
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        biometricRegistrationActivityResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
-                biometricCapabilitiesState.update {
-                    bioService.checkBiometricCapabilitiesState()
-                }
-        }
-        biometricCapabilitiesState.update {
-            bioService.checkBiometricCapabilitiesState()
-        }
         installSplashScreen()
         setContent {
             val viewModel : MainActivityViewModel = getViewModel()
-            val autoLoginState = viewModel.autoLoginState.collectAsStateWithLifecycle(
-                initialValue = LoginState.Loading
-            )
-            val biometricSupportState : State<SupportedDeviceAuthenticationMethods>  = biometricCapabilitiesState
-                .collectAsStateWithLifecycle()
-            val rootNavController = rememberNavController()
-            val homeDestinations = SesameBottomNavigationBarDefaults.getDefaultConfiguration()
+            val uiState = MainActivityStateHolder
+                .rememberMainActivityState(
+                    biometricSupportState = viewModel.biometricCapabilitiesState
+                        .collectAsStateWithLifecycle(),
+                    autoLoginState = viewModel.autoLoginState.collectAsStateWithLifecycle(
+                        initialValue = LoginState.Loading
+                    ),
+                    rootNavController =rememberNavController() ,
+                    homeDestinations = SesameBottomNavigationBarDefaults.getDefaultConfiguration()
+                )
 
             SesameTheme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    BiometricCapabilitiesCheckUIHandler(
-                        biometricCapabilitiesState = BiometricCapabilitiesUIState(
-                            biometricSupportState.value
-                        ) ,
-                        onSuccessContent = {
-                            if ( autoLoginState.value is LoginState.Loading){
-                                AutoLoginLoadingScreen(
-                                    modifier = Modifier.fillMaxSize()
-                                )
-                            } else {
-                                MainNavigation(
-                                    modifier = Modifier,
-                                    rootNavController = rootNavController,
-                                    homeDestinations = homeDestinations,
-                                    skipLogin = autoLoginState.value is LoginState.Success
-                                )
-                            }
-                        },
-                        onQuitApp = {
-                            this@MainActivity.finishAffinity()
-                        },
-                        onOpenSettings = {
-                            biometricRegistrationActivityResultLauncher
-                                ?.launch(getRegistrationBiometricIdentityIntent())
+                    MainActivityScreen(
+                        modifier = Modifier.fillMaxSize(),
+                        uiState = uiState,
+                        onCheckBiometricCapabilitiesStateRequest = {
+                            viewModel.checkBiometricCapabilitiesState()
                         }
                     )
                 }
