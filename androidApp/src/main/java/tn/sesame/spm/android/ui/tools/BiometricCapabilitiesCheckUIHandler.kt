@@ -1,11 +1,8 @@
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
 import androidx.compose.ui.res.stringResource
-import kotlinx.coroutines.flow.update
 import tn.sesame.spm.android.R
-import tn.sesame.spm.android.ui.main.MainActivity
 import tn.sesame.spm.security.SupportedDeviceAuthenticationMethods
-import tn.sesame.spm.ui.getRegistrationBiometricIdentityIntent
 
 @Stable
 @JvmInline
