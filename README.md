@@ -23,7 +23,7 @@ As you inspect the code, you will notice that it is a Kotlin multiplatform app b
 
 ## Application layers and data flow
 
-![MVVM](./assets/mvvm.jpg)
+![MVVM](./assets/mvvm.PNG)
 
 ## Links & Attributions
 User placeholder images:
