@@ -16,6 +16,7 @@ As you inspect the code, you will notice that it is a Kotlin multiplatform app b
 
 ## Figma UI prototype
 ![SplashScreen](./assets/SplashScreen.png)
+![Login](./assets/UserSigning.png)
 ![Home](./assets/Home.png)
 ![Profile](./assets/Profile.png)
 ![MyProjects](./assets/SearchProjects.png)
