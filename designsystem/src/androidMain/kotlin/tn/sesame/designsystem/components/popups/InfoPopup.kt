@@ -15,6 +15,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -39,6 +41,9 @@ fun InfoPopup(
         ) {
             Column(
                 modifier = Modifier
+                    .semantics {
+                        contentDescription = "InfoPopup"
+                    }
                     .background(MaterialTheme.colorScheme.primaryContainer)
                     .padding(
                         top = 16.dp
@@ -60,6 +65,9 @@ fun InfoPopup(
                 ) {
                     Text(
                         modifier = Modifier
+                            .semantics {
+                                contentDescription = "InfoPopupTitleText"
+                            }
                             .wrapContentHeight()
                             .fillMaxWidth(),
                         text = title,
@@ -73,6 +81,9 @@ fun InfoPopup(
                     subtitle?.run {
                         Text(
                             modifier = Modifier
+                                .semantics {
+                                    contentDescription = "InfoPopupSubTitleText"
+                                }
                                 .wrapContentHeight()
                                 .fillMaxWidth(),
                             text = subtitle,
@@ -95,6 +106,9 @@ fun InfoPopup(
                 ) {
                     TextButton(
                         modifier = Modifier
+                            .semantics {
+                                contentDescription = "InfoPopupTextButton"
+                            }
                             .weight(0.5f)
                             .fillMaxWidth()
                             .wrapContentHeight(),

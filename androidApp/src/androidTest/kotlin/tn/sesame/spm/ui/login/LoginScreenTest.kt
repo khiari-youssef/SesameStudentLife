@@ -1,4 +1,4 @@
-package ui.login
+package tn.sesame.spm.ui.login
 
 import android.content.Context
 import androidx.compose.runtime.mutableStateOf
@@ -14,15 +14,17 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
+import org.koin.test.KoinTest
+import org.koin.test.inject
 import tn.sesame.designsystem.R
 import tn.sesame.spm.android.ui.login.LoginScreen
 import tn.sesame.spm.android.ui.login.LoginState
 import tn.sesame.spm.android.ui.login.LoginUIStateHolder
 import tn.sesame.spm.domain.exception.DomainErrorType
 
-class LoginScreenTest {
+class LoginScreenTest : KoinTest {
 
-private lateinit var instrumentationContext: Context
+private val instrumentationContext: Context by inject()
 
 @get:Rule
 val composeLoginTestRule = createComposeRule()
@@ -31,7 +33,6 @@ private val viewModelLoginMockState : MutableStateFlow<LoginState> = MutableStat
 
 @Before
 fun init(){
-    instrumentationContext = InstrumentationRegistry.getInstrumentation().targetContext
     viewModelLoginMockState.value = LoginState.Idle
 }
 

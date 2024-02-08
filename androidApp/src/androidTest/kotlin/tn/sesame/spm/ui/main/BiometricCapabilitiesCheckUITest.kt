@@ -1,4 +1,4 @@
-package ui.base
+package tn.sesame.spm.ui.main
 
 class BiometricCapabilitiesCheckUITest {
 

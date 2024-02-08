@@ -10,6 +10,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import androidx.navigation.NavOptions
@@ -71,7 +73,11 @@ fun MainActivity.MainNavigation(
                 } )
 
                 LoginScreen(
-                    modifier = Modifier.fillMaxSize(),
+                    modifier = Modifier
+                        .semantics {
+                            contentDescription = "LoginScreen"
+                        }
+                        .fillMaxSize(),
                     loginUIStateHolder = loginUIState,
                     onEmailChanged = { email ->
                         loginUIState.loginEmail.value = email

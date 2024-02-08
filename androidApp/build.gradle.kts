@@ -13,7 +13,7 @@ android {
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "tn.sesame.spm.ApplicationTestRunner"
     }
     buildFeatures {
         compose = true
@@ -76,4 +76,6 @@ dependencies {
     androidTestImplementation(libs.androidx.test.rules)
     androidTestImplementation(libs.compose.test.junit)
     debugImplementation(libs.compose.test.rule)
+    testImplementation(libs.koin.test)
+    androidTestImplementation(libs.koin.test.android)
 }
