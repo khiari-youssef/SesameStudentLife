@@ -4,6 +4,7 @@ A mobile app for Sesame university students to manage their academic projets.
 This app is built as part of my academic projects but also serves as a sample for a jetpack-compose android app.
 As you inspect the code, you will notice that it is a Kotlin multiplatform app but i decided to go android-first because i had issues with compose multiplatform and sqldelight.
 * What does this app showcase ?
+ - Jetpack compose powered UI supporting dark mode and landscape mode.
  - Creating modular and reusable UI components jetpack compose (Implementing a design system built on top of M3)
  - State management with jetpack compose.
  - MVVM architectural design pattern.
