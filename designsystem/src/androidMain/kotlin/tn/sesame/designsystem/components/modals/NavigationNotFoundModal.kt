@@ -38,7 +38,7 @@ fun NavigationNotFoundModal(
     details : String = stringResource(id = R.string.error_destination_not_found_detail)
 ) {
     Card(
-        modifier = Modifier
+        modifier = modifier
             .semantics {
                 contentDescription = "NavigationDestinationNotFoundModal"
             }

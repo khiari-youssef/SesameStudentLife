@@ -77,5 +77,6 @@ dependencies {
     androidTestImplementation(libs.compose.test.junit)
     debugImplementation(libs.compose.test.rule)
     testImplementation(libs.koin.test)
+    androidTestImplementation(libs.kotlin.test.mockito)
     androidTestImplementation(libs.koin.test.android)
 }

@@ -29,6 +29,7 @@ import org.koin.test.check.checkModules
 import org.koin.test.get
 import org.koin.test.inject
 import org.koin.test.mock.MockProvider
+import org.koin.test.mock.declareMock
 import tn.sesame.designsystem.SesameTheme
 import tn.sesame.designsystem.components.bars.SesameBottomNavigationBarDefaults
 import tn.sesame.spm.android.ui.login.LoginState
