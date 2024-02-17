@@ -44,6 +44,22 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+    testOptions {
+        reportDir = "$rootDir/test-reports"
+        resultsDir = "$rootDir/test-results"
+        managedDevices {
+               localDevices{
+                   create("Android13Pixel7ProDevice"){
+                       device = "Pixel 7 Pro"
+                       // ATDs currently support only API level 30.
+                       apiLevel = 33
+                       // You can also specify "google-atd" if you require Google Play Services.
+                       systemImageSource = "aosp-atd"
+                   }
+               }
+        }
+    }
+
 }
 
 dependencies {

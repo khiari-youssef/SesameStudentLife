@@ -42,7 +42,7 @@ fun DateText(
          Alignment.Start
      )
  ) {
-     val valuePlaceHolderResource = stringResource(id = valuePlaceholderResID)
+     val valuePlaceHolderResource = stringResource(valuePlaceholderResID)
     Icon(
         modifier = Modifier
             .requiredSize(24.dp),

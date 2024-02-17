@@ -224,7 +224,7 @@ fun ProjectDatesSection(
         DateText(
             modifier = Modifier
                 .wrapContentSize(),
-            label = stringResource(id = R.string.project_start_date),
+            label = stringResource(R.string.project_start_date),
             value =  startDate,
             valuePlaceholderResID = R.string.project_date_unavailable
         )
