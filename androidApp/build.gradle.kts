@@ -1,21 +1,18 @@
 plugins {
-    alias(libs.plugins.androidApplication)
-    alias(libs.plugins.kotlinAndroid)
-    id("kotlin-parcelize")
     id("sesame.android.application")
+    id("kotlin-parcelize")
 }
 
 android.run {
     namespace = "tn.sesame.spm.android"
     defaultConfig.applicationId = "tn.sesame.spm.android"
-    defaultConfig.versionCode = 1
-    defaultConfig.versionName = "1.0"
     defaultConfig.testInstrumentationRunner = "tn.sesame.spm.ApplicationTestRunner"
 }
 
 dependencies {
     implementation(projects.shared)
     implementation(projects.designsystem)
+    implementation(projects.usersManagement)
     implementation(libs.compose.ui)
     implementation(libs.compose.ui.tooling.preview)
     implementation(libs.compose.material3)

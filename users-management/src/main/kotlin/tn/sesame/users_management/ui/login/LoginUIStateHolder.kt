@@ -1,4 +1,4 @@
-package tn.sesame.spm.android.ui.login
+package tn.sesame.users_management.ui.login
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
@@ -21,7 +21,7 @@ sealed interface LoginState {
   data class Error(val errorType : DomainErrorType) : LoginState
 
     @Stable
-  data class Success(val user : SesameUser) :LoginState
+  data class Success(val user : SesameUser) : LoginState
 }
 
 data class LoginUIStateHolder(

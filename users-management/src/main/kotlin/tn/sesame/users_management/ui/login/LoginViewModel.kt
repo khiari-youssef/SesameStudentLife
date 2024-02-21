@@ -1,4 +1,4 @@
-package tn.sesame.spm.android.ui.login
+package tn.sesame.users_management.ui.login
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

@@ -2,7 +2,7 @@ package tn.sesame.spm.android.di
 
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
-import tn.sesame.spm.android.ui.login.LoginViewModel
+import tn.sesame.users_management.ui.login.LoginViewModel
 import tn.sesame.spm.android.ui.main.MainActivityViewModel
 import tn.sesame.spm.android.ui.notifications.NotificationsViewModel
 import tn.sesame.spm.android.ui.profile.MyProfileViewModel

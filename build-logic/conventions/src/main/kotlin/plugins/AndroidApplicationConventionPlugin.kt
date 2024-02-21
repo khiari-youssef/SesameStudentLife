@@ -20,6 +20,8 @@ class AndroidApplicationConventionPlugin : Plugin<Project> {
                 defaultConfig.targetSdk = libs.findVersion("targetSdk").get().toString().toInt()
                 packaging.resources.excludes += "/META-INF/{AL2.0,LGPL2.1}"
                 packaging.resources.excludes += "/META-INF/versions/9/previous-compilation-data.bin"
+                defaultConfig.versionCode = 1
+                defaultConfig.versionName = "1.0"
                 buildTypes {
                     getByName("debug"){
                         isDebuggable = true

@@ -1,4 +1,4 @@
-package tn.sesame.spm.android.ui.login
+package tn.sesame.users_management.ui.login
 
 
 import AppVersion
@@ -34,18 +34,18 @@ import tn.sesame.designsystem.R
 import tn.sesame.designsystem.components.AppBrand
 import tn.sesame.designsystem.components.popups.SesameToastDefaults
 import tn.sesame.designsystem.components.popups.SesameToastPopup
-import tn.sesame.spm.android.BuildConfig
 import tn.sesame.spm.domain.exception.DomainErrorType
+import tn.sesame.users_management.BuildConfig
 
 typealias ToastState = Pair<Int,String>
 
 @Composable
 fun LoginScreen(
-modifier: Modifier = Modifier,
-loginUIStateHolder: LoginUIStateHolder,
-onEmailChanged: (email: String) -> Unit,
-onPasswordChanged: (password: String) -> Unit,
-onLoginClicked : ()->Unit
+    modifier: Modifier = Modifier,
+    loginUIStateHolder: LoginUIStateHolder,
+    onEmailChanged: (email: String) -> Unit,
+    onPasswordChanged: (password: String) -> Unit,
+    onLoginClicked : ()->Unit
 ) {
    val isLargeScreen  = LocalConfiguration.current.run {
        (orientation == Configuration.ORIENTATION_LANDSCAPE) or (this.screenWidthDp >= 600)
@@ -126,7 +126,7 @@ ConstraintLayout(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(8.dp,Alignment.Start)
     ) {
-        AppVersion(version = BuildConfig.VERSION_NAME)
+        AppVersion(version = "1.0.0")
     }
     SesameToastPopup(
         modifier = Modifier

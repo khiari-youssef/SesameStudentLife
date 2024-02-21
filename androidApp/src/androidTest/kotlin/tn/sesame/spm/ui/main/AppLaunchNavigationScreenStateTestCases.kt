@@ -8,42 +8,28 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.semantics.SemanticsProperties
-import androidx.compose.ui.semantics.SemanticsPropertyKey
-import androidx.compose.ui.test.SemanticsMatcher
-import androidx.compose.ui.test.assert
 import androidx.compose.ui.test.hasAnyChild
 import androidx.compose.ui.test.hasContentDescription
 import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.navigation.compose.rememberNavController
-import androidx.test.platform.app.InstrumentationRegistry
-import org.junit.Before
-import org.junit.Ignore
 import org.junit.Rule
 import org.junit.Test
 import org.koin.test.KoinTest
-import org.koin.test.check.checkModules
 import org.koin.test.get
 import org.koin.test.inject
-import org.koin.test.mock.MockProvider
-import org.koin.test.mock.declareMock
 import tn.sesame.designsystem.SesameTheme
 import tn.sesame.designsystem.components.bars.SesameBottomNavigationBarDefaults
-import tn.sesame.spm.android.ui.login.LoginState
+import tn.sesame.users_management.ui.login.LoginState
 import tn.sesame.spm.android.ui.main.MainActivity
 import tn.sesame.spm.android.ui.main.MainActivityStateHolder
-import tn.sesame.spm.di.androidSecurityModule
 import tn.sesame.spm.security.SupportedDeviceAuthenticationMethods
-import tn.sesame.spm.KoinAndroidUITestRule
 import tn.sesame.spm.android.R
 import tn.sesame.spm.domain.entities.SesameRole
 import tn.sesame.spm.domain.entities.SesameUser
 import tn.sesame.spm.domain.entities.SesameUserSex
 import tn.sesame.spm.security.BiometricLauncherService
-import tn.sesame.spm.ui.testModule
 
 
 class AppLaunchNavigationScreenStateTestCases : KoinTest{

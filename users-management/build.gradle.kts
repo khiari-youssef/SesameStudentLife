@@ -12,7 +12,6 @@ android.run {
 }
 
 dependencies {
-
     implementation(projects.shared)
     implementation(projects.designsystem)
     implementation(libs.compose.ui)

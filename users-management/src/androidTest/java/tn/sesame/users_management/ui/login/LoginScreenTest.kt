@@ -1,4 +1,4 @@
-package tn.sesame.spm.ui.login
+package tn.sesame.users_management.ui.login
 
 import android.content.Context
 import androidx.compose.runtime.mutableStateOf
@@ -9,7 +9,6 @@ import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTextInput
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.test.platform.app.InstrumentationRegistry
 import kotlinx.coroutines.flow.MutableStateFlow
 import org.junit.Before
 import org.junit.Rule
@@ -17,9 +16,6 @@ import org.junit.Test
 import org.koin.test.KoinTest
 import org.koin.test.inject
 import tn.sesame.designsystem.R
-import tn.sesame.spm.android.ui.login.LoginScreen
-import tn.sesame.spm.android.ui.login.LoginState
-import tn.sesame.spm.android.ui.login.LoginUIStateHolder
 import tn.sesame.spm.domain.exception.DomainErrorType
 
 class LoginScreenTest : KoinTest {
