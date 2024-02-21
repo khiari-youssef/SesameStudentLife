@@ -1,4 +1,4 @@
-package plugins
+
 
 import com.android.build.api.dsl.ApplicationExtension
 import configureKotlinAndroid
@@ -18,6 +18,18 @@ class AndroidApplicationConventionPlugin : Plugin<Project> {
             extensions.configure<ApplicationExtension> {
                 configureKotlinAndroid(this)
                 defaultConfig.targetSdk = libs.findVersion("targetSdk").get().toString().toInt()
+                packaging.resources.excludes += "/META-INF/{AL2.0,LGPL2.1}"
+                packaging.resources.excludes += "/META-INF/versions/9/previous-compilation-data.bin"
+                buildTypes {
+                    getByName("debug"){
+                        isDebuggable = true
+                        isMinifyEnabled = false
+                    }
+                    getByName("release") {
+                        isMinifyEnabled = true
+                        isShrinkResources = true
+                    }
+                }
             }
 
         }

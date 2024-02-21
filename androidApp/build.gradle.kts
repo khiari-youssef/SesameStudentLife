@@ -1,52 +1,16 @@
-
-
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.kotlinAndroid)
     id("kotlin-parcelize")
+    id("sesame.android.application")
 }
 
-android {
-
+android.run {
     namespace = "tn.sesame.spm.android"
-    compileSdk = 34
-    defaultConfig {
-        applicationId = "tn.sesame.spm.android"
-        minSdk = 26
-        targetSdk = 34
-        versionCode = 1
-        versionName = "1.0"
-        testInstrumentationRunner = "tn.sesame.spm.ApplicationTestRunner"
-    }
-    buildFeatures {
-        compose = true
-        buildConfig = true
-    }
-    composeOptions {
-        kotlinCompilerExtensionVersion = libs.versions.compose.compiler.get()
-    }
-    packaging {
-        resources {
-            excludes += "/META-INF/{AL2.0,LGPL2.1}"
-            excludes += "/META-INF/versions/9/previous-compilation-data.bin"
-        }
-    }
-    buildTypes {
-        getByName("debug"){
-            isDebuggable = true
-            isMinifyEnabled = false
-        }
-        getByName("release") {
-            isMinifyEnabled = false
-        }
-    }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
-    }
-    kotlinOptions {
-        jvmTarget = "1.8"
-    }
+    defaultConfig.applicationId = "tn.sesame.spm.android"
+    defaultConfig.versionCode = 1
+    defaultConfig.versionName = "1.0"
+    defaultConfig.testInstrumentationRunner = "tn.sesame.spm.ApplicationTestRunner"
 }
 
 dependencies {

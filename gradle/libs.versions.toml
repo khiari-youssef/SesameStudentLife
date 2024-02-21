@@ -35,6 +35,9 @@ androidx-test-ext-junit = "1.1.5"
 espresso-core = "3.5.1"
 appcompat = "1.6.1"
 material = "1.11.0"
+minSdk = "26"
+compileSdk ="34"
+targetSdk = "34"
 
 [libraries]
 androidx-security-app-authenticator = { module = "androidx.security:security-app-authenticator", version.ref = "securityAppAuthenticator" }
