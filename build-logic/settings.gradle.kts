@@ -1,6 +1,5 @@
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 pluginManagement {
-    includeBuild("build-logic")
     repositories {
         google()
         gradlePluginPortal()
@@ -13,10 +12,12 @@ dependencyResolutionManagement {
         google()
         mavenCentral()
     }
+    versionCatalogs {
+        create("libs") {
+            from(files("../gradle/libs.versions.toml"))
+        }
+    }
 }
 
-rootProject.name = "SPM"
-include(":androidApp")
-include(":shared")
-include(":designsystem")
-include(":users-management")
+rootProject.name = "build-logic"
+include(":conventions")

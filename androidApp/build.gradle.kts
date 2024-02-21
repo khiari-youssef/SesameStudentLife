@@ -1,3 +1,5 @@
+
+
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.kotlinAndroid)
@@ -5,6 +7,7 @@ plugins {
 }
 
 android {
+
     namespace = "tn.sesame.spm.android"
     compileSdk = 34
     defaultConfig {

@@ -36,7 +36,6 @@ kotlin {
             implementation(libs.compose.material3)
             implementation(libs.compose.foundation)
             implementation(libs.androidx.splashscreen)
-            implementation(libs.compose.ui.tooling)
             implementation(libs.compose.navigation)
             implementation(libs.compose.lottie)
             implementation(libs.compose.animation.core)
@@ -59,5 +58,8 @@ android {
     }
     composeOptions {
         kotlinCompilerExtensionVersion = libs.versions.compose.compiler.get()
+    }
+    dependencies{
+        debugImplementation(libs.compose.ui.tooling)
     }
 }
