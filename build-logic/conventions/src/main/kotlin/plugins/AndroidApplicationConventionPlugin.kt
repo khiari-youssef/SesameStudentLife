@@ -22,6 +22,7 @@ class AndroidApplicationConventionPlugin : Plugin<Project> {
                 packaging.resources.excludes += "/META-INF/versions/9/previous-compilation-data.bin"
                 defaultConfig.versionCode = 1
                 defaultConfig.versionName = "1.0"
+
                 buildTypes {
                     getByName("debug"){
                         isDebuggable = true

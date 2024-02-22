@@ -1,9 +1,8 @@
-package tn.sesame.spm
+package tn.sesame.spm.test.configuration
 
 import android.app.Application
 import android.content.Context
 import androidx.test.runner.AndroidJUnitRunner
-import tn.sesame.spm.ui.base.TestApplication
 
 class ApplicationTestRunner : AndroidJUnitRunner() {
     override fun newApplication(

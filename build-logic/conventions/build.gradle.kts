@@ -23,5 +23,9 @@ gradlePlugin{
            id = "sesame.android.feature"
            implementationClass = "AndroidFeatureConventionPlugin"
        }
+       register("androidTest"){
+           id = "sesame.android.test"
+           implementationClass = "AndroidTestConventionPlugin"
+       }
    }
 }

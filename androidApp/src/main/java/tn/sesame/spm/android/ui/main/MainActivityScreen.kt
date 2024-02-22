@@ -8,6 +8,7 @@ import androidx.compose.ui.semantics.semantics
 import tn.sesame.users_management.ui.login.LoginState
 import tn.sesame.spm.android.ui.main.MainActivity
 import tn.sesame.spm.android.ui.main.MainActivityStateHolder
+import tn.sesame.spm.android.ui.main.MainNavigation
 import tn.sesame.spm.ui.getRegistrationBiometricIdentityIntent
 
 @Composable

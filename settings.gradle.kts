@@ -1,4 +1,3 @@
-enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 pluginManagement {
     includeBuild("build-logic")
     repositories {
@@ -20,3 +19,4 @@ include(":androidApp")
 include(":shared")
 include(":designsystem")
 include(":users-management")
+include(":androidTestApp")

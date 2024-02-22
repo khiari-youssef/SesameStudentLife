@@ -1,21 +1,27 @@
-package tn.sesame.spm.ui.main
+package tn.sesame.spm.test.ui.main
+
 
 import MainActivityScreen
-import MainNavigation
 import android.content.Context
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.test.hasAnyChild
 import androidx.compose.ui.test.hasContentDescription
 import androidx.compose.ui.test.hasText
-import androidx.compose.ui.test.junit4.createAndroidComposeRule
+import androidx.compose.ui.test.junit4.AndroidComposeTestRule
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.navigation.compose.rememberNavController
+import androidx.test.ext.junit.runners.AndroidJUnit4
+import androidx.compose.ui.test.junit4.ComposeTestRule
+import androidx.compose.ui.test.junit4.createAndroidComposeRule
+import androidx.compose.ui.test.junit4.createComposeRule
 import org.junit.Rule
 import org.junit.Test
+import org.junit.runner.RunWith
 import org.koin.test.KoinTest
 import org.koin.test.get
 import org.koin.test.inject
@@ -26,6 +32,7 @@ import tn.sesame.spm.android.ui.main.MainActivity
 import tn.sesame.spm.android.ui.main.MainActivityStateHolder
 import tn.sesame.spm.security.SupportedDeviceAuthenticationMethods
 import tn.sesame.spm.android.R
+import tn.sesame.spm.android.ui.main.MainNavigation
 import tn.sesame.spm.domain.entities.SesameRole
 import tn.sesame.spm.domain.entities.SesameUser
 import tn.sesame.spm.domain.entities.SesameUserSex
@@ -36,22 +43,22 @@ class AppLaunchNavigationScreenStateTestCases : KoinTest{
 
     private val instrumentationContext: Context by inject()
 
+
     @get:Rule
     val composeMainActivityTestRule = createAndroidComposeRule(MainActivity::class.java)
 
-
     @Test
     fun testMainNavigationWhenLoginScreenShouldBeTheStartDestination() {
-        composeMainActivityTestRule.activity.setContent {
-           SesameTheme {
-               composeMainActivityTestRule.activity.run {
-                   MainNavigation(
-                       modifier = Modifier.fillMaxSize(),
-                       rootNavController = rememberNavController(),
-                       homeDestinations = SesameBottomNavigationBarDefaults.getDefaultConfiguration()
-                   )
-               }
-           }
+        composeMainActivityTestRule.activity.run {
+            setContent {
+                    SesameTheme {
+                        MainNavigation(
+                            modifier = Modifier.fillMaxSize(),
+                            rootNavController = rememberNavController(),
+                            homeDestinations = SesameBottomNavigationBarDefaults.getDefaultConfiguration()
+                        )
+                    }
+            }
         }
         composeMainActivityTestRule
             .onNodeWithContentDescription("LoginButton")
@@ -61,9 +68,9 @@ class AppLaunchNavigationScreenStateTestCases : KoinTest{
 
     @Test
     fun testMainNavigationWhenLoginScreenIsSkippedForAutologin() {
-        composeMainActivityTestRule.activity.setContent {
-           SesameTheme {
-               composeMainActivityTestRule.activity.run {
+        composeMainActivityTestRule.activity.run {
+            composeMainActivityTestRule.setContent {
+               SesameTheme {
                    MainNavigation(
                        modifier = Modifier.fillMaxSize(),
                        rootNavController = rememberNavController(),
@@ -71,7 +78,7 @@ class AppLaunchNavigationScreenStateTestCases : KoinTest{
                        skipLogin = true
                    )
                }
-           }
+            }
         }
         composeMainActivityTestRule
             .onNodeWithContentDescription("LoginButton")
@@ -85,9 +92,9 @@ class AppLaunchNavigationScreenStateTestCases : KoinTest{
 
     @Test
     fun testMainActivityScreenWhenAnUndefinedBiometricAuthErrorOccurs() {
+        composeMainActivityTestRule.activity.run {
         composeMainActivityTestRule.activity.setContent {
-           SesameTheme {
-               composeMainActivityTestRule.activity.run {
+                   SesameTheme {
                    MainActivityScreen(
                        uiState = MainActivityStateHolder
                            .rememberMainActivityState(

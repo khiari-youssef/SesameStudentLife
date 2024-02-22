@@ -39,6 +39,7 @@ minSdk = "26"
 compileSdk ="34"
 targetSdk = "34"
 
+
 [libraries]
 androidx-security-app-authenticator = { module = "androidx.security:security-app-authenticator", version.ref = "securityAppAuthenticator" }
 androidx-security-crypto = { module = "androidx.security:security-crypto", version.ref = "securityCrypto" }
@@ -93,10 +94,9 @@ core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-test-ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "androidx-test-ext-junit" }
 espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espresso-core" }
-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
-material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 android-gradlePlugin = { module = "com.android.tools.build:gradle", version.ref = "agp" }
 kotlin-gradlePlugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
+
 
 
 

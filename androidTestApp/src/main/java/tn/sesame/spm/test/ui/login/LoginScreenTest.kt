@@ -1,4 +1,4 @@
-package tn.sesame.users_management.ui.login
+package tn.sesame.spm.test.ui.login
 
 import android.content.Context
 import androidx.compose.runtime.mutableStateOf
@@ -17,6 +17,9 @@ import org.koin.test.KoinTest
 import org.koin.test.inject
 import tn.sesame.designsystem.R
 import tn.sesame.spm.domain.exception.DomainErrorType
+import tn.sesame.users_management.ui.login.LoginScreen
+import tn.sesame.users_management.ui.login.LoginState
+import tn.sesame.users_management.ui.login.LoginUIStateHolder
 
 class LoginScreenTest : KoinTest {
 
@@ -39,7 +42,7 @@ fun testLoginScreenWhenIdleThenLoginWithCredentials() {
             loginEmail = remember {
                 mutableStateOf("")
             },
-            loginPassword =  remember {
+            loginPassword = remember {
                 mutableStateOf("")
             },
             loginRequestResult = viewModelLoginMockState.collectAsStateWithLifecycle(
@@ -79,7 +82,7 @@ fun testLoginScreenWhenIdleThenLoginWithInvalidCredentials() {
             loginEmail = remember {
                 mutableStateOf("")
             },
-            loginPassword =  remember {
+            loginPassword = remember {
                 mutableStateOf("")
             },
             loginRequestResult = viewModelLoginMockState.collectAsStateWithLifecycle(
@@ -122,7 +125,7 @@ fun testLoginScreenWhenIdleThenLoginWithLockedAccount() {
             loginEmail = remember {
                 mutableStateOf("")
             },
-            loginPassword =  remember {
+            loginPassword = remember {
                 mutableStateOf("")
             },
             loginRequestResult = viewModelLoginMockState.collectAsStateWithLifecycle(
@@ -167,7 +170,7 @@ fun testLoginScreenWhenIdleThenLoginANDUndefinedErrorOccurs() {
             loginEmail = remember {
                 mutableStateOf("")
             },
-            loginPassword =  remember {
+            loginPassword = remember {
                 mutableStateOf("")
             },
             loginRequestResult = viewModelLoginMockState.collectAsStateWithLifecycle(

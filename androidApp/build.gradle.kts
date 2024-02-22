@@ -6,11 +6,10 @@ plugins {
 android.run {
     namespace = "tn.sesame.spm.android"
     defaultConfig.applicationId = "tn.sesame.spm.android"
-    defaultConfig.testInstrumentationRunner = "tn.sesame.spm.ApplicationTestRunner"
 }
 
 dependencies {
-    implementation(projects.shared)
+    api(projects.shared)
     implementation(projects.designsystem)
     implementation(projects.usersManagement)
     implementation(libs.compose.ui)
@@ -36,11 +35,5 @@ dependencies {
     implementation(libs.jetpack.viewmodel.core)
     implementation(libs.jetpack.viewmodel.compose)
     implementation(libs.jetpack.viewmodel.composeutils)
-    androidTestImplementation(libs.androidx.test.runner)
-    androidTestImplementation(libs.androidx.test.rules)
-    androidTestImplementation(libs.compose.test.junit)
-    debugImplementation(libs.compose.test.rule)
-    testImplementation(libs.koin.test)
-    androidTestImplementation(libs.kotlin.test.mockito)
-    androidTestImplementation(libs.koin.test.android)
+
 }
