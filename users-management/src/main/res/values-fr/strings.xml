@@ -9,4 +9,7 @@
     <string name="profile_user">Utilisateur</string>
     <string name="profile_student">Etudiant</string>
     <string name="profile_teacher">Enseignant</string>
+
+    <string name="settings_screen_title">Paramètres</string>
+    <string name="settings_auto_login_option_label">Enable auto login</string>
 </resources>

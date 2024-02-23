@@ -49,8 +49,8 @@ import tn.sesame.projects_management.ui.projects.SesameProjectsStateHolder
 import tn.sesame.projects_management.ui.projects.joinProcedure.SesameProjectActorsListState
 import tn.sesame.projects_management.ui.projects.joinProcedure.SesameProjectJoinRequestCollaboratorsSelectionStateHolder
 import tn.sesame.projects_management.ui.projects.joinProcedure.SesameProjectJoinRequestSupervisorSelectionStateHolder
-import tn.sesame.spm.android.ui.settings.AppSettingsStateHolder
-import tn.sesame.spm.android.ui.settings.SettingsViewModel
+import tn.sesame.users_management.ui.settings.AppSettingsStateHolder
+import tn.sesame.users_management.ui.settings.SettingsViewModel
 import tn.sesame.spm.domain.entities.SesameUser
 
 @Composable

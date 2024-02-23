@@ -8,8 +8,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import tn.sesame.designsystem.components.DetailsScreenTemplate
-import tn.sesame.spm.android.R
-import tn.sesame.spm.android.ui.settings.AppSettingsStateHolder
+import tn.sesame.users_management.R
+import tn.sesame.users_management.ui.settings.AppSettingsStateHolder
 
 @Composable
 fun SettingsScreen(

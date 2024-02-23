@@ -1,4 +1,4 @@
-package tn.sesame.spm.android.ui.settings
+package tn.sesame.users_management.ui.settings
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State

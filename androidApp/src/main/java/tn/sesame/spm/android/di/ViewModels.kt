@@ -7,7 +7,7 @@ import tn.sesame.spm.android.ui.main.MainActivityViewModel
 import tn.sesame.spm.android.ui.notifications.NotificationsViewModel
 import tn.sesame.users_management.ui.profile.MyProfileViewModel
 import tn.sesame.projects_management.ui.projects.ProjectsViewModel
-import tn.sesame.spm.android.ui.settings.SettingsViewModel
+import tn.sesame.users_management.ui.settings.SettingsViewModel
 import tn.sesame.spm.di.UsersRepositoryTag
 import tn.sesame.spm.di.androidSecurityModule
 import tn.sesame.spm.di.domainModule

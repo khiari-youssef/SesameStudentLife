@@ -17,9 +17,4 @@
     <string name="biometric_auth_cancelled_title">Erreur d\'authentification</string>
     <string name="biometric_auth_cancelled_message">Opération interrompue</string>
 
-
-    <!-- Settings strings-->
-
-    <string name="settings_screen_title">Paramètres</string>
-    <string name="settings_auto_login_option_label">Enable auto login</string>
 </resources>
