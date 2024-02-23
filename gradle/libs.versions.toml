@@ -26,8 +26,6 @@ mockito="5.2.1"
 sqldelight ="2.0.1"
 kcoroutines = "1.8.0-RC"
 ktorVersion = "2.3.6"
-jpCredentialManager = "1.2.0"
-jpCredentialManagerPS = "1.2.0"
 jpLifeCycle = "2.7.0"
 core-ktx = "1.12.0"
 junit = "4.13.2"
@@ -85,8 +83,6 @@ sqldelight-runtime ={module = "app.cash.sqldelight:runtime",version.ref = "sqlde
 sqldelight-driver-android ={module="app.cash.sqldelight:android-driver",version.ref="sqldelight"}
 sqldelight-driver-native ={module = "app.cash.sqldelight:native-driver",version.ref = "sqldelight"}
 sqldelight-adapter ={module="app.cash.sqldelight:primitive-adapters",version.ref ="sqldelight"}
-jetpack-credentialmanager ={module="androidx.credentials:credentials",version.ref="jpCredentialManager"}
-jetpack-credentialManagerPlayServices = {module="androidx.credentials:credentials-play-services-auth",version.ref="jpCredentialManagerPS"}
 jetpack-viewmodel-compose ={module = "androidx.lifecycle:lifecycle-viewmodel-compose",version.ref="jpLifeCycle"}
 jetpack-viewmodel-core ={module = "androidx.lifecycle:lifecycle-viewmodel-ktx",version.ref="jpLifeCycle"}
 jetpack-viewmodel-composeutils ={module = "androidx.lifecycle:lifecycle-runtime-compose",version.ref="jpLifeCycle"}
@@ -97,7 +93,9 @@ espresso-core = { group = "androidx.test.espresso", name = "espresso-core", vers
 android-gradlePlugin = { module = "com.android.tools.build:gradle", version.ref = "agp" }
 kotlin-gradlePlugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 
-
+[bundles]
+composelibs = ['compose-ui','compose-ui-tooling-preview','compose-foundation','compose-material','compose-material3','androidx-activity-compose','compose-animation-core','compose-animation-graphics','compose-coil','compose-lottie','compose-navigation','compose-constraintlayout','jetpack-viewmodel-compose','jetpack-viewmodel-composeutils','koin-compose']
+testingLibs = ['espresso-core','junit','kotlin-test','koin-test','androidx-test-ext-junit','androidx-test-rules','androidx-test-runner','compose-test-junit','koin-test-android','kotlin-test-mockito']
 
 
 [plugins]
