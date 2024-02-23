@@ -46,18 +46,6 @@
     <string name="project_title_myprojects">Mes projets</string>
     <string name="project_form_choose_your_supervisor">Choisissez votre encadrant :</string>
 
-    <!-- Profile strings-->
-
-    <string name="profile_email">Email</string>
-    <string name="profile_logout">Se déconnecter</string>
-    <string name="profile_settings">Paramètres</string>
-    <string name="profile_policy">Politique de sécurité</string>
-    <string name="profile_myprojects">Mes projets</string>
-    <string name="profile_send_email_via">Contactez %s via</string>
-    <string name="profile_user">Utilisateur</string>
-    <string name="profile_student">Etudiant</string>
-    <string name="profile_teacher">Enseignant</string>
-
     <!-- Settings strings-->
 
     <string name="settings_screen_title">Paramètres</string>

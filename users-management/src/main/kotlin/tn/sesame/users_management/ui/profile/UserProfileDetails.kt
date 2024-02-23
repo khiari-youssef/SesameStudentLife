@@ -1,4 +1,4 @@
-package tn.sesame.spm.android.ui.profile
+package tn.sesame.users_management.ui.profile
 
 import SesameCircleImageXL
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -25,7 +25,6 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import tn.sesame.designsystem.R
 import tn.sesame.designsystem.SesameFontFamilies
 import tn.sesame.designsystem.onBackgroundShadedDarkMode
 import tn.sesame.designsystem.onBackgroundShadedLightMode
@@ -33,6 +32,7 @@ import tn.sesame.spm.domain.entities.SesameStudent
 import tn.sesame.spm.domain.entities.SesameTeacher
 import tn.sesame.spm.domain.entities.SesameUser
 import tn.sesame.spm.domain.entities.SesameUserSex
+import tn.sesame.users_management.R
 
 @Composable
 fun UserProfileDetails(
@@ -52,7 +52,7 @@ fun UserProfileDetails(
                 Alignment.CenterHorizontally
             )
         ) {
-            val placeholder = if (sesameUser.sex == SesameUserSex.Male) R.drawable.ic_profile_placeholder_male else R.drawable.ic_profile_placeholder_female
+            val placeholder = if (sesameUser.sex == SesameUserSex.Male) tn.sesame.designsystem.R.drawable.ic_profile_placeholder_male else tn.sesame.designsystem.R.drawable.ic_profile_placeholder_female
             SesameCircleImageXL(
                 uri = sesameUser.profilePicture,
                 placeholderRes = placeholder ,
@@ -73,8 +73,8 @@ fun UserProfileDetails(
                     if (showSex) {
                         Icon(
                             imageVector = ImageVector.vectorResource(when (sesameUser.sex) {
-                                SesameUserSex.Female -> R.drawable.ic_sex_female
-                                SesameUserSex.Male -> R.drawable.ic_sex_male
+                                SesameUserSex.Female -> tn.sesame.designsystem.R.drawable.ic_sex_female
+                                SesameUserSex.Male -> tn.sesame.designsystem.R.drawable.ic_sex_male
                             }) ,
                             contentDescription = "",
                             tint = MaterialTheme.colorScheme.tertiary
@@ -92,9 +92,9 @@ fun UserProfileDetails(
                 }
                 Text(
                     text = when (sesameUser){
-                      is SesameStudent-> stringResource(id = tn.sesame.spm.android.R.string.profile_student)
-                      is SesameTeacher -> stringResource(id = tn.sesame.spm.android.R.string.profile_teacher)
-                      else -> stringResource(id = tn.sesame.spm.android.R.string.profile_user)
+                      is SesameStudent-> stringResource(id = R.string.profile_student)
+                      is SesameTeacher -> stringResource(id = R.string.profile_teacher)
+                      else -> stringResource(id = R.string.profile_user)
                      },
                     style = TextStyle(
                         fontSize = 16.sp,
@@ -146,7 +146,7 @@ fun UserProfileDetails(
             horizontalArrangement = Arrangement.Start
         ) {
             val annotatedString = buildAnnotatedString {
-                append("${stringResource(id = tn.sesame.spm.android.R.string.profile_email)} :  ")
+                append("${stringResource(id = R.string.profile_email)} :  ")
                 withStyle(
                     SpanStyle(
                         color = MaterialTheme.colorScheme.primary,

@@ -49,19 +49,6 @@
     <string name="project_title_myprojects">My projects</string>
     <string name="project_form_choose_your_supervisor">Select your supervisor :</string>
 
-    <!-- Profile strings-->
-
-    <string name="profile_email">Email</string>
-    <string name="profile_logout">Logout</string>
-    <string name="profile_settings">Settings</string>
-    <string name="profile_policy">Security Policy</string>
-    <string name="profile_myprojects">My projects</string>
-    <string name="profile_send_email_via">Contact %s via</string>
-    <string name="profile_user">User</string>
-    <string name="profile_student">Student</string>
-    <string name="profile_teacher">Teacher</string>
-
-
     <!-- Settings strings-->
 
 

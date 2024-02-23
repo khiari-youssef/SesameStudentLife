@@ -5,7 +5,7 @@ import org.koin.dsl.module
 import tn.sesame.users_management.ui.login.LoginViewModel
 import tn.sesame.spm.android.ui.main.MainActivityViewModel
 import tn.sesame.spm.android.ui.notifications.NotificationsViewModel
-import tn.sesame.spm.android.ui.profile.MyProfileViewModel
+import tn.sesame.users_management.ui.profile.MyProfileViewModel
 import tn.sesame.spm.android.ui.projects.ProjectsViewModel
 import tn.sesame.spm.android.ui.settings.SettingsViewModel
 import tn.sesame.spm.di.UsersRepositoryTag

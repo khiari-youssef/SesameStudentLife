@@ -11,9 +11,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.core.content.ContextCompat
-import tn.sesame.spm.android.R
-import tn.sesame.spm.android.ui.profile.UserProfileDetails
+import tn.sesame.users_management.ui.profile.UserProfileDetails
 import tn.sesame.spm.domain.entities.SesameUser
+import tn.sesame.users_management.R
 
 @Composable
 fun ViewUserProfilePopup(

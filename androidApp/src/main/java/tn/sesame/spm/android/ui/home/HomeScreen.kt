@@ -39,7 +39,7 @@ import tn.sesame.spm.android.base.NavigationRoutingData
 import tn.sesame.spm.android.ui.notifications.NotificationScreenStateHolder
 import tn.sesame.spm.android.ui.notifications.NotificationsScreen
 import tn.sesame.spm.android.ui.notifications.NotificationsViewModel
-import tn.sesame.spm.android.ui.profile.MyProfileViewModel
+import tn.sesame.users_management.ui.profile.MyProfileViewModel
 import tn.sesame.spm.android.ui.projects.ProjectsViewModel
 import tn.sesame.spm.android.ui.projects.SesameProjectsState
 import tn.sesame.spm.android.ui.projects.SesameProjectsStateHolder

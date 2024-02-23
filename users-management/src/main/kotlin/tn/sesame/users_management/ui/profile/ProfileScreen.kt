@@ -33,9 +33,9 @@ import tn.sesame.designsystem.SesameFontFamilies
 import tn.sesame.designsystem.components.menus.MenuOption
 import tn.sesame.designsystem.components.menus.MenuOptions
 import tn.sesame.designsystem.components.menus.OptionsListMenu
-import tn.sesame.spm.android.R
-import tn.sesame.spm.android.ui.profile.UserProfileDetails
+import tn.sesame.users_management.ui.profile.UserProfileDetails
 import tn.sesame.spm.domain.entities.SesameUser
+import tn.sesame.users_management.R
 
 
 @Composable

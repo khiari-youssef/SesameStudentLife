@@ -1,4 +1,4 @@
-package tn.sesame.spm.android.ui.profile
+package tn.sesame.users_management.ui.profile
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
