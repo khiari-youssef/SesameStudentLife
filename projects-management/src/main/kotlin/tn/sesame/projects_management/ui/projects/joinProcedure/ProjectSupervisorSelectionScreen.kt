@@ -23,9 +23,9 @@ import androidx.compose.ui.unit.sp
 import tn.sesame.designsystem.SesameFontFamilies
 import tn.sesame.designsystem.components.DetailsScreenTemplate
 import tn.sesame.designsystem.components.loading.shimmerEffect
-import tn.sesame.spm.android.R
-import tn.sesame.spm.android.ui.projects.joinProcedure.SesameProjectActorsListState
-import tn.sesame.spm.android.ui.projects.joinProcedure.SesameProjectJoinRequestSupervisorSelectionStateHolder
+import tn.sesame.projects_management.R
+import tn.sesame.projects_management.ui.projects.joinProcedure.SesameProjectActorsListState
+import tn.sesame.projects_management.ui.projects.joinProcedure.SesameProjectJoinRequestSupervisorSelectionStateHolder
 import tn.sesame.spm.domain.entities.SesameUserSex
 
 @Composable

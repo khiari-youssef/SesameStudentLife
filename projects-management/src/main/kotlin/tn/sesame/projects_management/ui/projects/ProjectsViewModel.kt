@@ -1,4 +1,4 @@
-package tn.sesame.spm.android.ui.projects
+package tn.sesame.projects_management.ui.projects
 
 import androidx.compose.runtime.Stable
 import androidx.lifecycle.ViewModel
@@ -13,8 +13,8 @@ import kotlinx.coroutines.launch
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.Month
 import kotlinx.datetime.toLocalDateTime
-import tn.sesame.spm.android.ui.projects.joinProcedure.SesameProjectActors
-import tn.sesame.spm.android.ui.projects.joinProcedure.SesameProjectActorsListState
+import tn.sesame.projects_management.ui.projects.joinProcedure.SesameProjectActors
+import tn.sesame.projects_management.ui.projects.joinProcedure.SesameProjectActorsListState
 import tn.sesame.spm.domain.entities.ProjectType
 import tn.sesame.spm.domain.entities.SesameClass
 import tn.sesame.spm.domain.entities.SesameProject
@@ -100,7 +100,9 @@ class ProjectsViewModel : ViewModel() {
         )
     }
 
-private val currentProjectsMutableState : MutableStateFlow<SesameProjectsState> = MutableStateFlow(SesameProjectsState.Loading)
+private val currentProjectsMutableState : MutableStateFlow<SesameProjectsState> = MutableStateFlow(
+    SesameProjectsState.Loading
+)
  val currentProjectsState : StateFlow<SesameProjectsState> = currentProjectsMutableState
 
 fun refreshProjects(userID : String?=null,keywordsFilter : String?=null) {

@@ -20,13 +20,13 @@ import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import tn.sesame.designsystem.SesameFontFamilies
-import tn.sesame.spm.android.ui.projects.ProjectCollaboratorsPreviewListItem
-import tn.sesame.spm.android.ui.projects.ProjectCreationDate
-import tn.sesame.spm.android.ui.projects.ProjectDurationListItem
-import tn.sesame.spm.android.ui.projects.ProjectItemListFooter
-import tn.sesame.spm.android.ui.projects.ProjectJoinRequestStatus
-import tn.sesame.spm.android.ui.projects.ProjectKeywords
-import tn.sesame.spm.android.ui.projects.ProjectSupervisorListItem
+import tn.sesame.projects_management.ui.projects.ProjectCollaboratorsPreviewListItem
+import tn.sesame.projects_management.ui.projects.ProjectCreationDate
+import tn.sesame.projects_management.ui.projects.ProjectDurationListItem
+import tn.sesame.projects_management.ui.projects.ProjectItemListFooter
+import tn.sesame.projects_management.ui.projects.ProjectJoinRequestStatus
+import tn.sesame.projects_management.ui.projects.ProjectKeywords
+import tn.sesame.projects_management.ui.projects.ProjectSupervisorListItem
 import tn.sesame.spm.domain.entities.SesameProject
 
 

@@ -36,6 +36,8 @@ material = "1.11.0"
 minSdk = "26"
 compileSdk ="34"
 targetSdk = "34"
+androidx-appcompat-appcompat = "1.6.1"
+com-google-android-material-material = "1.11.0"
 
 
 [libraries]
@@ -92,6 +94,8 @@ androidx-test-ext-junit = { group = "androidx.test.ext", name = "junit", version
 espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espresso-core" }
 android-gradlePlugin = { module = "com.android.tools.build:gradle", version.ref = "agp" }
 kotlin-gradlePlugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
+appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "androidx-appcompat-appcompat" }
+material = { group = "com.google.android.material", name = "material", version.ref = "com-google-android-material-material" }
 
 [bundles]
 composelibs = ['compose-ui','compose-ui-tooling-preview','compose-foundation','compose-material','compose-material3','androidx-activity-compose','compose-animation-core','compose-animation-graphics','compose-coil','compose-lottie','compose-navigation','compose-constraintlayout','jetpack-viewmodel-compose','jetpack-viewmodel-composeutils','koin-compose']

@@ -1,4 +1,4 @@
-package tn.sesame.spm.android.ui.projects
+package tn.sesame.projects_management.ui.projects
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState

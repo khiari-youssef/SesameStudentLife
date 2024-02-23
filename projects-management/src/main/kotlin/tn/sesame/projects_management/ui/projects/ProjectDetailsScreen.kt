@@ -38,11 +38,11 @@ import tn.sesame.designsystem.components.DetailsScreenTemplate
 import tn.sesame.designsystem.components.text.DateText
 import tn.sesame.designsystem.components.text.PlaceholderText
 import tn.sesame.designsystem.components.text.SesameParagraphText
-import tn.sesame.spm.android.R
-import tn.sesame.spm.android.ui.projects.ProjectCollaboratorsDetailItem
-import tn.sesame.spm.android.ui.projects.ProjectCreationDate
-import tn.sesame.spm.android.ui.projects.ProjectKeywords
-import tn.sesame.spm.android.ui.projects.ProjectSupervisorDetailItem
+import tn.sesame.projects_management.R
+import tn.sesame.projects_management.ui.projects.ProjectCollaboratorsDetailItem
+import tn.sesame.projects_management.ui.projects.ProjectCreationDate
+import tn.sesame.projects_management.ui.projects.ProjectKeywords
+import tn.sesame.projects_management.ui.projects.ProjectSupervisorDetailItem
 import tn.sesame.spm.domain.entities.SesameProject
 import tn.sesame.spm.domain.entities.SesameUser
 
@@ -81,7 +81,7 @@ fun ProjectDetailsScreen(
                     .fillMaxWidth()
                     .wrapContentHeight()
             ) {
-                val (descRef, datesRef, techstackRef, supervisorRef, collaboratorsRef, footerRef, joinButtonRef) = createRefs()
+                val (descRef, datesRef, techstackRef, supervisorRef, collaboratorsRef, footerRef) = createRefs()
 
                 val descriptionModifier = Modifier
                     .constrainAs(descRef) {

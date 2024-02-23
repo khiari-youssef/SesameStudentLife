@@ -17,9 +17,9 @@ import androidx.compose.ui.unit.dp
 import tn.sesame.designsystem.components.DetailsScreenTemplate
 import tn.sesame.designsystem.components.loading.shimmerEffect
 import tn.sesame.designsystem.components.textfields.SesameSearchField
-import tn.sesame.spm.android.R
-import tn.sesame.spm.android.ui.projects.SesameProjectsState
-import tn.sesame.spm.android.ui.projects.SesameProjectsStateHolder
+import tn.sesame.projects_management.R
+import tn.sesame.projects_management.ui.projects.SesameProjectsState
+import tn.sesame.projects_management.ui.projects.SesameProjectsStateHolder
 
 
 @Composable
@@ -48,7 +48,7 @@ fun MyProjectsScreen(
                     .wrapContentHeight()
                     .fillMaxWidth(0.95f),
                 query = uiState.currentSearchQuery.value,
-                placeholderRes = tn.sesame.spm.android.R.string.projects_search,
+                placeholderRes = R.string.projects_search,
                 onSearchQueryChanged = onSearchQueryChanged
             )
             when(val state = uiState.projectsState.value) {

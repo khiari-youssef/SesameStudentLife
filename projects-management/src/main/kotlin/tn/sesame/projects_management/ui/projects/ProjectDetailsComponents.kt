@@ -1,4 +1,4 @@
-package tn.sesame.spm.android.ui.projects
+package tn.sesame.projects_management.ui.projects
 
 import SesameButton
 import SesameButtonVariants
@@ -45,7 +45,7 @@ import tn.sesame.designsystem.SuccessColor
 import tn.sesame.designsystem.components.text.PlaceholderText
 import tn.sesame.designsystem.onBackgroundShadedDarkMode
 import tn.sesame.designsystem.onBackgroundShadedLightMode
-import tn.sesame.spm.android.R
+import tn.sesame.projects_management.R
 import tn.sesame.spm.domain.entities.SesameProjectMember
 import tn.sesame.spm.domain.entities.SesameStudent
 import tn.sesame.spm.domain.entities.SesameTeacher

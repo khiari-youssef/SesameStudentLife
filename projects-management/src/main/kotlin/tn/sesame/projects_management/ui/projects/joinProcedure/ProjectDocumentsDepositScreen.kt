@@ -2,7 +2,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import tn.sesame.designsystem.components.DetailsScreenTemplate
-import tn.sesame.spm.android.R
+import tn.sesame.projects_management.R
 
 @Composable
 fun ProjectDocumentsDepositScreen(

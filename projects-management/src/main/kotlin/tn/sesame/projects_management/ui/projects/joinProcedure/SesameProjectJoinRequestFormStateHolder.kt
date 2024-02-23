@@ -1,4 +1,4 @@
-package tn.sesame.spm.android.ui.projects.joinProcedure
+package tn.sesame.projects_management.ui.projects.joinProcedure
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable

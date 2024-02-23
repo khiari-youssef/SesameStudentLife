@@ -12,6 +12,7 @@ dependencies {
     api(projects.shared)
     implementation(projects.designsystem)
     implementation(projects.usersManagement)
+    implementation(projects.projectsManagement)
     implementation(libs.bundles.composelibs)
     implementation(libs.kotlinx.datetime)
     implementation(libs.kotlin.coroutines)

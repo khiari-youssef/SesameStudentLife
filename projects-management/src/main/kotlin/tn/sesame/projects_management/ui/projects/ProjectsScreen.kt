@@ -18,8 +18,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import tn.sesame.designsystem.components.loading.shimmerEffect
 import tn.sesame.designsystem.components.textfields.SesameSearchField
-import tn.sesame.spm.android.ui.projects.SesameProjectsState
-import tn.sesame.spm.android.ui.projects.SesameProjectsStateHolder
+import tn.sesame.projects_management.R
+import tn.sesame.projects_management.ui.projects.SesameProjectsState
+import tn.sesame.projects_management.ui.projects.SesameProjectsStateHolder
 import tn.sesame.spm.domain.entities.SesameProject
 
 
@@ -49,7 +50,7 @@ Column(
             .wrapContentHeight()
             .fillMaxWidth(),
         query = uiState.currentSearchQuery.value,
-        placeholderRes = tn.sesame.spm.android.R.string.projects_search,
+        placeholderRes = R.string.projects_search,
         onSearchQueryChanged = onSearchQueryChanged
     )
     when(val state = uiState.projectsState.value) {
