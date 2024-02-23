@@ -5,23 +5,19 @@ import MainActivityScreen
 import android.content.Context
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.test.hasAnyChild
 import androidx.compose.ui.test.hasContentDescription
 import androidx.compose.ui.test.hasText
-import androidx.compose.ui.test.junit4.AndroidComposeTestRule
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.navigation.compose.rememberNavController
-import androidx.test.ext.junit.runners.AndroidJUnit4
-import androidx.compose.ui.test.junit4.ComposeTestRule
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
-import androidx.compose.ui.test.junit4.createComposeRule
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.junit.runners.JUnit4
 import org.koin.test.KoinTest
 import org.koin.test.get
 import org.koin.test.inject
@@ -39,6 +35,7 @@ import tn.sesame.spm.domain.entities.SesameUserSex
 import tn.sesame.spm.security.BiometricLauncherService
 
 
+@RunWith(JUnit4::class)
 class AppLaunchNavigationScreenStateTestCases : KoinTest{
 
     private val instrumentationContext: Context by inject()
@@ -69,7 +66,7 @@ class AppLaunchNavigationScreenStateTestCases : KoinTest{
     @Test
     fun testMainNavigationWhenLoginScreenIsSkippedForAutologin() {
         composeMainActivityTestRule.activity.run {
-            composeMainActivityTestRule.setContent {
+           setContent {
                SesameTheme {
                    MainNavigation(
                        modifier = Modifier.fillMaxSize(),
@@ -93,7 +90,7 @@ class AppLaunchNavigationScreenStateTestCases : KoinTest{
     @Test
     fun testMainActivityScreenWhenAnUndefinedBiometricAuthErrorOccurs() {
         composeMainActivityTestRule.activity.run {
-        composeMainActivityTestRule.activity.setContent {
+             setContent {
                    SesameTheme {
                    MainActivityScreen(
                        uiState = MainActivityStateHolder
@@ -130,48 +127,50 @@ class AppLaunchNavigationScreenStateTestCases : KoinTest{
 
     @Test
     fun testMainActivityScreenWhenANoHardwareBiometricAuthErrorOccurs() {
-        composeMainActivityTestRule.activity.setContent {
-           SesameTheme {
-               composeMainActivityTestRule.activity.run {
-                   MainActivityScreen(
-                       uiState = MainActivityStateHolder
-                           .rememberMainActivityState(
-                               biometricSupportState = remember {
-                                   mutableStateOf(SupportedDeviceAuthenticationMethods.NoHardware)
-                               },
-                               autoLoginState = remember {
-                                   mutableStateOf(LoginState.Loading)
-                               },
-                               rootNavController =rememberNavController() ,
-                               homeDestinations = SesameBottomNavigationBarDefaults.getDefaultConfiguration()
-                           ),
-                       onCheckBiometricCapabilitiesStateRequest = {
+        composeMainActivityTestRule.activity.run {
+            setContent {
+                SesameTheme {
 
-                       })
-               }
-           }
-        }
-        composeMainActivityTestRule.onNodeWithContentDescription(
-            "InfoPopup"
-        ).run {
-            assertExists()
-            val titleText = instrumentationContext
-                .resources.getString(R.string.error_unsupported_biometric_features_title)
-            val subTitleText = instrumentationContext
-                .resources.getString(R.string.error_unsupported_biometric_features_message)
-            hasAnyChild(
-                hasText(titleText) and hasText(subTitleText)
-            )
-        }
+                    MainActivityScreen(
+                        uiState = MainActivityStateHolder
+                            .rememberMainActivityState(
+                                biometricSupportState = remember {
+                                    mutableStateOf(SupportedDeviceAuthenticationMethods.NoHardware)
+                                },
+                                autoLoginState = remember {
+                                    mutableStateOf(LoginState.Loading)
+                                },
+                                rootNavController = rememberNavController(),
+                                homeDestinations = SesameBottomNavigationBarDefaults.getDefaultConfiguration()
+                            ),
+                        onCheckBiometricCapabilitiesStateRequest = {
 
+                        })
+
+                }
+            }
+            composeMainActivityTestRule.onNodeWithContentDescription(
+                "InfoPopup"
+            ).run {
+                assertExists()
+                val titleText = instrumentationContext
+                    .resources.getString(R.string.error_unsupported_biometric_features_title)
+                val subTitleText = instrumentationContext
+                    .resources.getString(R.string.error_unsupported_biometric_features_message)
+                hasAnyChild(
+                    hasText(titleText) and hasText(subTitleText)
+                )
+            }
+
+        }
     }
 
 
     @Test
     fun testMainActivityScreenWhenHardwareUnavailableBiometricAuthErrorOccurs() {
-        composeMainActivityTestRule.activity.setContent {
+        composeMainActivityTestRule.activity.run {
+            setContent{
            SesameTheme {
-               composeMainActivityTestRule.activity.run {
                    MainActivityScreen(
                        uiState = MainActivityStateHolder
                            .rememberMainActivityState(
@@ -207,27 +206,27 @@ class AppLaunchNavigationScreenStateTestCases : KoinTest{
 
     @Test
     fun testMainActivityScreenWhenUnavailableBiometricAuthErrorOccurs() {
-        composeMainActivityTestRule.activity.setContent {
-           SesameTheme {
-               composeMainActivityTestRule.activity.run {
-                   MainActivityScreen(
-                       uiState = MainActivityStateHolder
-                           .rememberMainActivityState(
-                               biometricSupportState = remember {
-                                   mutableStateOf(SupportedDeviceAuthenticationMethods.NoHardware)
-                               },
-                               autoLoginState = remember {
-                                   mutableStateOf(LoginState.Loading)
-                               },
-                               rootNavController =rememberNavController() ,
-                               homeDestinations = SesameBottomNavigationBarDefaults.getDefaultConfiguration()
-                           ),
-                       onCheckBiometricCapabilitiesStateRequest = {
+        composeMainActivityTestRule.activity.run {
+            setContent {
+                SesameTheme {
+                    MainActivityScreen(
+                        uiState = MainActivityStateHolder
+                            .rememberMainActivityState(
+                                biometricSupportState = remember {
+                                    mutableStateOf(SupportedDeviceAuthenticationMethods.NoHardware)
+                                },
+                                autoLoginState = remember {
+                                    mutableStateOf(LoginState.Loading)
+                                },
+                                rootNavController = rememberNavController(),
+                                homeDestinations = SesameBottomNavigationBarDefaults.getDefaultConfiguration()
+                            ),
+                        onCheckBiometricCapabilitiesStateRequest = {
 
-                       })
-               }
+                        })
+                }
+            }
            }
-        }
         composeMainActivityTestRule.onNodeWithContentDescription(
             "InfoPopup"
         ).run {
@@ -240,7 +239,6 @@ class AppLaunchNavigationScreenStateTestCases : KoinTest{
                 hasText(titleText) and hasText(subTitleText) and hasContentDescription("InfoPopupTextButton")
             )
         }
-
     }
 
 
@@ -248,9 +246,9 @@ class AppLaunchNavigationScreenStateTestCases : KoinTest{
     fun testMainActivityScreenWhenDeviceHasARegisteredBiometricIdentityAndUserIsLoggedOut() {
         val mockBiometricLauncherService =get<BiometricLauncherService>()
 
-        composeMainActivityTestRule.activity.setContent {
+        composeMainActivityTestRule.activity.run {
+            setContent {
            SesameTheme {
-               composeMainActivityTestRule.activity.run {
                    MainActivityScreen(
                        uiState = MainActivityStateHolder
                            .rememberMainActivityState(
@@ -281,9 +279,9 @@ class AppLaunchNavigationScreenStateTestCases : KoinTest{
     fun testMainActivityScreenWhenDeviceHasARegisteredBiometricIdentityAndUserIsAutoLogging() {
         val mockBiometricLauncherService =get<BiometricLauncherService>()
 
-        composeMainActivityTestRule.activity.setContent {
-           SesameTheme {
-               composeMainActivityTestRule.activity.run {
+        composeMainActivityTestRule.activity.run {
+            setContent {
+                SesameTheme {
                    MainActivityScreen(
                        uiState = MainActivityStateHolder
                            .rememberMainActivityState(
@@ -326,9 +324,9 @@ class AppLaunchNavigationScreenStateTestCases : KoinTest{
             SesameRole("")
         )
 
-        composeMainActivityTestRule.activity.setContent {
+        composeMainActivityTestRule.activity.run {
+            setContent{
            SesameTheme {
-               composeMainActivityTestRule.activity.run {
                    MainActivityScreen(
                        uiState = MainActivityStateHolder
                            .rememberMainActivityState(

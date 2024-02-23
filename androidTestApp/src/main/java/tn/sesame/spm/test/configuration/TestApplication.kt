@@ -7,6 +7,7 @@ import org.koin.core.context.startKoin
 import org.koin.core.module.Module
 import tn.sesame.spm.android.di.viewModelsModule
 import tn.sesame.spm.di.androidSecurityModule
+import tn.sesame.spm.test.di.testModule
 
 class TestApplication : Application() {
 
@@ -16,7 +17,7 @@ class TestApplication : Application() {
             androidContext(
                 InstrumentationRegistry.getInstrumentation().targetContext.applicationContext
             )
-            modules(listOf(androidSecurityModule, viewModelsModule))
+            modules(listOf(testModule,androidSecurityModule, viewModelsModule))
         }
     }
 }
