@@ -9,3 +9,5 @@ captures
 local.properties
 xcuserdata
 androidApp/keystore.properties
+androidTestApp/test-reports/*
+androidTestApp/test-results/*
