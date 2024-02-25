@@ -22,5 +22,5 @@ dependencies {
     implementation(libs.koin.core)
     implementation(libs.koin.android)
     implementation(libs.jetpack.viewmodel.core)
-    implementation(libs.firebase.bom)
+    implementation(platform(libs.firebase.bom))
 }
