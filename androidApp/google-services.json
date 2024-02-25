@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "367842252732",
+    "project_id": "sesamestudentlife",
+    "storage_bucket": "sesamestudentlife.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:367842252732:android:20aaa7cc4b64033d513db9",
+        "android_client_info": {
+          "package_name": "tn.sesame.spm.android"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAs3M0RGK9uyjb0ieAtLPCgjjQaB_kMV0A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -38,6 +38,8 @@ compileSdk ="34"
 targetSdk = "34"
 androidx-appcompat-appcompat = "1.6.1"
 com-google-android-material-material = "1.11.0"
+firebase-bom = "32.7.2"
+gplayservices = "4.4.1"
 
 
 [libraries]
@@ -96,6 +98,7 @@ android-gradlePlugin = { module = "com.android.tools.build:gradle", version.ref 
 kotlin-gradlePlugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "androidx-appcompat-appcompat" }
 material = { group = "com.google.android.material", name = "material", version.ref = "com-google-android-material-material" }
+firebase-bom={module="com.google.firebase:firebase-bom",version.ref="firebase-bom"}
 
 [bundles]
 composelibs = ['compose-ui','compose-ui-tooling-preview','compose-foundation','compose-material','compose-material3','androidx-activity-compose','compose-animation-core','compose-animation-graphics','compose-coil','compose-lottie','compose-navigation','compose-constraintlayout','jetpack-viewmodel-compose','jetpack-viewmodel-composeutils','koin-compose']
@@ -110,3 +113,4 @@ kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref =
 kotlinCocoapods = { id = "org.jetbrains.kotlin.native.cocoapods", version.ref = "kotlin" }
 kotlinXSer = {id = "org.jetbrains.kotlin.plugin.serialization",version.ref = "kotlin"}
 sqldelight = {id = "app.cash.sqldelight",version.ref ="sqldelight"}
+google-playservices={id="com.google.gms.google-services",version.ref="gplayservices"}

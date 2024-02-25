@@ -1,6 +1,7 @@
 plugins {
     id("sesame.android.application")
     id("kotlin-parcelize")
+    alias(libs.plugins.google.playservices)
 }
 
 android.run {
@@ -21,5 +22,5 @@ dependencies {
     implementation(libs.koin.core)
     implementation(libs.koin.android)
     implementation(libs.jetpack.viewmodel.core)
-
+    implementation(libs.firebase.bom)
 }
