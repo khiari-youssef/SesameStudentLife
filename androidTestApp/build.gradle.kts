@@ -4,12 +4,13 @@ plugins {
 }
 
 android {
-    namespace = "tn.sesame.androidTestApp"
+    namespace = "tn.sesame.android.test"
     targetProjectPath = ":androidApp"
     compileSdk = extensions.getByType<VersionCatalogsExtension>().named("libs").findVersion("compileSdk").get().toString().toInt()
     defaultConfig.minSdk = extensions.getByType<VersionCatalogsExtension>().named("libs").findVersion("minSdk").get().toString().toInt()
     defaultConfig.testApplicationId = "tn.sesame.spm.android.test"
     defaultConfig.testInstrumentationRunner = "tn.sesame.spm.test.configuration.ApplicationTestRunner"
+    defaultConfig.proguardFile("proguard-rules.pro")
 
     testOptions{
         reportDir = "$projectDir/test-reports"
@@ -51,4 +52,5 @@ dependencies{
     debugImplementation(libs.compose.test.rule)
     implementation(libs.bundles.composelibs)
     implementation(libs.bundles.testingLibs)
+    implementation("androidx.startup:startup-runtime:1.1.1")
 }

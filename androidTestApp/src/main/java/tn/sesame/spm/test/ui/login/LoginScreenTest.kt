@@ -1,9 +1,11 @@
 package tn.sesame.spm.test.ui.login
 
 import android.content.Context
+import androidx.activity.compose.setContent
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.test.assertTextContains
+import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.performClick
@@ -16,6 +18,7 @@ import org.junit.Test
 import org.koin.test.KoinTest
 import org.koin.test.inject
 import tn.sesame.designsystem.R
+import tn.sesame.spm.android.ui.main.MainActivity
 import tn.sesame.spm.domain.exception.DomainErrorType
 import tn.sesame.users_management.ui.login.LoginScreen
 import tn.sesame.users_management.ui.login.LoginState
@@ -26,7 +29,7 @@ class LoginScreenTest : KoinTest {
 private val instrumentationContext: Context by inject()
 
 @get:Rule
-val composeLoginTestRule = createComposeRule()
+val composeLoginTestRule = createAndroidComposeRule<MainActivity>()
 
 private val viewModelLoginMockState : MutableStateFlow<LoginState> = MutableStateFlow(LoginState.Idle)
 
@@ -37,7 +40,7 @@ fun init(){
 
 @Test
 fun testLoginScreenWhenIdleThenLoginWithCredentials() {
-    composeLoginTestRule.setContent {
+    composeLoginTestRule.activity.setContent {
         val uiState = LoginUIStateHolder.rememberLoginUIState(
             loginEmail = remember {
                 mutableStateOf("")
@@ -77,7 +80,7 @@ fun testLoginScreenWhenIdleThenLoginWithCredentials() {
 
 @Test
 fun testLoginScreenWhenIdleThenLoginWithInvalidCredentials() {
-    composeLoginTestRule.setContent {
+    composeLoginTestRule.activity.setContent {
         val uiState = LoginUIStateHolder.rememberLoginUIState(
             loginEmail = remember {
                 mutableStateOf("")
@@ -120,7 +123,7 @@ fun testLoginScreenWhenIdleThenLoginWithInvalidCredentials() {
 
 @Test
 fun testLoginScreenWhenIdleThenLoginWithLockedAccount() {
-    composeLoginTestRule.setContent {
+    composeLoginTestRule.activity.setContent {
         val uiState = LoginUIStateHolder.rememberLoginUIState(
             loginEmail = remember {
                 mutableStateOf("")
@@ -165,7 +168,7 @@ fun testLoginScreenWhenIdleThenLoginWithLockedAccount() {
 }
 @Test
 fun testLoginScreenWhenIdleThenLoginANDUndefinedErrorOccurs() {
-    composeLoginTestRule.setContent {
+    composeLoginTestRule.activity.setContent {
         val uiState = LoginUIStateHolder.rememberLoginUIState(
             loginEmail = remember {
                 mutableStateOf("")
