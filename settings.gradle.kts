@@ -1,5 +1,5 @@
-enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 pluginManagement {
+    includeBuild("build-logic")
     repositories {
         google()
         gradlePluginPortal()
@@ -18,3 +18,6 @@ rootProject.name = "SPM"
 include(":androidApp")
 include(":shared")
 include(":designsystem")
+include(":users-management")
+include(":androidTestApp")
+include(":projects-management")

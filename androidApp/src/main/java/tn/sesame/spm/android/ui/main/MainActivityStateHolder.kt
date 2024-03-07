@@ -5,7 +5,7 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.remember
 import androidx.navigation.NavHostController
 import tn.sesame.designsystem.components.bars.SesameBottomNavigationBarDefaults
-import tn.sesame.spm.android.ui.login.LoginState
+import tn.sesame.users_management.ui.login.LoginState
 import tn.sesame.spm.security.SupportedDeviceAuthenticationMethods
 
 data class MainActivityStateHolder(
@@ -17,10 +17,10 @@ data class MainActivityStateHolder(
     companion object{
         @Composable
         fun rememberMainActivityState(
-             biometricSupportState : State<SupportedDeviceAuthenticationMethods>,
-             autoLoginState : State<LoginState>,
-             rootNavController : NavHostController,
-             homeDestinations : SesameBottomNavigationBarDefaults
+            biometricSupportState : State<SupportedDeviceAuthenticationMethods>,
+            autoLoginState : State<LoginState>,
+            rootNavController : NavHostController,
+            homeDestinations : SesameBottomNavigationBarDefaults
         )  : MainActivityStateHolder = remember(
             biometricSupportState,autoLoginState,rootNavController,homeDestinations
         ){

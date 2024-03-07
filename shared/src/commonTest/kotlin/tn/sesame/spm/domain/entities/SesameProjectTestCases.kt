@@ -27,7 +27,7 @@ class SesameProjectTestCases {
     private val noProjectCollaborators : Map<SesameStudent,SesameProjectJoinRequestState> = mapOf()
     private val projectCollaborators : Map<SesameStudent,SesameProjectJoinRequestState> = buildMap{
         repeat(5){
-            SesameStudent(
+            put(SesameStudent(
                 registrationID = "id$it",
                 email = "email$it@mail.com",
                 firstName = "firstname$it",
@@ -36,21 +36,21 @@ class SesameProjectTestCases {
                 portfolioId = "",
                 sex = SesameUserSex.Male,
                 sesameClass = SesameClass("ingta4c","ingt","4","c")
-            ) to (if (it <3) SesameProjectJoinRequestState.ACCEPTED else SesameProjectJoinRequestState.WAITING_APPROVAL)
+            ),(if (it <3) SesameProjectJoinRequestState.ACCEPTED else SesameProjectJoinRequestState.WAITING_APPROVAL))
         }
     }
     private val fullProjectCollaborators : Map<SesameStudent,SesameProjectJoinRequestState> = buildMap{
         repeat(5){
-            SesameStudent(
-                registrationID = "id$it",
-                email = "email$it@mail.com",
-                firstName = "firstname$it",
-                lastName = "",
-                profilePicture = "",
-                portfolioId = "",
-                sex = SesameUserSex.Male,
-                sesameClass = SesameClass("ingta4c","ingt","4","c")
-            ) to  SesameProjectJoinRequestState.ACCEPTED
+           put( SesameStudent(
+               registrationID = "id$it",
+               email = "email$it@mail.com",
+               firstName = "firstname$it",
+               lastName = "",
+               profilePicture = "",
+               portfolioId = "",
+               sex = SesameUserSex.Male,
+               sesameClass = SesameClass("ingta4c","ingt","4","c")
+           ),SesameProjectJoinRequestState.ACCEPTED)
         }
     }
     private val sesameProject = SesameProject(
@@ -69,6 +69,7 @@ class SesameProjectTestCases {
 
     @Test
     fun `GIVEN a 5 maximum Collaborators project AND 3 Accepted collaborators THEN total collaborators should be 3`() {
+        println(sesameProject.collaboratorsToJoin)
        asserter
            .assertEquals(
                actual = sesameProject.joinedCollaborators.size,

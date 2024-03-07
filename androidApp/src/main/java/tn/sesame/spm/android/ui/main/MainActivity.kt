@@ -14,7 +14,7 @@ import androidx.navigation.compose.rememberNavController
 import org.koin.androidx.viewmodel.ext.android.getViewModel
 import tn.sesame.designsystem.SesameTheme
 import tn.sesame.designsystem.components.bars.SesameBottomNavigationBarDefaults
-import tn.sesame.spm.android.ui.login.LoginState
+import tn.sesame.users_management.ui.login.LoginState
 
 class MainActivity : FragmentActivity() {
 

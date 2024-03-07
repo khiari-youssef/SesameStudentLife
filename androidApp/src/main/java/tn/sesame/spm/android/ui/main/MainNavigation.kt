@@ -1,3 +1,15 @@
+package tn.sesame.spm.android.ui.main
+
+import AppExitPopup
+import MyProjectsScreen
+import ProjectDetailsScreen
+import ProjectDocumentsDepositScreen
+import ProjectJoinProcedureResultScreen
+import ProjectSupervisorSelectionScreen
+import ProjectTeammatesSelectionScreen
+import ProjectTechnologiesSelectionScreen
+import SettingsScreen
+import ViewUserProfilePopup
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -24,20 +36,21 @@ import org.koin.androidx.compose.getViewModel
 import tn.sesame.designsystem.components.bars.SesameBottomNavigationBarDefaults
 import tn.sesame.designsystem.components.modals.NavigationNotFoundModal
 import tn.sesame.spm.android.base.NavigationRoutingData
+import tn.sesame.spm.android.base.NavigationRoutingData.ProjectJoinProcedure.ProjectDetailsScreen
+import tn.sesame.spm.android.base.NavigationRoutingData.ProjectJoinProcedure.ProjectDocumentsDepositScreen
 import tn.sesame.spm.android.ui.home.HomeScreen
-import tn.sesame.spm.android.ui.login.LoginScreen
-import tn.sesame.spm.android.ui.login.LoginState
-import tn.sesame.spm.android.ui.login.LoginUIStateHolder
-import tn.sesame.spm.android.ui.login.LoginViewModel
-import tn.sesame.spm.android.ui.main.MainActivity
-import tn.sesame.spm.android.ui.projects.ProjectsViewModel
-import tn.sesame.spm.android.ui.projects.SesameProjectsState
-import tn.sesame.spm.android.ui.projects.SesameProjectsStateHolder
-import tn.sesame.spm.android.ui.projects.joinProcedure.SesameProjectActorsListState
-import tn.sesame.spm.android.ui.projects.joinProcedure.SesameProjectJoinRequestCollaboratorsSelectionStateHolder
-import tn.sesame.spm.android.ui.projects.joinProcedure.SesameProjectJoinRequestSupervisorSelectionStateHolder
-import tn.sesame.spm.android.ui.settings.AppSettingsStateHolder
-import tn.sesame.spm.android.ui.settings.SettingsViewModel
+import tn.sesame.users_management.ui.login.LoginScreen
+import tn.sesame.users_management.ui.login.LoginState
+import tn.sesame.users_management.ui.login.LoginUIStateHolder
+import tn.sesame.users_management.ui.login.LoginViewModel
+import tn.sesame.projects_management.ui.projects.ProjectsViewModel
+import tn.sesame.projects_management.ui.projects.SesameProjectsState
+import tn.sesame.projects_management.ui.projects.SesameProjectsStateHolder
+import tn.sesame.projects_management.ui.projects.joinProcedure.SesameProjectActorsListState
+import tn.sesame.projects_management.ui.projects.joinProcedure.SesameProjectJoinRequestCollaboratorsSelectionStateHolder
+import tn.sesame.projects_management.ui.projects.joinProcedure.SesameProjectJoinRequestSupervisorSelectionStateHolder
+import tn.sesame.users_management.ui.settings.AppSettingsStateHolder
+import tn.sesame.users_management.ui.settings.SettingsViewModel
 import tn.sesame.spm.domain.entities.SesameUser
 
 @Composable
