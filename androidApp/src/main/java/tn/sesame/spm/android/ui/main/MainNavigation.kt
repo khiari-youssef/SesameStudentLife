@@ -97,6 +97,9 @@ fun MainActivity.MainNavigation(
                     },
                     onPasswordChanged ={ password ->
                         loginUIState.loginPassword.value = password
+                    },
+                    onSetIdleState = {
+                        viewModel.setLoginIdleState()
                     }
                 ){
                     viewModel.loginWithEmailAndPassword(

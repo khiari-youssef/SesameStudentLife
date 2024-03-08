@@ -45,12 +45,14 @@ fun LoginScreen(
     loginUIStateHolder: LoginUIStateHolder,
     onEmailChanged: (email: String) -> Unit,
     onPasswordChanged: (password: String) -> Unit,
+    onSetIdleState : ()->Unit,
     onLoginClicked : ()->Unit
+
 ) {
    val isLargeScreen  = LocalConfiguration.current.run {
        (orientation == Configuration.ORIENTATION_LANDSCAPE) or (this.screenWidthDp >= 600)
    }
-    val toastState : MutableState<ToastState?> = remember(loginUIStateHolder.loginRequestResult.value) {
+    val toastState : MutableState<ToastState?> = remember {
         mutableStateOf(null)
     }
     val localContext = LocalContext.current
@@ -58,10 +60,10 @@ fun LoginScreen(
         key1 =loginUIStateHolder.loginRequestResult.value,
         block ={
         val state = loginUIStateHolder.loginRequestResult.value
-        toastState.value = if (state is LoginState.Error)
-            (R.drawable.ic_alert to when(state.errorType){
+        if (state is LoginState.Error) {
+            toastState.value =  (R.drawable.ic_alert to when(state.errorType){
                 DomainErrorType.AccountLocked -> {
-                   localContext.getString(R.string.error_toast_locked)
+                    localContext.getString(R.string.error_toast_locked)
                 }
                 DomainErrorType.Unauthorized ->{
                     localContext.getString(R.string.error_toast_unauthorized)
@@ -71,7 +73,9 @@ fun LoginScreen(
                 }
                 else -> localContext.getString(R.string.error_toast_unknown)
             })
-        else null
+            onSetIdleState()
+        }
+
     } )
 ConstraintLayout(
     modifier = modifier.padding(

@@ -53,4 +53,10 @@ class LoginViewModel(
     fun checkIfAutoLoginIsEnabled() : Flow<Boolean> = sesameUsersUsecase
         .checkIfAutoLoginIsEnabled()
 
+    fun setLoginIdleState() {
+        loginResultMutableState.update {
+            LoginState.Idle
+        }
+    }
+
 }

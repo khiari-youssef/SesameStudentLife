@@ -61,6 +61,9 @@ fun testLoginScreenWhenIdleThenLoginWithCredentials() {
             },
             onLoginClicked = {
                 viewModelLoginMockState.value = LoginState.Loading
+            },
+            onSetIdleState = {
+                viewModelLoginMockState.value = LoginState.Idle
             }
         )
     }
@@ -103,6 +106,9 @@ fun testLoginScreenWhenIdleThenLoginWithInvalidCredentials() {
                 viewModelLoginMockState.value = LoginState.Error(
                     errorType = DomainErrorType.InvalidCredentials
                 )
+            },
+            onSetIdleState = {
+                viewModelLoginMockState.value = LoginState.Idle
             }
         )
     }
@@ -141,6 +147,9 @@ fun testLoginScreenWhenIdleThenLoginWithLockedAccount() {
                 uiState.loginEmail.value = it
             }, onPasswordChanged ={
                 uiState.loginPassword.value = it
+            },
+            onSetIdleState = {
+                viewModelLoginMockState.value = LoginState.Idle
             },
             onLoginClicked = {
                 viewModelLoginMockState.value = LoginState.Error(
@@ -191,6 +200,9 @@ fun testLoginScreenWhenIdleThenLoginANDUndefinedErrorOccurs() {
                 viewModelLoginMockState.value = LoginState.Error(
                     errorType = DomainErrorType.Undefined
                 )
+            },
+            onSetIdleState = {
+                viewModelLoginMockState.value = LoginState.Idle
             }
         )
     }

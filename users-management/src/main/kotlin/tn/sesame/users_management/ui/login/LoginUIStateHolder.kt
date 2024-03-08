@@ -17,7 +17,7 @@ sealed interface LoginState {
     @Stable
   data object Loading : LoginState
 
-    @Stable
+  @Stable
   data class Error(val errorType : DomainErrorType) : LoginState
 
     @Stable
