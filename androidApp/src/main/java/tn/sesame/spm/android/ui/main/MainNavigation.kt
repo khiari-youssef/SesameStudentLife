@@ -35,6 +35,7 @@ import androidx.navigation.navigation
 import org.koin.androidx.compose.getViewModel
 import tn.sesame.designsystem.components.bars.SesameBottomNavigationBarDefaults
 import tn.sesame.designsystem.components.modals.NavigationNotFoundModal
+import tn.sesame.designsystem.navigateBack
 import tn.sesame.spm.android.base.NavigationRoutingData
 import tn.sesame.spm.android.base.NavigationRoutingData.ProjectJoinProcedure.ProjectDetailsScreen
 import tn.sesame.spm.android.base.NavigationRoutingData.ProjectJoinProcedure.ProjectDocumentsDepositScreen
@@ -178,7 +179,7 @@ fun MainActivity.MainNavigation(
 
                     },
                     onBackPressed = {
-                        rootNavController.popBackStack()
+                        rootNavController.navigateBack()
                     }
                 )
             }
@@ -217,16 +218,16 @@ fun MainActivity.MainNavigation(
                         viewModel.setAutoLoginEnabled(it)
                     },
                     onBackPressed = {
-                        rootNavController.popBackStack()
+                        rootNavController.navigateBack()
                     }
                 )
             }
             navigation(
                 route = "${NavigationRoutingData.ProjectJoinProcedure}",
-                startDestination = NavigationRoutingData.ProjectJoinProcedure.ProjectDetailsScreen
+                startDestination = ProjectDetailsScreen
             ){
                 val goBackToPreviousScreenAction : ()->Unit = {
-                    rootNavController.popBackStack()
+                    rootNavController.navigateBack()
                 }
                 NavigationRoutingData.ProjectJoinProcedure.run {
                     composable(
