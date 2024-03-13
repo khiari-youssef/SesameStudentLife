@@ -17,6 +17,7 @@ compose-navigation="2.7.7"
 compose-lottie="6.2.0"
 kotlinxDatetime = "0.4.1"
 androidx-activityCompose = "1.8.2"
+playServicesMlkitDocumentScanner = "16.0.0-beta1"
 securityAppAuthenticator = "1.0.0-alpha03"
 securityCrypto = "1.0.0"
 securityIdentityCredential = "1.0.0-alpha03"
@@ -40,6 +41,8 @@ androidx-appcompat-appcompat = "1.6.1"
 com-google-android-material-material = "1.11.0"
 firebase-bom = "32.7.2"
 gplayservices = "4.4.1"
+lifecycle-runtime-ktx = "2.7.0"
+compose-bom = "2023.08.00"
 
 
 [libraries]
@@ -83,6 +86,7 @@ koin-android ={module = "io.insert-koin:koin-android",version.ref = "koin"}
 koin-compose={module="io.insert-koin:koin-androidx-compose",version.ref="koin"}
 koin-test ={module = "io.insert-koin:koin-test",version.ref = "koin"}
 koin-test-android={module="io.insert-koin:koin-android-test",version.ref="koin"}
+play-services-mlkit-document-scanner = { module = "com.google.android.gms:play-services-mlkit-document-scanner", version.ref = "playServicesMlkitDocumentScanner" }
 sqldelight-runtime ={module = "app.cash.sqldelight:runtime",version.ref = "sqldelight"}
 sqldelight-driver-android ={module="app.cash.sqldelight:android-driver",version.ref="sqldelight"}
 sqldelight-driver-native ={module = "app.cash.sqldelight:native-driver",version.ref = "sqldelight"}
@@ -99,6 +103,9 @@ kotlin-gradlePlugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", ve
 appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "androidx-appcompat-appcompat" }
 material = { group = "com.google.android.material", name = "material", version.ref = "com-google-android-material-material" }
 firebase-bom={module="com.google.firebase:firebase-bom",version.ref="firebase-bom"}
+lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycle-runtime-ktx" }
+compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "compose-bom" }
+ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
 
 [bundles]
 composelibs = ['compose-ui','compose-ui-tooling-preview','compose-foundation','compose-material','compose-material3','androidx-activity-compose','compose-animation-core','compose-animation-graphics','compose-coil','compose-lottie','compose-navigation','compose-constraintlayout','jetpack-viewmodel-compose','jetpack-viewmodel-composeutils','koin-compose']
