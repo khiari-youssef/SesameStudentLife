@@ -1,6 +1,5 @@
 package tn.sesame.android_services
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -8,37 +7,38 @@ import androidx.activity.compose.setContent
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.IntentSenderRequest
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeContentPadding
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.google.mlkit.vision.documentscanner.GmsDocumentScannerOptions
 import com.google.mlkit.vision.documentscanner.GmsDocumentScannerOptions.RESULT_FORMAT_JPEG
-import com.google.mlkit.vision.documentscanner.GmsDocumentScannerOptions.RESULT_FORMAT_PDF
 import com.google.mlkit.vision.documentscanner.GmsDocumentScannerOptions.SCANNER_MODE_FULL
 import com.google.mlkit.vision.documentscanner.GmsDocumentScanning
 import com.google.mlkit.vision.documentscanner.GmsDocumentScanningResult
 import tn.sesame.android_services.ui.DocumentFile
 import tn.sesame.android_services.ui.DocumentScanner
 import tn.sesame.android_services.ui.Documents
+import tn.sesame.android_services.ui.ImageDataExtraction
 import tn.sesame.designsystem.SesameTheme
 
-class PlaygroundActivity : ComponentActivity() {
+internal class PlaygroundActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -52,8 +52,36 @@ class PlaygroundActivity : ComponentActivity() {
                     NavHost(
                         route  = "Main",
                         navController = rootNavController,
-                        startDestination = "DocumentScanner"
+                        startDestination = "menu"
                     ) {
+                        composable("menu") {
+                            Column(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .wrapContentHeight(),
+                                horizontalAlignment = Alignment.CenterHorizontally,
+                                verticalArrangement = Arrangement.spacedBy(
+                                    24.dp,Alignment.CenterVertically
+                                )
+                            ) {
+                                Button(
+                                    onClick = {
+                                           rootNavController.navigate("DocumentScanner")
+                                    },
+                                    content = {
+                                        Text("DocumentScanner")
+                                    }
+                                )
+                                Button(
+                                    onClick = {
+                                        rootNavController.navigate("ImageLabeling")
+                                    },
+                                    content = {
+                                        Text("ImageLabeling")
+                                    }
+                                )
+                            }
+                        }
                         composable(
                             route = "DocumentScanner"
                         ) {
@@ -101,6 +129,16 @@ class PlaygroundActivity : ComponentActivity() {
 
                                         }
                                 }
+                            )
+                        }
+                        composable("ImageLabeling"){
+                            ImageDataExtraction(
+                                modifier = Modifier
+                                    .fillMaxSize()
+                                    .safeContentPadding()
+                                    .padding(
+                                        top = 32.dp
+                                    )
                             )
                         }
                     }

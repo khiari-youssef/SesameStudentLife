@@ -23,7 +23,7 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 
 @Composable
-fun DocumentScanner(
+internal fun DocumentScanner(
     modifier : Modifier,
     selectedDocument : Documents,
     onDocumentScan : ()->Unit
