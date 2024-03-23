@@ -24,4 +24,5 @@ dependencies {
     implementation(libs.koin.android)
     implementation(libs.jetpack.viewmodel.core)
     implementation(platform(libs.firebase.bom))
+    dokkaPlugin(libs.android.documentation.plugin)
 }
