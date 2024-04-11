@@ -14,7 +14,7 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "SPM"
+rootProject.name = "SesameStudentLife"
 include(":androidApp")
 include(":shared")
 include(":designsystem")
