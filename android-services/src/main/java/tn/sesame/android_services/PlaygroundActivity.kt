@@ -2,8 +2,11 @@ package tn.sesame.android_services
 
 import SesameButton
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
+import android.icu.util.Calendar
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.compose.setContent
@@ -41,6 +44,9 @@ import com.google.mlkit.vision.documentscanner.GmsDocumentScannerOptions.RESULT_
 import com.google.mlkit.vision.documentscanner.GmsDocumentScannerOptions.SCANNER_MODE_FULL
 import com.google.mlkit.vision.documentscanner.GmsDocumentScanning
 import com.google.mlkit.vision.documentscanner.GmsDocumentScanningResult
+import tn.sesame.android_services.services.AlarmSchedulingService
+import tn.sesame.android_services.services.AlarmSchedulingServiceImpl
+import tn.sesame.android_services.services.CustomAlarmReceiver
 import tn.sesame.android_services.ui.CameraView
 import tn.sesame.android_services.ui.DocumentFile
 import tn.sesame.android_services.ui.DocumentScanner
@@ -96,6 +102,14 @@ internal class PlaygroundActivity : ComponentActivity() {
                                     },
                                     content = {
                                         Text("QrCodeScanner")
+                                    }
+                                )
+                                Button(
+                                    onClick = {
+                                        rootNavController.navigate("AlarmScheduler")
+                                    },
+                                    content = {
+                                        Text("AlarmScheduler")
                                     }
                                 )
                             }
@@ -261,10 +275,30 @@ internal class PlaygroundActivity : ComponentActivity() {
                                 }
                             }
                         }
+                        composable("AlarmScheduler"){
+                            val localContext = LocalContext.current
+                            val alarmSchedulingService : AlarmSchedulingService = AlarmSchedulingServiceImpl(localContext)
+                            Box(
+                                modifier = Modifier.fillMaxSize(),
+                               contentAlignment = Alignment.Center
+                            ) {
+                                SesameButton(text ="Schedule alarm 1 min from now" , variant = SesameButtonVariants.PrimaryHard) {
+
+                                    val time : Calendar = Calendar.getInstance().apply {
+                                        timeInMillis = System.currentTimeMillis()
+                                        add(Calendar.MINUTE, 1)
+                                    }
+                                    alarmSchedulingService.setupAlarm(
+                                        timeInMS =time.timeInMillis
+                                    )
+                                }
+                            }
+                       }
                     }
                 }
             }
         }
     }
+
 }
 
