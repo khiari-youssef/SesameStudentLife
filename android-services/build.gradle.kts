@@ -31,7 +31,7 @@ dependencies {
         implementation (libs.androidx.camera.video)
         implementation (libs.androidx.camera.view)
         implementation (libs.androidx.camera.extensions)
+    implementation(libs.play.services.mlkit.barcode.scanning)
     implementation(libs.barcode.scanning)
-    implementation( libs.play.services.mlkit.barcode.scanning)
 
 }
