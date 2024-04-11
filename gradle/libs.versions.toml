@@ -1,6 +1,7 @@
 [versions]
 agp = "8.2.2"
 annotation = "1.7.1"
+barcodeScanning = "17.2.0"
 cameraCore = "1.2.2"
 collection = "1.4.0"
 androidtestrunner = "1.5.2"
@@ -19,6 +20,7 @@ compose-navigation="2.7.7"
 compose-lottie="6.2.0"
 kotlinxDatetime = "0.4.1"
 androidx-activityCompose = "1.8.2"
+playServicesMlkitBarcodeScanning = "18.3.0"
 playServicesMlkitDocumentScanner = "16.0.0-beta1"
 securityAppAuthenticator = "1.0.0-alpha03"
 securityCrypto = "1.0.0"
@@ -63,6 +65,7 @@ androidx-collection = { module = "androidx.collection:collection", version.ref =
 androidx-datastore-preferences-core = { module = "androidx.datastore:datastore-preferences-core", version.ref = "datastorePreferencesCore" }
 androidx-test-runner={module = "androidx.test:runner",version.ref="androidtestrunner"}
 androidx-test-rules={module="androidx.test:rules",version.ref="androidtestrules"}
+barcode-scanning = { module = "com.google.mlkit:barcode-scanning", version.ref = "barcodeScanning" }
 image-labeling-custom = { module = "com.google.mlkit:image-labeling-custom", version.ref = "imageLabelingCustom" }
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
 kotlin-test-mockito={module="org.mockito.kotlin:mockito-kotlin",version.ref="mockito"}
@@ -95,6 +98,7 @@ koin-android ={module = "io.insert-koin:koin-android",version.ref = "koin"}
 koin-compose={module="io.insert-koin:koin-androidx-compose",version.ref="koin"}
 koin-test ={module = "io.insert-koin:koin-test",version.ref = "koin"}
 koin-test-android={module="io.insert-koin:koin-android-test",version.ref="koin"}
+play-services-mlkit-barcode-scanning = { module = "com.google.android.gms:play-services-mlkit-barcode-scanning", version.ref = "playServicesMlkitBarcodeScanning" }
 play-services-mlkit-document-scanner = { module = "com.google.android.gms:play-services-mlkit-document-scanner", version.ref = "playServicesMlkitDocumentScanner" }
 sqldelight-runtime ={module = "app.cash.sqldelight:runtime",version.ref = "sqldelight"}
 sqldelight-driver-android ={module="app.cash.sqldelight:android-driver",version.ref="sqldelight"}
