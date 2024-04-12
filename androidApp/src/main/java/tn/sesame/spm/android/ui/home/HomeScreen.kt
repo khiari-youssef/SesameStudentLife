@@ -2,7 +2,6 @@ package tn.sesame.spm.android.ui.home
 
 
 import ProfileScreen
-import ProjectsScreen
 import RequireBiometricAuth
 import SesameDateRangePicker
 import androidx.compose.animation.AnimatedVisibility
@@ -18,6 +17,7 @@ import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -40,9 +40,6 @@ import tn.sesame.spm.android.ui.notifications.NotificationScreenStateHolder
 import tn.sesame.spm.android.ui.notifications.NotificationsScreen
 import tn.sesame.spm.android.ui.notifications.NotificationsViewModel
 import tn.sesame.users_management.ui.profile.MyProfileViewModel
-import tn.sesame.projects_management.ui.projects.ProjectsViewModel
-import tn.sesame.projects_management.ui.projects.SesameProjectsState
-import tn.sesame.projects_management.ui.projects.SesameProjectsStateHolder
 import tn.sesame.spm.security.BiometricLauncherService
 
 
@@ -52,12 +49,17 @@ fun HomeScreen(
     onHomeExit: (route: String) -> Unit
 ) {
     val homeNavController = rememberNavController()
-    val initialRoute = remember {
-        NavigationRoutingData.Home.Calendar
-    }
+
     val selectedHomeDestinationIndex = rememberSaveable {
         mutableIntStateOf(0)
     }
+
+    val initialRoute = remember {
+       derivedStateOf {
+           NavigationRoutingData.Home.mapIndexToRoute(selectedHomeDestinationIndex.intValue)
+       }
+    }
+
     val navOpts = remember {
         NavOptions.Builder()
             .setLaunchSingleTop(true)
@@ -98,7 +100,7 @@ fun HomeScreen(
             NavHost(
                 navController = homeNavController,
                 route = NavigationRoutingData.Home.ROOT,
-                startDestination = initialRoute
+                startDestination = initialRoute.value
             ) {
                 composable(NavigationRoutingData.Home.Calendar) {
                     NavigationBarScreenTemplate(
@@ -124,49 +126,9 @@ fun HomeScreen(
                     )
                 }
                 composable(
-                    route = NavigationRoutingData.Home.Projects
+                    route = NavigationRoutingData.Home.News
                 ) {
-                    val viewModel : ProjectsViewModel = getViewModel()
 
-                    NavigationBarScreenTemplate(
-                        modifier = Modifier
-                            .padding(paddingValues),
-                        onExitNavigation = { onHomeExit(NavigationRoutingData.ExitAppRoute) },
-                    ) { modifier ->
-                        val uiState = SesameProjectsStateHolder.rememberSesameProjectsState(
-                            currentSearchQuery = rememberSaveable {
-                                mutableStateOf("")
-                            },
-                            currentProjects = viewModel.currentProjectsState.collectAsStateWithLifecycle(
-                                initialValue = SesameProjectsState.Loading
-                            )
-                        )
-
-                        LaunchedEffect(key1 = uiState.currentSearchQuery.value, block = {
-                                viewModel.refreshProjects(keywordsFilter = uiState.currentSearchQuery.value)
-                        } )
-                        ProjectsScreen(
-                            modifier = modifier
-                                .padding(
-                                    horizontal = 16.dp
-                                )
-                                .padding(
-                                    top = 12.dp
-                                ),
-                            uiState = uiState,
-                            onSearchQueryChanged = { newQuery->
-                                if (newQuery.trim().lowercase() != uiState.currentSearchQuery.value.trim().lowercase()) {
-                                    uiState.currentSearchQuery.value = newQuery
-                                }
-                            },
-                            onViewDetails = {projectID->
-                             onHomeExit("${NavigationRoutingData.ProjectJoinProcedure.ProjectDetailsScreen}/$projectID")
-                            },
-                            onJoinRequest = {
-
-                            }
-                        )
-                    }
                 }
                 composable(NavigationRoutingData.Home.Notifications) {
                     val viewModel = getViewModel<NotificationsViewModel>()

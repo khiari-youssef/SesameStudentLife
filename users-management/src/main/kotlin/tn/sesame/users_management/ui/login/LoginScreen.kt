@@ -11,6 +11,7 @@ import android.content.res.Configuration
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -168,7 +169,10 @@ fun LoginForm(
      verticalArrangement = Arrangement.spacedBy(16.dp, Alignment.CenterVertically)
  ) {
      SesameEmailTextField(
-         modifier = Modifier.semantics {
+         modifier = Modifier
+             .fillMaxWidth()
+             .wrapContentHeight()
+             .semantics {
             contentDescription = "LoginEmailTextField"
          },
          text = email,
@@ -181,7 +185,10 @@ fun LoginForm(
          onEmailChanged = onEmailChanged
      )
      SesamePasswordTextField(
-         modifier = Modifier.semantics {
+         modifier = Modifier
+             .fillMaxWidth()
+             .wrapContentHeight()
+             .semantics {
              contentDescription = "LoginPasswordTextField"
          },
          password = password,

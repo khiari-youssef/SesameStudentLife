@@ -31,12 +31,12 @@ value class SesameBottomNavigationBarDefaults(
         fun getDefaultConfiguration() = SesameBottomNavigationBarDefaults(
             listOf(
                 SesameBottomNavigationBarItem(
-                    selectedStateIcon = tn.sesame.designsystem.R.drawable.ic_calendar,
-                    unSelectedStateIcon = tn.sesame.designsystem.R.drawable.ic_calendar_outlined
+                    selectedStateIcon = tn.sesame.designsystem.R.drawable.ic_news_selected,
+                    unSelectedStateIcon = tn.sesame.designsystem.R.drawable.ic_news_unselected
                 ),
                 SesameBottomNavigationBarItem(
-                    selectedStateIcon = tn.sesame.designsystem.R.drawable.ic_project,
-                    unSelectedStateIcon = tn.sesame.designsystem.R.drawable.ic_project_outlined
+                    selectedStateIcon = tn.sesame.designsystem.R.drawable.ic_calendar,
+                    unSelectedStateIcon = tn.sesame.designsystem.R.drawable.ic_calendar_outlined
                 ),
                 SesameBottomNavigationBarItem(
                     selectedStateIcon = tn.sesame.designsystem.R.drawable.ic_notifications,
