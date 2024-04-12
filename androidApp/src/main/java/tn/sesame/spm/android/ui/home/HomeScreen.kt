@@ -35,6 +35,7 @@ import org.koin.androidx.compose.getViewModel
 import tn.sesame.designsystem.components.NavigationBarScreenTemplate
 import tn.sesame.designsystem.components.bars.SesameBottomNavigationBar
 import tn.sesame.designsystem.components.bars.SesameBottomNavigationBarDefaults
+import tn.sesame.spm.android.R
 import tn.sesame.spm.android.base.NavigationRoutingData
 import tn.sesame.spm.android.ui.notifications.NotificationScreenStateHolder
 import tn.sesame.spm.android.ui.notifications.NotificationsScreen
@@ -62,6 +63,8 @@ fun HomeScreen(
 
     val navOpts = remember {
         NavOptions.Builder()
+            .setEnterAnim(androidx.appcompat.R.anim.abc_fade_in)
+            .setExitAnim(androidx.appcompat.R.anim.abc_fade_out)
             .setLaunchSingleTop(true)
             .build()
     }
