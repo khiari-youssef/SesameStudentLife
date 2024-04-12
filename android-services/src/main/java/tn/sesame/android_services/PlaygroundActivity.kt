@@ -2,18 +2,18 @@ package tn.sesame.android_services
 
 import SesameButton
 import android.Manifest
+import android.app.NotificationManager
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.icu.util.Calendar
+import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.compose.setContent
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.IntentSenderRequest
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -26,6 +26,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
@@ -44,9 +45,13 @@ import com.google.mlkit.vision.documentscanner.GmsDocumentScannerOptions.RESULT_
 import com.google.mlkit.vision.documentscanner.GmsDocumentScannerOptions.SCANNER_MODE_FULL
 import com.google.mlkit.vision.documentscanner.GmsDocumentScanning
 import com.google.mlkit.vision.documentscanner.GmsDocumentScanningResult
-import tn.sesame.android_services.services.AlarmSchedulingService
-import tn.sesame.android_services.services.AlarmSchedulingServiceImpl
-import tn.sesame.android_services.services.CustomAlarmReceiver
+import tn.sesame.android_services.services.alarmService.AlarmSchedulingService
+import tn.sesame.android_services.services.alarmService.AlarmSchedulingServiceImpl
+import tn.sesame.android_services.services.notificationService.CustomNotificationService
+import tn.sesame.android_services.services.notificationService.SesameNotification
+import tn.sesame.android_services.services.notificationService.SesameNotificationChannel
+import tn.sesame.android_services.services.notificationService.SesameNotificationChannel.Companion.SESAME_NOTIFICATION_CHANNEL
+import tn.sesame.android_services.services.notificationService.SesameNotificationGroup
 import tn.sesame.android_services.ui.CameraView
 import tn.sesame.android_services.ui.DocumentFile
 import tn.sesame.android_services.ui.DocumentScanner
@@ -55,8 +60,25 @@ import tn.sesame.android_services.ui.ImageDataExtraction
 import tn.sesame.designsystem.SesameTheme
 
 internal class PlaygroundActivity : ComponentActivity() {
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val notificationManager = CustomNotificationService(this)
+        notificationManager.setupChannel(
+           channelConfig =  SesameNotificationChannel(
+                id =SESAME_NOTIFICATION_CHANNEL,
+                name ="Test Channel",
+                description = "test description",
+                importance = NotificationManager.IMPORTANCE_DEFAULT,
+                canShowBadge = true,
+                enableVibration = true
+            ),
+            notificationGroups = listOf(SesameNotificationGroup(
+                SesameNotificationGroup.SESAME_SESSIONS_GROUP,
+                "Test Group"
+            ))
+        )
         setContent {
             SesameTheme {
                 // A surface container using the 'background' color from the theme
@@ -110,6 +132,14 @@ internal class PlaygroundActivity : ComponentActivity() {
                                     },
                                     content = {
                                         Text("AlarmScheduler")
+                                    }
+                                )
+                                Button(
+                                    onClick = {
+                                        rootNavController.navigate("Notifications")
+                                    },
+                                    content = {
+                                        Text("Notifications")
                                     }
                                 )
                             }
@@ -289,8 +319,80 @@ internal class PlaygroundActivity : ComponentActivity() {
                                         add(Calendar.MINUTE, 1)
                                     }
                                     alarmSchedulingService.setupAlarm(
-                                        timeInMS =time.timeInMillis
+                                        timeInMS =time.timeInMillis,
+                                        title = "Reminder : Big data course",
+                                        message = "will start in 2 hours"
                                     )
+                                }
+                            }
+                       }
+                        composable("Notifications"){
+                            val title = remember {
+                                mutableStateOf("")
+                            }
+                            val description = remember {
+                                mutableStateOf("")
+                            }
+                            val localContext = LocalContext.current
+                            val notificationPermissionLauncher = rememberLauncherForActivityResult(
+                                contract = ActivityResultContracts.RequestPermission(),
+                                onResult = { isGranted->
+
+                                }
+                            )
+                            Column(
+                                modifier = Modifier
+                                    .padding(
+                                        horizontal = 12.dp,
+                                        vertical = 20.dp
+                                    )
+                                    .fillMaxSize(),
+                               horizontalAlignment = Alignment.CenterHorizontally,
+                                verticalArrangement = Arrangement.spacedBy(
+                                    20.dp,Alignment.CenterVertically
+                                )
+                            ) {
+                                TextField(
+                                    value = title.value,
+                                    label = {
+                                       Text(text = "Title")
+                                    },
+                                    onValueChange = {
+                                        title.value = it
+                                  })
+                                TextField(
+                                    value = description.value,
+                                    label = {
+                                        Text(text = "Description")
+                                    },
+                                    onValueChange = {
+                                        description.value = it
+                                    })
+                                SesameButton(text ="Show notification" , variant = SesameButtonVariants.PrimaryHard) {
+                                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU){
+                                        if (localContext.checkSelfPermission(Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED){
+                                            notificationManager.showNotification(
+                                                SesameNotification(
+                                                    title = title.value,
+                                                    shortDescription = description.value,
+                                                    smallIcon = tn.sesame.designsystem.R.drawable.brand_logo
+                                                ),
+                                                Intent(localContext,PlaygroundActivity::class.java)
+                                            )
+                                        } else {
+                                            notificationPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
+                                        }
+                                    } else {
+                                        notificationManager.showNotification(
+                                            SesameNotification(
+                                                title = title.value,
+                                                shortDescription = description.value,
+                                                smallIcon = tn.sesame.designsystem.R.drawable.brand_logo
+                                            ),
+                                            Intent(localContext,PlaygroundActivity::class.java)
+                                        )
+                                    }
+
                                 }
                             }
                        }

@@ -1,28 +1,32 @@
-package tn.sesame.android_services.services
+package tn.sesame.android_services.services.alarmService
 
 import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.os.SystemClock
-import tn.sesame.android_services.services.AlarmSchedulingService.Companion.AlarmScheduleRequestCode
+import tn.sesame.android_services.services.alarmService.AlarmSchedulingService.Companion.AlarmScheduleRequestCode
 
 interface AlarmSchedulingService{
 
     companion object{
         const val AlarmScheduleRequestCode : Int = 0xFF24
     }
-    fun setupAlarm(timeInMS : Long)
+    fun setupAlarm(timeInMS : Long,title : String,message : String,redirectionData : Map<String,String>?=null)
 }
 
 internal class AlarmSchedulingServiceImpl(
     private val context : Context
-) : AlarmSchedulingService{
+) : AlarmSchedulingService {
     private val alarmManager : AlarmManager= context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
-    override fun setupAlarm(timeInMS : Long) {
+    override fun setupAlarm(timeInMS : Long,title : String,message : String,redirectionData : Map<String,String>?) {
         val intent = Intent(context, CustomAlarmReceiver::class.java).apply {
-            putExtra("message","alarm test")
+            putExtra("title",title)
+            putExtra("description",message)
+            redirectionData?.forEach { (key, value) ->
+                putExtra(key,value)
+            }
         }
         val pendingIntent =
             PendingIntent.getBroadcast(context, AlarmScheduleRequestCode, intent,

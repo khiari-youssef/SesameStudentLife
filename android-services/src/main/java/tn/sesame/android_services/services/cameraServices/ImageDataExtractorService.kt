@@ -1,4 +1,4 @@
-package tn.sesame.android_services.services
+package tn.sesame.android_services.services.cameraServices
 
 import java.io.File
 
