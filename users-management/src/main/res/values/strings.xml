@@ -3,7 +3,7 @@
     <string name="profile_email">Email</string>
     <string name="profile_logout">Logout</string>
     <string name="profile_settings">Settings</string>
-    <string name="profile_policy">Security Policy</string>
+    <string name="profile_policy">Rules &amp; Policy</string>
     <string name="profile_myprojects">My projects</string>
     <string name="profile_my_subs">My subscriptions</string>
     <string name="profile_my_grades">My grades</string>

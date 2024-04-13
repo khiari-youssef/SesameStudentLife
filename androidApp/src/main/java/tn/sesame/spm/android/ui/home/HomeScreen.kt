@@ -257,13 +257,13 @@ fun HomeScreen(
                                             onHomeExit(NavigationRoutingData.Settings)
                                         }
                                         "my_classes" ->{
-
+                                            onHomeExit(NavigationRoutingData.MyClasses)
                                         }
                                         "my_grades" -> {
-
+                                            onHomeExit(NavigationRoutingData.MyGrades)
                                         }
                                         "my_subs" -> {
-
+                                            onHomeExit(NavigationRoutingData.MySubscriptions)
                                         }
                                         else -> {
 

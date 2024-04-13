@@ -7,6 +7,9 @@ data object NavigationRoutingData {
     const val NavigationNotFound = "navigation_not_found_screen"
     const val Settings = "settings_screen"
     const val PrivacyPolicyScreen = "PrivacyPolicyScreen_screen"
+    const val MyClasses = "MyClassesScreen"
+    const val MyGrades = "MyGradesScreen"
+    const val MySubscriptions = "MySubscriptionsScreen"
 
     data object Home{
           val ROOT = toString()
