@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Divider
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -30,9 +31,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import tn.sesame.designsystem.SesameFontFamilies
+import tn.sesame.designsystem.components.buttons.SesameIconButtonVariant
 import tn.sesame.designsystem.components.menus.MenuOption
 import tn.sesame.designsystem.components.menus.MenuOptions
 import tn.sesame.designsystem.components.menus.OptionsListMenu
+import tn.sesame.spm.domain.entities.SesameStudent
+import tn.sesame.spm.domain.entities.SesameTeacher
 import tn.sesame.users_management.ui.profile.UserProfileDetails
 import tn.sesame.spm.domain.entities.SesameUser
 import tn.sesame.users_management.R
@@ -41,6 +45,7 @@ import tn.sesame.users_management.R
 @Composable
 fun ProfileScreen(
 modifier: Modifier = Modifier,
+menuOptions : MenuOptions,
 sesameUser: SesameUser,
 onMenuItemClicked : (optionIndex : Int)->Unit,
 onLogOutClicked :  ()->Unit
@@ -48,21 +53,6 @@ onLogOutClicked :  ()->Unit
     val isLargeScreen  = LocalConfiguration.current.run {
         (orientation == Configuration.ORIENTATION_LANDSCAPE) or (this.screenWidthDp >= 600)
     }
-
-    val menuOptions = MenuOptions(listOf(
-        MenuOption(
-            iconRes = tn.sesame.designsystem.R.drawable.ic_project_outlined,
-            label = stringResource(id = R.string.profile_myprojects)
-        ),
-        MenuOption(
-            iconRes = tn.sesame.designsystem.R.drawable.ic_policy ,
-            label = stringResource(id = R.string.profile_policy)
-        ),
-        MenuOption(
-            iconRes = tn.sesame.designsystem.R.drawable.ic_settings ,
-            label = stringResource(id = R.string.profile_settings)
-        )
-    ))
     if (isLargeScreen){
        Row(
            modifier = modifier
@@ -74,10 +64,17 @@ onLogOutClicked :  ()->Unit
            UserProfileDetails(
                sesameUser = sesameUser,
                modifier = Modifier
-                   .wrapContentSize()
+                   .weight(0.5f),
+               onViewMyBadgeClicked = {
+
+               },
+               onViewMyProfileClicked = {
+
+               }
            )
            ProfileMenu(
                modifier = Modifier
+                   .weight(0.5f)
                    .fillMaxSize(),
                menuOptions = menuOptions,
                onMenuItemClicked = onMenuItemClicked,
@@ -100,9 +97,15 @@ onLogOutClicked :  ()->Unit
                 sesameUser = sesameUser,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .wrapContentHeight()
+                    .wrapContentHeight(),
+                onViewMyBadgeClicked = {
+
+                },
+                onViewMyProfileClicked = {
+
+                }
             )
-            Divider(
+            HorizontalDivider(
                 modifier = Modifier
                     .fillMaxWidth(0.95f)
             )
@@ -141,33 +144,14 @@ fun ProfileMenu(
             menuOptions = menuOptions ,
             onOptionClicked = onMenuItemClicked
         )
-        Button(
+        SesameIconButtonVariant(
             modifier = Modifier.constrainAs(buttonRef){
                 end.linkTo(parent.end)
                 bottom.linkTo(parent.bottom)
             },
-            contentPadding = PaddingValues(12.dp),
-            shape = MaterialTheme.shapes.medium,
-            colors = ButtonDefaults.buttonColors(
-                containerColor = Color(0xFFF3F3F3)
-            ),
-            onClick = onLogOutClicked
-        ) {
-            Icon(
-                imageVector = ImageVector.vectorResource(tn.sesame.designsystem.R.drawable.logout) ,
-                contentDescription = "",
-                tint = Color.Unspecified
-            )
-            Spacer(modifier = Modifier.width(8.dp))
-            Text(
-                text = stringResource(id = R.string.profile_logout),
-                style = TextStyle(
-                    fontSize = 16.sp,
-                    fontFamily = SesameFontFamilies.MainMediumFontFamily,
-                    fontWeight = FontWeight(500),
-                    color = Color.Black,
-                )
-            )
-        }
+            onClick = onLogOutClicked,
+            iconResID = tn.sesame.designsystem.R.drawable.logout,
+            text = stringResource(id = R.string.profile_logout)
+        )
     }
 }

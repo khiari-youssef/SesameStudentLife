@@ -27,7 +27,9 @@ import androidx.compose.ui.unit.sp
 import tn.sesame.designsystem.LightGreyBlue
 import tn.sesame.designsystem.SesameFontFamilies
 
+@Stable
 data class MenuOption(
+    val id : String,
     val iconRes : Int,
     val label : String
 )

@@ -5,6 +5,7 @@ import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.text.ClickableText
@@ -26,6 +27,7 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import tn.sesame.designsystem.SesameFontFamilies
+import tn.sesame.designsystem.components.buttons.SesameIconButtonVariant
 import tn.sesame.designsystem.onBackgroundShadedDarkMode
 import tn.sesame.designsystem.onBackgroundShadedLightMode
 import tn.sesame.spm.domain.entities.SesameStudent
@@ -37,16 +39,18 @@ import tn.sesame.users_management.R
 @Composable
 fun UserProfileDetails(
     modifier: Modifier = Modifier,
-    sesameUser : SesameUser,
-    showSex : Boolean = true,
-    onProfileEmailClicked : ((email : String)->Unit)?=null
+    onViewMyBadgeClicked : ()->Unit,
+    onViewMyProfileClicked: ()->Unit,
+    sesameUser : SesameUser
 ) {
-    Column(modifier = modifier){
+    Column(
+        modifier = modifier
+    ){
         Row(
             modifier = Modifier
                 .padding(8.dp)
                 .wrapContentSize(),
-            verticalAlignment = Alignment.CenterVertically,
+            verticalAlignment = Alignment.Top,
             horizontalArrangement = Arrangement.spacedBy(
                 24.dp,
                 Alignment.CenterHorizontally
@@ -60,26 +64,11 @@ fun UserProfileDetails(
             )
             Column(
                 modifier = Modifier
-                    .wrapContentSize()
+                    .wrapContentSize(),
+                horizontalAlignment = Alignment.Start,
+                verticalArrangement = Arrangement
+                    .spacedBy(8.dp,Alignment.CenterVertically)
             ) {
-                Row(
-                    modifier = Modifier
-                        .wrapContentSize(),
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.spacedBy(
-                        8.dp,Alignment.Start
-                    )
-                ) {
-                    if (showSex) {
-                        Icon(
-                            imageVector = ImageVector.vectorResource(when (sesameUser.sex) {
-                                SesameUserSex.Female -> tn.sesame.designsystem.R.drawable.ic_sex_female
-                                SesameUserSex.Male -> tn.sesame.designsystem.R.drawable.ic_sex_male
-                            }) ,
-                            contentDescription = "",
-                            tint = MaterialTheme.colorScheme.tertiary
-                        )
-                    }
                     Text(
                         text = sesameUser.getFullName(),
                         style = TextStyle(
@@ -89,7 +78,6 @@ fun UserProfileDetails(
                             color = MaterialTheme.colorScheme.onBackground,
                         )
                     )
-                }
                 Text(
                     text = when (sesameUser){
                       is SesameStudent-> stringResource(id = R.string.profile_student)
@@ -113,17 +101,6 @@ fun UserProfileDetails(
                             color = if (isSystemInDarkTheme()) onBackgroundShadedDarkMode else onBackgroundShadedLightMode,
                         )
                     )
-                    sesameUser.job?.takeIf { it.isNotBlank() }?.run {
-                        Text(
-                            text = this,
-                            style = TextStyle(
-                                fontSize = 16.sp,
-                                fontFamily = SesameFontFamilies.MainMediumFontFamily,
-                                fontWeight = FontWeight(500),
-                                color = if (isSystemInDarkTheme()) onBackgroundShadedDarkMode else onBackgroundShadedLightMode,
-                            )
-                        )
-                    }
                 } else if (sesameUser is SesameTeacher){
                     Text(
                         text = sesameUser.profBackground,
@@ -135,57 +112,40 @@ fun UserProfileDetails(
                         )
                     )
                 }
-
+                Text(
+                    text = sesameUser.email,
+                    style = TextStyle(
+                        fontSize = 16.sp,
+                        fontFamily = SesameFontFamilies.MainMediumFontFamily,
+                        fontWeight = FontWeight(500),
+                        color = if (isSystemInDarkTheme()) onBackgroundShadedDarkMode else onBackgroundShadedLightMode,
+                    )
+                )
             }
         }
         Row(
             modifier = Modifier
-                .padding(8.dp)
-                .wrapContentSize(),
+                .padding(
+                    vertical = 8.dp
+                )
+                .fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.Start
+            horizontalArrangement = Arrangement.spacedBy(
+                16.dp,Alignment.CenterHorizontally
+            )
         ) {
-            val annotatedString = buildAnnotatedString {
-                append("${stringResource(id = R.string.profile_email)} :  ")
-                withStyle(
-                    SpanStyle(
-                        color = MaterialTheme.colorScheme.primary,
-                        textDecoration = TextDecoration.Underline
-                    )
-                ){
-                    pushStringAnnotation(tag = "emailTag", annotation = sesameUser.email)
-                    append(sesameUser.email)
-                }
-            }
-            onProfileEmailClicked?.run {
-                ClickableText(
-                    text =  annotatedString,
-                    style = TextStyle(
-                        fontSize = 16.sp,
-                        fontFamily = SesameFontFamilies.MainMediumFontFamily,
-                        fontWeight = FontWeight(500),
-                        color = MaterialTheme.colorScheme.onBackground,
-                    ),
-                    onClick = {
-                        annotatedString.getStringAnnotations(it,it).find {
-                            it.tag == "emailTag"
-                        }?.run {
-                            onProfileEmailClicked(this.item)
-                        }
-                    }
-                )
-            } ?: run {
-                Text(
-                    text =  annotatedString,
-                    style = TextStyle(
-                        fontSize = 16.sp,
-                        fontFamily = SesameFontFamilies.MainMediumFontFamily,
-                        fontWeight = FontWeight(500),
-                        color = MaterialTheme.colorScheme.onBackground,
-                    )
-                )
-            }
-
+            SesameIconButtonVariant(
+                modifier = Modifier.wrapContentSize(),
+                onClick = onViewMyBadgeClicked,
+                iconResID = tn.sesame.designsystem.R.drawable.ic_badge,
+                text = stringResource(id = R.string.view_badge)
+            )
+            SesameIconButtonVariant(
+                modifier = Modifier.wrapContentSize(),
+                onClick = onViewMyProfileClicked,
+                iconResID = tn.sesame.designsystem.R.drawable.ic_password_revealed,
+                text = stringResource(id = R.string.view_profile)
+            )
         }
     }
 }

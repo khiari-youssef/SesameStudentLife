@@ -5,11 +5,15 @@
     <string name="profile_settings">Paramètres</string>
     <string name="profile_policy">Politique de sécurité</string>
     <string name="profile_myprojects">Mes projets</string>
+    <string name="profile_myclasses">Mes classes</string>
+    <string name="profile_my_subs">Mes paiements</string>
+    <string name="profile_my_grades">Mes notes</string>
     <string name="profile_send_email_via">Contactez %s via</string>
     <string name="profile_user">Utilisateur</string>
     <string name="profile_student">Etudiant</string>
     <string name="profile_teacher">Enseignant</string>
-
+    <string name="view_profile">Mon profile</string>
+    <string name="view_badge">Mon badge</string>
     <string name="settings_screen_title">Paramètres</string>
     <string name="settings_auto_login_option_label">Enable auto login</string>
 </resources>

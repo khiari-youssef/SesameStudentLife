@@ -30,22 +30,28 @@ fun ViewUserProfilePopup(
                      color = MaterialTheme.colorScheme.surfaceVariant,
                      shape = RoundedCornerShape(3.dp)
                  ),
-                 showSex = false,
-                 sesameUser = sesameUser,
-                 onProfileEmailClicked = {email->
-                     val intent = Intent(Intent.ACTION_VIEW)
-                     val data = Uri.parse(
-                         "mailto:$email?subject=" + Uri.encode("") + "&body=" + Uri.encode(
-                             ""
-                         )
-                     )
-                     intent.setData(data)
-                     ContextCompat.startActivity(
-                         localContext, Intent.createChooser(
-                             intent, title
-                         ), Bundle()
-                     )
-                 }
+                 onViewMyBadgeClicked = {
+
+                 },
+                 onViewMyProfileClicked = {
+
+                 },
+             //    showSex = false,
+                 sesameUser = sesameUser
+//                 onProfileEmailClicked = {email->
+//                     val intent = Intent(Intent.ACTION_VIEW)
+//                     val data = Uri.parse(
+//                         "mailto:$email?subject=" + Uri.encode("") + "&body=" + Uri.encode(
+//                             ""
+//                         )
+//                     )
+//                     intent.setData(data)
+//                     ContextCompat.startActivity(
+//                         localContext, Intent.createChooser(
+//                             intent, title
+//                         ), Bundle()
+//                     )
+//                 }
              )
         }
     }

@@ -23,6 +23,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
@@ -35,11 +36,15 @@ import org.koin.androidx.compose.getViewModel
 import tn.sesame.designsystem.components.NavigationBarScreenTemplate
 import tn.sesame.designsystem.components.bars.SesameBottomNavigationBar
 import tn.sesame.designsystem.components.bars.SesameBottomNavigationBarDefaults
+import tn.sesame.designsystem.components.menus.MenuOption
+import tn.sesame.designsystem.components.menus.MenuOptions
 import tn.sesame.spm.android.R
 import tn.sesame.spm.android.base.NavigationRoutingData
 import tn.sesame.spm.android.ui.notifications.NotificationScreenStateHolder
 import tn.sesame.spm.android.ui.notifications.NotificationsScreen
 import tn.sesame.spm.android.ui.notifications.NotificationsViewModel
+import tn.sesame.spm.domain.entities.SesameStudent
+import tn.sesame.spm.domain.entities.SesameTeacher
 import tn.sesame.users_management.ui.profile.MyProfileViewModel
 import tn.sesame.spm.security.BiometricLauncherService
 
@@ -185,21 +190,80 @@ fun HomeScreen(
                         val myProfile  = profileViewModel.getMyProfile().collectAsStateWithLifecycle(
                             initialValue = null
                         )
+                         val menuOptions = MenuOptions(buildList {
+                        when(myProfile.value) {
+                            is SesameStudent -> {
+                                add(
+                                    MenuOption(
+                                     id = "my_projects",
+                                    iconRes = tn.sesame.designsystem.R.drawable.ic_project_outlined,
+                                    label = stringResource(id = tn.sesame.users_management.R.string.profile_myprojects)
+                                )
+                                )
+                                add(
+                                    MenuOption(
+                                        id = "my_subs",
+                                    iconRes = tn.sesame.designsystem.R.drawable.ic_money_ops,
+                                    label = stringResource(id = tn.sesame.users_management.R.string.profile_my_subs)
+                                )
+                                )
+                                add(
+                                    MenuOption(
+                                        id = "my_grades",
+                                    iconRes = tn.sesame.designsystem.R.drawable.ic_report,
+                                    label = stringResource(id = tn.sesame.users_management.R.string.profile_my_grades)
+                                )
+                                )
+                            }
+                            is SesameTeacher -> {
+                                add(
+                                    MenuOption(
+                                    id = "my_classes",
+                                    iconRes = tn.sesame.designsystem.R.drawable.ic_project_outlined,
+                                    label = stringResource(id = tn.sesame.users_management.R.string.profile_myclasses)
+                                )
+                                )
+                            }
+                        }
+
+                        addAll(listOf(
+                            MenuOption(
+                                id = "privacy_policy",
+                                iconRes = tn.sesame.designsystem.R.drawable.ic_policy ,
+                                label = stringResource(id = tn.sesame.users_management.R.string.profile_policy)
+                            ),
+                            MenuOption(
+                                id = "settings",
+                                iconRes = tn.sesame.designsystem.R.drawable.ic_settings ,
+                                label = stringResource(id = tn.sesame.users_management.R.string.profile_settings)
+                            )
+                        ))
+                    })
                         myProfile.value?.run {
                             ProfileScreen(
-                                sesameUser = this ,
                                 modifier = modifier
                                     .fillMaxSize(),
+                                sesameUser = this ,
+                                menuOptions = menuOptions,
                                 onMenuItemClicked = {optionIndex->
-                                    when (optionIndex){
-                                        0-> {
+                                    when (menuOptions.options[optionIndex].id){
+                                        "my_projects"-> {
                                             onHomeExit("${NavigationRoutingData.MyProjects}/1a2dhsd5h5fhsf2s2")
                                         }
-                                        1-> {
+                                        "privacy_policy"-> {
                                             onHomeExit(NavigationRoutingData.PrivacyPolicyScreen)
                                         }
-                                        2-> {
+                                        "settings"-> {
                                             onHomeExit(NavigationRoutingData.Settings)
+                                        }
+                                        "my_classes" ->{
+
+                                        }
+                                        "my_grades" -> {
+
+                                        }
+                                        "my_subs" -> {
+
                                         }
                                         else -> {
 
