@@ -1,5 +1,8 @@
 # Sesaworks
 A mobile app for Sesame university students to manage their academic projets.
+# Note :
+More features will be added that are not only confined to managing academic projects but also solving problems students and staff encouter on daily basis.
+See the next features UI protoypes [here](https://www.figma.com/file/NLNjgyfvxpEMhJuhmJX12K/SesameStudentLife?type=design&node-id=435%3A3577&mode=design&t=isR2KAcPRgT9X7Ta-1)
 ## Purpose
 This app is built as part of my academic projects but also serves as a sample for a jetpack-compose android app.
 As you inspect the code, you will notice that it is a Kotlin multiplatform app but i decided to go android-first because i had issues with compose multiplatform and sqldelight.
