@@ -8,9 +8,7 @@ plugins {
 kotlin {
     androidTarget {
         compilations.all {
-            kotlinOptions {
-                jvmTarget = "1.8"
-            }
+
         }
     }
     
@@ -87,3 +85,5 @@ sqldelight {
         }
     }
 }
+
+tasks.register("testClasses")

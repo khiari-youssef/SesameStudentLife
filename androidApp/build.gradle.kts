@@ -4,10 +4,12 @@ plugins {
     alias(libs.plugins.google.playservices)
 }
 
+
 android.run {
     namespace = "tn.sesame.spm.android"
     defaultConfig.applicationId = "tn.sesame.spm.android"
     defaultConfig.proguardFile("proguard-rules.pro")
+
 }
 
 dependencies {

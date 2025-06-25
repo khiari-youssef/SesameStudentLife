@@ -6,12 +6,10 @@ plugins {
 kotlin {
     androidTarget {
         compilations.all {
-            kotlinOptions {
-                jvmTarget = "1.8"
-            }
+
         }
     }
-    
+
     listOf(
         iosX64(),
         iosArm64(),
@@ -53,3 +51,5 @@ android {
         debugImplementation(libs.compose.ui.tooling)
     }
 }
+
+tasks.register("testClasses")
