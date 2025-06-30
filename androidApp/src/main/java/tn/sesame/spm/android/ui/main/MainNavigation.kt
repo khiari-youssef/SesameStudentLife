@@ -2,14 +2,11 @@ package tn.sesame.spm.android.ui.main
 
 import AppExitPopup
 import SettingsScreen
-import ViewUserProfilePopup
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -24,14 +21,11 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import androidx.navigation.navigation
 import org.koin.androidx.compose.getViewModel
 import tn.sesame.designsystem.components.bars.SesameBottomNavigationBarDefaults
 import tn.sesame.designsystem.components.modals.NavigationNotFoundModal
 import tn.sesame.designsystem.navigateBack
 import tn.sesame.spm.android.base.NavigationRoutingData
-import tn.sesame.spm.android.base.NavigationRoutingData.ProjectJoinProcedure.ProjectDetailsScreen
-import tn.sesame.spm.android.base.NavigationRoutingData.ProjectJoinProcedure.ProjectDocumentsDepositScreen
 import tn.sesame.spm.android.ui.home.HomeScreen
 import tn.sesame.users_management.ui.login.LoginScreen
 import tn.sesame.users_management.ui.login.LoginState
@@ -39,7 +33,6 @@ import tn.sesame.users_management.ui.login.LoginUIStateHolder
 import tn.sesame.users_management.ui.login.LoginViewModel
 import tn.sesame.users_management.ui.settings.AppSettingsStateHolder
 import tn.sesame.users_management.ui.settings.SettingsViewModel
-import tn.sesame.spm.domain.entities.SesameUser
 
 @Composable
 fun MainActivity.MainNavigation(

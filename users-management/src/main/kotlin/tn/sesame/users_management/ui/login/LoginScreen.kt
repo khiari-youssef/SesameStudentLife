@@ -11,7 +11,6 @@ import android.content.res.Configuration
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -36,7 +35,6 @@ import tn.sesame.designsystem.components.AppBrand
 import tn.sesame.designsystem.components.popups.SesameToastDefaults
 import tn.sesame.designsystem.components.popups.SesameToastPopup
 import tn.sesame.spm.domain.exception.DomainErrorType
-import tn.sesame.users_management.BuildConfig
 
 typealias ToastState = Pair<Int,String>
 

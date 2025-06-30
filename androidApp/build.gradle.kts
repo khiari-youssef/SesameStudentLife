@@ -1,7 +1,7 @@
 plugins {
     id("sesame.android.application")
     id("kotlin-parcelize")
-    alias(libs.plugins.google.playservices)
+    alias(libs.plugins.compose.compiler)
 }
 
 
@@ -25,5 +25,4 @@ dependencies {
     implementation(libs.koin.android)
     implementation(libs.jetpack.viewmodel.core)
     implementation(platform(libs.firebase.bom))
-    dokkaPlugin(libs.android.documentation.plugin)
 }

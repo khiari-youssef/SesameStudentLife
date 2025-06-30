@@ -1,5 +1,6 @@
 plugins {
     id("sesame.android.application")
+    alias(libs.plugins.compose.compiler)
 }
 
 android {
@@ -9,9 +10,6 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_21
         targetCompatibility  = JavaVersion.VERSION_21
-    }
-    kotlinOptions {
-        jvmTarget = "21"
     }
 }
 

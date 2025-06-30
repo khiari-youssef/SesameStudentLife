@@ -1,6 +1,7 @@
 plugins {
     id("com.android.test")
     id("org.jetbrains.kotlin.android")
+    alias(libs.plugins.compose.compiler)
 }
 
 android {
@@ -52,5 +53,5 @@ dependencies{
     debugImplementation(libs.compose.test.rule)
     implementation(libs.bundles.composelibs)
     implementation(libs.bundles.testingLibs)
-    implementation("androidx.startup:startup-runtime:1.1.1")
+    implementation("androidx.startup:startup-runtime:1.2.0")
 }

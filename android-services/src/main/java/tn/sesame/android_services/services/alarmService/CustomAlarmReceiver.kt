@@ -1,7 +1,6 @@
 package tn.sesame.android_services.services.alarmService
 
 import android.Manifest
-import android.app.NotificationManager
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -12,9 +11,6 @@ import android.widget.Toast
 import tn.sesame.android_services.PlaygroundActivity
 import tn.sesame.android_services.services.notificationService.CustomNotificationService
 import tn.sesame.android_services.services.notificationService.SesameNotification
-import tn.sesame.android_services.services.notificationService.SesameNotificationChannel
-import tn.sesame.android_services.services.notificationService.SesameNotificationChannel.Companion.SESAME_NOTIFICATION_CHANNEL
-import tn.sesame.android_services.services.notificationService.SesameNotificationGroup
 import tn.sesame.designsystem.R
 
 class CustomAlarmReceiver : BroadcastReceiver() {

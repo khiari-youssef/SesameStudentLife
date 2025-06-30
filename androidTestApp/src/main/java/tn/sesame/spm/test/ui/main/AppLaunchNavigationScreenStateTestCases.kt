@@ -11,9 +11,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.test.hasAnyChild
 import androidx.compose.ui.test.hasContentDescription
 import androidx.compose.ui.test.hasText
+import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.navigation.compose.rememberNavController
-import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -23,16 +23,16 @@ import org.koin.test.get
 import org.koin.test.inject
 import tn.sesame.designsystem.SesameTheme
 import tn.sesame.designsystem.components.bars.SesameBottomNavigationBarDefaults
-import tn.sesame.users_management.ui.login.LoginState
+import tn.sesame.spm.android.R
 import tn.sesame.spm.android.ui.main.MainActivity
 import tn.sesame.spm.android.ui.main.MainActivityStateHolder
-import tn.sesame.spm.security.SupportedDeviceAuthenticationMethods
-import tn.sesame.spm.android.R
 import tn.sesame.spm.android.ui.main.MainNavigation
 import tn.sesame.spm.domain.entities.SesameRole
 import tn.sesame.spm.domain.entities.SesameUser
 import tn.sesame.spm.domain.entities.SesameUserSex
 import tn.sesame.spm.security.BiometricLauncherService
+import tn.sesame.spm.security.SupportedDeviceAuthenticationMethods
+import tn.sesame.users_management.ui.login.LoginState
 
 
 @RunWith(JUnit4::class)

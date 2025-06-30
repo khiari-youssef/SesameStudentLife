@@ -1,5 +1,6 @@
 plugins {
     id("sesame.android.feature")
+    alias(libs.plugins.compose.compiler)
 }
 
 android.run {
@@ -7,6 +8,7 @@ android.run {
     defaultConfig.setConsumerProguardFiles(
        listOf("consumer-rules.pro")
     )
+
 }
 
 dependencies {

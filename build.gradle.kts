@@ -9,11 +9,7 @@ plugins {
 
 }
 
-subprojects {
-    apply(plugin = "org.jetbrains.dokka")
-}
 
-apply(plugin = "android-reporting")
 
 tasks.dokkaHtmlMultiModule {
     moduleName.set("Sesame Student Life")

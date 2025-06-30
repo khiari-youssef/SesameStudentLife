@@ -16,7 +16,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
@@ -38,15 +37,14 @@ import tn.sesame.designsystem.components.bars.SesameBottomNavigationBar
 import tn.sesame.designsystem.components.bars.SesameBottomNavigationBarDefaults
 import tn.sesame.designsystem.components.menus.MenuOption
 import tn.sesame.designsystem.components.menus.MenuOptions
-import tn.sesame.spm.android.R
 import tn.sesame.spm.android.base.NavigationRoutingData
 import tn.sesame.spm.android.ui.notifications.NotificationScreenStateHolder
 import tn.sesame.spm.android.ui.notifications.NotificationsScreen
 import tn.sesame.spm.android.ui.notifications.NotificationsViewModel
 import tn.sesame.spm.domain.entities.SesameStudent
 import tn.sesame.spm.domain.entities.SesameTeacher
-import tn.sesame.users_management.ui.profile.MyProfileViewModel
 import tn.sesame.spm.security.BiometricLauncherService
+import tn.sesame.users_management.ui.profile.MyProfileViewModel
 
 
 @Composable
