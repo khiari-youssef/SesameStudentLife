@@ -36,21 +36,3 @@ internal fun Project.configureKotlinAndroid(
 
 
 }
-
-internal fun Project.configureKotlinJvm() {
-    extensions.configure<JavaPluginExtension> {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
-    }
-
-    configureKotlin()
-}
-
-private fun Project.configureKotlin() {
-    tasks.withType<KotlinCompile>().configureEach {
-        compilerOptions {
-            // Treat all Kotlin warnings as errors (disabled by default)
-
-        }
-    }
-}
