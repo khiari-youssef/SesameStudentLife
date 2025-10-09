@@ -1,6 +1,3 @@
-import android.content.Intent
-import android.net.Uri
-import android.os.Bundle
 import androidx.compose.foundation.background
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
@@ -10,10 +7,9 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
-import androidx.core.content.ContextCompat
-import tn.sesame.users_management.ui.profile.UserProfileDetails
 import tn.sesame.spm.domain.entities.SesameUser
 import tn.sesame.users_management.R
+import tn.sesame.users_management.ui.profile.UserProfileDetails
 
 @Composable
 fun ViewUserProfilePopup(

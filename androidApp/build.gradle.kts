@@ -1,13 +1,15 @@
 plugins {
     id("sesame.android.application")
     id("kotlin-parcelize")
-    alias(libs.plugins.google.playservices)
+    alias(libs.plugins.compose.compiler)
 }
+
 
 android.run {
     namespace = "tn.sesame.spm.android"
     defaultConfig.applicationId = "tn.sesame.spm.android"
     defaultConfig.proguardFile("proguard-rules.pro")
+
 }
 
 dependencies {
@@ -23,5 +25,4 @@ dependencies {
     implementation(libs.koin.android)
     implementation(libs.jetpack.viewmodel.core)
     implementation(platform(libs.firebase.bom))
-    dokkaPlugin(libs.android.documentation.plugin)
 }

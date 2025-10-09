@@ -5,8 +5,8 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.remember
 import androidx.navigation.NavHostController
 import tn.sesame.designsystem.components.bars.SesameBottomNavigationBarDefaults
-import tn.sesame.users_management.ui.login.LoginState
 import tn.sesame.spm.security.SupportedDeviceAuthenticationMethods
+import tn.sesame.users_management.ui.login.LoginState
 
 data class MainActivityStateHolder(
     val biometricSupportState : State<SupportedDeviceAuthenticationMethods>,

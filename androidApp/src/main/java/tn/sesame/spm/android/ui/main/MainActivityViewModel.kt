@@ -7,7 +7,6 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
-import tn.sesame.users_management.ui.login.LoginState
 import tn.sesame.spm.data.exceptions.CustomHttpException
 import tn.sesame.spm.data.exceptions.HttpErrorType
 import tn.sesame.spm.data.repositories.users.UsersRepositoryInterface
@@ -16,6 +15,7 @@ import tn.sesame.spm.domain.exception.DomainErrorType
 import tn.sesame.spm.domain.exception.DomainException
 import tn.sesame.spm.security.BiometricAuthService
 import tn.sesame.spm.security.SupportedDeviceAuthenticationMethods
+import tn.sesame.users_management.ui.login.LoginState
 
 
 class MainActivityViewModel(

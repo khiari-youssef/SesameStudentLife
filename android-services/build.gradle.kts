@@ -1,12 +1,19 @@
 plugins {
     id("sesame.android.application")
+    alias(libs.plugins.compose.compiler)
 }
 
 android {
     namespace = "tn.sesame.android_services"
     defaultConfig.applicationId = "tn.sesame.android_services"
     defaultConfig.proguardFile("proguard-rules.pro")
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility  = JavaVersion.VERSION_21
+    }
 }
+
+
 
 
 dependencies {

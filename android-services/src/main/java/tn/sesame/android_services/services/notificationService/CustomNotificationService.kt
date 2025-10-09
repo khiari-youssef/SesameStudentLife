@@ -12,8 +12,6 @@ import android.content.pm.PackageManager
 import android.graphics.drawable.Icon
 import android.os.Build
 import android.os.Build.VERSION_CODES
-import androidx.annotation.RequiresApi
-import androidx.annotation.RequiresPermission
 import androidx.core.app.NotificationCompat
 import tn.sesame.android_services.services.notificationService.SesameNotificationGroup.Companion.SESAME_SESSIONS_GROUP
 

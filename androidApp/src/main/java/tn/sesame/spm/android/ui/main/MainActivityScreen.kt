@@ -5,11 +5,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
-import tn.sesame.users_management.ui.login.LoginState
 import tn.sesame.spm.android.ui.main.MainActivity
 import tn.sesame.spm.android.ui.main.MainActivityStateHolder
 import tn.sesame.spm.android.ui.main.MainNavigation
 import tn.sesame.spm.ui.getRegistrationBiometricIdentityIntent
+import tn.sesame.users_management.ui.login.LoginState
 
 @Composable
 fun MainActivity.MainActivityScreen(
