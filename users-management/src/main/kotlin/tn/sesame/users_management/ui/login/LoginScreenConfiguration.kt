@@ -6,36 +6,45 @@ import androidx.constraintlayout.compose.Dimension
 
 val LoginScreenConfigurationPortrait = ConstraintSet {
 
-    val loginBrandRef = createRefFor("loginAppBrand")
+    val signUpAction = createRefFor("signUpAction")
+    val loginScreenTop = createRefFor("LoginScreenTop")
     val loginFormRef = createRefFor("loginForm")
     val loginButtonRef = createRefFor("loginButton")
     val loginFooterRef = createRefFor("loginFooter")
-    val loginAnimation = createRefFor("loginAnim")
+    val appTitleLogo = createRefFor("AppTitleLogo")
     val loginToastRef = createRefFor("toast")
+
+    constrain(signUpAction){
+        top.linkTo(loginFormRef.bottom,32.dp)
+        start.linkTo(parent.start)
+        end.linkTo(parent.end)
+        width = Dimension.fillToConstraints
+    }
     constrain(loginToastRef){
         start.linkTo(parent.start)
         end.linkTo(parent.end)
         bottom.linkTo(parent.bottom,24.dp)
     }
-    constrain(loginBrandRef){
+    constrain(loginScreenTop){
         top.linkTo(parent.top,32.dp)
         start.linkTo(parent.start)
         end.linkTo(parent.end)
     }
-    constrain(loginAnimation){
-        top.linkTo(loginBrandRef.bottom,24.dp)
+    constrain(appTitleLogo){
+        top.linkTo(loginScreenTop.bottom,48.dp)
         start.linkTo(parent.start)
         end.linkTo(parent.end)
+        width = Dimension.fillToConstraints
     }
     constrain(loginFormRef){
-        top.linkTo(loginAnimation.bottom,24.dp)
+        top.linkTo(appTitleLogo.bottom,48.dp)
         start.linkTo(parent.start)
         end.linkTo(parent.end)
         width = Dimension.fillToConstraints
         height = Dimension.wrapContent
     }
     constrain(loginButtonRef){
-        top.linkTo(loginFormRef.bottom,32.dp)
+        top.linkTo(signUpAction.bottom,32.dp)
         start.linkTo(parent.start)
         end.linkTo(parent.end)
         width = Dimension.fillToConstraints
@@ -49,33 +58,40 @@ val LoginScreenConfigurationPortrait = ConstraintSet {
 }
 
 val LoginScreenConfigurationLandscape = ConstraintSet {
-    val loginBrandRef = createRefFor("loginAppBrand")
+    val signUpAction = createRefFor("signUpAction")
+    val loginScreenTop = createRefFor("LoginScreenTop")
     val loginFormRef = createRefFor("loginForm")
     val loginButtonRef = createRefFor("loginButton")
     val loginFooterRef = createRefFor("loginFooter")
-    val loginAnimation = createRefFor("loginAnim")
+    val appTitleLogo = createRefFor("AppTitleLogo")
     val loginToastRef = createRefFor("toast")
     val horizentalGuideline = createGuidelineFromBottom(0.3f)
 
+    constrain(signUpAction){
+        top.linkTo(loginFormRef.bottom)
+        start.linkTo(parent.start)
+        end.linkTo(parent.end)
+        width = Dimension.fillToConstraints
+    }
     constrain(loginToastRef){
         start.linkTo(parent.start,16.dp)
         end.linkTo(parent.end,16.dp)
         bottom.linkTo(parent.bottom,24.dp)
     }
-    constrain(loginBrandRef){
+    constrain(loginScreenTop){
         top.linkTo(parent.top,16.dp)
         start.linkTo(parent.start)
     }
-    constrain(loginAnimation){
-        top.linkTo(loginBrandRef.bottom,16.dp)
+    constrain(appTitleLogo){
+        top.linkTo(loginScreenTop.bottom,16.dp)
         start.linkTo(parent.start)
-        end.linkTo(loginBrandRef.end)
+        end.linkTo(loginScreenTop.end)
         bottom.linkTo(horizentalGuideline)
         height = Dimension.fillToConstraints
     }
     constrain(loginFormRef){
         top.linkTo(parent.top,24.dp)
-        start.linkTo(loginBrandRef.end,12.dp)
+        start.linkTo(loginScreenTop.end,12.dp)
         end.linkTo(parent.end,12.dp)
         bottom.linkTo(horizentalGuideline,8.dp)
         width = Dimension.fillToConstraints

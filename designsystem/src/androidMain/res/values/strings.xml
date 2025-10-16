@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">SesaWorks</string>
+    <string name="app_name">OnlyBeans</string>
     <string name="app_brand_text_primary" translatable="false">SESAME</string>
     <string name="app_brand_text_secondary" translatable="false">Student Life</string>
     <string name="version_placeholder">Version %s</string>

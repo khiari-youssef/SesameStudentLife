@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="primaryColor">#0378A6</color>
-    <color name="primaryColorDark">#284C8E</color>
+    <color name="primaryColor">#674141</color>
+    <color name="primaryColorDark">#1f1313</color>
     <color name="PrimaryColorSoftVariant">#62BCC5</color>
-    <color name="SecondaryColorVariant">#9AC0C7</color>
+    <color name="secondaryColor">#FF7518</color>
+    <color name="SecondaryColorVariant">#cc5e13</color>
     <color name="NeutralTextColor">#000000</color>
-    <color name="screenBackgroundColor">#FFFFFF</color>
-    <color name="ic_launcher_background">#FFFFFF</color>
+    <color name="screenBackgroundColor">#F0ECEC</color>
     <color name="ic_launcher_tint">@color/primaryColorDark</color>
 </resources>

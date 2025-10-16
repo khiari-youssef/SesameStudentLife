@@ -2,8 +2,10 @@ package tn.sesame.designsystem
 
 import androidx.compose.ui.graphics.Color
 
-internal val NiceBlue = Color(0xFF0378A6)
-internal val DuskBlue = Color(0xFF284C8E)
+internal val RoseEbony = Color(0xFF674141)
+internal val Licorice = Color(0xFF1f1313)
+internal val PumpkinOrange = Color(0xFFFF7518)
+internal val PumpkinOrangeShaded = Color(0xFFFF7518)
 internal val BlueHosta = Color(0xFF62BCC5)
 internal val LightGreyBlue = Color(0xFF9AC0C7)
 internal val AliceBlue = Color(0xFFF2F6FC)

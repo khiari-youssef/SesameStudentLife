@@ -31,7 +31,7 @@ import androidx.navigation.NavOptions
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import org.koin.androidx.compose.getViewModel
+import org.koin.androidx.compose.koinViewModel
 import tn.sesame.designsystem.components.NavigationBarScreenTemplate
 import tn.sesame.designsystem.components.bars.SesameBottomNavigationBar
 import tn.sesame.designsystem.components.bars.SesameBottomNavigationBarDefaults
@@ -137,7 +137,7 @@ fun HomeScreen(
 
                 }
                 composable(NavigationRoutingData.Home.Notifications) {
-                    val viewModel = getViewModel<NotificationsViewModel>()
+                    val viewModel = koinViewModel<NotificationsViewModel>()
                     val screenState =  NotificationScreenStateHolder
                         .rememberNotificationScreenState(
                             notificationsListState = viewModel.latestNotificationsState.collectAsStateWithLifecycle(),
@@ -165,7 +165,7 @@ fun HomeScreen(
                     }
                 }
                 composable(NavigationRoutingData.Home.Profile) {
-                    val profileViewModel : MyProfileViewModel = getViewModel()
+                    val profileViewModel : MyProfileViewModel = koinViewModel()
                     val displayBioAth = remember {
                         mutableStateOf(false)
                     }

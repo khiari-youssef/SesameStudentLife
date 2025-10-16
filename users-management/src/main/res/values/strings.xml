@@ -16,4 +16,6 @@
     <string name="view_badge">My badge</string>
     <string name="settings_screen_title">Settings</string>
     <string name="settings_auto_login_option_label">Enable auto login</string>
+    <string name="login_no_account">You don’t have an account yet ? </string>
+    <string name="login_sign_up_action">Sign up here</string>
 </resources>

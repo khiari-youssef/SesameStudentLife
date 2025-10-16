@@ -15,5 +15,7 @@
     <string name="view_profile">Mon profile</string>
     <string name="view_badge">Mon badge</string>
     <string name="settings_screen_title">Paramètres</string>
-    <string name="settings_auto_login_option_label">Enable auto login</string>
+    <string name="settings_auto_login_option_label">Activer la connexion automatique</string>
+    <string name="login_no_account">Pas encore un membre ? </string>
+    <string name="login_sign_up_action">Inscrivez-vous</string>
 </resources>

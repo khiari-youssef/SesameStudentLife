@@ -20,11 +20,10 @@ fun SesameTheme(
     content: @Composable () -> Unit
 ) {
 
-
     val colors = if (darkTheme) {
         darkColorScheme(
-            primary = NiceBlue,
-            secondary = DuskBlue,
+            primary = RoseEbony,
+            secondary = PumpkinOrange,
             tertiary = BlueHosta,
             surfaceVariant = Charcoal2,
             surface = Alabaster,
@@ -34,8 +33,8 @@ fun SesameTheme(
         )
     } else {
         lightColorScheme(
-            primary = NiceBlue,
-            secondary = DuskBlue,
+            primary = RoseEbony,
+            secondary = PumpkinOrange,
             tertiary = BlueHosta,
             surfaceVariant = AliceBlue,
             surface = Alabaster,

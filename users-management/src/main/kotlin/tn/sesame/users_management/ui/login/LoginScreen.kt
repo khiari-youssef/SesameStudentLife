@@ -1,13 +1,15 @@
 package tn.sesame.users_management.ui.login
 
 
+import AppTitleLogo
 import AppVersion
-import LoginAnimation
 import SesameButton
 import SesameButtonVariants
 import SesameEmailTextField
 import SesamePasswordTextField
 import android.content.res.Configuration
+import android.widget.Toast
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -15,6 +17,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.material.Text
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
@@ -22,19 +26,30 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.layoutId
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.text.LinkAnnotation
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.TextLinkStyles
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.withLink
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
-import tn.sesame.designsystem.R
+import tn.sesame.designsystem.R as DSR
 import tn.sesame.designsystem.components.AppBrand
 import tn.sesame.designsystem.components.popups.SesameToastDefaults
 import tn.sesame.designsystem.components.popups.SesameToastPopup
 import tn.sesame.spm.domain.exception.DomainErrorType
+import tn.sesame.users_management.R
 
 typealias ToastState = Pair<Int,String>
 
@@ -60,17 +75,17 @@ fun LoginScreen(
         block ={
         val state = loginUIStateHolder.loginRequestResult.value
         if (state is LoginState.Error) {
-            toastState.value =  (R.drawable.ic_alert to when(state.errorType){
+            toastState.value =  (DSR.drawable.ic_alert to when(state.errorType){
                 DomainErrorType.AccountLocked -> {
-                    localContext.getString(R.string.error_toast_locked)
+                    localContext.getString(DSR.string.error_toast_locked)
                 }
                 DomainErrorType.Unauthorized ->{
-                    localContext.getString(R.string.error_toast_unauthorized)
+                    localContext.getString(DSR.string.error_toast_unauthorized)
                 }
                 DomainErrorType.InvalidCredentials ->{
-                    localContext.getString(R.string.error_toast_invalid_credentials)
+                    localContext.getString(DSR.string.error_toast_invalid_credentials)
                 }
-                else -> localContext.getString(R.string.error_toast_unknown)
+                else -> localContext.getString(DSR.string.error_toast_unknown)
             })
             onSetIdleState()
         }
@@ -82,14 +97,13 @@ ConstraintLayout(
     ),
     constraintSet = if (isLargeScreen) LoginScreenConfigurationLandscape else LoginScreenConfigurationPortrait
 ) {
-    AppBrand(
+    LoginScreenTop(
         modifier = Modifier
-            .layoutId("loginAppBrand")
+            .layoutId("LoginScreenTop")
     )
-    LoginAnimation(
+    AppTitleLogo(
         modifier = Modifier
-            .size(if (isLargeScreen) 125.dp else 200.dp)
-            .layoutId("loginAnim")
+            .layoutId("AppTitleLogo")
     )
     LoginForm(
         modifier = Modifier
@@ -98,6 +112,32 @@ ConstraintLayout(
         password = loginUIStateHolder.loginPassword.value,
         onEmailChanged = onEmailChanged,
         onPasswordChanged = onPasswordChanged
+    )
+    Text(
+        modifier = Modifier.fillMaxWidth().layoutId("signUpAction"),
+        style = MaterialTheme.typography.bodyLarge,
+        color = MaterialTheme.colorScheme.onBackground,
+        textAlign = TextAlign.Center,
+        text = buildAnnotatedString {
+            val context = LocalContext.current
+            val text1 = stringResource(R.string.login_no_account)
+            val text2 = stringResource(R.string.login_sign_up_action)
+            val primaryColor : Color =  MaterialTheme.colorScheme.primary
+            append(text1)
+            appendLine()
+            withLink(
+                link = LinkAnnotation.Clickable(
+                    tag = "SignUpActionText",
+                    styles = TextLinkStyles(SpanStyle(color = primaryColor)),
+                    linkInteractionListener = {
+                        Toast.makeText(context, "SignUpActionText", Toast.LENGTH_SHORT).show()
+                    },
+                )
+            ){
+                append(text2)
+            }
+
+        }
     )
     Row(
         modifier = Modifier
@@ -114,7 +154,7 @@ ConstraintLayout(
                }
                .wrapContentHeight()
                .fillMaxWidth(0.9f),
-           text = stringResource(id = R.string.login),
+           text = stringResource(id = DSR.string.login),
            variant = SesameButtonVariants.PrimarySoft,
            isEnabled = true,
            isLoading = loginUIStateHolder.loginRequestResult.value is LoginState.Loading,
@@ -140,7 +180,7 @@ ConstraintLayout(
             .layoutId("toast"),
         isShown = toastState.value != null,
         message = toastState.value?.second ?: "",
-        iconResID = toastState.value?.first ?: R.drawable.ic_alert,
+        iconResID = toastState.value?.first ?: DSR.drawable.ic_alert,
         sesameToastDefaults = SesameToastDefaults.getAlertToastStyle(),
         onDismissRequest = {
             toastState.value = null
@@ -148,6 +188,34 @@ ConstraintLayout(
     )
 }
 
+}
+
+@Composable
+fun LoginScreenTop(modifier : Modifier) {
+  Row(
+      modifier = modifier.fillMaxWidth(),
+      horizontalArrangement = Arrangement.SpaceBetween,
+      verticalAlignment = Alignment.CenterVertically
+  ) {
+      Image(
+          modifier = Modifier
+              .size(72.dp),
+          imageVector = ImageVector.vectorResource(id = DSR.drawable.ic_coffee_dripper),
+          contentDescription = ""
+      )
+      Image(
+          modifier = Modifier
+              .size(72.dp),
+          imageVector = ImageVector.vectorResource(id = DSR.drawable.ic_espresso_machine),
+          contentDescription = ""
+      )
+      Image(
+          modifier = Modifier
+              .size(72.dp),
+          imageVector = ImageVector.vectorResource(id = DSR.drawable.ic_coffee_cup),
+          contentDescription = ""
+      )
+  }
 }
 
 
@@ -171,12 +239,12 @@ fun LoginForm(
              .fillMaxWidth()
              .wrapContentHeight()
              .semantics {
-            contentDescription = "LoginEmailTextField"
-         },
+                 contentDescription = "LoginEmailTextField"
+             },
          text = email,
          isEnabled = true,
          isError = false,
-         rightIconRes = R.drawable.ic_clear,
+         rightIconRes = DSR.drawable.ic_clear,
          onRightIconResClicked ={
              onEmailChanged("")
          },
@@ -187,11 +255,11 @@ fun LoginForm(
              .fillMaxWidth()
              .wrapContentHeight()
              .semantics {
-             contentDescription = "LoginPasswordTextField"
-         },
+                 contentDescription = "LoginPasswordTextField"
+             },
          password = password,
-         label = stringResource(id = R.string.password_label) ,
-         placeholder =stringResource(id = R.string.password_placeholder),
+         label = stringResource(id = DSR.string.password_label) ,
+         placeholder =stringResource(id = DSR.string.password_placeholder),
          isEnabled = true,
          isError = false,
          onPasswordChanged = onPasswordChanged

@@ -32,11 +32,6 @@ Row(
     verticalAlignment = Alignment.CenterVertically,
     horizontalArrangement = Arrangement.spacedBy(8.dp,Alignment.CenterHorizontally)
 ) {
-    Icon(
-        imageVector = ImageVector.vectorResource(id = R.drawable.brand_logo) ,
-        contentDescription = "",
-        tint = Color.Unspecified
-    )
     Column(
         modifier = Modifier
             .wrapContentSize(),

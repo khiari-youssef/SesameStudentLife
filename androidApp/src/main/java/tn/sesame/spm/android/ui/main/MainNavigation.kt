@@ -21,7 +21,7 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import org.koin.androidx.compose.getViewModel
+import org.koin.androidx.compose.koinViewModel
 import tn.sesame.designsystem.components.bars.SesameBottomNavigationBarDefaults
 import tn.sesame.designsystem.components.modals.NavigationNotFoundModal
 import tn.sesame.designsystem.navigateBack
@@ -53,7 +53,7 @@ fun MainActivity.MainNavigation(
             composable(
                 route = NavigationRoutingData.Login
             ){
-                val viewModel : LoginViewModel = getViewModel()
+                val viewModel : LoginViewModel = koinViewModel()
                 val loginUIState = LoginUIStateHolder.rememberLoginUIState(
                     loginEmail = rememberSaveable {
                         mutableStateOf("")
@@ -187,7 +187,7 @@ fun MainActivity.MainNavigation(
             composable(
                 route = NavigationRoutingData.Settings
             ){
-                val viewModel : SettingsViewModel = getViewModel()
+                val viewModel : SettingsViewModel = koinViewModel()
                 val uiState = AppSettingsStateHolder
                     .rememberAppSettingsState(
                         isAutoLoginEnabled =viewModel.getAutoLoginEnabled().collectAsStateWithLifecycle(

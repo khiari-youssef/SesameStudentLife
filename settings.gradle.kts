@@ -17,7 +17,7 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "SesameStudentLife"
+rootProject.name = "OnlyBeans"
 include(":androidApp")
 include(":shared")
 include(":designsystem")

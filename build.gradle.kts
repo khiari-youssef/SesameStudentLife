@@ -4,13 +4,7 @@ plugins {
     alias(libs.plugins.androidLibrary).apply(false)
     alias(libs.plugins.kotlinAndroid).apply(false)
     alias(libs.plugins.kotlinMultiplatform).apply(false)
-    id("com.google.gms.google-services") version "4.4.1" apply false
-    id("org.jetbrains.dokka") version "1.9.10"
-
+    alias(libs.plugins.google.playservices).apply(false)
 }
 
 
-
-tasks.dokkaHtmlMultiModule {
-    moduleName.set("Sesame Student Life")
-}

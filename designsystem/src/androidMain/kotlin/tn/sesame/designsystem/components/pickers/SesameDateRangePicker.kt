@@ -13,9 +13,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import tn.sesame.designsystem.AliceBlue
-import tn.sesame.designsystem.DuskBlue
+import tn.sesame.designsystem.Licorice
 import tn.sesame.designsystem.LightGreyBlue
-import tn.sesame.designsystem.NiceBlue
+import tn.sesame.designsystem.RoseEbony
 import java.time.LocalDateTime
 
 @Preview
@@ -29,13 +29,13 @@ fun SesameDateRangePicker(
 
  val colors = DatePickerDefaults.colors(
    containerColor = AliceBlue,
-     todayContentColor = NiceBlue,
-     todayDateBorderColor = NiceBlue,
-     selectedDayContainerColor = NiceBlue,
+     todayContentColor = RoseEbony,
+     todayDateBorderColor = RoseEbony,
+     selectedDayContainerColor = RoseEbony,
      selectedDayContentColor = if (isSystemInDarkTheme()) Color(0xFFB6B6B6)
      else Color.White,
      selectedYearContainerColor = AliceBlue,
-     dayInSelectionRangeContainerColor = if (isSystemInDarkTheme()) LightGreyBlue else DuskBlue,
+     dayInSelectionRangeContainerColor = if (isSystemInDarkTheme()) LightGreyBlue else Licorice,
      dayInSelectionRangeContentColor = MaterialTheme.colorScheme.surfaceVariant,
      dayContentColor = MaterialTheme.colorScheme.onBackground
  )

@@ -1,12 +1,11 @@
 package tn.sesame.spm.domain.entities
 
-import kotlinx.datetime.Clock
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
 import tn.sesame.spm.domain.formatDMY
 import tn.sesame.spm.domain.formatHHMM
-
+import kotlin.time.ExperimentalTime
 
 
 enum class SesameProjectJoinRequestState{
@@ -54,10 +53,12 @@ data class SesameProject(
 
 
  fun isFullOfCollaborators() : Boolean = joinedCollaborators.size <= maxCollaborators
+ @OptIn(ExperimentalTime::class)
  fun isActive() : Boolean
- = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()) in duration
+ = kotlin.time.Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()) in duration
 
- fun isOver() : Boolean = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()) > duration.endInclusive
+ @OptIn(ExperimentalTime::class)
+ fun isOver() : Boolean = kotlin.time.Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()) > duration.endInclusive
     override fun hashCode(): Int {
         var result = id.hashCode()
         result = 31 * result + type.hashCode()

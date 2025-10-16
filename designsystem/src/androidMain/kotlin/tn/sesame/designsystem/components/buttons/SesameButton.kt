@@ -17,9 +17,9 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import tn.sesame.designsystem.DuskBlue
+import tn.sesame.designsystem.Licorice
 import tn.sesame.designsystem.ErrorColor
-import tn.sesame.designsystem.NiceBlue
+import tn.sesame.designsystem.RoseEbony
 import tn.sesame.designsystem.SesameFontFamilies
 import tn.sesame.designsystem.components.loading.SesameCircularProgressBar
 
@@ -50,8 +50,8 @@ fun SesameButton(
         colors = ButtonDefaults.buttonColors(
           containerColor = when (variant){
               SesameButtonVariants.PrimaryAlert -> ErrorColor
-              SesameButtonVariants.PrimaryHard -> DuskBlue
-              SesameButtonVariants.PrimarySoft -> NiceBlue
+              SesameButtonVariants.PrimaryHard -> Licorice
+              SesameButtonVariants.PrimarySoft -> RoseEbony
           }
         ),
        contentPadding = paddingValues,
