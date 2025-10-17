@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -41,7 +42,7 @@ import tn.sesame.users_management.ui.settings.privacypolicy.PrivacyPolicyScreen
 fun MainActivity.MainNavigation(
     modifier: Modifier = Modifier,
     rootNavController : NavHostController,
-    homeDestinations : SesameBottomNavigationBarDefaults,
+    homeDestinations : State<SesameBottomNavigationBarDefaults>,
     skipLogin : Boolean = false
 ) {
     NavHost(
@@ -108,7 +109,7 @@ fun MainActivity.MainNavigation(
                     }
                 )
                 HomeScreen(
-                    homeDestinations = homeDestinations,
+                    homeDestinations = homeDestinations.value,
                     onHomeExit = {destination->
                         when (destination){
                             NavigationRoutingData.ExitAppRoute->{

@@ -1,25 +1,41 @@
 package tn.sesame.designsystem.components.bars
 
+import androidx.compose.animation.animateContentSize
+import androidx.compose.animation.core.Animatable
+import androidx.compose.animation.core.EaseInOutBounce
+import androidx.compose.animation.core.FastOutSlowInEasing
+import androidx.compose.animation.core.animateIntAsState
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.slideIn
 import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.material.Badge
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
+import androidx.compose.material.Text
+import androidx.compose.material3.BadgedBox
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.vectorResource
+import androidx.core.graphics.toColor
 import tn.sesame.designsystem.Alabaster
 import tn.sesame.designsystem.AliceBlue
 import tn.sesame.designsystem.Charcoal2
 import tn.sesame.designsystem.LightGreyBlue
+import tn.sesame.designsystem.R
 
 
 data class SesameBottomNavigationBarItem(
  val selectedStateIcon  : Int,
- val unSelectedStateIcon  : Int
+ val unSelectedStateIcon  : Int,
+ val badgeContent : Int  = 0
 )
 @JvmInline
 @Stable
@@ -27,27 +43,7 @@ value class SesameBottomNavigationBarDefaults(
    val items : List<SesameBottomNavigationBarItem>
 ){
     companion object{
-        @Composable
-        fun getDefaultConfiguration() = SesameBottomNavigationBarDefaults(
-            listOf(
-                SesameBottomNavigationBarItem(
-                    selectedStateIcon = tn.sesame.designsystem.R.drawable.ic_news_selected,
-                    unSelectedStateIcon = tn.sesame.designsystem.R.drawable.ic_news_unselected
-                ),
-                SesameBottomNavigationBarItem(
-                    selectedStateIcon = tn.sesame.designsystem.R.drawable.ic_calendar,
-                    unSelectedStateIcon = tn.sesame.designsystem.R.drawable.ic_calendar_outlined
-                ),
-                SesameBottomNavigationBarItem(
-                    selectedStateIcon = tn.sesame.designsystem.R.drawable.ic_notifications,
-                    unSelectedStateIcon = tn.sesame.designsystem.R.drawable.ic_notifications_outlined
-                ),
-                SesameBottomNavigationBarItem(
-                    selectedStateIcon = tn.sesame.designsystem.R.drawable.ic_profile,
-                    unSelectedStateIcon = tn.sesame.designsystem.R.drawable.ic_profile_outlined
-                )
-            )
-        )
+        val DEFAULT : SesameBottomNavigationBarDefaults = SesameBottomNavigationBarDefaults(emptyList())
     }
 }
 
@@ -59,16 +55,22 @@ fun SesameBottomNavigationBar(
   onItemSelected : (index : Int)->Unit
 ) {
     val allowedItems = properties.items.take(5)
-    val unSelectedBottomNavigationColor = if (isSystemInDarkTheme()) Charcoal2 else Alabaster
-    val selectedNavigationBarItemColor = if (isSystemInDarkTheme()) Charcoal2.copy(
-        green = Charcoal2.green +0.04f,
-        blue = Charcoal2.blue+0.05f
-    ) else AliceBlue
+    val unSelectedBottomNavigationColor =  LocalContext.current.getColor(
+        R.color.screenBackgroundColor
+    ).toColor().let {
+        Color(it.red(),it.green(),it.blue(),it.alpha())
+    }
+
+    val selectedNavigationBarItemColor = if (isSystemInDarkTheme()) Color(0xFF150d0d)  else Color(0xFFCFC1C1)
     BottomNavigation(
         modifier = modifier,
         backgroundColor = unSelectedBottomNavigationColor
     )  {
+
         allowedItems.forEachIndexed { index, item ->
+            val state = animateIntAsState(
+                targetValue = item.badgeContent
+            )
             BottomNavigationItem(
                 modifier = Modifier
                     .background(
@@ -77,15 +79,44 @@ fun SesameBottomNavigationBar(
                         else unSelectedBottomNavigationColor
                     ),
                 icon = {
-                    Icon(
-                        imageVector = ImageVector.vectorResource(item.run {
-                            if (selectedItemIndex == index) {
-                                selectedStateIcon
-                            } else unSelectedStateIcon
-                        }),
-                        "",
-                        tint = if (isSystemInDarkTheme()) LightGreyBlue else MaterialTheme.colorScheme.secondary
-                    )
+                    if (item.badgeContent > 0) {
+                        BadgedBox(
+                            badge = {
+                                Badge(
+                                    backgroundColor = Color(0xFFD51E1E),
+                                    content = {
+                                        Text(
+                                            modifier = Modifier
+                                                .wrapContentSize(),
+                                            text = state.value.toString(),
+                                            color = Color.White
+                                        )
+                                    }
+                                )
+                            }
+                        ) {
+                            Icon(
+                                imageVector = ImageVector.vectorResource(item.run {
+                                    if (selectedItemIndex == index) {
+                                        selectedStateIcon
+                                    } else unSelectedStateIcon
+                                }),
+                                "",
+                                tint = if (isSystemInDarkTheme()) Color(0xFFd1c6c6) else MaterialTheme.colorScheme.primary
+                            )
+                        }
+                    } else {
+                        Icon(
+                            imageVector = ImageVector.vectorResource(item.run {
+                                if (selectedItemIndex == index) {
+                                    selectedStateIcon
+                                } else unSelectedStateIcon
+                            }),
+                            "",
+                            tint = if (isSystemInDarkTheme()) Color(0xFFd1c6c6) else MaterialTheme.colorScheme.primary
+                        )
+                    }
+
                 },
                 selected = selectedItemIndex == index,
                 onClick = { onItemSelected(index) }

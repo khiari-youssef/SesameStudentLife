@@ -5,7 +5,7 @@
     <color name="PrimaryColorSoftVariant">#62BCC5</color>
     <color name="SecondaryColorVariant">#9AC0C7</color>
     <color name="NeutralTextColor">#FFFFFF</color>
-    <color name="screenBackgroundColor">#474747</color>
+    <color name="screenBackgroundColor">#0a0606</color>
     <color name="ic_launcher_background">@color/primaryColorDark</color>
     <color name="ic_launcher_tint">#FFFFFF</color>
 </resources>

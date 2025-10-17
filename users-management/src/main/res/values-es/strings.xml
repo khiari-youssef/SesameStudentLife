@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="profile_email">Correo electrónico</string>
+    <string name="profile_logout">Cerrar sesión</string>
+    <string name="profile_settings">Ajustes</string>
+    <string name="profile_policy">Reglas y política</string>
+    <string name="profile_myprojects">Mis proyectos</string>
+    <string name="profile_my_subs">Mis suscripciones</string>
+    <string name="profile_my_grades">Mis notas</string>
+    <string name="profile_myclasses">Mis clases</string>
+    <string name="profile_send_email_via">Contactar con %s vía</string>
+    <string name="profile_user">Usuario</string>
+    <string name="profile_student">Estudiante</string>
+    <string name="profile_teacher">Profesor</string>
+    <string name="view_profile">Mi perfil</string>
+    <string name="view_badge">Mi insignia</string>
+    <string name="settings_screen_title">Ajustes</string>
+    <string name="settings_auto_login_option_label">Habilitar inicio de sesión automático</string>
+    <string name="login_no_account">¿Aún no tienes una cuenta?</string>
+    <string name="login_sign_up_action">Regístrate aquí</string>
+</resources>

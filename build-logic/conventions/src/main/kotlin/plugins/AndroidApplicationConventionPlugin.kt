@@ -3,7 +3,6 @@
 import com.android.build.api.dsl.ApplicationExtension
 import org.gradle.api.Plugin
 import org.gradle.api.Project
-import org.gradle.internal.impldep.com.esotericsoftware.minlog.Log
 import org.gradle.kotlin.dsl.configure
 import java.io.FileInputStream
 import java.util.Properties

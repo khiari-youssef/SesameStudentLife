@@ -12,15 +12,17 @@ data class MainActivityStateHolder(
     val biometricSupportState : State<SupportedDeviceAuthenticationMethods>,
     val autoLoginState : State<LoginState>,
     val rootNavController : NavHostController,
-    val homeDestinations : SesameBottomNavigationBarDefaults
+    val homeDestinations : State<SesameBottomNavigationBarDefaults>
 ) {
+
+
     companion object{
         @Composable
         fun rememberMainActivityState(
             biometricSupportState : State<SupportedDeviceAuthenticationMethods>,
             autoLoginState : State<LoginState>,
             rootNavController : NavHostController,
-            homeDestinations : SesameBottomNavigationBarDefaults
+            homeDestinations : State<SesameBottomNavigationBarDefaults>
         )  : MainActivityStateHolder = remember(
             biometricSupportState,autoLoginState,rootNavController,homeDestinations
         ){

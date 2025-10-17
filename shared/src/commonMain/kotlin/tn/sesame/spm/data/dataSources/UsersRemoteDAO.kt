@@ -158,7 +158,7 @@ internal class UsersRemoteDAO(
         email : String,password : String
     ) : SesameLoginResponseWrapper = withContext(Dispatchers.IO){
          delay(500)
-       if (email == "youssef.khiari@sesame.com.tn" && password == "007007") SesameLoginResponseWrapper(
+       if (email == "youyou" && password == "0000") SesameLoginResponseWrapper(
            data = users.first() ,
            token = tokenLogins.keys.first()
        ) else throw CustomHttpException(errorType = HttpErrorType.UnauthorizedAccess)

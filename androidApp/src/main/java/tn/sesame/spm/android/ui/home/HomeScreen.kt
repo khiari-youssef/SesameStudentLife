@@ -4,6 +4,7 @@ package tn.sesame.spm.android.ui.home
 import ProfileScreen
 import RequireBiometricAuth
 import SesameDateRangePicker
+import androidx.activity.compose.LocalActivity
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.spring
 import androidx.compose.animation.fadeIn
@@ -22,6 +23,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
@@ -38,6 +40,7 @@ import tn.sesame.designsystem.components.bars.SesameBottomNavigationBarDefaults
 import tn.sesame.designsystem.components.menus.MenuOption
 import tn.sesame.designsystem.components.menus.MenuOptions
 import tn.sesame.spm.android.base.NavigationRoutingData
+import tn.sesame.spm.android.ui.main.MainActivity
 import tn.sesame.spm.android.ui.notifications.NotificationScreenStateHolder
 import tn.sesame.spm.android.ui.notifications.NotificationsScreen
 import tn.sesame.spm.android.ui.notifications.NotificationsViewModel

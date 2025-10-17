@@ -26,6 +26,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.layoutId
@@ -41,15 +42,13 @@ import androidx.compose.ui.text.TextLinkStyles
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withLink
-import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
-import tn.sesame.designsystem.R as DSR
-import tn.sesame.designsystem.components.AppBrand
 import tn.sesame.designsystem.components.popups.SesameToastDefaults
 import tn.sesame.designsystem.components.popups.SesameToastPopup
 import tn.sesame.spm.domain.exception.DomainErrorType
 import tn.sesame.users_management.R
+import tn.sesame.designsystem.R as DSR
 
 typealias ToastState = Pair<Int,String>
 
@@ -161,15 +160,26 @@ ConstraintLayout(
            onClick = onLoginClicked
        )
     }
-    Row(
+    Column(
         modifier = Modifier
-            .fillMaxWidth()
             .wrapContentHeight()
             .layoutId("loginFooter"),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(8.dp,Alignment.Start)
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(32.dp, Alignment.CenterVertically)
     ) {
-        AppVersion(version = "1.0.0")
+        LoginScreenBottom(
+            modifier = Modifier
+                .layoutId("LoginScreenBottom")
+        )
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .wrapContentHeight(),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(8.dp,Alignment.Start)
+        ) {
+            AppVersion(version = "1.0.0")
+        }
     }
     SesameToastPopup(
         modifier = Modifier
@@ -199,6 +209,7 @@ fun LoginScreenTop(modifier : Modifier) {
   ) {
       Image(
           modifier = Modifier
+              .rotate(30f)
               .size(72.dp),
           imageVector = ImageVector.vectorResource(id = DSR.drawable.ic_coffee_dripper),
           contentDescription = ""
@@ -211,8 +222,38 @@ fun LoginScreenTop(modifier : Modifier) {
       )
       Image(
           modifier = Modifier
+              .rotate(-30f)
               .size(72.dp),
           imageVector = ImageVector.vectorResource(id = DSR.drawable.ic_coffee_cup),
+          contentDescription = ""
+      )
+  }
+}
+@Composable
+fun LoginScreenBottom(modifier : Modifier) {
+  Row(
+      modifier = modifier.fillMaxWidth(),
+      horizontalArrangement = Arrangement.SpaceBetween,
+      verticalAlignment = Alignment.CenterVertically
+  ) {
+      Image(
+          modifier = Modifier
+              .rotate(30f)
+              .size(72.dp),
+          imageVector = ImageVector.vectorResource(id = DSR.drawable.ic_coffee_press),
+          contentDescription = ""
+      )
+      Image(
+          modifier = Modifier
+              .size(72.dp),
+          imageVector = ImageVector.vectorResource(id = DSR.drawable.ic_coffee_brunch),
+          contentDescription = ""
+      )
+      Image(
+          modifier = Modifier
+              .rotate(-30f)
+              .size(72.dp),
+          imageVector = ImageVector.vectorResource(id = DSR.drawable.ic_coffee_grinder),
           contentDescription = ""
       )
   }

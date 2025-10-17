@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="error_unsupported_biometric_features_title">No puedes ejecutar la aplicación</string>
+    <string name="error_unsupported_biometric_features_message">Este dispositivo no tiene capacidades biométricas</string>
+    <string name="error_unregistered_biometric_identity_title">¡No se encontró identidad biométrica!</string>
+    <string name="error_unregistered_biometric_identity_message">Debes registrar una identidad biométrica en la configuración de tu sistema</string>
+    <string name="button_open_system_settings">Abrir configuración</string>
+    <string name="error_biometric_undefined_title">¡Error desconocido!</string>
+    <string name="error_biometric_undefined_message">¡Error al acceder a tu servicio biométrico!</string>
+    <string name="error_biometric_temporararely_unavailable_title">¡Error temporal!</string>
+    <string name="error_biometric_temporararely_unavailable_message">¡El servicio biométrico no está disponible actualmente!</string>
+    <string name="biometric_auth_dialog_title">Esta acción requiere autorización</string>
+    <string name="biometric_auth_autologin_check">El inicio de sesión automático requiere verificación</string>
+    <string name="biometric_auth_dialog_message">Introduce tu identidad biométrica</string>
+    <string name="biometric_auth_failed_title">Error de autenticación</string>
+    <string name="biometric_auth_failed_message">La operación falló</string>
+    <string name="biometric_auth_cancelled_title">Error de autenticación</string>
+    <string name="biometric_auth_cancelled_message">Operación cancelada</string>
+</resources>

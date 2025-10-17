@@ -102,18 +102,18 @@ fun SesameTextField(
                     },
                     imageVector = ImageVector.vectorResource(this),
                     contentDescription = "",
-                    tint = if (isSystemInDarkTheme()) LightGreyBlue else MaterialTheme.colorScheme.secondary
+                    tint = if (isSystemInDarkTheme()) LightGreyBlue else MaterialTheme.colorScheme.primary
                 )
             }
         },
         visualTransformation = visualTransformation,
         colors = OutlinedTextFieldDefaults.colors(
             focusedContainerColor = Color.Unspecified,
-            cursorColor = if (isSystemInDarkTheme()) LightGreyBlue else MaterialTheme.colorScheme.secondary,
-            focusedLabelColor = if (isSystemInDarkTheme()) LightGreyBlue else MaterialTheme.colorScheme.secondary,
+            cursorColor = if (isSystemInDarkTheme()) LightGreyBlue else MaterialTheme.colorScheme.primary,
+            focusedLabelColor = if (isSystemInDarkTheme()) LightGreyBlue else MaterialTheme.colorScheme.primary,
             focusedTrailingIconColor = Color.Unspecified,
             unfocusedContainerColor = Color.Unspecified,
-            focusedBorderColor = if (isSystemInDarkTheme()) LightGreyBlue else MaterialTheme.colorScheme.secondary,
+            focusedBorderColor = if (isSystemInDarkTheme()) LightGreyBlue else MaterialTheme.colorScheme.primary,
             unfocusedLabelColor = if (isSystemInDarkTheme()) onBackgroundShadedDarkMode else onBackgroundShadedLightMode
         ),
         onValueChange = onTextChanged
