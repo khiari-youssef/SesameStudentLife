@@ -1,9 +1,13 @@
 package tn.sesame.spm.android.di
 
-import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.core.module.dsl.viewModel
+import org.koin.core.qualifier.named
 import org.koin.dsl.module
 import tn.sesame.spm.android.ui.main.MainActivityViewModel
 import tn.sesame.spm.android.ui.notifications.NotificationsViewModel
+import tn.sesame.spm.di.OBUserGetProfileUseCaseTag
+import tn.sesame.spm.di.OBUserLoginUseCaseTag
+import tn.sesame.spm.di.OBUserLogoutUseCaseTag
 import tn.sesame.spm.di.UsersRepositoryTag
 import tn.sesame.spm.di.androidSecurityModule
 import tn.sesame.spm.di.domainModule
@@ -20,10 +24,12 @@ val viewModelsModule = module {
         NotificationsViewModel()
     }
     viewModel {
-        MyProfileViewModel(get())
+        MyProfileViewModel(get(OBUserGetProfileUseCaseTag),get(UsersRepositoryTag),get(
+            OBUserLogoutUseCaseTag
+        ))
     }
     viewModel {
-        LoginViewModel(get())
+        LoginViewModel(get(OBUserLoginUseCaseTag))
     }
     viewModel {
         SettingsViewModel(get(UsersRepositoryTag))

@@ -40,7 +40,7 @@ import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import tn.sesame.designsystem.ErrorColor
-import tn.sesame.designsystem.SesameFontFamilies
+import tn.sesame.designsystem.OBFontFamilies
 import tn.sesame.designsystem.SuccessColor
 import tn.sesame.designsystem.components.text.PlaceholderText
 import tn.sesame.designsystem.onBackgroundShadedDarkMode
@@ -67,7 +67,7 @@ fun ProjectKeywords(
         },
         style = TextStyle(
             fontSize = fontSize,
-            fontFamily = SesameFontFamilies.MainRegularFontFamily,
+            fontFamily = OBFontFamilies.MainRegularFontFamily,
             fontWeight = FontWeight(400),
             color = if (isSystemInDarkTheme()) Color(0xFFCACACA) else Color(0xFF696969),
             textAlign =textAlign
@@ -89,7 +89,7 @@ fun ProjectCreationDate(
         text = stringResource(id = R.string.project_creation_date,date,time),
         style = TextStyle(
             fontSize = fontSize,
-            fontFamily = SesameFontFamilies.MainRegularFontFamily,
+            fontFamily = OBFontFamilies.MainRegularFontFamily,
             fontWeight = FontWeight(400),
             color = if (isSystemInDarkTheme()) Color(0xFFCACACA) else Color(0xFF696969),
             textAlign = textAlign
@@ -124,7 +124,7 @@ fun ProjectHumanResourceDetailItem(
             text = sesameSupervisor.fullName,
             style = TextStyle(
                 fontSize = 14.sp,
-                fontFamily = SesameFontFamilies.MainMediumFontFamily,
+                fontFamily = OBFontFamilies.MainMediumFontFamily,
                 fontWeight = FontWeight(500),
                 color = MaterialTheme.colorScheme.onBackground,
                 textAlign = TextAlign.Start
@@ -153,7 +153,7 @@ fun ProjectSupervisorDetailItem(
             text = "${stringResource(id = R.string.project_supervisor)} :",
             style = TextStyle(
                 fontSize = 16.sp,
-                fontFamily = SesameFontFamilies.MainMediumFontFamily,
+                fontFamily = OBFontFamilies.MainMediumFontFamily,
                 fontWeight = FontWeight(500),
                 color = MaterialTheme.colorScheme.secondary,
                 textAlign = TextAlign.Start
@@ -182,7 +182,7 @@ fun ProjectSupervisorDetailItem(
                     text = this@run,
                     style = TextStyle(
                         fontSize = 14.sp,
-                        fontFamily = SesameFontFamilies.MainMediumFontFamily,
+                        fontFamily = OBFontFamilies.MainMediumFontFamily,
                         fontWeight = FontWeight(500),
                         color = MaterialTheme.colorScheme.onBackground,
                     )
@@ -219,7 +219,7 @@ fun ProjectSupervisorListItem(
             text = "${stringResource(id = R.string.project_supervisor)} :",
             style = TextStyle(
                 fontSize = 10.sp,
-                fontFamily = SesameFontFamilies.MainMediumFontFamily,
+                fontFamily = OBFontFamilies.MainMediumFontFamily,
                 fontWeight = FontWeight(500),
                 color = MaterialTheme.colorScheme.onBackground,
             )
@@ -245,7 +245,7 @@ fun ProjectSupervisorListItem(
                    text = this@run,
                    style = TextStyle(
                        fontSize = 10.sp,
-                       fontFamily = SesameFontFamilies.MainMediumFontFamily,
+                       fontFamily = OBFontFamilies.MainMediumFontFamily,
                        fontWeight = FontWeight(500),
                        color = MaterialTheme.colorScheme.onBackground,
                    )
@@ -256,7 +256,7 @@ fun ProjectSupervisorListItem(
                 text = stringResource(id = R.string.project_supervisor_unassigned),
                 style = TextStyle(
                     fontSize = 10.sp,
-                    fontFamily = SesameFontFamilies.MainMediumFontFamily,
+                    fontFamily = OBFontFamilies.MainMediumFontFamily,
                     fontWeight = FontWeight(500),
                     color = if (isSystemInDarkTheme()) onBackgroundShadedDarkMode else onBackgroundShadedLightMode,
                 )
@@ -291,7 +291,7 @@ fun ProjectCollaboratorsDetailItem(
             },
             style = TextStyle(
                 fontSize = 16.sp,
-                fontFamily = SesameFontFamilies.MainMediumFontFamily,
+                fontFamily = OBFontFamilies.MainMediumFontFamily,
                 fontWeight = FontWeight(500),
                 color = MaterialTheme.colorScheme.secondary,
                 textAlign = TextAlign.Start
@@ -323,7 +323,7 @@ fun ProjectCollaboratorsDetailItem(
                         text = collaborator.getFullName(),
                         style = TextStyle(
                             fontSize = 14.sp,
-                            fontFamily = SesameFontFamilies.MainMediumFontFamily,
+                            fontFamily = OBFontFamilies.MainMediumFontFamily,
                             fontWeight = FontWeight(500),
                             color = MaterialTheme.colorScheme.onBackground,
                             textAlign = TextAlign.Start
@@ -368,7 +368,7 @@ fun ProjectCollaboratorsPreviewListItem(
                 },
                 style = TextStyle(
                     fontSize = 10.sp,
-                    fontFamily = SesameFontFamilies.MainMediumFontFamily,
+                    fontFamily = OBFontFamilies.MainMediumFontFamily,
                     fontWeight = FontWeight(500),
                     color = MaterialTheme.colorScheme.onBackground,
                 )
@@ -398,7 +398,7 @@ fun ProjectCollaboratorsPreviewListItem(
                 text = stringResource(id = R.string.project_no_collaborators),
                 style = TextStyle(
                     fontSize = 10.sp,
-                    fontFamily = SesameFontFamilies.MainMediumFontFamily,
+                    fontFamily = OBFontFamilies.MainMediumFontFamily,
                     fontWeight = FontWeight(500),
                     color = if (isSystemInDarkTheme()) onBackgroundShadedDarkMode else onBackgroundShadedLightMode,
                 )
@@ -429,7 +429,7 @@ fun ProjectDurationListItem(
             text = stringResource(id = R.string.project_duration,startDate,endDate),
             style = TextStyle(
                 fontSize = 10.sp,
-                fontFamily = SesameFontFamilies.MainMediumFontFamily,
+                fontFamily = OBFontFamilies.MainMediumFontFamily,
                 fontWeight = FontWeight(500),
                 color = MaterialTheme.colorScheme.onBackground,
             )
@@ -532,7 +532,7 @@ status: ProjectJoinRequestStatus = ProjectJoinRequestStatus.IDLE
                     text = stringResource(id = R.string.project_status_joined),
                     style = TextStyle(
                         fontSize = 10.sp,
-                        fontFamily = SesameFontFamilies.MainMediumFontFamily),
+                        fontFamily = OBFontFamilies.MainMediumFontFamily),
                     fontWeight = FontWeight(500),
                     color = SuccessColor,
                     textAlign = TextAlign.Start,
@@ -548,7 +548,7 @@ status: ProjectJoinRequestStatus = ProjectJoinRequestStatus.IDLE
                     text = stringResource(id = R.string.project_status_waiting_for_approval),
                     style = TextStyle(
                         fontSize = 10.sp,
-                        fontFamily = SesameFontFamilies.MainMediumFontFamily),
+                        fontFamily = OBFontFamilies.MainMediumFontFamily),
                     fontWeight = FontWeight(500),
                     color = Color(0xFFD98D0F),
                     textAlign = TextAlign.Start,
@@ -564,7 +564,7 @@ status: ProjectJoinRequestStatus = ProjectJoinRequestStatus.IDLE
                     text = stringResource(id = R.string.project_status_rejected),
                     style = TextStyle(
                         fontSize = 10.sp,
-                        fontFamily = SesameFontFamilies.MainMediumFontFamily),
+                        fontFamily = OBFontFamilies.MainMediumFontFamily),
                     fontWeight = FontWeight(500),
                     color = ErrorColor,
                     textAlign = TextAlign.Start,

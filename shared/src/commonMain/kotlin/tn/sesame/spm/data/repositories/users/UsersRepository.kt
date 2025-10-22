@@ -45,15 +45,14 @@ internal class UsersRepository(
     override suspend fun getLastUsedLogin(): String? =
         usersLocalDAO.getLastUsedLogin()?.token
 
-    override suspend fun clearUsersFromLocalStorage() {
-        usersLocalDAO.deleteUsers()
+    override suspend fun clearUsersFromLocalStorage() : Boolean {
+        return usersLocalDAO.deleteUsers()
     }
 
     override suspend fun getMyProfile(
-        email: String,
-        roleID : String
+        id: String
     ): SesameUser? = runCatching {
-        usersLocalDAO.getLoggedInUserProfile(emailParam = email, roleIDParam = roleID)
+        usersLocalDAO.getUserProfileByID(id)
     }.onFailure {
         it.printStackTrace()
     }.getOrNull()

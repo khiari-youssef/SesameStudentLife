@@ -8,7 +8,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.sp
-import tn.sesame.designsystem.SesameFontFamilies
+import tn.sesame.designsystem.OBFontFamilies
 import tn.sesame.designsystem.onBackgroundShadedDarkMode
 import tn.sesame.designsystem.onBackgroundShadedLightMode
 
@@ -25,7 +25,7 @@ fun PlaceholderText(
         style = TextStyle(
             color = if (isSystemInDarkTheme()) onBackgroundShadedDarkMode else onBackgroundShadedLightMode,
             fontSize = fontSize,
-            fontFamily = SesameFontFamilies.MainMediumFontFamily,
+            fontFamily = OBFontFamilies.MainMediumFontFamily,
             textAlign = align
         )
     )

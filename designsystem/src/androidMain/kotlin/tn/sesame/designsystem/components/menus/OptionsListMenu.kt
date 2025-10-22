@@ -25,7 +25,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import tn.sesame.designsystem.LightGreyBlue
-import tn.sesame.designsystem.SesameFontFamilies
+import tn.sesame.designsystem.OBFontFamilies
 
 @Stable
 data class MenuOption(
@@ -79,7 +79,7 @@ fun OptionsListMenu(
                     text = option.label,
                     style = TextStyle(
                         fontSize = 18.sp,
-                        fontFamily = SesameFontFamilies.MainMediumFontFamily,
+                        fontFamily = OBFontFamilies.MainMediumFontFamily,
                         fontWeight = FontWeight(500),
                         color = itemColor,
                     )

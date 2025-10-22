@@ -9,7 +9,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.LineBreak
 import androidx.compose.ui.unit.sp
-import tn.sesame.designsystem.SesameFontFamilies
+import tn.sesame.designsystem.OBFontFamilies
 import java.util.Locale
 
 @Composable
@@ -34,7 +34,7 @@ fun  SesameParagraphText(
             style = TextStyle(
                 fontSize = 13.sp,
                 lineHeight = 20.sp,
-                fontFamily = SesameFontFamilies.MainRegularFontFamily,
+                fontFamily = OBFontFamilies.MainRegularFontFamily,
                 fontWeight = FontWeight(400),
                 color = MaterialTheme.colorScheme.onBackground,
                 letterSpacing = 0.52.sp,

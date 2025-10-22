@@ -19,7 +19,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
-import tn.sesame.designsystem.SesameFontFamilies
+import tn.sesame.designsystem.OBFontFamilies
 
 @Composable
 fun SesameCheckableUserProfile(
@@ -71,7 +71,7 @@ fun SesameCheckableUserProfile(
           text = fullName,
           style = TextStyle(
               fontSize = 18.sp,
-              fontFamily = SesameFontFamilies.MainMediumFontFamily,
+              fontFamily = OBFontFamilies.MainMediumFontFamily,
               fontWeight = FontWeight(500),
               color = MaterialTheme.colorScheme.onBackground,
               textAlign = TextAlign.Start

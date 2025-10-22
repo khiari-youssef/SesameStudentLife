@@ -6,25 +6,32 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.launch
+import tn.sesame.spm.contracts.UseCaseContract
+import tn.sesame.spm.contracts.UseCaseContractReadOnly
+import tn.sesame.spm.data.repositories.users.UsersRepositoryInterface
 import tn.sesame.spm.domain.entities.SesameUser
-import tn.sesame.spm.domain.usecases.SesameUsersUsecase
+import tn.sesame.spm.domain.usecases.OBUserGetProfileUseCase
+import tn.sesame.spm.domain.usecases.OBUserLoginUseCase
+import tn.sesame.spm.domain.usecases.OBUserLogoutUseCase
 
 class MyProfileViewModel(
-    private val usersUsecase: SesameUsersUsecase
+    private val oBUserGetProfileUseCase: UseCaseContract<String,SesameUser?>,
+    private val usersRepositoryInterface: UsersRepositoryInterface,
+    private val obUserLogoutUseCase: UseCaseContractReadOnly<Boolean>
 ) : ViewModel() {
 
   fun getMyProfile() : Flow<SesameUser?> = flow{
-      val userAccount = usersUsecase.getLoggedInUserAccount()
+      val userAccount = usersRepositoryInterface.getLoggedInUserAccount()
       userAccount?.run {
-          val profile = usersUsecase.getUserProfile(userAccount.email,userAccount.role_id)
+          val profile = oBUserGetProfileUseCase.execute(userAccount.email)
           emit(profile)
       } ?: emit(null)
   }.flowOn(Dispatchers.Main)
 
-   fun logout() {
-       viewModelScope.launch {
-           usersUsecase.logoutUser()
-       }
-   }
+    fun logOutCurrentUser() : Flow<Boolean> = flow {
+        emit(obUserLogoutUseCase.execute())
+    }.flowOn(Dispatchers.Main)
+
 }

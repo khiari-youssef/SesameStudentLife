@@ -21,7 +21,7 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import tn.sesame.designsystem.R
-import tn.sesame.designsystem.SesameFontFamilies
+import tn.sesame.designsystem.OBFontFamilies
 import tn.sesame.designsystem.onBackgroundShadedDarkMode
 import tn.sesame.designsystem.onBackgroundShadedLightMode
 
@@ -60,7 +60,7 @@ fun DateText(
          },
          style = TextStyle(
              fontSize = 14.sp,
-             fontFamily = SesameFontFamilies.MainMediumFontFamily,
+             fontFamily = OBFontFamilies.MainMediumFontFamily,
              fontWeight = FontWeight(500),
              color = if (isSystemInDarkTheme()) onBackgroundShadedDarkMode else onBackgroundShadedLightMode,
          )

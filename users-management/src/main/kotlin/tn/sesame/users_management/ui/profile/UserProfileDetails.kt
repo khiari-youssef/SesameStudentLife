@@ -18,7 +18,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import tn.sesame.designsystem.SesameFontFamilies
+import tn.sesame.designsystem.OBFontFamilies
 import tn.sesame.designsystem.components.buttons.SesameIconButtonVariant
 import tn.sesame.designsystem.onBackgroundShadedDarkMode
 import tn.sesame.designsystem.onBackgroundShadedLightMode
@@ -65,7 +65,7 @@ fun UserProfileDetails(
                         text = sesameUser.getFullName(),
                         style = TextStyle(
                             fontSize = 24.sp,
-                            fontFamily = SesameFontFamilies.MainBoldFontFamily,
+                            fontFamily = OBFontFamilies.MainBoldFontFamily,
                             fontWeight = FontWeight(700),
                             color = MaterialTheme.colorScheme.onBackground,
                         )
@@ -78,7 +78,7 @@ fun UserProfileDetails(
                      },
                     style = TextStyle(
                         fontSize = 16.sp,
-                        fontFamily = SesameFontFamilies.MainMediumFontFamily,
+                        fontFamily = OBFontFamilies.MainMediumFontFamily,
                         fontWeight = FontWeight(500),
                         color = if (isSystemInDarkTheme()) onBackgroundShadedDarkMode else onBackgroundShadedLightMode,
                     )
@@ -88,7 +88,7 @@ fun UserProfileDetails(
                         text = sesameUser.sesameClass.getDisplayName(),
                         style = TextStyle(
                             fontSize = 16.sp,
-                            fontFamily = SesameFontFamilies.MainMediumFontFamily,
+                            fontFamily = OBFontFamilies.MainMediumFontFamily,
                             fontWeight = FontWeight(500),
                             color = if (isSystemInDarkTheme()) onBackgroundShadedDarkMode else onBackgroundShadedLightMode,
                         )
@@ -98,7 +98,7 @@ fun UserProfileDetails(
                         text = sesameUser.profBackground,
                         style = TextStyle(
                             fontSize = 16.sp,
-                            fontFamily = SesameFontFamilies.MainMediumFontFamily,
+                            fontFamily = OBFontFamilies.MainMediumFontFamily,
                             fontWeight = FontWeight(500),
                             color = if (isSystemInDarkTheme()) onBackgroundShadedDarkMode else onBackgroundShadedLightMode,
                         )
@@ -108,7 +108,7 @@ fun UserProfileDetails(
                     text = sesameUser.email,
                     style = TextStyle(
                         fontSize = 16.sp,
-                        fontFamily = SesameFontFamilies.MainMediumFontFamily,
+                        fontFamily = OBFontFamilies.MainMediumFontFamily,
                         fontWeight = FontWeight(500),
                         color = if (isSystemInDarkTheme()) onBackgroundShadedDarkMode else onBackgroundShadedLightMode,
                     )

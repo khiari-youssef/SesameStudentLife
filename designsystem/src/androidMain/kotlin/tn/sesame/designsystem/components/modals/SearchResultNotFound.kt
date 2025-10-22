@@ -18,7 +18,7 @@ import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.animateLottieCompositionAsState
 import com.airbnb.lottie.compose.rememberLottieComposition
 import tn.sesame.designsystem.R
-import tn.sesame.designsystem.SesameFontFamilies
+import tn.sesame.designsystem.OBFontFamilies
 
 @Composable
 fun SearchResultNotFound(
@@ -38,7 +38,7 @@ fun SearchResultNotFound(
            text = message,
            style = TextStyle(
                fontSize = 24.sp,
-               fontFamily = SesameFontFamilies.MainMediumFontFamily,
+               fontFamily = OBFontFamilies.MainMediumFontFamily,
                fontWeight = FontWeight(500),
                color = MaterialTheme.colorScheme.tertiary,
                textAlign = TextAlign.Center,

@@ -15,10 +15,9 @@ interface UsersRepositoryInterface {
 
     suspend fun setAutoLoginEnabled(isEnabled : Boolean)
 
-    suspend fun clearUsersFromLocalStorage()
+    suspend fun clearUsersFromLocalStorage() : Boolean
 
-    suspend fun getMyProfile(  email: String,
-                               roleID : String) : SesameUser?
+    suspend fun getMyProfile(id: String) : SesameUser?
 
     suspend fun getLoggedInUserAccount() : SesameUserAccount?
 

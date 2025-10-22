@@ -4,7 +4,7 @@ import androidx.compose.ui.graphics.Color
 
 internal val RoseEbony = Color(0xFF674141)
 internal val Licorice = Color(0xFF1f1313)
-internal val PumpkinOrange = Color(0xFFFF7518)
+ internal val BrickRed = Color(0xFFAA4A44)
 internal val PumpkinOrangeShaded = Color(0xFFFF7518)
 internal val BlueHosta = Color(0xFF62BCC5)
 internal val LightGreyBlue = Color(0xFF9AC0C7)

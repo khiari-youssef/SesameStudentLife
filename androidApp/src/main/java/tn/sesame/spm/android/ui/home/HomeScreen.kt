@@ -4,6 +4,7 @@ package tn.sesame.spm.android.ui.home
 import ProfileScreen
 import RequireBiometricAuth
 import SesameDateRangePicker
+import android.widget.Toast
 import androidx.activity.compose.LocalActivity
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.spring
@@ -21,6 +22,7 @@ import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -33,6 +35,7 @@ import androidx.navigation.NavOptions
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
 import tn.sesame.designsystem.components.NavigationBarScreenTemplate
 import tn.sesame.designsystem.components.bars.SesameBottomNavigationBar
@@ -40,7 +43,6 @@ import tn.sesame.designsystem.components.bars.SesameBottomNavigationBarDefaults
 import tn.sesame.designsystem.components.menus.MenuOption
 import tn.sesame.designsystem.components.menus.MenuOptions
 import tn.sesame.spm.android.base.NavigationRoutingData
-import tn.sesame.spm.android.ui.main.MainActivity
 import tn.sesame.spm.android.ui.notifications.NotificationScreenStateHolder
 import tn.sesame.spm.android.ui.notifications.NotificationsScreen
 import tn.sesame.spm.android.ui.notifications.NotificationsViewModel
@@ -122,14 +124,7 @@ fun HomeScreen(
                         },
                         content = remember {
                             { modifier ->
-                                SesameDateRangePicker(
-                                    modifier = modifier
-                                        .fillMaxSize()
-                                        .clickable {
-                                            isBottomAppBarVisible.value =
-                                                isBottomAppBarVisible.value.not()
-                                        }
-                                )
+
                             }
                         }
                     )
@@ -169,19 +164,7 @@ fun HomeScreen(
                 }
                 composable(NavigationRoutingData.Home.Profile) {
                     val profileViewModel : MyProfileViewModel = koinViewModel()
-                    val displayBioAth = remember {
-                        mutableStateOf(false)
-                    }
-                    if (displayBioAth.value){
-                        RequireBiometricAuth(
-                            onBiometricPassResult = { state->
-                                if (state is BiometricLauncherService.DeviceAuthenticationState.Success){
-                                    profileViewModel.logout()
-                                    onHomeExit(NavigationRoutingData.Login)
-                                }
-                            }
-                        )
-                    }
+
                     NavigationBarScreenTemplate(
                         modifier = Modifier
                             .systemBarsPadding()
@@ -240,8 +223,10 @@ fun HomeScreen(
                             )
                         ))
                     })
+                        val profileScreenCoScope = rememberCoroutineScope()
+                        val currentContext = LocalContext.current
                         myProfile.value?.run {
-                            ProfileScreen(
+                            ProfileScreen( 
                                 modifier = modifier
                                     .fillMaxSize(),
                                 sesameUser = this ,
@@ -272,7 +257,15 @@ fun HomeScreen(
                                     }
                                 },
                                 onLogOutClicked = {
-                                    displayBioAth.value = true
+                                    profileScreenCoScope.launch {
+                                        profileViewModel.logOutCurrentUser().collect { isLoggedOut->
+                                            if (isLoggedOut) {
+                                                onHomeExit(NavigationRoutingData.Login)
+                                            } else {
+                                                Toast.makeText(currentContext, "Could not logout user !", Toast.LENGTH_LONG).show()
+                                            }
+                                        }
+                                    }
                                 }
                             )
                         }

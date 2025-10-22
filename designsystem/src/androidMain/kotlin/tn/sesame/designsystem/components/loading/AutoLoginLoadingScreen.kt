@@ -15,7 +15,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import tn.sesame.designsystem.SesameFontFamilies
+import tn.sesame.designsystem.OBFontFamilies
 
 @Composable
 fun AutoLoginLoadingScreen(
@@ -45,7 +45,7 @@ fun AutoLoginLoadingScreen(
                 text = "Logging you in",
                 style = TextStyle(
                     color = MaterialTheme.colorScheme.primary,
-                    fontFamily = SesameFontFamilies.MainMediumFontFamily,
+                    fontFamily = OBFontFamilies.MainMediumFontFamily,
                     fontSize = 20.sp,
                     textAlign = TextAlign.Center
                 )

@@ -31,16 +31,16 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import tn.sesame.designsystem.ErrorColor
 import tn.sesame.designsystem.R
-import tn.sesame.designsystem.SesameFontFamilies
+import tn.sesame.designsystem.OBFontFamilies
 import tn.sesame.designsystem.SuccessColor
 import tn.sesame.designsystem.components.loading.shimmerEffect
-import tn.sesame.spm.domain.entities.SesameProjectNotification
+import tn.sesame.spm.domain.entities.OBNotification
 
 
 @Composable
 fun NotificationItem(
     modifier: Modifier = Modifier,
-    sesameProjectNotification: SesameProjectNotification?,
+    OBNotification: OBNotification?,
     onProjectReferenceClicked : (ref: String)->Unit,
     builder: (@Composable () -> Unit)? = null
 ) {
@@ -49,7 +49,7 @@ fun NotificationItem(
             .defaultMinSize(
                 minHeight = 56.dp
             )
-            .shimmerEffect(sesameProjectNotification == null)
+            .shimmerEffect(OBNotification == null)
             .background(
                 color = MaterialTheme.colorScheme.surfaceVariant
             )
@@ -63,26 +63,26 @@ fun NotificationItem(
         )
     ) {
         val notificationContent = buildAnnotatedString {
-            sesameProjectNotification?.run {
+            OBNotification?.run {
                 withStyle(
                     SpanStyle(
-                        fontFamily = SesameFontFamilies.MainBoldFontFamily,
+                        fontFamily = OBFontFamilies.MainBoldFontFamily,
                         fontWeight = FontWeight.W700
                     )
                 ) {
-                    append(sesameProjectNotification.senderFullName)
+                    append(OBNotification.senderFullName)
                 }
                 append(" sent this notification")
                 withStyle(
                     SpanStyle(
-                        fontFamily = SesameFontFamilies.MainBoldFontFamily,
+                        fontFamily = OBFontFamilies.MainBoldFontFamily,
                         fontWeight = FontWeight.W700,
                         color = MaterialTheme.colorScheme.primary,
                         textDecoration = TextDecoration.Underline
                     )
                 ) {
-                    pushStringAnnotation(tag = "projectRef", annotation = sesameProjectNotification.projectRef)
-                    append(sesameProjectNotification.projectRef)
+                    pushStringAnnotation(tag = "projectRef", annotation = OBNotification.projectRef)
+                    append(OBNotification.projectRef)
                 }
             } ?: append("")
 
@@ -95,7 +95,7 @@ fun NotificationItem(
             )
         ) {
             SesameCircleImageM(
-                uri = sesameProjectNotification?.senderImage ?: "",
+                uri = OBNotification?.senderImage ?: "",
                 placeholderRes = R.drawable.profile_placeholder,
                 errorRes = R.drawable.profile_placeholder
             )
@@ -105,7 +105,7 @@ fun NotificationItem(
                 text = notificationContent,
                 style = TextStyle(
                     fontSize = 14.sp,
-                    fontFamily = SesameFontFamilies.MainRegularFontFamily,
+                    fontFamily = OBFontFamilies.MainRegularFontFamily,
                     fontWeight = FontWeight(400),
                     color = MaterialTheme.colorScheme.onBackground,
                 ),
@@ -128,11 +128,11 @@ fun NotificationItem(
 fun NotificationRequestItem(
     modifier: Modifier = Modifier,
     onProjectReferenceClicked : (ref : String)->Unit,
-    sesameProjectNotification: SesameProjectNotification.SesameProjectRequestNotification?
+    OBNotification: OBNotification.OBRequestNotification?
 ) {
     NotificationItem(
         modifier = modifier,
-        sesameProjectNotification = sesameProjectNotification,
+        OBNotification = OBNotification,
         onProjectReferenceClicked = onProjectReferenceClicked,
         builder = {
             Row(
@@ -156,7 +156,7 @@ fun NotificationRequestItem(
                     text = "Accept",
                     style = TextStyle(
                         fontSize = 16.sp,
-                        fontFamily = SesameFontFamilies.MainBoldFontFamily,
+                        fontFamily = OBFontFamilies.MainBoldFontFamily,
                         fontWeight = FontWeight(700),
                         color = SuccessColor,
                         textAlign = TextAlign.End
@@ -172,7 +172,7 @@ fun NotificationRequestItem(
                     text = "Deny",
                     style = TextStyle(
                         fontSize = 16.sp,
-                        fontFamily = SesameFontFamilies.MainBoldFontFamily,
+                        fontFamily = OBFontFamilies.MainBoldFontFamily,
                         fontWeight = FontWeight(700),
                         color = ErrorColor,
                         textAlign = TextAlign.End
@@ -187,13 +187,13 @@ fun NotificationRequestItem(
 fun NotificationResponseItem(
     modifier: Modifier = Modifier,
     onProjectReferenceClicked : (ref : String)->Unit,
-    sesameProjectNotification: SesameProjectNotification.SesameProjectResponseNotification?
+    OBNotification: OBNotification.OBResponseNotification?
 ) {
     NotificationItem(
         modifier = modifier,
-        sesameProjectNotification = sesameProjectNotification,
+        OBNotification = OBNotification,
         onProjectReferenceClicked = onProjectReferenceClicked,
-        builder = sesameProjectNotification?.run {
+        builder = OBNotification?.run {
             {
                 Row(
                     modifier = Modifier
@@ -221,11 +221,11 @@ fun NotificationResponseItem(
                             .padding(8.dp)
                             .wrapContentSize(),
                         text = stringResource(
-                            id = if (sesameProjectNotification.isAccepted) R.string.accepted else R.string.rejected
+                            id = if (OBNotification.isAccepted) R.string.accepted else R.string.rejected
                         ),
                         style = TextStyle(
                             fontSize = 16.sp,
-                            fontFamily = SesameFontFamilies.MainBoldFontFamily,
+                            fontFamily = OBFontFamilies.MainBoldFontFamily,
                             fontWeight = FontWeight(700),
                             color = SuccessColor,
                             textAlign = TextAlign.End

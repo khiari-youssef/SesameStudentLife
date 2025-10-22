@@ -32,7 +32,7 @@ import androidx.compose.ui.zIndex
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import tn.sesame.designsystem.R
-import tn.sesame.designsystem.SesameFontFamilies
+import tn.sesame.designsystem.OBFontFamilies
 import tn.sesame.designsystem.SuccessColor
 
 @Stable
@@ -40,7 +40,7 @@ data class SesameToastDefaults(
   val backgroundColor: Color,
   val textStyle : TextStyle = TextStyle(
       fontSize = 14.sp,
-      fontFamily = SesameFontFamilies.MainMediumFontFamily,
+      fontFamily = OBFontFamilies.MainMediumFontFamily,
       fontWeight = FontWeight(500),
       color = Color.Black,
       textAlign = TextAlign.Center
@@ -51,7 +51,7 @@ data class SesameToastDefaults(
 
         private val textStyle = TextStyle(
         fontSize = 14.sp,
-        fontFamily = SesameFontFamilies.MainMediumFontFamily,
+        fontFamily = OBFontFamilies.MainMediumFontFamily,
         fontWeight = FontWeight(500),
         color = Color.Black,
         textAlign = TextAlign.Center

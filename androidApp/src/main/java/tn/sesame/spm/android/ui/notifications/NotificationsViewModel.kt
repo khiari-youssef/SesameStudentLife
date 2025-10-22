@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import tn.sesame.spm.domain.entities.SesameProjectNotification
+import tn.sesame.spm.domain.entities.OBNotification
 
 class NotificationsViewModel : ViewModel() {
 
@@ -21,7 +21,7 @@ class NotificationsViewModel : ViewModel() {
 
     val list1 = List(10){
         if (it.mod(2) == 0){
-            SesameProjectNotification.SesameProjectRequestNotification(
+            OBNotification.OBRequestNotification(
                 "id$it",
                 "",
                 "Ahmed",
@@ -29,22 +29,22 @@ class NotificationsViewModel : ViewModel() {
                 ""
             )
         } else {
-            SesameProjectNotification.SesameProjectInfoNotification(
+            OBNotification.OBInfoNotification(
                 "id$it",
                 "",
                 "Yassine",
                 "#PDS${it*10}",
-                SesameProjectNotification.SesameProjectInfoNotification.ACTION_ASSIGNMENT
+                OBNotification.OBInfoNotification.ACTION_ASSIGNMENT
             )
         }
     }
     val list2 = List(2){
-            SesameProjectNotification.SesameProjectInfoNotification(
+            OBNotification.OBInfoNotification(
                 "idk2$it",
                 "",
                 "Mohsen",
                 "#PPE${it*10}",
-                SesameProjectNotification.SesameProjectInfoNotification.ACTION_ASSIGNMENT
+                OBNotification.OBInfoNotification.ACTION_ASSIGNMENT
             )
 
     }

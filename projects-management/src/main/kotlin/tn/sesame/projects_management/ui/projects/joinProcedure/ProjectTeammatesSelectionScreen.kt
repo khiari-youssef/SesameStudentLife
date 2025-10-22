@@ -20,7 +20,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import tn.sesame.designsystem.SesameFontFamilies
+import tn.sesame.designsystem.OBFontFamilies
 import tn.sesame.designsystem.components.DetailsScreenTemplate
 import tn.sesame.designsystem.components.loading.shimmerEffect
 import tn.sesame.projects_management.R
@@ -61,7 +61,7 @@ fun ProjectTeammatesSelectionScreen(
                     text = stringResource(id = R.string.project_form_choose_your_supervisor),
                     style = TextStyle(
                         fontSize = 18.sp,
-                        fontFamily = SesameFontFamilies.MainMediumFontFamily,
+                        fontFamily = OBFontFamilies.MainMediumFontFamily,
                         fontWeight = FontWeight(500),
                         color = MaterialTheme.colorScheme.onBackground,
                         textAlign = TextAlign.Start

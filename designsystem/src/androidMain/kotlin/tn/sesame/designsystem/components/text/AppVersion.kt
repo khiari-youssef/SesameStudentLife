@@ -11,7 +11,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
 import tn.sesame.designsystem.LightGreyBlue
 import tn.sesame.designsystem.R
-import tn.sesame.designsystem.SesameFontFamilies
+import tn.sesame.designsystem.OBFontFamilies
 
 @Composable
 fun AppVersion(
@@ -21,7 +21,7 @@ fun AppVersion(
       style = TextStyle(
          color = if (isSystemInDarkTheme()) LightGreyBlue else MaterialTheme.colorScheme.primary,
           fontSize = 12.sp,
-          fontFamily = SesameFontFamilies.MainMediumFontFamily,
+          fontFamily = OBFontFamilies.MainMediumFontFamily,
           fontStyle = FontStyle.Normal,
           letterSpacing = 1.sp
       ),

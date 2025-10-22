@@ -22,7 +22,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
-import tn.sesame.designsystem.SesameFontFamilies
+import tn.sesame.designsystem.OBFontFamilies
 import tn.sesame.designsystem.onBackgroundShadedDarkMode
 import tn.sesame.designsystem.onBackgroundShadedLightMode
 
@@ -73,7 +73,7 @@ fun InfoPopup(
                         text = title,
                         style = TextStyle(
                             color = MaterialTheme.colorScheme.onBackground,
-                            fontFamily = SesameFontFamilies.MainMediumFontFamily,
+                            fontFamily = OBFontFamilies.MainMediumFontFamily,
                             fontSize = 18.sp,
                             textAlign = TextAlign.Center
                         )
@@ -89,7 +89,7 @@ fun InfoPopup(
                             text = subtitle,
                             style = TextStyle(
                                 color = if (isSystemInDarkTheme()) onBackgroundShadedDarkMode else onBackgroundShadedLightMode,
-                                fontFamily = SesameFontFamilies.MainMediumFontFamily,
+                                fontFamily = OBFontFamilies.MainMediumFontFamily,
                                 fontSize = 18.sp,
                                 textAlign = TextAlign.Center
                             )
@@ -124,7 +124,7 @@ fun InfoPopup(
                                 color = if (isSystemInDarkTheme()) MaterialTheme.colorScheme.primary.copy(
                                     red = 0.2f
                                 ) else MaterialTheme.colorScheme.primary,
-                                fontFamily = SesameFontFamilies.MainMediumFontFamily,
+                                fontFamily = OBFontFamilies.MainMediumFontFamily,
                                 fontSize = 16.sp,
                                 textAlign = TextAlign.Center
                             ),

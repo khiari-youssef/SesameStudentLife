@@ -20,7 +20,7 @@ import androidx.compose.ui.unit.sp
 import tn.sesame.designsystem.Licorice
 import tn.sesame.designsystem.ErrorColor
 import tn.sesame.designsystem.RoseEbony
-import tn.sesame.designsystem.SesameFontFamilies
+import tn.sesame.designsystem.OBFontFamilies
 import tn.sesame.designsystem.components.loading.SesameCircularProgressBar
 
 
@@ -76,7 +76,7 @@ fun SesameButton(
                    text = text,
                    style = TextStyle(
                        color = Color.White,
-                       fontFamily = SesameFontFamilies.MainMediumFontFamily,
+                       fontFamily = OBFontFamilies.MainMediumFontFamily,
                        fontSize = fontSize
                    )
                )

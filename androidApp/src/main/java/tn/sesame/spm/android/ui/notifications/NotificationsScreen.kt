@@ -25,7 +25,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import tn.sesame.designsystem.components.loading.shimmerEffect
-import tn.sesame.spm.domain.entities.SesameProjectNotification
+import tn.sesame.spm.domain.entities.OBNotification
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
@@ -81,7 +81,7 @@ fun NotificationsScreen(
                                modifier = Modifier
                                    .height(60.dp)
                                    .fillMaxWidth(),
-                               sesameProjectNotification = null,
+                               OBNotification = null,
                                onProjectReferenceClicked = {}
                            )
                            Divider(
@@ -108,24 +108,24 @@ fun NotificationsScreen(
                            .shimmerEffect(notificationsListState.isRefreshingMore)
                            .fillMaxWidth()
                        when (notification){
-                           is SesameProjectNotification.SesameProjectRequestNotification->{
+                           is OBNotification.OBRequestNotification->{
                                NotificationRequestItem(
                                    modifier = itemModifier,
-                                   sesameProjectNotification = notification,
+                                   OBNotification = notification,
                                    onProjectReferenceClicked = onProjectReferenceClicked
                                )
                            }
-                           is SesameProjectNotification.SesameProjectInfoNotification->{
+                           is OBNotification.OBInfoNotification->{
                                NotificationItem(
                                    modifier = itemModifier,
-                                   sesameProjectNotification = notification,
+                                   OBNotification = notification,
                                    onProjectReferenceClicked = onProjectReferenceClicked
                                )
                            }
-                           is SesameProjectNotification.SesameProjectResponseNotification->{
+                           is OBNotification.OBResponseNotification->{
                                NotificationResponseItem(
                                    modifier = itemModifier,
-                                   sesameProjectNotification = notification,
+                                   OBNotification = notification,
                                    onProjectReferenceClicked = onProjectReferenceClicked
                                )
                            }

@@ -27,7 +27,8 @@ fun SesameEmailTextField(
        isError = isError ,
        rightIconRes =rightIconRes,
        onRightIconResClicked = onRightIconResClicked,
-       onTextChanged =  onEmailChanged
+       onTextChanged =  onEmailChanged,
+
    )
 
 }

@@ -1,6 +1,6 @@
 package tn.sesame.spm.domain.entities
 
-sealed class SesameProjectNotification(
+sealed class OBNotification(
     val id : String,
     val senderID : String,
     val senderImage : String,
@@ -8,7 +8,7 @@ sealed class SesameProjectNotification(
     val projectRef : String
 ){
 
-    override fun equals(other: Any?): Boolean = other is SesameProjectNotification && other.id == id
+    override fun equals(other: Any?): Boolean = other is OBNotification && other.id == id
     override fun hashCode(): Int {
         var result = id.hashCode()
         result = 31 * result + senderID.hashCode()
@@ -18,13 +18,13 @@ sealed class SesameProjectNotification(
         return result
     }
 
-    class SesameProjectRequestNotification(
+    class OBRequestNotification(
          senderID : String,
          senderImage : String,
          senderFullName : String,
          projectRef : String,
         val requestType : String
-    ) : SesameProjectNotification(
+    ) : OBNotification(
         senderID,senderImage,senderImage, senderFullName, projectRef
     ){
         companion object{
@@ -33,14 +33,14 @@ sealed class SesameProjectNotification(
             const val ACTION_SUPERVISION_REQUEST : String = "a_supervision_req"
         }
     }
-     class SesameProjectResponseNotification(
+     class OBResponseNotification(
          senderID : String,
          senderImage : String,
          senderFullName : String,
          projectRef : String,
         val action : String,
         val isAccepted : Boolean
-    ): SesameProjectNotification(
+    ): OBNotification(
         senderID,senderImage,senderImage, senderFullName, projectRef
     ) {
         companion object{
@@ -49,13 +49,13 @@ sealed class SesameProjectNotification(
             const val RESPONSE_SUPERVISION : String = "response_supervision"
         }
     }
-     class SesameProjectInfoNotification(
+     class OBInfoNotification(
          senderID : String,
          senderImage : String,
          senderFullName : String,
          projectRef : String,
         val infoType : String
-    ): SesameProjectNotification(
+    ): OBNotification(
          senderID,senderImage,senderImage, senderFullName, projectRef
      ){
         companion object{

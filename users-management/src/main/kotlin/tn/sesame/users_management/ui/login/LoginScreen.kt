@@ -10,6 +10,7 @@ import SesamePasswordTextField
 import android.content.res.Configuration
 import android.widget.Toast
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.focusGroup
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -17,6 +18,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.material.Text
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
@@ -277,6 +279,7 @@ fun LoginForm(
  ) {
      SesameEmailTextField(
          modifier = Modifier
+             .focusGroup()
              .fillMaxWidth()
              .wrapContentHeight()
              .semantics {
@@ -286,6 +289,7 @@ fun LoginForm(
          isEnabled = true,
          isError = false,
          rightIconRes = DSR.drawable.ic_clear,
+         keyboardActions = KeyboardActions.Default,
          onRightIconResClicked ={
              onEmailChanged("")
          },
@@ -293,6 +297,7 @@ fun LoginForm(
      )
      SesamePasswordTextField(
          modifier = Modifier
+             .focusGroup()
              .fillMaxWidth()
              .wrapContentHeight()
              .semantics {
@@ -301,6 +306,7 @@ fun LoginForm(
          password = password,
          label = stringResource(id = DSR.string.password_label) ,
          placeholder =stringResource(id = DSR.string.password_placeholder),
+         keyboardActions = KeyboardActions.Default,
          isEnabled = true,
          isError = false,
          onPasswordChanged = onPasswordChanged

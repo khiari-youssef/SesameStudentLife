@@ -2,18 +2,19 @@ package tn.sesame.users_management.ui.login
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import tn.sesame.spm.contracts.UseCaseContract
 import tn.sesame.spm.domain.entities.SesameLoginInterface
+import tn.sesame.spm.domain.entities.SesameUser
 import tn.sesame.spm.domain.exception.DomainErrorType
 import tn.sesame.spm.domain.exception.DomainException
-import tn.sesame.spm.domain.usecases.SesameUsersUsecase
+import tn.sesame.spm.domain.usecases.OBUserLoginUseCase
 
 class LoginViewModel(
-    private val sesameUsersUsecase: SesameUsersUsecase
+    private val oBUserLoginUseCase: UseCaseContract<SesameLoginInterface,SesameUser>
 ) : ViewModel() {
 
     private val loginResultMutableState : MutableStateFlow<LoginState> = MutableStateFlow(LoginState.Idle)
@@ -28,7 +29,7 @@ class LoginViewModel(
             viewModelScope.launch {
                 loginResultMutableState.value = LoginState.Loading
                 runCatching {
-                    return@runCatching sesameUsersUsecase.loginUser(
+                    return@runCatching oBUserLoginUseCase.execute(
                         SesameLoginInterface.SesameCredentialsLogin(
                             email = email.trim(),
                             password = password.trim()
@@ -50,8 +51,6 @@ class LoginViewModel(
         }
     }
 
-    fun checkIfAutoLoginIsEnabled() : Flow<Boolean> = sesameUsersUsecase
-        .checkIfAutoLoginIsEnabled()
 
     fun setLoginIdleState() {
         loginResultMutableState.update {

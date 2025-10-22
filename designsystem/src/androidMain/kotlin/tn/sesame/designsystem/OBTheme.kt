@@ -23,7 +23,7 @@ fun SesameTheme(
     val colors = if (darkTheme) {
         darkColorScheme(
             primary = RoseEbony,
-            secondary = PumpkinOrange,
+            secondary = BrickRed,
             tertiary = BlueHosta,
             surfaceVariant = Charcoal2,
             surface = Alabaster,
@@ -34,7 +34,7 @@ fun SesameTheme(
     } else {
         lightColorScheme(
             primary = RoseEbony,
-            secondary = PumpkinOrange,
+            secondary = BrickRed,
             tertiary = BlueHosta,
             surfaceVariant = AliceBlue,
             surface = Alabaster,
@@ -43,7 +43,7 @@ fun SesameTheme(
     }
     val typography = Typography(
         bodyMedium = TextStyle(
-            fontFamily = SesameFontFamilies.MainRegularFontFamily,
+            fontFamily = OBFontFamilies.MainRegularFontFamily,
             fontWeight = FontWeight.Normal,
             fontSize = 16.sp
         )

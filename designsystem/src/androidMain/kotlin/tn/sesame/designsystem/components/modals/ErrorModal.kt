@@ -22,7 +22,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import tn.sesame.designsystem.R
-import tn.sesame.designsystem.SesameFontFamilies
+import tn.sesame.designsystem.OBFontFamilies
 import tn.sesame.designsystem.onBackgroundShadedDarkMode
 import tn.sesame.designsystem.onBackgroundShadedLightMode
 
@@ -68,7 +68,7 @@ fun ErrorModal(
                   text = title,
                   style = TextStyle(
                       fontSize = 20.sp,
-                      fontFamily = SesameFontFamilies.MainBoldFontFamily,
+                      fontFamily = OBFontFamilies.MainBoldFontFamily,
                       fontWeight = FontWeight(700),
                       color = MaterialTheme.colorScheme.onBackground,
                       textAlign = TextAlign.Center
@@ -81,7 +81,7 @@ fun ErrorModal(
                   text = details,
                   style = TextStyle(
                       fontSize = 16.sp,
-                      fontFamily = SesameFontFamilies.MainMediumFontFamily,
+                      fontFamily = OBFontFamilies.MainMediumFontFamily,
                       fontWeight = FontWeight(500),
                       color = if (isSystemInDarkTheme()) onBackgroundShadedDarkMode else onBackgroundShadedLightMode,
                       textAlign = TextAlign.Center

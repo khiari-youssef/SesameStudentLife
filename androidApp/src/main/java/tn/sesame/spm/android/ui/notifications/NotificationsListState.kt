@@ -1,7 +1,7 @@
 package tn.sesame.spm.android.ui.notifications
 
 import androidx.compose.runtime.Stable
-import tn.sesame.spm.domain.entities.SesameProjectNotification
+import tn.sesame.spm.domain.entities.OBNotification
 
 
 
@@ -14,5 +14,5 @@ sealed interface NotificationsListState{
     data class Error(val code : Int) : NotificationsListState
 
     @Stable
-    data class Success(val notificationsList: List<SesameProjectNotification>,val isRefreshingMore : Boolean = false) : NotificationsListState
+    data class Success(val notificationsList: List<OBNotification>, val isRefreshingMore : Boolean = false) : NotificationsListState
 }

@@ -19,7 +19,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
-import tn.sesame.designsystem.SesameFontFamilies
+import tn.sesame.designsystem.OBFontFamilies
 import tn.sesame.projects_management.ui.projects.ProjectCollaboratorsPreviewListItem
 import tn.sesame.projects_management.ui.projects.ProjectCreationDate
 import tn.sesame.projects_management.ui.projects.ProjectDurationListItem
@@ -94,7 +94,7 @@ fun ProjectListItem(
                   text = sesameProject.type.toString(),
                   style = TextStyle(
                       fontSize = 14.sp,
-                      fontFamily = SesameFontFamilies.MainMediumFontFamily,
+                      fontFamily = OBFontFamilies.MainMediumFontFamily,
                       fontWeight = FontWeight(500),
                       color = MaterialTheme.colorScheme.secondary
                   ),
@@ -104,7 +104,7 @@ fun ProjectListItem(
                   text = sesameProject.description,
                   style = TextStyle(
                       fontSize = 13.sp,
-                      fontFamily = SesameFontFamilies.MainRegularFontFamily,
+                      fontFamily = OBFontFamilies.MainRegularFontFamily,
                       fontWeight = FontWeight(400),
                       color = MaterialTheme.colorScheme.onBackground,
                   ),

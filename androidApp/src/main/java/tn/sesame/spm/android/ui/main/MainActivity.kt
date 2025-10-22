@@ -47,12 +47,11 @@ class MainActivity : FragmentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background,
                 ) {
-                    MainActivityScreen(
+                    MainNavigation(
                         modifier = Modifier.fillMaxSize(),
-                        uiState = uiState,
-                        onCheckBiometricCapabilitiesStateRequest = {
-                            _viewModel.checkBiometricCapabilitiesState()
-                        }
+                        rootNavController = uiState.rootNavController,
+                        homeDestinations = uiState.homeDestinations,
+                        skipLogin = uiState.autoLoginState.value is LoginState.Success
                     )
                 }
             }

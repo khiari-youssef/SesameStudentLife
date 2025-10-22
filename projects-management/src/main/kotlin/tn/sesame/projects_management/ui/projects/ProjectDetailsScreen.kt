@@ -33,7 +33,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
-import tn.sesame.designsystem.SesameFontFamilies
+import tn.sesame.designsystem.OBFontFamilies
 import tn.sesame.designsystem.components.DetailsScreenTemplate
 import tn.sesame.designsystem.components.text.DateText
 import tn.sesame.designsystem.components.text.PlaceholderText
@@ -268,7 +268,7 @@ fun TechStackMatrix(
                 text = safeTitle,
                 style = TextStyle(
                     fontSize = 18.sp,
-                    fontFamily = SesameFontFamilies.MainMediumFontFamily,
+                    fontFamily = OBFontFamilies.MainMediumFontFamily,
                     fontWeight = FontWeight(500),
                     color = MaterialTheme.colorScheme.secondary,
                     textAlign = TextAlign.Start
@@ -310,7 +310,7 @@ fun TechStackMatrix(
                                 style = TextStyle(
                                     fontSize = 16.sp,
                                     lineHeight = 24.sp,
-                                    fontFamily = SesameFontFamilies.MainBoldFontFamily,
+                                    fontFamily = OBFontFamilies.MainBoldFontFamily,
                                     fontWeight = FontWeight(700),
                                     color = Color(0xFF284C8E),
                                     textAlign = TextAlign.Center,

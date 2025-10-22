@@ -87,58 +87,33 @@ internal class UsersLocalDAO(
         }
     }
 
-    suspend fun getLoggedInUserProfile(emailParam: String, roleIDParam: String): SesameUser? {
+    suspend fun getUserProfileByID(id: String): SesameUser? {
         return sesameWorksLifeDatabase.sesameWorksDatabaseQueries.run {
             transactionWithResult {
-                return@transactionWithResult when (roleIDParam) {
-                    "teacher_role" ->
-                        selectTeacherProfileByEmail(emailParam).executeAsOneOrNull()?.run {
-                            SesameTeacher(
-                                registrationID = registrationID,
-                                lastName = lastName ?: "",
-                                firstName = firstName,
-                                email = email,
-                                sex = sex.toEnumSex(),
-                                profilePicture = profile_picture_uri ?: "",
-                                portfolioId = portfolio_id,
-                                assignedClasses = assignedClassesID?.toSesameClasses()
-                                    ?.filterNotNull() ?: throw NoSuchElementException(),
-                                profBackground = profBackground ?: "",
-                                role = SesameRole.getDefaultRoleForID(roleIDParam)
-                            )
-                        } ?: rollback(null)
-
-                    "student_role" ->
-                        selectStudentProfileByEmail(emailParam).executeAsOneOrNull()?.run {
-                            SesameStudent(
-                                registrationID = registrationID,
-                                lastName = lastName ?: "",
-                                firstName = firstName,
-                                email = email,
-                                sex = sex.toEnumSex(),
-                                profilePicture = profile_picture_uri ?: "",
-                                portfolioId = portfolio_id,
-                                job = job,
-                                sesameClass = sesameClass?.toSesameClass()
-                                    ?: throw IllegalStateException(),
-                                role = SesameRole.getDefaultRoleForID(roleIDParam)
-                            )
-                        } ?: rollback(null)
-
-                    else -> rollback(null)
-                }
+                selectTeacherProfileByEmail(id).executeAsOneOrNull()?.run {
+                    SesameTeacher(
+                        registrationID = registrationID,
+                        lastName = lastName ?: "",
+                        firstName = firstName,
+                        email = email,
+                        sex = sex.toEnumSex(),
+                        profilePicture = profile_picture_uri ?: "",
+                        portfolioId = portfolio_id,
+                        assignedClasses = assignedClassesID?.toSesameClasses()
+                            ?.filterNotNull() ?: throw NoSuchElementException(),
+                        profBackground = profBackground ?: ""
+                    )
+                } ?: rollback(null)
             }
         }
     }
 
 
-suspend fun deleteUsers() {
-    withContext(Dispatchers.IO){
+suspend fun deleteUsers() : Boolean{
+   return withContext(Dispatchers.IO){
         sesameWorksLifeDatabase.sesameWorksDatabaseQueries.run {
-            transaction {
-                deleteLoginData()
-                deleteTeachers()
-                deleteStudents()
+           return@run transactionWithResult {
+                deleteLoginData() > 0
             }
         }
     }

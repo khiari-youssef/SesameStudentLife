@@ -34,12 +34,7 @@ fun MainActivity.MainActivityScreen(
                         }
                 )
             } else {
-                MainNavigation(
-                    modifier = modifier,
-                    rootNavController = uiState.rootNavController,
-                    homeDestinations = uiState.homeDestinations,
-                    skipLogin = uiState.autoLoginState.value is LoginState.Success
-                )
+
             }
         },
         onQuitApp = {

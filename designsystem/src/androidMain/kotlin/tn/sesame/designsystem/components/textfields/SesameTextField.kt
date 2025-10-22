@@ -18,7 +18,7 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
 import tn.sesame.designsystem.LightGreyBlue
-import tn.sesame.designsystem.SesameFontFamilies
+import tn.sesame.designsystem.OBFontFamilies
 import tn.sesame.designsystem.components.text.PlaceholderText
 import tn.sesame.designsystem.onBackgroundShadedDarkMode
 import tn.sesame.designsystem.onBackgroundShadedLightMode
@@ -46,7 +46,7 @@ fun SesameTextField(
         textStyle = TextStyle(
             fontSize = 14.sp,
             fontStyle = FontStyle.Normal,
-            fontFamily = SesameFontFamilies.MainRegularFontFamily,
+            fontFamily = OBFontFamilies.MainRegularFontFamily,
             letterSpacing = 1.sp,
             lineHeight = 24.sp
         ),
@@ -57,7 +57,7 @@ fun SesameTextField(
                 text = label,
                 style = TextStyle(
                     fontSize = 14.sp,
-                    fontFamily = SesameFontFamilies.MainMediumFontFamily,
+                    fontFamily = OBFontFamilies.MainMediumFontFamily,
                     textAlign = TextAlign.Start
                 )
             )
