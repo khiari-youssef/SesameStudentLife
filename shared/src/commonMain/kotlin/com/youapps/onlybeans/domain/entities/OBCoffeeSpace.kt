@@ -16,9 +16,7 @@ class OBHomeCoffeeBar(
     userEmail : String,
     description : String,
     gallery : List<String>
-) : OBCoffeeSpace(spaceId, userEmail, description, gallery) {
-
-}
+) : OBCoffeeSpace(spaceId, userEmail, description, gallery)
 
 class OBCoffeeShop(
 
