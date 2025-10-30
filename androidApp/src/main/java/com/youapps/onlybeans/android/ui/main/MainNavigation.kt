@@ -191,16 +191,14 @@ fun MainActivity.MainNavigation(
                 val viewModel : SettingsViewModel = koinViewModel()
                 val uiState = AppSettingsStateHolder
                     .rememberAppSettingsState(
-                        isAutoLoginEnabled =viewModel.getAutoLoginEnabled().collectAsStateWithLifecycle(
-                            initialValue = false
-                        )
+                        isAutoLoginEnabled = remember {  mutableStateOf(false) }
                     )
                 SettingsScreen(
                     modifier = Modifier
                         .fillMaxSize(),
                     uiState = uiState,
                     onItemSelectedStateChanged ={
-                        viewModel.setAutoLoginEnabled(it)
+
                     },
                     onBackPressed = {
                         rootNavController.navigateBack()

@@ -5,7 +5,7 @@ import kotlinx.datetime.LocalTime
 import kotlinx.datetime.number
 
 fun LocalDate.formatDMY() : String {
-    val displayDay = if (dayOfMonth > 9) "$dayOfMonth" else "0$dayOfMonth"
+    val displayDay = if (day > 9) "$day" else "0$day"
     val displayMonth = if (month.number > 9) "${month.number}" else "0${month.number}"
     return "$displayDay/$displayMonth/$year"
 }
