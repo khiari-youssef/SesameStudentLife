@@ -1,13 +1,14 @@
 package com.youapps.onlybeans.di
 
-import com.youapps.onlybeans.data.repositories.users.UsersRepository
-import com.youapps.onlybeans.data.repositories.users.UsersRepositoryInterface
+import com.youapps.onlybeans.data.repositories.users.OBUsersRepository
+import com.youapps.onlybeans.data.repositories.users.OBUsersRepositoryInterface
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
- val UsersRepositoryTag = named("UsersRepository")
+
+ val UsersRepositoryTag = named("OBUsersRepository")
 val repositoriesModule = module {
     includes(dataSourcesModule)
-    factory<UsersRepositoryInterface>(UsersRepositoryTag) {
-        UsersRepository(get(), get(), get())
+    factory<OBUsersRepositoryInterface>(UsersRepositoryTag) {
+        OBUsersRepository(get(), get(), get())
     }
 }

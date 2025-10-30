@@ -1,6 +1,5 @@
 package com.youapps.onlybeans.data.dataSources
 
-import com.youapps.onlybeans.OnlyBeansDatabase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
 import kotlinx.coroutines.withContext
@@ -11,11 +10,12 @@ import com.youapps.onlybeans.domain.entities.SesameStudent
 import com.youapps.onlybeans.domain.entities.SesameTeacher
 import com.youapps.onlybeans.domain.entities.SesameUser
 import com.youapps.onlybeans.domain.entities.SesameUserAccount
+import com.youapps.onlybeans.OnlyBeansDatabase
 import tn.sesame.spmdatabase.SesameLogin
 
 
 internal class UsersLocalDAO(
-    private val sesameWorksLifeDatabase : OnlyBeansDatabase
+    private val onlyBeansDatabase : OnlyBeansDatabase
 ) {
 
 
@@ -23,8 +23,7 @@ internal class UsersLocalDAO(
         sesameAuthToken: String,
         sesameUser: SesameUser
     ): Boolean = withContext(Dispatchers.IO) {
-        sesameWorksLifeDatabase.sesameWorksDatabaseQueries
-            .run {
+        onlyBeansDatabase.sesameWorksDatabaseQueries.run {
                 transactionWithResult {
                     try {
                         insertNewLogin(
@@ -70,11 +69,11 @@ internal class UsersLocalDAO(
     }
 
     suspend fun getLastUsedLogin(): SesameLogin? = withContext(Dispatchers.IO) {
-        sesameWorksLifeDatabase.sesameWorksDatabaseQueries.selecteSavedLogin().executeAsOneOrNull()
+        onlyBeansDatabase.sesameWorksDatabaseQueries.selecteSavedLogin().executeAsOneOrNull()
     }
 
     suspend fun getLoggedInUserAccount(): SesameUserAccount {
-        return sesameWorksLifeDatabase.sesameWorksDatabaseQueries.run {
+        return onlyBeansDatabase.sesameWorksDatabaseQueries.run {
             selecteSavedLogin().executeAsOneOrNull()?.let { savedLogin ->
                 SesameUserAccount(
                     email = savedLogin.email,
@@ -86,7 +85,7 @@ internal class UsersLocalDAO(
     }
 
     suspend fun getUserProfileByID(id: String): SesameUser? {
-        return sesameWorksLifeDatabase.sesameWorksDatabaseQueries.run {
+        return onlyBeansDatabase.sesameWorksDatabaseQueries.run {
             transactionWithResult {
                 selectTeacherProfileByEmail(id).executeAsOneOrNull()?.run {
                     SesameTeacher(
@@ -109,7 +108,7 @@ internal class UsersLocalDAO(
 
 suspend fun deleteUsers() : Boolean{
    return withContext(Dispatchers.IO){
-        sesameWorksLifeDatabase.sesameWorksDatabaseQueries.run {
+        onlyBeansDatabase.sesameWorksDatabaseQueries.run {
            return@run transactionWithResult {
                 deleteLoginData() > 0
             }

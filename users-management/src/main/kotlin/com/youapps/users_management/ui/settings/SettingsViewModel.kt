@@ -7,11 +7,11 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
-import com.youapps.onlybeans.data.repositories.users.UsersRepositoryInterface
+import com.youapps.onlybeans.data.repositories.users.OBUsersRepositoryInterface
 
 
 class SettingsViewModel(
-    private val repositoryInterface: UsersRepositoryInterface
+    private val repositoryInterface: OBUsersRepositoryInterface
 ) : ViewModel() {
 
     fun setAutoLoginEnabled(isEnabled : Boolean){

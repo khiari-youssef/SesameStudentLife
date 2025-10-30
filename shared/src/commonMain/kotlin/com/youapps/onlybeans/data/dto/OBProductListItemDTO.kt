@@ -5,7 +5,7 @@ import kotlinx.serialization.Serializable
 
 
 @Serializable
-data class OBProductListItemDTO(
+internal data class OBProductListItemDTO(
     @SerialName("productID")  val productID : String,
     @SerialName("productName") val productName : String,
     @SerialName("productImagePreview") val productImagePreview : String,

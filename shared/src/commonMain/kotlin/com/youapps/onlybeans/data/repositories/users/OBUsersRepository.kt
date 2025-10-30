@@ -4,16 +4,15 @@ import com.youapps.onlybeans.data.dataSources.UsersLocalDAO
 import com.youapps.onlybeans.data.dataSources.UsersRemoteDAO
 import com.youapps.onlybeans.data.toDomainModel
 import com.youapps.onlybeans.domain.entities.SesameUser
-import kotlinx.coroutines.flow.Flow
 import com.youapps.onlybeans.data.dataSources.UserPreferencesStore
 import com.youapps.onlybeans.domain.entities.SesameUserAccount
 
 
-internal class UsersRepository(
+internal class OBUsersRepository(
     private val usersLocalDAO: UsersLocalDAO,
     private val usersRemoteDAO: UsersRemoteDAO,
     private val userPreferencesStore: UserPreferencesStore
-) : UsersRepositoryInterface {
+) : OBUsersRepositoryInterface {
 
     override suspend fun loginWithEmailAndPassword(email: String, password: String): SesameUser {
         return toDomainAuthenticationError(withCredentials = true) {
@@ -37,20 +36,15 @@ internal class UsersRepository(
         }
     }
 
-    override fun isAutoLoginEnabled(): Flow<Boolean?> = userPreferencesStore.isAutoLoginEnabled()
 
-    override suspend fun setAutoLoginEnabled(isEnabled: Boolean) {
-        userPreferencesStore.setAutoLoginEnabled(isEnabled)
-    }
-
-    override suspend fun getLastUsedLogin(): String? =
+    override suspend fun getActiveUserSession(): String? =
         usersLocalDAO.getLastUsedLogin()?.token
 
     override suspend fun clearUsersFromLocalStorage() : Boolean {
         return usersLocalDAO.deleteUsers()
     }
 
-    override suspend fun getMyProfile(
+    override suspend fun getUserProfileByID(
         id: String
     ): SesameUser? = runCatching {
         usersLocalDAO.getUserProfileByID(id)

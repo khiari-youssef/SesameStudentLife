@@ -7,17 +7,17 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import com.youapps.onlybeans.contracts.UseCaseContract
 import com.youapps.onlybeans.contracts.UseCaseContractReadOnly
-import com.youapps.onlybeans.data.repositories.users.UsersRepositoryInterface
+import com.youapps.onlybeans.data.repositories.users.OBUsersRepositoryInterface
 import com.youapps.onlybeans.domain.entities.SesameUser
 
 class MyProfileViewModel(
     private val oBUserGetProfileUseCase: UseCaseContract<String,SesameUser?>,
-    private val usersRepositoryInterface: UsersRepositoryInterface,
+    private val OBUsersRepositoryInterface: OBUsersRepositoryInterface,
     private val obUserLogoutUseCase: UseCaseContractReadOnly<Boolean>
 ) : ViewModel() {
 
   fun getMyProfile() : Flow<SesameUser?> = flow{
-      val userAccount = usersRepositoryInterface.getLoggedInUserAccount()
+      val userAccount = OBUsersRepositoryInterface.getLoggedInUserAccount()
       userAccount?.run {
           val profile = oBUserGetProfileUseCase.execute(userAccount.email)
           emit(profile)

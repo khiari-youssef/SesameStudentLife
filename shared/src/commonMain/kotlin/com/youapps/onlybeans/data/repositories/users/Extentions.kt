@@ -5,7 +5,7 @@ import com.youapps.onlybeans.data.exceptions.HttpErrorType
 import com.youapps.onlybeans.domain.exception.DomainErrorType
 import com.youapps.onlybeans.domain.exception.DomainException
 
- internal suspend fun  <T> UsersRepositoryInterface.toDomainAuthenticationError(withCredentials : Boolean = true,authOperation : suspend ()->T) : T{
+ internal suspend fun  <T> OBUsersRepositoryInterface.toDomainAuthenticationError(withCredentials : Boolean = true, authOperation : suspend ()->T) : T{
     return try {
         authOperation()
     } catch (th : Throwable){

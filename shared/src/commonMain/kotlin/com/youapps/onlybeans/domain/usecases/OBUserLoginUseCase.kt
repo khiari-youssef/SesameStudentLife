@@ -1,13 +1,13 @@
 package com.youapps.onlybeans.domain.usecases
 
-import com.youapps.onlybeans.data.repositories.users.UsersRepositoryInterface
+import com.youapps.onlybeans.data.repositories.users.OBUsersRepositoryInterface
 import com.youapps.onlybeans.domain.entities.SesameLoginInterface
 import com.youapps.onlybeans.domain.entities.SesameUser
 import com.youapps.onlybeans.contracts.UseCaseContract
 
 
 class OBUserLoginUseCase(
-    private val usersRepository : UsersRepositoryInterface
+    private val usersRepository : OBUsersRepositoryInterface
 ) : UseCaseContract<SesameLoginInterface, SesameUser> {
 
 
