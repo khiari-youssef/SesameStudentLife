@@ -274,7 +274,7 @@ internal class PlaygroundActivity : ComponentActivity() {
                                                 text = qrCodePayload.value ?: "",
                                                 color = MaterialTheme.colorScheme.primary
                                             )
-                                            SesameButton(text ="Scan again" , variant = SesameButtonVariants.`ContainedSecondary*`) {
+                                            SesameButton(text ="Scan again" , variant = SesameButtonVariants.ContainedSecondary) {
                                                 qrCodePayload.value = null
                                             }
                                         }
@@ -299,7 +299,7 @@ internal class PlaygroundActivity : ComponentActivity() {
                                             text = "Camera permission not granted",
                                             color = Color.White
                                         )
-                                        SesameButton(text ="Grant camera permission" , variant = SesameButtonVariants.`ContainedSecondary*`) {
+                                        SesameButton(text ="Grant camera permission" , variant = SesameButtonVariants.ContainedSecondary) {
                                             cameraPermissionLauncher.launch(cameraPermission)
                                         }
                                     }
@@ -313,7 +313,7 @@ internal class PlaygroundActivity : ComponentActivity() {
                                 modifier = Modifier.fillMaxSize(),
                                contentAlignment = Alignment.Center
                             ) {
-                                SesameButton(text ="Schedule alarm 1 min from now" , variant = SesameButtonVariants.`ContainedSecondary*`) {
+                                SesameButton(text ="Schedule alarm 1 min from now" , variant = SesameButtonVariants.ContainedSecondary) {
 
                                     val time : Calendar = Calendar.getInstance().apply {
                                         timeInMillis = System.currentTimeMillis()
@@ -369,14 +369,14 @@ internal class PlaygroundActivity : ComponentActivity() {
                                     onValueChange = {
                                         description.value = it
                                     })
-                                SesameButton(text ="Show notification" , variant = SesameButtonVariants.`ContainedSecondary*`) {
+                                SesameButton(text ="Show notification" , variant = SesameButtonVariants.ContainedSecondary) {
                                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU){
                                         if (localContext.checkSelfPermission(Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED){
                                             notificationManager.showNotification(
                                                 SesameNotification(
                                                     title = title.value,
                                                     shortDescription = description.value,
-                                                    smallIcon = com.youapps.designsystem.R.drawable.brand_logo
+                                                    smallIcon = com.youapps.designsystem.R.drawable.app_title_logo
                                                 ),
                                                 Intent(localContext,PlaygroundActivity::class.java)
                                             )
@@ -388,7 +388,7 @@ internal class PlaygroundActivity : ComponentActivity() {
                                             SesameNotification(
                                                 title = title.value,
                                                 shortDescription = description.value,
-                                                smallIcon = com.youapps.designsystem.R.drawable.brand_logo
+                                                smallIcon = com.youapps.designsystem.R.drawable.app_title_logo
                                             ),
                                             Intent(localContext,PlaygroundActivity::class.java)
                                         )
