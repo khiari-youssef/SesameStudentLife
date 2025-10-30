@@ -33,7 +33,7 @@ class CustomAlarmReceiver : BroadcastReceiver() {
                             title = title,
                             shortDescription = description,
                             longDescription = description,
-                            smallIcon = R.drawable.brand_logo
+                            smallIcon = R.drawable.app_title_logo
                         ),
                         Intent(context, PlaygroundActivity::class.java)
                     )
@@ -45,7 +45,7 @@ class CustomAlarmReceiver : BroadcastReceiver() {
                     SesameNotification(
                         title = title,
                         shortDescription = description,
-                        smallIcon = R.drawable.brand_logo
+                        smallIcon = R.drawable.app_title_logo
                     ),
                     Intent(context, PlaygroundActivity::class.java)
                 )
