@@ -4,7 +4,7 @@ plugins {
 }
 
 android.run {
-    namespace = "tn.sesame.users_management"
+    namespace = "com.youapps.users_management"
     defaultConfig.setConsumerProguardFiles(
        listOf("consumer-rules.pro")
     )

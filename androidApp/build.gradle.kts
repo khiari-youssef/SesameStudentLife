@@ -6,8 +6,8 @@ plugins {
 
 
 android.run {
-    namespace = "tn.sesame.spm.android"
-    defaultConfig.applicationId = "tn.sesame.spm.android"
+    namespace = "com.youapps.onlybeans.android"
+    defaultConfig.applicationId = "com.youapps.onlybeans.android"
     defaultConfig.proguardFile("proguard-rules.pro")
 
 }

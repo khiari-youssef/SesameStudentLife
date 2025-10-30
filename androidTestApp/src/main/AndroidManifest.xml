@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <application android:name="tn.sesame.spm.test.configuration.TestApplication"
+    <application android:name="com.youapps.spm.test.configuration.TestApplication"
         android:icon="@mipmap/ic_launcher">
-        <activity android:name="tn.sesame.spm.android.ui.main.MainActivity"
+        <activity android:name="com.youapps.spm.android.ui.main.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

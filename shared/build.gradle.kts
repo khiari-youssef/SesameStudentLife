@@ -53,14 +53,14 @@ kotlin {
             implementation(libs.jetpack.viewmodel.core)
         }
         iosMain.dependencies {
-            implementation("co.touchlab:stately-common:2.0.6")
+            implementation("co.touchlab:stately-common:2.1.0")
             implementation(libs.sqldelight.driver.native)
         }
     }
 }
 
 android {
-    namespace = "tn.sesame.spm"
+    namespace = "com.youapps.onlybeans"
     compileSdk = 34
     defaultConfig {
         minSdk = 26
@@ -79,8 +79,8 @@ android {
 
 sqldelight {
     databases {
-        create("SesameWorksLifeDatabase") {
-            packageName.set("tn.sesame.spmdatabase")
+        create("OnlyBeansDatabase") {
+            packageName.set("com.youapps.onlybeans")
             generateAsync.set(true)
         }
     }

@@ -37,7 +37,7 @@ kotlin {
 }
 
 android {
-    namespace = "tn.sesame.designsystem"
+    namespace = "com.youapps.designsystem"
     compileSdk = 34
     defaultConfig {
         minSdk = 26

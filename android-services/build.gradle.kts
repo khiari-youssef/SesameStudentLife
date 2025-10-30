@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "tn.sesame.android_services"
+    namespace = "com.youapps.android_services"
     defaultConfig.applicationId = "tn.sesame.android_services"
     defaultConfig.proguardFile("proguard-rules.pro")
     compileOptions {
@@ -21,7 +21,7 @@ dependencies {
     api(projects.designsystem)
     implementation(projects.designsystem)
     implementation(projects.usersManagement)
-    implementation(projects.projectsManagement)
+    implementation(projects.searchModule)
     implementation(libs.bundles.composelibs)
     implementation(libs.kotlinx.datetime)
     implementation(libs.kotlin.coroutines)
