@@ -1,7 +1,8 @@
-package com.youapps.spm.domain.entities
+package com.youapps.onlybeans.domain.entities
 
-import com.youapps.spm.domain.formatDMY
-import com.youapps.spm.domain.formatHHMM
+
+import com.youapps.onlybeans.domain.formatDMY
+import com.youapps.onlybeans.domain.formatHHMM
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalTime
 import kotlinx.datetime.Month
