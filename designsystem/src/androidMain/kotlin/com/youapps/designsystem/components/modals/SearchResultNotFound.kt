@@ -17,8 +17,8 @@ import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.animateLottieCompositionAsState
 import com.airbnb.lottie.compose.rememberLottieComposition
-import com.youapps.designsystem.R
 import com.youapps.designsystem.OBFontFamilies
+import com.youapps.designsystem.R
 
 @Composable
 fun SearchResultNotFound(

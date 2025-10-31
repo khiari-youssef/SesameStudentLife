@@ -11,7 +11,7 @@
     <string name="confirm">Confirm</string>
     <string name="cancel">Cancel</string>
     <string name="email_address_label">Email address</string>
-    <string name="email_address_placeholder" translatable="false">sesameuser@sesame.com.tn</string>
+    <string name="email_address_placeholder" translatable="false">user@xxx.xx</string>
     <string name="password_label">Password</string>
     <string name="password_placeholder">Your password…</string>
     <string name="login">Login</string>

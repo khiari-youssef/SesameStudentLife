@@ -1,4 +1,4 @@
-package com.youapps.onlybeans.domain.entities
+package com.youapps.onlybeans.domain.entities.products
 
 
 abstract  class OBCoffeeSpace(

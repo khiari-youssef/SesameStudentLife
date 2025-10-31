@@ -42,6 +42,7 @@ appcompat = "1.6.1"
 material = "1.11.0"
 minSdk = "26"
 compileSdk ="36"
+statelyCommon = "2.1.0"
 targetSdk = "34"
 androidx-appcompat-appcompat = "1.7.1"
 com-google-android-material-material = "1.13.0"
@@ -120,6 +121,7 @@ material = { group = "com.google.android.material", name = "material", version.r
 firebase-bom={module="com.google.firebase:firebase-bom",version.ref="firebase-bom"}
 lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycle-runtime-ktx" }
 compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "compose-bom" }
+stately-common = { module = "co.touchlab:stately-common", version.ref = "statelyCommon" }
 ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
 
 [bundles]

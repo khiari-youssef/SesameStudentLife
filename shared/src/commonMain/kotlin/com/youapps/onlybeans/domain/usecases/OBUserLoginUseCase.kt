@@ -1,21 +1,21 @@
 package com.youapps.onlybeans.domain.usecases
 
-import com.youapps.onlybeans.data.repositories.users.OBUsersRepositoryInterface
-import com.youapps.onlybeans.domain.entities.SesameLoginInterface
-import com.youapps.onlybeans.domain.entities.SesameUser
 import com.youapps.onlybeans.contracts.UseCaseContract
+import com.youapps.onlybeans.data.repositories.users.OBUsersRepositoryInterface
+import com.youapps.onlybeans.domain.entities.users.OBUserProfile
+import com.youapps.onlybeans.domain.valueobjects.OBAuthInterface
 
 
 class OBUserLoginUseCase(
     private val usersRepository : OBUsersRepositoryInterface
-) : UseCaseContract<SesameLoginInterface, SesameUser> {
+) : UseCaseContract<OBAuthInterface, OBUserProfile> {
 
 
-    override suspend fun execute(input: SesameLoginInterface): SesameUser = when(input){
-        is SesameLoginInterface.SesameTokenLogin -> {
+    override suspend fun execute(input: OBAuthInterface): OBUserProfile = when(input){
+        is OBAuthInterface.OBTokenLogin -> {
             usersRepository.loginWithToken(input.value)
         }
-        is SesameLoginInterface.SesameCredentialsLogin -> {
+        is OBAuthInterface.OBCredentialsLogin -> {
             usersRepository.loginWithEmailAndPassword(
                 email = input.email,
                 password = input.password

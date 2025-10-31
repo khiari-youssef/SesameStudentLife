@@ -2,12 +2,12 @@ package com.youapps.spm.test.di
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
+import com.youapps.spm.security.BiometricLauncherService
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.flow
 import org.koin.dsl.module
-import com.youapps.spm.security.BiometricLauncherService
 import javax.crypto.SecretKey
 
 val testModule = module {

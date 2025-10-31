@@ -1,4 +1,9 @@
 package com.youapps.onlybeans.data.dto
+import com.youapps.onlybeans.domain.entities.products.OBCoffeeCompany
+import com.youapps.onlybeans.domain.entities.products.OBCoffeeFarm
+import com.youapps.onlybeans.domain.entities.products.OBCoffeeShop
+import com.youapps.onlybeans.domain.entities.products.OBCoffeeSpace
+import com.youapps.onlybeans.domain.entities.products.OBHomeCoffeeBar
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
@@ -8,12 +13,21 @@ import kotlinx.serialization.descriptors.PrimitiveSerialDescriptor
 import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
+import kotlinx.serialization.json.Json
 
 
 internal data class CoffeeSpace(
     val id: String,
     val data : Any
-)
+) {
+    fun toDomainModel() : OBCoffeeSpace = when(data) {
+        is OBHomeCoffeeBarDTO -> data.toDomainModel()
+        is OBCoffeeShopDTO -> data.toDomainModel()
+        is OBCoffeeCompanyDTO -> data.toDomainModel()
+        is OBCoffeeFarmDTO -> data.toDomainModel()
+        else -> throw IllegalStateException("no mapping found")
+    }
+}
 
 internal const val OBHomeCoffeeBarID : String = "ob_home_coffee_bar"
 internal const val OBCoffeeShopID : String = "ob_coffee_shop"
@@ -54,7 +68,9 @@ internal  class  CoffeeSpaceSerialize() : KSerializer<CoffeeSpace> {
     }
 
     override fun deserialize(decoder: Decoder): CoffeeSpace {
-        TODO("Not yet implemented")
+       val decodedString = decoder.decodeString()
+        val coffeeSpace : CoffeeSpace= Json.decodeFromString<CoffeeSpace>(decodedString)
+        return coffeeSpace
     }
 
 
@@ -68,7 +84,19 @@ internal data class OBHomeCoffeeBarDTO(
     @SerialName("gallery") val gallery : List<String>,
     @SerialName("coffeeGear")  val coffeeGear : List<OBProductListItemDTO>,
     @SerialName("coffeeBeans")  val coffeeBeans : List<OBProductListItemDTO>
-)
+){
+    fun toDomainModel() : OBHomeCoffeeBar {
+        return OBHomeCoffeeBar(
+            spaceId = this.spaceId,
+            userEmail = this.userEmail,
+            description = this.description,
+            gallery = this.gallery,
+            coffeeGear = this.coffeeGear.map { it.toDomain() },
+            coffeeBeans = this.coffeeBeans.map { it.toDomain() }
+        )
+    }
+
+}
 
 
 @Serializable
@@ -77,7 +105,15 @@ internal data class OBCoffeeShopDTO(
     @SerialName("userEmail") val userEmail : String,
     @SerialName("description") val description : String,
     @SerialName("gallery") val gallery : List<String>
-)
+) {
+    fun toDomainModel() : OBCoffeeShop = OBCoffeeShop(
+        spaceId = this.spaceId,
+        userEmail = this.userEmail,
+        description = this.description,
+        gallery = this.gallery
+    )
+
+}
 
 @Serializable
 internal data class OBCoffeeCompanyDTO(
@@ -85,7 +121,14 @@ internal data class OBCoffeeCompanyDTO(
     @SerialName("userEmail") val userEmail : String,
     @SerialName("description") val description : String,
     @SerialName("gallery") val gallery : List<String>
-)
+) {
+    fun toDomainModel() : OBCoffeeCompany = OBCoffeeCompany(
+        spaceId = this.spaceId,
+        userEmail = this.userEmail,
+        description = this.description,
+        gallery = this.gallery
+    )
+}
 
 @Serializable
 internal data class OBCoffeeFarmDTO(
@@ -93,4 +136,11 @@ internal data class OBCoffeeFarmDTO(
     @SerialName("userEmail") val userEmail : String,
     @SerialName("description") val description : String,
     @SerialName("gallery") val gallery : List<String>
-)
+) {
+    fun toDomainModel() : OBCoffeeFarm = OBCoffeeFarm(
+        spaceId = this.spaceId,
+        userEmail = this.userEmail,
+        description = this.description,
+        gallery = this.gallery
+    )
+}

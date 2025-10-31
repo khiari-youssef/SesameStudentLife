@@ -1,10 +1,8 @@
-package com.youapps.onlybeans.domain.entities
-
+package com.youapps.onlybeans.domain.entities.users
 
 class OBUserAccount(
     val id : String,
     val email : String,
-    val password : String,
     val phone : String,
     val userProfile : OBUserProfile
 )

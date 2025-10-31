@@ -2,18 +2,18 @@ package com.youapps.users_management.ui.login
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.youapps.onlybeans.contracts.UseCaseContract
+import com.youapps.onlybeans.domain.entities.users.OBUserProfile
+import com.youapps.onlybeans.domain.exception.DomainErrorType
+import com.youapps.onlybeans.domain.exception.DomainException
+import com.youapps.onlybeans.domain.valueobjects.OBAuthInterface
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import com.youapps.onlybeans.contracts.UseCaseContract
-import com.youapps.onlybeans.domain.entities.SesameLoginInterface
-import com.youapps.onlybeans.domain.entities.SesameUser
-import com.youapps.onlybeans.domain.exception.DomainErrorType
-import com.youapps.onlybeans.domain.exception.DomainException
 
 class LoginViewModel(
-    private val oBUserLoginUseCase: UseCaseContract<SesameLoginInterface,SesameUser>
+    private val oBUserLoginUseCase: UseCaseContract<OBAuthInterface,OBUserProfile>
 ) : ViewModel() {
 
     private val loginResultMutableState : MutableStateFlow<LoginState> = MutableStateFlow(LoginState.Idle)
@@ -29,7 +29,7 @@ class LoginViewModel(
                 loginResultMutableState.value = LoginState.Loading
                 runCatching {
                     return@runCatching oBUserLoginUseCase.execute(
-                        SesameLoginInterface.SesameCredentialsLogin(
+                        OBAuthInterface.OBCredentialsLogin(
                             email = email.trim(),
                             password = password.trim()
                         )
@@ -41,9 +41,9 @@ class LoginViewModel(
                             errorType = if (th is DomainException) th.errorType else DomainErrorType.Undefined
                         )
                     }
-                }.onSuccess { sesameUser->
+                }.onSuccess { obUser->
                     loginResultMutableState.update {
-                        LoginState.Success(sesameUser)
+                        LoginState.Success(obUser)
                     }
                 }
             }

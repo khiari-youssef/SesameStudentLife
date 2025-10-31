@@ -1,8 +1,8 @@
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
 import androidx.compose.ui.res.stringResource
-import com.youapps.onlybeans.security.SupportedDeviceAuthenticationMethods
 import com.youapps.onlybeans.android.R
+import com.youapps.onlybeans.security.SupportedDeviceAuthenticationMethods
 
 @Stable
 @JvmInline

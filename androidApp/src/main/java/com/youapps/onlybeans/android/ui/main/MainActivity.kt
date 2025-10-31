@@ -11,11 +11,11 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.compose.rememberNavController
+import com.youapps.designsystem.OBTheme
+import com.youapps.designsystem.components.bars.OBBottomNavigationBarDefaults
+import com.youapps.users_management.ui.login.LoginState
 import kotlinx.coroutines.flow.map
 import org.koin.androidx.viewmodel.ext.android.getViewModel
-import com.youapps.designsystem.SesameTheme
-import com.youapps.designsystem.components.bars.SesameBottomNavigationBarDefaults
-import com.youapps.users_management.ui.login.LoginState
 
 class MainActivity : FragmentActivity() {
 
@@ -24,23 +24,23 @@ class MainActivity : FragmentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _viewModel = getViewModel()
-        installSplashScreen()
+        installSplashScreen().setKeepOnScreenCondition {
+            _viewModel.autoLoginState.value == LoginState.Loading
+        }
         setContent {
+            val autoLoginState = _viewModel.autoLoginState.collectAsStateWithLifecycle()
 
             val uiState = MainActivityStateHolder
                 .rememberMainActivityState(
                     biometricSupportState = _viewModel.biometricCapabilitiesState
                         .collectAsStateWithLifecycle(),
-                    autoLoginState = _viewModel.autoLoginState.collectAsStateWithLifecycle(
-                        initialValue = LoginState.Loading
-                    ),
                     rootNavController =rememberNavController() ,
                     homeDestinations = _viewModel.navigationBarState.map {
-                        SesameBottomNavigationBarDefaults(it)
-                    }.collectAsState(SesameBottomNavigationBarDefaults.DEFAULT)
+                        OBBottomNavigationBarDefaults(it)
+                    }.collectAsState(OBBottomNavigationBarDefaults.DEFAULT)
                 )
 
-            SesameTheme {
+            OBTheme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background,
@@ -49,7 +49,7 @@ class MainActivity : FragmentActivity() {
                         modifier = Modifier.fillMaxSize(),
                         rootNavController = uiState.rootNavController,
                         homeDestinations = uiState.homeDestinations,
-                        skipLogin = uiState.autoLoginState.value is LoginState.Success
+                        skipLogin = autoLoginState.value is LoginState.Success
                     )
                 }
             }

@@ -1,0 +1,44 @@
+import kotlin.ULong;
+
+
+CREATE TABLE OBUser(
+email Text PRIMARY KEY,
+firstName Text NOT NULL,
+lastName Text,
+phone Text,
+sex Text ,
+status Text NOT NULL,
+nationality Text,
+address Text NOT NULL,
+profileDescription TEXT NOT NULL ,
+profilePicture Text NOT NULL
+);
+
+CREATE TABLE OBUserProfileOverView(
+id Text PRIMARY KEY,
+fullName Text NOT NULL,
+status Text NOT NULL,
+profilePicture Text NOT NULL
+);
+
+
+
+insertOBUser:
+INSERT OR REPLACE INTO OBUser VALUES(?,?,?,?,?,?,?,?,?,?);
+
+
+selectCurrentUserProfile:
+SELECT * FROM OBUser WHERE OBUser.email = ? LIMIT 1;
+
+
+insertOBUserProfileOverView:
+INSERT OR REPLACE INTO OBUserProfileOverView VALUES(?,?,?,?);
+
+selectinsertOBUserProfileOverView:
+SELECT * FROM OBUserProfileOverView;
+
+
+deleteOBUsers:
+DELETE FROM OBUser;
+
+

@@ -19,8 +19,8 @@ import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.youapps.designsystem.BrickRed
-import com.youapps.designsystem.RoseEbony
 import com.youapps.designsystem.OBFontFamilies
+import com.youapps.designsystem.RoseEbony
 import com.youapps.designsystem.components.loading.SesameCircularProgressBar
 
 

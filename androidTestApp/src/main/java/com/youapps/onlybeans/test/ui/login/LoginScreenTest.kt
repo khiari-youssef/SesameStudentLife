@@ -10,18 +10,18 @@ import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTextInput
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import kotlinx.coroutines.flow.MutableStateFlow
-import org.junit.Before
-import org.junit.Rule
-import org.junit.Test
-import org.koin.test.KoinTest
-import org.koin.test.inject
 import com.youapps.designsystem.R
 import com.youapps.spm.android.ui.main.MainActivity
 import com.youapps.spm.domain.exception.DomainErrorType
 import com.youapps.users_management.ui.login.LoginScreen
 import com.youapps.users_management.ui.login.LoginState
 import com.youapps.users_management.ui.login.LoginUIStateHolder
+import kotlinx.coroutines.flow.MutableStateFlow
+import org.junit.Before
+import org.junit.Rule
+import org.junit.Test
+import org.koin.test.KoinTest
+import org.koin.test.inject
 
 class LoginScreenTest : KoinTest {
 
@@ -68,7 +68,7 @@ fun testLoginScreenWhenIdleThenLoginWithCredentials() {
     }
     composeLoginTestRule.run {
         onNodeWithContentDescription("LoginEmailTextField")
-            .performTextInput("test@sesame.com.tn")
+            .performTextInput("test@youapps.com.com")
         onNodeWithContentDescription("LoginPasswordTextField")
             .performTextInput("sesame1234")
         onNodeWithContentDescription("SesameButtonLoadingCircularProgressBar")
@@ -159,7 +159,7 @@ fun testLoginScreenWhenIdleThenLoginWithLockedAccount() {
     }
     composeLoginTestRule.run {
         onNodeWithContentDescription("LoginEmailTextField")
-            .performTextInput("lockedaccount@sesame.com.tn")
+            .performTextInput("lockedaccount@youapps.com.com")
         onNodeWithContentDescription("LoginPasswordTextField")
             .performTextInput("sesame1234")
         onNodeWithContentDescription("SesameButtonLoadingCircularProgressBar")
@@ -207,7 +207,7 @@ fun testLoginScreenWhenIdleThenLoginANDUndefinedErrorOccurs() {
     }
     composeLoginTestRule.run {
         onNodeWithContentDescription("LoginEmailTextField")
-            .performTextInput("lockedaccount@sesame.com.tn")
+            .performTextInput("lockedaccount@youapps.com.com")
         onNodeWithContentDescription("LoginPasswordTextField")
             .performTextInput("sesame1234")
         onNodeWithContentDescription("SesameButtonLoadingCircularProgressBar")

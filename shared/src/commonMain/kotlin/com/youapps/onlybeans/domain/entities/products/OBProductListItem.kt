@@ -1,4 +1,4 @@
-package com.youapps.onlybeans.domain.entities
+package com.youapps.onlybeans.domain.entities.products
 
 data class OBProductListItem(
     val productID : String,

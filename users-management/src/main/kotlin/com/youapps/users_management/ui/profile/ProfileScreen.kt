@@ -17,7 +17,7 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import com.youapps.designsystem.components.buttons.SesameIconButtonVariant
 import com.youapps.designsystem.components.menus.MenuOptions
 import com.youapps.designsystem.components.menus.OptionsListMenu
-import com.youapps.onlybeans.domain.entities.SesameUser
+import com.youapps.onlybeans.domain.entities.users.OBUserProfile
 import com.youapps.users_management.R
 import com.youapps.users_management.ui.profile.UserProfileDetails
 
@@ -26,7 +26,7 @@ import com.youapps.users_management.ui.profile.UserProfileDetails
 fun ProfileScreen(
 modifier: Modifier = Modifier,
 menuOptions : MenuOptions,
-sesameUser: SesameUser,
+oBUserProfile: OBUserProfile,
 onMenuItemClicked : (optionIndex : Int)->Unit,
 onLogOutClicked :  ()->Unit
 ) {
@@ -42,7 +42,7 @@ onLogOutClicked :  ()->Unit
            horizontalArrangement = Arrangement.Center
        ){
            UserProfileDetails(
-               sesameUser = sesameUser,
+               oBUserProfile = oBUserProfile,
                modifier = Modifier
                    .weight(0.5f),
                onViewMyBadgeClicked = {
@@ -74,7 +74,7 @@ onLogOutClicked :  ()->Unit
             )
         ) {
             UserProfileDetails(
-                sesameUser = sesameUser,
+                oBUserProfile = oBUserProfile,
                 modifier = Modifier
                     .fillMaxWidth()
                     .wrapContentHeight(),

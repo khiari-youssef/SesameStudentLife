@@ -1,118 +1,100 @@
 package com.youapps.onlybeans.data.dataSources
 
+import com.youapps.onlybeans.OnlyBeansDatabase
+import com.youapps.onlybeans.data.dto.OBUserProfileDTO
+import com.youapps.onlybeans.domain.entities.users.OBUserProfile
+import com.youapps.onlybeans.domain.valueobjects.UserSex
+import com.youapps.onlybeans.domain.valueobjects.decodeToUserSex
+import io.ktor.util.logging.Logger
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
+import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.withContext
-import com.youapps.onlybeans.data.toDTOString
-import com.youapps.onlybeans.data.toEnumSex
-import com.youapps.onlybeans.data.toSesameClasses
-import com.youapps.onlybeans.domain.entities.SesameStudent
-import com.youapps.onlybeans.domain.entities.SesameTeacher
-import com.youapps.onlybeans.domain.entities.SesameUser
-import com.youapps.onlybeans.domain.entities.SesameUserAccount
-import com.youapps.onlybeans.OnlyBeansDatabase
-import tn.sesame.spmdatabase.SesameLogin
 
 
 internal class UsersLocalDAO(
-    private val onlyBeansDatabase : OnlyBeansDatabase
+    private val onlyBeansDatabase : OnlyBeansDatabase,
+    private val preferences : UserPreferencesStore
 ) {
 
 
     suspend fun saveUserData(
-        sesameAuthToken: String,
-        sesameUser: SesameUser
+        token: String,
+        obUser: OBUserProfileDTO
     ): Boolean = withContext(Dispatchers.IO) {
-        onlyBeansDatabase.sesameWorksDatabaseQueries.run {
+          onlyBeansDatabase.onlyBeansDatabaseQueries.run {
                 transactionWithResult {
                     try {
-                        insertNewLogin(
-                            token = sesameAuthToken,
-                            role_id = sesameUser.role.id,
-                            email = sesameUser.email
-                        )
-                        when (sesameUser) {
-                            is SesameTeacher -> {
-                                insertTeacherProfile(
-                                    sesameUser.registrationID,
-                                    sesameUser.firstName,
-                                    sesameUser.lastName,
-                                    sesameUser.email,
-                                    sesameUser.sex.toDTOString(),
-                                    sesameUser.profilePicture,
-                                    sesameUser.profBackground,
-                                    sesameUser.portfolioId,
-                                    sesameUser.assignedClasses.toDTOString(),
-                                )
-                            }
+                   onlyBeansDatabase.transaction {
+                       insertOBUser(
+                           firstName = obUser.firstName,
+                           lastName = obUser.secondName,
+                           email = obUser.email,
+                           sex = obUser.sex,
+                           phone = obUser.phone,
+                           profilePicture = obUser.profilePicture,
+                           status = obUser.status,
+                           nationality = obUser.nationality,
+                           address = obUser.address,
+                           profileDescription = obUser.profileDescription
+                       )
+                   }
 
-                            is SesameStudent -> insertStudentProfile(
-                                sesameUser.registrationID,
-                                sesameUser.firstName,
-                                sesameUser.lastName,
-                                sesameUser.email,
-                                sesameUser.sex.toDTOString(),
-                                sesameUser.profilePicture,
-                                sesameUser.portfolioId,
-                                sesameUser.job,
-                                sesameUser.sesameClass.toDTOString()
-                            )
-
-                            else -> rollback(false)
-                        }
                     } catch (ex: Exception) {
+                        ex.printStackTrace()
                         rollback(false)
                     }
                     return@transactionWithResult true
+                }.also { transactionCompleted ->
+                    if (transactionCompleted) {
+                        try {
+                            preferences.setUserToken(
+                                email = obUser.email,
+                                token =token)
+                        } catch (ex : Exception){
+                            ex.printStackTrace()
+                            return@withContext false
+                        }
+                    } else  return@withContext false
                 }
-            }
+
+              return@withContext true
+          }
     }
 
-    suspend fun getLastUsedLogin(): SesameLogin? = withContext(Dispatchers.IO) {
-        onlyBeansDatabase.sesameWorksDatabaseQueries.selecteSavedLogin().executeAsOneOrNull()
-    }
-
-    suspend fun getLoggedInUserAccount(): SesameUserAccount {
-        return onlyBeansDatabase.sesameWorksDatabaseQueries.run {
-            selecteSavedLogin().executeAsOneOrNull()?.let { savedLogin ->
-                SesameUserAccount(
-                    email = savedLogin.email,
-                    role_id = savedLogin.role_id,
-                    token = savedLogin.token
-                )
-            } ?: throw NoSuchElementException()
-        }
-    }
-
-    suspend fun getUserProfileByID(id: String): SesameUser? {
-        return onlyBeansDatabase.sesameWorksDatabaseQueries.run {
-            transactionWithResult {
-                selectTeacherProfileByEmail(id).executeAsOneOrNull()?.run {
-                    SesameTeacher(
-                        registrationID = registrationID,
-                        lastName = lastName ?: "",
-                        firstName = firstName,
-                        email = email,
-                        sex = sex.toEnumSex(),
-                        profilePicture = profile_picture_uri ?: "",
-                        portfolioId = portfolio_id,
-                        assignedClasses = assignedClassesID?.toSesameClasses()
-                            ?.filterNotNull() ?: throw NoSuchElementException(),
-                        profBackground = profBackground ?: ""
+    suspend fun getCurrentUserData(): OBUserProfile? = withContext(Dispatchers.IO) {
+        val userEmail : String? = preferences.getUserEmail().firstOrNull()
+        return@withContext  userEmail?.run {
+             onlyBeansDatabase.onlyBeansDatabaseQueries.selectCurrentUserProfile(email = userEmail).executeAsOneOrNull()?.let { result->
+                OBUserProfile(
+                    firstName = result.firstName,
+                    secondName = result.lastName,
+                    email = result.email,
+                    sex = result.sex?.decodeToUserSex(),
+                    phone = result.phone,
+                    profilePicture = result.profilePicture,
+                    status = result.status,
+                    nationality = result.nationality,
+                    address = result.address,
+                    profileDescription = result.profileDescription,
+                    myCoffeeSpace = null
                     )
-                } ?: rollback(null)
             }
         }
     }
 
 
-suspend fun deleteUsers() : Boolean{
-   return withContext(Dispatchers.IO){
-        onlyBeansDatabase.sesameWorksDatabaseQueries.run {
+
+
+
+suspend fun deleteLoggedINUser() : Boolean{
+    return withContext(Dispatchers.IO){
+        onlyBeansDatabase.onlyBeansDatabaseQueries.run {
            return@run transactionWithResult {
-                deleteLoginData() > 0
+                deleteOBUsers() > 0
             }
         }
+
     }
 }
 

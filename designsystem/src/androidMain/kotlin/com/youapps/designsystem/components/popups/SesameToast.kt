@@ -31,8 +31,8 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
-import com.youapps.designsystem.R
 import com.youapps.designsystem.OBFontFamilies
+import com.youapps.designsystem.R
 import com.youapps.designsystem.SuccessColor
 
 @Stable

@@ -31,25 +31,23 @@ import androidx.navigation.NavOptions
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import kotlinx.coroutines.launch
-import org.koin.androidx.compose.koinViewModel
 import com.youapps.designsystem.components.NavigationBarScreenTemplate
 import com.youapps.designsystem.components.bars.SesameBottomNavigationBar
-import com.youapps.designsystem.components.bars.SesameBottomNavigationBarDefaults
+import com.youapps.designsystem.components.bars.OBBottomNavigationBarDefaults
 import com.youapps.designsystem.components.menus.MenuOption
 import com.youapps.designsystem.components.menus.MenuOptions
 import com.youapps.onlybeans.android.base.NavigationRoutingData
 import com.youapps.onlybeans.android.ui.notifications.NotificationScreenStateHolder
 import com.youapps.onlybeans.android.ui.notifications.NotificationsScreen
 import com.youapps.onlybeans.android.ui.notifications.NotificationsViewModel
-import com.youapps.onlybeans.domain.entities.SesameStudent
-import com.youapps.onlybeans.domain.entities.SesameTeacher
 import com.youapps.users_management.ui.profile.MyProfileViewModel
+import kotlinx.coroutines.launch
+import org.koin.androidx.compose.koinViewModel
 
 
 @Composable
 fun HomeScreen(
-    homeDestinations: SesameBottomNavigationBarDefaults,
+    homeDestinations: OBBottomNavigationBarDefaults,
     onHomeExit: (route: String) -> Unit
 ) {
     val homeNavController = rememberNavController()
@@ -170,40 +168,7 @@ fun HomeScreen(
                             initialValue = null
                         )
                          val menuOptions = MenuOptions(buildList {
-                        when(myProfile.value) {
-                            is SesameStudent -> {
-                                add(
-                                    MenuOption(
-                                     id = "my_projects",
-                                    iconRes = com.youapps.designsystem.R.drawable.ic_project_outlined,
-                                    label = stringResource(id = com.youapps.users_management.R.string.profile_myprojects)
-                                )
-                                )
-                                add(
-                                    MenuOption(
-                                        id = "my_subs",
-                                    iconRes = com.youapps.designsystem.R.drawable.ic_money_ops,
-                                    label = stringResource(id = com.youapps.users_management.R.string.profile_my_subs)
-                                )
-                                )
-                                add(
-                                    MenuOption(
-                                        id = "my_grades",
-                                    iconRes = com.youapps.designsystem.R.drawable.ic_report,
-                                    label = stringResource(id = com.youapps.users_management.R.string.profile_my_grades)
-                                )
-                                )
-                            }
-                            is SesameTeacher -> {
-                                add(
-                                    MenuOption(
-                                    id = "my_classes",
-                                    iconRes = com.youapps.designsystem.R.drawable.ic_project_outlined,
-                                    label = stringResource(id = com.youapps.users_management.R.string.profile_myclasses)
-                                )
-                                )
-                            }
-                        }
+
 
                         addAll(listOf(
                             MenuOption(
@@ -224,32 +189,10 @@ fun HomeScreen(
                             ProfileScreen( 
                                 modifier = modifier
                                     .fillMaxSize(),
-                                sesameUser = this ,
+                                oBUserProfile = this ,
                                 menuOptions = menuOptions,
                                 onMenuItemClicked = {optionIndex->
-                                    when (menuOptions.options[optionIndex].id){
-                                        "my_projects"-> {
-                                            onHomeExit("${NavigationRoutingData.MyProjects}/1a2dhsd5h5fhsf2s2")
-                                        }
-                                        "privacy_policy"-> {
-                                            onHomeExit(NavigationRoutingData.PrivacyPolicyScreen)
-                                        }
-                                        "settings"-> {
-                                            onHomeExit(NavigationRoutingData.Settings)
-                                        }
-                                        "my_classes" ->{
-                                            onHomeExit(NavigationRoutingData.MyClasses)
-                                        }
-                                        "my_grades" -> {
-                                            onHomeExit(NavigationRoutingData.MyGrades)
-                                        }
-                                        "my_subs" -> {
-                                            onHomeExit(NavigationRoutingData.MySubscriptions)
-                                        }
-                                        else -> {
 
-                                        }
-                                    }
                                 },
                                 onLogOutClicked = {
                                     profileScreenCoScope.launch {

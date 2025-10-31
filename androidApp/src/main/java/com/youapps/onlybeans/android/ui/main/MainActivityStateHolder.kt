@@ -4,15 +4,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
 import androidx.compose.runtime.remember
 import androidx.navigation.NavHostController
-import com.youapps.designsystem.components.bars.SesameBottomNavigationBarDefaults
+import com.youapps.designsystem.components.bars.OBBottomNavigationBarDefaults
 import com.youapps.onlybeans.security.SupportedDeviceAuthenticationMethods
-import com.youapps.users_management.ui.login.LoginState
 
 data class MainActivityStateHolder(
     val biometricSupportState : State<SupportedDeviceAuthenticationMethods>,
-    val autoLoginState : State<LoginState>,
     val rootNavController : NavHostController,
-    val homeDestinations : State<SesameBottomNavigationBarDefaults>
+    val homeDestinations : State<OBBottomNavigationBarDefaults>
 ) {
 
 
@@ -20,14 +18,13 @@ data class MainActivityStateHolder(
         @Composable
         fun rememberMainActivityState(
             biometricSupportState : State<SupportedDeviceAuthenticationMethods>,
-            autoLoginState : State<LoginState>,
             rootNavController : NavHostController,
-            homeDestinations : State<SesameBottomNavigationBarDefaults>
+            homeDestinations : State<OBBottomNavigationBarDefaults>
         )  : MainActivityStateHolder = remember(
-            biometricSupportState,autoLoginState,rootNavController,homeDestinations
+            biometricSupportState,rootNavController,homeDestinations
         ){
             MainActivityStateHolder(
-                biometricSupportState,autoLoginState,rootNavController,homeDestinations
+                biometricSupportState,rootNavController,homeDestinations
             )
         }
     }

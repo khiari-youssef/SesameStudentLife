@@ -22,8 +22,7 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import org.koin.androidx.compose.koinViewModel
-import com.youapps.designsystem.components.bars.SesameBottomNavigationBarDefaults
+import com.youapps.designsystem.components.bars.OBBottomNavigationBarDefaults
 import com.youapps.designsystem.components.modals.NavigationNotFoundModal
 import com.youapps.designsystem.navigateBack
 import com.youapps.onlybeans.android.base.NavigationRoutingData
@@ -37,12 +36,13 @@ import com.youapps.users_management.ui.settings.SettingsViewModel
 import com.youapps.users_management.ui.settings.mygrades.MyGradesScreen
 import com.youapps.users_management.ui.settings.mysubscriptions.MySubscriptionsScreen
 import com.youapps.users_management.ui.settings.privacypolicy.PrivacyPolicyScreen
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun MainActivity.MainNavigation(
     modifier: Modifier = Modifier,
     rootNavController : NavHostController,
-    homeDestinations : State<SesameBottomNavigationBarDefaults>,
+    homeDestinations : State<OBBottomNavigationBarDefaults>,
     skipLogin : Boolean = false
 ) {
     NavHost(

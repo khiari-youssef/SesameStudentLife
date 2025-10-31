@@ -1,11 +1,11 @@
-package com.youapps.spm.data.dto
+package com.youapps.onlybeans.data.dto
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 
 @Serializable
-internal data class SesameLoginResponseWrapper(
+internal data class OBLoginResponseWrapper(
   @SerialName("token")  val token : String,
-  @SerialName("data")  val data : SesameUserDTO
+  @SerialName("data")  val data : OBUserProfileDTO
 )

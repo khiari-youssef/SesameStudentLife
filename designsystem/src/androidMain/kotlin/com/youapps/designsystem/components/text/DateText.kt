@@ -20,11 +20,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.youapps.designsystem.R
 import com.youapps.designsystem.OBFontFamilies
+import com.youapps.designsystem.R
 import com.youapps.designsystem.onBackgroundShadedDarkMode
 import com.youapps.designsystem.onBackgroundShadedLightMode
-
 
 
 @Composable

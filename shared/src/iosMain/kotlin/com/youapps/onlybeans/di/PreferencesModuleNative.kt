@@ -1,4 +1,5 @@
-package com.youapps.spm.di
+package com.youapps.onlybeans.di
+
 
 import kotlinx.cinterop.ExperimentalForeignApi
 import org.koin.core.module.Module

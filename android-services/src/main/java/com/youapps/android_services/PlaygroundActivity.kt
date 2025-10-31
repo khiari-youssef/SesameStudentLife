@@ -58,7 +58,7 @@ import com.youapps.android_services.ui.DocumentFile
 import com.youapps.android_services.ui.DocumentScanner
 import com.youapps.android_services.ui.Documents
 import com.youapps.android_services.ui.ImageDataExtraction
-import com.youapps.designsystem.SesameTheme
+import com.youapps.designsystem.OBTheme
 
 internal class PlaygroundActivity : ComponentActivity() {
 
@@ -81,7 +81,7 @@ internal class PlaygroundActivity : ComponentActivity() {
             ))
         )
         setContent {
-            SesameTheme {
+            OBTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),

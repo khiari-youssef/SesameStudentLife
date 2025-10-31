@@ -4,13 +4,16 @@ import androidx.compose.animation.core.animateIntAsState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.wrapContentSize
-import androidx.compose.material.Badge
-import androidx.compose.material.BottomNavigation
-import androidx.compose.material.BottomNavigationItem
-import androidx.compose.material.Text
+import androidx.compose.material3.Badge
+import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.BadgedBox
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.NavigationBarDefaults
+import androidx.compose.material3.NavigationBarItemColors
+import androidx.compose.material3.NavigationBarItemDefaults
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
 import androidx.compose.ui.Modifier
@@ -22,27 +25,27 @@ import androidx.core.graphics.toColor
 import com.youapps.designsystem.R
 
 
-data class SesameBottomNavigationBarItem(
+data class OBBottomNavigationBarItem(
  val selectedStateIcon  : Int,
  val unSelectedStateIcon  : Int,
  val badgeContent : Int  = 0
 )
 @JvmInline
 @Stable
-value class SesameBottomNavigationBarDefaults(
-   val items : List<SesameBottomNavigationBarItem>
+value class OBBottomNavigationBarDefaults(
+   val items : List<OBBottomNavigationBarItem>
 ){
     companion object{
-        val DEFAULT : SesameBottomNavigationBarDefaults = SesameBottomNavigationBarDefaults(emptyList())
+        val DEFAULT : OBBottomNavigationBarDefaults = OBBottomNavigationBarDefaults(emptyList())
     }
 }
 
 @Composable
 fun SesameBottomNavigationBar(
-  selectedItemIndex : Int,
-  modifier: Modifier = Modifier,
-  properties : SesameBottomNavigationBarDefaults,
-  onItemSelected : (index : Int)->Unit
+    selectedItemIndex : Int,
+    modifier: Modifier = Modifier,
+    properties : OBBottomNavigationBarDefaults,
+    onItemSelected : (index : Int)->Unit
 ) {
     val allowedItems = properties.items.take(5)
     val unSelectedBottomNavigationColor =  LocalContext.current.getColor(
@@ -52,16 +55,21 @@ fun SesameBottomNavigationBar(
     }
 
     val selectedNavigationBarItemColor = if (isSystemInDarkTheme()) Color(0xFF150d0d)  else Color(0xFFCFC1C1)
-    BottomNavigation(
+    NavigationBar(
         modifier = modifier,
-        backgroundColor = unSelectedBottomNavigationColor
+        contentColor = unSelectedBottomNavigationColor
     )  {
 
         allowedItems.forEachIndexed { index, item ->
             val state = animateIntAsState(
                 targetValue = item.badgeContent
             )
-            BottomNavigationItem(
+            NavigationBarItem(
+                colors = NavigationBarItemDefaults.colors(
+                    indicatorColor =  if (selectedItemIndex == index)
+                        selectedNavigationBarItemColor
+                    else unSelectedBottomNavigationColor
+                ),
                 modifier = Modifier
                     .background(
                         if (selectedItemIndex == index)
@@ -73,7 +81,7 @@ fun SesameBottomNavigationBar(
                         BadgedBox(
                             badge = {
                                 Badge(
-                                    backgroundColor = Color(0xFFD51E1E),
+                                    contentColor = Color(0xFFD51E1E),
                                     content = {
                                         Text(
                                             modifier = Modifier

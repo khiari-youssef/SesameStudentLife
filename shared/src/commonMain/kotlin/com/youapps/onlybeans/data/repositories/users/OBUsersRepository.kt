@@ -1,11 +1,10 @@
 package com.youapps.onlybeans.data.repositories.users
 
+import com.youapps.onlybeans.data.dataSources.UserPreferencesStore
 import com.youapps.onlybeans.data.dataSources.UsersLocalDAO
 import com.youapps.onlybeans.data.dataSources.UsersRemoteDAO
-import com.youapps.onlybeans.data.toDomainModel
-import com.youapps.onlybeans.domain.entities.SesameUser
-import com.youapps.onlybeans.data.dataSources.UserPreferencesStore
-import com.youapps.onlybeans.domain.entities.SesameUserAccount
+import com.youapps.onlybeans.domain.entities.users.OBUserProfile
+import kotlinx.coroutines.flow.firstOrNull
 
 
 internal class OBUsersRepository(
@@ -14,46 +13,39 @@ internal class OBUsersRepository(
     private val userPreferencesStore: UserPreferencesStore
 ) : OBUsersRepositoryInterface {
 
-    override suspend fun loginWithEmailAndPassword(email: String, password: String): SesameUser {
+    override suspend fun loginWithEmailAndPassword(email: String, password: String): OBUserProfile {
         return toDomainAuthenticationError(withCredentials = true) {
             val result = usersRemoteDAO.fetchEmailAndPasswordLoginAPI(email, password)
-            val userData = result.data.toDomainModel()!!
-            val hasTransactionSucceeded = usersLocalDAO.saveUserData(result.token, userData)
-            if (hasTransactionSucceeded) result.data.toDomainModel()!! else throw IllegalStateException(
-                "Local database transaction failed while saving user data!"
+            val hasTransactionSucceeded = usersLocalDAO.saveUserData(result.token, result.data)
+            val userData = result.data.toDomainModel()
+            if (hasTransactionSucceeded) userData else throw IllegalStateException(
+                "Error while saving user data! in the device"
             )
         }
     }
 
-    override suspend fun loginWithToken(token: String): SesameUser {
+    override suspend fun loginWithToken(token: String): OBUserProfile {
         return  toDomainAuthenticationError(withCredentials = false){
             val result = usersRemoteDAO.fetchTokenLoginAPI(token)
-            val userData = result.data.toDomainModel()!!
-            val hasTransactionSucceeded = usersLocalDAO.saveUserData(result.token, userData)
-            if (hasTransactionSucceeded) result.data.toDomainModel()!! else throw IllegalStateException(
-                "Local database transaction failed while saving user data!"
+            val hasTransactionSucceeded = usersLocalDAO.saveUserData(result.token, result.data)
+            val userData = result.data.toDomainModel()
+            if (hasTransactionSucceeded) userData else throw IllegalStateException(
+                "Error while saving user data! in the device"
             )
         }
+
     }
 
 
-    override suspend fun getActiveUserSession(): String? =
-        usersLocalDAO.getLastUsedLogin()?.token
+    override suspend fun getActiveUserSessionToken(): String? = userPreferencesStore.getUserToken().firstOrNull()
+
 
     override suspend fun clearUsersFromLocalStorage() : Boolean {
-        return usersLocalDAO.deleteUsers()
+        return usersLocalDAO.deleteLoggedINUser()
     }
 
-    override suspend fun getUserProfileByID(
-        id: String
-    ): SesameUser? = runCatching {
-        usersLocalDAO.getUserProfileByID(id)
-    }.onFailure {
-        it.printStackTrace()
-    }.getOrNull()
-
-    override suspend fun getLoggedInUserAccount(): SesameUserAccount?  = runCatching {
-        usersLocalDAO.getLoggedInUserAccount()
+    override suspend fun getCurrentUserData(): OBUserProfile? = runCatching {
+        usersLocalDAO.getCurrentUserData()
     }.onFailure {
         it.printStackTrace()
     }.getOrNull()

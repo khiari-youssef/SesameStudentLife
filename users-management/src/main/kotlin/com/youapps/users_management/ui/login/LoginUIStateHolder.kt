@@ -5,7 +5,7 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.State
 import androidx.compose.runtime.remember
-import com.youapps.onlybeans.domain.entities.SesameUser
+import com.youapps.onlybeans.domain.entities.users.OBUserProfile
 import com.youapps.onlybeans.domain.exception.DomainErrorType
 
 sealed interface LoginState {
@@ -21,7 +21,7 @@ sealed interface LoginState {
   data class Error(val errorType : DomainErrorType) : LoginState
 
     @Stable
-  data class Success(val user : SesameUser) : LoginState
+  data class Success(val user : OBUserProfile) : LoginState
 }
 
 data class LoginUIStateHolder(

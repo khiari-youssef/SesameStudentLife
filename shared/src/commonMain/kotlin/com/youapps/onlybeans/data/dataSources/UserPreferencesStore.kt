@@ -2,7 +2,6 @@ package com.youapps.onlybeans.data.dataSources
 
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import kotlinx.coroutines.Dispatchers
@@ -19,7 +18,14 @@ class UserPreferencesStore(
 
     companion object {
         private val OB_USER_TOKEN: Preferences.Key<String> = stringPreferencesKey("OB_USER_TOKEN")
+        private val OB_USER_EMAIL: Preferences.Key<String> = stringPreferencesKey("OB_USER_EMAIL")
     }
+
+    fun getUserEmail(): Flow<String?> = preferences
+        .data.map { prefs ->
+            prefs[OB_USER_EMAIL]
+        }.flowOn(Dispatchers.IO)
+
 
     fun getUserToken(): Flow<String?> = preferences
         .data.map { prefs ->
@@ -27,10 +33,13 @@ class UserPreferencesStore(
         }.flowOn(Dispatchers.IO)
 
 
-    suspend fun setUserToken(token: String) = withContext(Dispatchers.IO) {
+
+    suspend fun setUserToken(email : String,token: String) = withContext(Dispatchers.IO) {
         preferences.edit { mutablePrefs ->
+            mutablePrefs[OB_USER_EMAIL] = email
             mutablePrefs[OB_USER_TOKEN] = token
         }
     }
+
 
 }

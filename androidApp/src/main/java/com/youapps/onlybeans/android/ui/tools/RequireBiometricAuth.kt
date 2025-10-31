@@ -6,12 +6,12 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import org.koin.compose.koinInject
 import com.youapps.onlybeans.android.R
 import com.youapps.onlybeans.security.BiometricAuthService
 import com.youapps.onlybeans.security.BiometricLauncherService
 import com.youapps.onlybeans.security.SupportedDeviceAuthenticationMethods
 import com.youapps.onlybeans.ui.getRegistrationBiometricIdentityIntent
+import org.koin.compose.koinInject
 
 @Composable
 fun RequireBiometricAuth(

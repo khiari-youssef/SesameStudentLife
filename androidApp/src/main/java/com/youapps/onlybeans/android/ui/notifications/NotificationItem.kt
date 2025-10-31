@@ -32,8 +32,8 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.youapps.designsystem.ErrorColor
-import com.youapps.designsystem.R
 import com.youapps.designsystem.OBFontFamilies
+import com.youapps.designsystem.R
 import com.youapps.designsystem.SuccessColor
 import com.youapps.designsystem.components.loading.shimmerEffect
 import com.youapps.onlybeans.domain.entities.OBNotification

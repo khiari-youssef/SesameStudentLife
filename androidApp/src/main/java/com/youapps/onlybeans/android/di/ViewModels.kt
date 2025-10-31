@@ -1,7 +1,5 @@
 package com.youapps.onlybeans.android.di
 
-import org.koin.core.module.dsl.viewModel
-import org.koin.dsl.module
 import com.youapps.onlybeans.android.ui.main.MainActivityViewModel
 import com.youapps.onlybeans.android.ui.notifications.NotificationsViewModel
 import com.youapps.onlybeans.di.OBUserGetProfileUseCaseTag
@@ -14,6 +12,8 @@ import com.youapps.onlybeans.di.repositoriesModule
 import com.youapps.users_management.ui.login.LoginViewModel
 import com.youapps.users_management.ui.profile.MyProfileViewModel
 import com.youapps.users_management.ui.settings.SettingsViewModel
+import org.koin.core.module.dsl.viewModel
+import org.koin.dsl.module
 
 val viewModelsModule = module {
     includes(domainModule)
@@ -23,7 +23,7 @@ val viewModelsModule = module {
         NotificationsViewModel()
     }
     viewModel {
-        MyProfileViewModel(get(OBUserGetProfileUseCaseTag),get(UsersRepositoryTag),get(
+        MyProfileViewModel(get(OBUserGetProfileUseCaseTag),get(
             OBUserLogoutUseCaseTag
         ))
     }
@@ -36,6 +36,7 @@ val viewModelsModule = module {
     viewModel {
         MainActivityViewModel(
             get(UsersRepositoryTag),
+            get(OBUserLoginUseCaseTag),
             get()
         )
     }

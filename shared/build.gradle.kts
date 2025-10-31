@@ -53,7 +53,7 @@ kotlin {
             implementation(libs.jetpack.viewmodel.core)
         }
         iosMain.dependencies {
-            implementation("co.touchlab:stately-common:2.1.0")
+            implementation(libs.stately.common)
             implementation(libs.sqldelight.driver.native)
         }
     }
@@ -61,7 +61,7 @@ kotlin {
 
 android {
     namespace = "com.youapps.onlybeans"
-    compileSdk = 34
+    compileSdk = 36
     defaultConfig {
         minSdk = 26
     }
