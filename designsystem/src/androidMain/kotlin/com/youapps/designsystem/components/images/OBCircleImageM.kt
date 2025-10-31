@@ -1,17 +1,18 @@
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.unit.dp
 
+
 @Composable
-fun SesameCircleImageXL(
+fun OBCircleImageM(
     uri : Any,
     placeholderRes : Int,
     errorRes : Int
 ) {
-    SesameCircleImage(
+    OBCircleImage(
         uri = uri,
         placeholderRes = placeholderRes,
         errorRes = errorRes,
-        size = 96.dp
+        size = 24.dp
     )
 }
 

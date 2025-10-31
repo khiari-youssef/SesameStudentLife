@@ -1,6 +1,6 @@
 package com.youapps.onlybeans.android.ui.notifications
 
-import SesameCircleImageM
+import OBCircleImageM
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -101,7 +101,7 @@ fun NotificationItem(
                 8.dp, Alignment.Start
             )
         ) {
-            SesameCircleImageM(
+            OBCircleImageM(
                 uri = oBNotification?.senderImage ?: "",
                 placeholderRes = R.drawable.profile_placeholder,
                 errorRes = R.drawable.profile_placeholder

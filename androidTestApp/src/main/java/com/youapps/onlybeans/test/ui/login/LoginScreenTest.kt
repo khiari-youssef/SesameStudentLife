@@ -1,4 +1,4 @@
-package com.youapps.spm.test.ui.login
+package com.youapps.onlybeans.test.ui.login
 
 import android.content.Context
 import androidx.activity.compose.setContent
@@ -11,8 +11,8 @@ import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTextInput
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.youapps.designsystem.R
-import com.youapps.spm.android.ui.main.MainActivity
-import com.youapps.spm.domain.exception.DomainErrorType
+import com.youapps.onlybeans.android.ui.main.MainActivity
+import com.youapps.onlybeans.domain.exception.DomainErrorType
 import com.youapps.users_management.ui.login.LoginScreen
 import com.youapps.users_management.ui.login.LoginState
 import com.youapps.users_management.ui.login.LoginUIStateHolder

@@ -54,7 +54,7 @@ fun SesameCheckableUserProfile(
             bottom.linkTo(parent.bottom)
         }
     ) {
-        SesameCircleImageL(
+        OBCircleImageL(
             uri = avatarURI,
             placeholderRes = placeholderResID ,
             errorRes = placeholderResID

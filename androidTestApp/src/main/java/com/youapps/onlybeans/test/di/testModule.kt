@@ -1,8 +1,8 @@
-package com.youapps.spm.test.di
+package com.youapps.onlybeans.test.di
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
-import com.youapps.spm.security.BiometricLauncherService
+import com.youapps.onlybeans.security.BiometricLauncherService
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

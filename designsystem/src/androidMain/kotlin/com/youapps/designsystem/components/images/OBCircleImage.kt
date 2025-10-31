@@ -20,7 +20,7 @@ import com.youapps.designsystem.components.loading.shimmerEffect
 
 
 @Composable
-fun SesameCircleImage(
+fun OBCircleImage(
     modifier: Modifier = Modifier,
     uri : Any,
     placeholderRes : Int = R.drawable.profile_placeholder,

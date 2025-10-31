@@ -1,4 +1,4 @@
-package com.youapps.spm.test.configuration
+package com.youapps.onlybeans.test.configuration
 
 import android.content.Context
 import androidx.startup.Initializer
