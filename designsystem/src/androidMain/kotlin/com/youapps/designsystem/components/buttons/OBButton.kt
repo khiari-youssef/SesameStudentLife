@@ -24,19 +24,31 @@ import com.youapps.designsystem.RoseEbony
 import com.youapps.designsystem.components.loading.SesameCircularProgressBar
 
 
-enum class SesameButtonVariants{
+enum class OBButtonTheme{
     ContainedPrimary,ContainedSecondary ,OutlinedPrimary, OutlinedSecondary
 }
+
+enum class OBButtonSize{
+    Small,Medium
+}
+
+
 @Composable
-fun SesameButton(
+fun OBButton(
     modifier: Modifier = Modifier,
     text : String,
-    variant : SesameButtonVariants,
+    theme : OBButtonTheme,
+    size : OBButtonSize = OBButtonSize.Medium,
     isEnabled : Boolean = true,
     isLoading : Boolean = false,
-    paddingValues: PaddingValues = PaddingValues(
-        horizontal = 20.dp,
-        vertical = 12.dp
+    paddingValues: PaddingValues = if (size == OBButtonSize.Small ) {
+        PaddingValues(
+            horizontal = 12.dp,
+            vertical = 4.dp
+        )
+    } else PaddingValues(
+        horizontal = 12.dp,
+        vertical = 8.dp
     ),
     fontSize : TextUnit = 16.sp,
     heightRangeDP : IntRange =  25..44,
@@ -48,15 +60,15 @@ fun SesameButton(
         enabled = isEnabled or isLoading,
         shape = MaterialTheme.shapes.medium,
         colors = ButtonDefaults.buttonColors(
-          containerColor = when (variant){
-              SesameButtonVariants.ContainedSecondary-> BrickRed
-              SesameButtonVariants.ContainedPrimary -> RoseEbony
+          containerColor = when (theme){
+              OBButtonTheme.ContainedSecondary-> BrickRed
+              OBButtonTheme.ContainedPrimary -> RoseEbony
               else -> Color.Unspecified
           },
         ),
-       border =when (variant){
-           SesameButtonVariants.ContainedSecondary-> BorderStroke(width = 1.dp, color =  BrickRed)
-           SesameButtonVariants.ContainedPrimary -> BorderStroke(width = 1.dp, color = RoseEbony )
+       border =when (theme){
+           OBButtonTheme.ContainedSecondary-> BorderStroke(width = 1.dp, color =  BrickRed)
+           OBButtonTheme.ContainedPrimary -> BorderStroke(width = 1.dp, color = RoseEbony )
            else -> null
        },
        contentPadding = paddingValues,

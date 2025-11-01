@@ -23,7 +23,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.youapps.designsystem.components.bars.OBBottomNavigationBarDefaults
-import com.youapps.designsystem.components.modals.NavigationNotFoundModal
+import com.youapps.designsystem.components.dialogs.NavigationNotFoundModal
 import com.youapps.designsystem.navigateBack
 import com.youapps.onlybeans.android.base.NavigationRoutingData
 import com.youapps.onlybeans.android.ui.home.HomeScreen

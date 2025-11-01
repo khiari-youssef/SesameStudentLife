@@ -7,11 +7,14 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.spring
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
+import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.systemBarsPadding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
@@ -64,8 +67,6 @@ fun HomeScreen(
 
     val navOpts = remember {
         NavOptions.Builder()
-            .setEnterAnim(androidx.appcompat.R.anim.abc_fade_in)
-            .setExitAnim(androidx.appcompat.R.anim.abc_fade_out)
             .setLaunchSingleTop(true)
             .build()
     }
@@ -186,8 +187,10 @@ fun HomeScreen(
                         val profileScreenCoScope = rememberCoroutineScope()
                         val currentContext = LocalContext.current
                         myProfile.value?.run {
+                            val scrollState = rememberScrollState()
                             ProfileScreen( 
                                 modifier = modifier
+                                    .verticalScroll(state = scrollState)
                                     .fillMaxSize(),
                                 oBUserProfile = this ,
                                 menuOptions = menuOptions,

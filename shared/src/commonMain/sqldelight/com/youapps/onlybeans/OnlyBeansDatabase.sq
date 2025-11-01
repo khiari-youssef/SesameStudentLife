@@ -11,10 +11,11 @@ status Text NOT NULL,
 nationality Text,
 address Text NOT NULL,
 profileDescription TEXT NOT NULL ,
+coverPicture Text NOT NULL,
 profilePicture Text NOT NULL
 );
 
-CREATE TABLE OBUserProfileOverView(
+CREATE TABLE OBUserProfilePreView(
 id Text PRIMARY KEY,
 fullName Text NOT NULL,
 status Text NOT NULL,
@@ -24,18 +25,19 @@ profilePicture Text NOT NULL
 
 
 insertOBUser:
-INSERT OR REPLACE INTO OBUser VALUES(?,?,?,?,?,?,?,?,?,?);
+INSERT OR REPLACE INTO OBUser VALUES(?,?,?,?,?,?,?,?,?,?,?);
 
 
 selectCurrentUserProfile:
 SELECT * FROM OBUser WHERE OBUser.email = ? LIMIT 1;
 
 
-insertOBUserProfileOverView:
-INSERT OR REPLACE INTO OBUserProfileOverView VALUES(?,?,?,?);
+insertOBUserProfilePreView:
+INSERT OR REPLACE INTO OBUserProfilePreView VALUES(?,?,?,?);
 
-selectinsertOBUserProfileOverView:
-SELECT * FROM OBUserProfileOverView;
+
+selectOBUserProfilePreView:
+SELECT * FROM OBUserProfilePreView;
 
 
 deleteOBUsers:

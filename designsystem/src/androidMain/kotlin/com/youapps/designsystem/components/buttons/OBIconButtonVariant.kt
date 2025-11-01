@@ -20,7 +20,7 @@ import androidx.compose.ui.unit.sp
 import com.youapps.designsystem.OBFontFamilies
 
 @Composable
-fun SesameIconButtonVariant(
+fun OBIconButtonVariant(
     modifier: Modifier,
     text : String,
     iconResID : Int,

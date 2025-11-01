@@ -1,6 +1,7 @@
 package com.youapps.onlybeans.data.dataSources
 
 import com.youapps.onlybeans.OnlyBeansDatabase
+import com.youapps.onlybeans.data.dto.OBAddressDTO
 import com.youapps.onlybeans.data.dto.OBUserProfileDTO
 import com.youapps.onlybeans.domain.entities.users.OBUserProfile
 import com.youapps.onlybeans.domain.valueobjects.UserSex
@@ -35,7 +36,8 @@ internal class UsersLocalDAO(
                            profilePicture = obUser.profilePicture,
                            status = obUser.status,
                            nationality = obUser.nationality,
-                           address = obUser.address,
+                           address = obUser.address.toJson(),
+                           coverPicture = obUser.coverPicture,
                            profileDescription = obUser.profileDescription
                        )
                    }
@@ -75,8 +77,9 @@ internal class UsersLocalDAO(
                     profilePicture = result.profilePicture,
                     status = result.status,
                     nationality = result.nationality,
-                    address = result.address,
+                    address = OBAddressDTO.fromJson(result.address)?.toDomainModel(),
                     profileDescription = result.profileDescription,
+                    coverPicture = result.coverPicture,
                     myCoffeeSpace = null
                     )
             }

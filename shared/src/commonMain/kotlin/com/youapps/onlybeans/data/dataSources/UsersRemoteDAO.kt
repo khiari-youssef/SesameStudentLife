@@ -1,9 +1,11 @@
 package com.youapps.onlybeans.data.dataSources
 
+import com.youapps.onlybeans.data.dto.OBAddressDTO
 import com.youapps.onlybeans.data.dto.OBLoginResponseWrapper
 import com.youapps.onlybeans.data.dto.OBUserProfileDTO
 import com.youapps.onlybeans.data.exceptions.CustomHttpException
 import com.youapps.onlybeans.data.exceptions.HttpErrorType
+import com.youapps.onlybeans.domain.entities.users.OBAddress
 import com.youapps.onlybeans.domain.entities.users.OBUserProfile
 import io.ktor.client.HttpClient
 import kotlinx.coroutines.Dispatchers
@@ -36,10 +38,14 @@ internal class UsersRemoteDAO(
              sex = "m",
              status = "Home barista",
               nationality = "Tunisian",
-              address = "Tunisia, Manouba",
+              address = OBAddressDTO(
+                  country = "Tunisia",
+                  city = "Tunis"
+              ),
                phone = "25080060",
                profileDescription = "Nothing",
                profilePicture = "",
+               coverPicture = "",
                myCoffeeSpace = null
            ),
            token = tokenLogins.keys.first()
@@ -60,10 +66,14 @@ internal class UsersRemoteDAO(
                 sex = "m",
                 status = "Home barista",
                 nationality = "Tunisian",
-                address = "Tunisia, Manouba",
+                address = OBAddressDTO(
+                    country = "Tunisia",
+                    city = "Tunis"
+                ),
                 phone = "25080060",
                 profileDescription = "Nothing",
                 profilePicture = "",
+                coverPicture = "",
                 myCoffeeSpace = null
             ) ,
             token = token

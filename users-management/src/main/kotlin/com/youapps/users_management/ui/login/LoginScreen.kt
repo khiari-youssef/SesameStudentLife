@@ -3,8 +3,8 @@ package com.youapps.users_management.ui.login
 
 import AppTitleLogo
 import AppVersion
-import SesameButton
-import SesameButtonVariants
+import OBButton
+import OBButtonTheme
 import SesameEmailTextField
 import SesamePasswordTextField
 import android.content.res.Configuration
@@ -150,7 +150,7 @@ ConstraintLayout(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(8.dp,Alignment.CenterHorizontally)
     ) {
-       SesameButton(
+       OBButton(
            modifier = Modifier
                .semantics {
                    contentDescription = "LoginButton"
@@ -158,7 +158,7 @@ ConstraintLayout(
                .wrapContentHeight()
                .fillMaxWidth(0.9f),
            text = stringResource(id = DSR.string.login),
-           variant = SesameButtonVariants.ContainedPrimary,
+           theme = OBButtonTheme.ContainedPrimary,
            isEnabled = true,
            isLoading = loginUIStateHolder.loginRequestResult.value is LoginState.Loading,
            onClick = onLoginClicked

@@ -94,9 +94,9 @@ fun ErrorModal(
                imageVector = ImageVector.vectorResource(imgRes) ,
                contentDescription = "",
           )
-           SesameButton(
+           OBButton(
                text = stringResource(id = R.string.retry),
-               variant = SesameButtonVariants.ContainedSecondary,
+               theme = OBButtonTheme.ContainedSecondary,
                isEnabled = true,
                isLoading = false,
                onClick = onRetryAction

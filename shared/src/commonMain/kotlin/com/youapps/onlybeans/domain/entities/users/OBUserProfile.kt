@@ -1,5 +1,4 @@
 package com.youapps.onlybeans.domain.entities.users
-
 import com.youapps.onlybeans.domain.entities.products.OBCoffeeSpace
 import com.youapps.onlybeans.domain.valueobjects.UserSex
 
@@ -9,22 +8,50 @@ class OBUserProfile(
       val firstName : String,
      val secondName : String?,
     val status : String,
+    val address : OBAddress?=null,
    val phone : String?,
    val sex : UserSex?,
     val nationality : String?,
-    val address : String,
     val profileDescription : String,
      val profilePicture : String,
+     val coverPicture : String,
      val myCoffeeSpace : OBCoffeeSpace?
 ) {
     val fullName = "$firstName $secondName"
+
+    val profilePreView : OBUserProfilePreView = OBUserProfilePreView(
+        id = email,
+        fullName = fullName,
+        status = status,
+        profilePicture = profilePicture,
+        coverPicture = coverPicture,
+        address = address
+    )
 }
 
 
 
- class OBUserProfileOverView(
+ class OBUserProfilePreView(
       val id : String,
      val fullName : String,
      val status : String,
      val profilePicture : String,
+    val coverPicture : String,
+    val address: OBAddress?=null
 )
+ data class OBAddress(
+      val country : String,
+      val city : String?=null,
+      val line : String?=null,
+      val postalCode : String?=null,
+      val location : OBLocation?=null
+)
+
+data class OBLocation(
+    val longitude : Double,
+    val latitude : Double
+) {
+    fun toDMS() : String = TODO()
+
+    override fun toString(): String = "$latitude:$longitude"
+}

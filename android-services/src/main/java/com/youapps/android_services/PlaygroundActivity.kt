@@ -1,7 +1,7 @@
 package com.youapps.android_services
 
-import SesameButton
-import SesameButtonVariants
+import OBButton
+import OBButtonTheme
 import android.Manifest
 import android.app.NotificationManager
 import android.content.Intent
@@ -274,7 +274,7 @@ internal class PlaygroundActivity : ComponentActivity() {
                                                 text = qrCodePayload.value ?: "",
                                                 color = MaterialTheme.colorScheme.primary
                                             )
-                                            SesameButton(text ="Scan again" , variant = SesameButtonVariants.ContainedSecondary) {
+                                            OBButton(text ="Scan again" , theme = OBButtonTheme.ContainedSecondary) {
                                                 qrCodePayload.value = null
                                             }
                                         }
@@ -299,7 +299,7 @@ internal class PlaygroundActivity : ComponentActivity() {
                                             text = "Camera permission not granted",
                                             color = Color.White
                                         )
-                                        SesameButton(text ="Grant camera permission" , variant = SesameButtonVariants.ContainedSecondary) {
+                                        OBButton(text ="Grant camera permission" , theme = OBButtonTheme.ContainedSecondary) {
                                             cameraPermissionLauncher.launch(cameraPermission)
                                         }
                                     }
@@ -313,7 +313,7 @@ internal class PlaygroundActivity : ComponentActivity() {
                                 modifier = Modifier.fillMaxSize(),
                                contentAlignment = Alignment.Center
                             ) {
-                                SesameButton(text ="Schedule alarm 1 min from now" , variant = SesameButtonVariants.ContainedSecondary) {
+                                OBButton(text ="Schedule alarm 1 min from now" , theme = OBButtonTheme.ContainedSecondary) {
 
                                     val time : Calendar = Calendar.getInstance().apply {
                                         timeInMillis = System.currentTimeMillis()
@@ -369,7 +369,7 @@ internal class PlaygroundActivity : ComponentActivity() {
                                     onValueChange = {
                                         description.value = it
                                     })
-                                SesameButton(text ="Show notification" , variant = SesameButtonVariants.ContainedSecondary) {
+                                OBButton(text ="Show notification" , theme = OBButtonTheme.ContainedSecondary) {
                                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU){
                                         if (localContext.checkSelfPermission(Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED){
                                             notificationManager.showNotification(

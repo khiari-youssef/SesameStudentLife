@@ -21,7 +21,7 @@ import java.time.LocalDateTime
 @Preview
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SesameDateRangePicker(
+fun OBDateRangePicker(
     modifier: Modifier = Modifier,
     dateValidator : (dateInMS : Long)->Boolean={ true},
     yearValidator : (year : Int)->Boolean={ true}

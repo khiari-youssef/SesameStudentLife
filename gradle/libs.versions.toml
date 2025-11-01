@@ -50,6 +50,7 @@ firebase-bom = "34.4.0"
 gplayservices = "4.4.4"
 lifecycle-runtime-ktx = "2.9.4"
 compose-bom = "2025.10.00"
+foundationLayout = "1.9.4"
 
 
 [libraries]
@@ -123,6 +124,7 @@ lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtim
 compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "compose-bom" }
 stately-common = { module = "co.touchlab:stately-common", version.ref = "statelyCommon" }
 ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
+androidx-foundation-layout = { group = "androidx.compose.foundation", name = "foundation-layout", version.ref = "foundationLayout" }
 
 [bundles]
 composelibs = ['compose-ui','compose-ui-tooling-preview','compose-foundation','compose-material','compose-material3','androidx-activity-compose','compose-animation-core','compose-animation-graphics','compose-coil','compose-lottie','compose-navigation','compose-constraintlayout','jetpack-viewmodel-compose','jetpack-viewmodel-composeutils','koin-compose']

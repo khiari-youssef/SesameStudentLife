@@ -1,4 +1,4 @@
-package com.youapps.designsystem.components.modals
+package com.youapps.designsystem.components.dialogs
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.isSystemInDarkTheme
