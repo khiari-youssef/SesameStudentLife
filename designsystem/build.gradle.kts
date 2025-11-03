@@ -38,7 +38,7 @@ kotlin {
 
 android {
     namespace = "com.youapps.designsystem"
-    compileSdk = 34
+    compileSdk = 36
     defaultConfig {
         minSdk = 26
     }
