@@ -1,7 +1,7 @@
 import kotlin.ULong;
 
 
-CREATE TABLE OBUser(
+CREATE TABLE OBUserDB(
 email Text PRIMARY KEY,
 firstName Text NOT NULL,
 lastName Text,
@@ -12,35 +12,54 @@ nationality Text,
 address Text NOT NULL,
 profileDescription TEXT NOT NULL ,
 coverPicture Text NOT NULL,
-profilePicture Text NOT NULL
+profilePicture Text NOT NULL,
+coffeeSpaceTypeID Text
 );
 
-CREATE TABLE OBUserProfilePreView(
+CREATE TABLE OBUserProfilePreViewDB(
 id Text PRIMARY KEY,
 fullName Text NOT NULL,
 status Text NOT NULL,
 profilePicture Text NOT NULL
 );
 
+CREATE TABLE OBHomeCoffeeBarDB(
+spaceId Text PRIMARY KEY,
+userEmail Text NOT NULL,
+description Text,
+gallery Text NOT NULL,
+coffeeGear Text NOT NULL,
+coffeeBeans Text NOT NULL
+);
+
+
+
+
 
 
 insertOBUser:
-INSERT OR REPLACE INTO OBUser VALUES(?,?,?,?,?,?,?,?,?,?,?);
+INSERT OR REPLACE INTO OBUserDB VALUES(?,?,?,?,?,?,?,?,?,?,?,?);
 
 
 selectCurrentUserProfile:
-SELECT * FROM OBUser WHERE OBUser.email = ? LIMIT 1;
+SELECT * FROM OBUserDB WHERE OBUserDB.email = ? LIMIT 1;
 
 
 insertOBUserProfilePreView:
-INSERT OR REPLACE INTO OBUserProfilePreView VALUES(?,?,?,?);
+INSERT OR REPLACE INTO OBUserProfilePreViewDB VALUES(?,?,?,?);
 
 
 selectOBUserProfilePreView:
-SELECT * FROM OBUserProfilePreView;
+SELECT * FROM OBUserProfilePreViewDB;
 
 
 deleteOBUsers:
-DELETE FROM OBUser;
+DELETE FROM OBUserDB;
+
+insertHomeCoffeeBar:
+INSERT OR REPLACE INTO OBHomeCoffeeBarDB VALUES(?,?,?,?,?,?);
+
+selectHomeCoffeeBar:
+SELECT * FROM OBHomeCoffeeBarDB LIMIT 1;
 
 

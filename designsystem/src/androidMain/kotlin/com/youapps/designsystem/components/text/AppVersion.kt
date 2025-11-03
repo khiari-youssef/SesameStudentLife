@@ -1,4 +1,3 @@
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -9,7 +8,6 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
-import com.youapps.designsystem.LightGreyBlue
 import com.youapps.designsystem.OBFontFamilies
 import com.youapps.designsystem.R
 
@@ -19,7 +17,7 @@ fun AppVersion(
 ) {
   Text(
       style = TextStyle(
-         color = if (isSystemInDarkTheme()) LightGreyBlue else MaterialTheme.colorScheme.primary,
+         color =  MaterialTheme.colorScheme.primary,
           fontSize = 12.sp,
           fontFamily = OBFontFamilies.MainMediumFontFamily,
           fontStyle = FontStyle.Normal,

@@ -18,4 +18,6 @@
     <string name="settings_auto_login_option_label">Habilitar inicio de sesión automático</string>
     <string name="login_no_account">¿Aún no tienes una cuenta?</string>
     <string name="login_sign_up_action">Regístrate aquí</string>
+    <string name="edit_profile">Editar perfil</string>
+    <string name="profile_data_error">Error al cargar los datos del perfil !</string>
 </resources>

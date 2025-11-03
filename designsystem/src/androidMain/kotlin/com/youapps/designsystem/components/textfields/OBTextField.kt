@@ -17,14 +17,13 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
-import com.youapps.designsystem.LightGreyBlue
 import com.youapps.designsystem.OBFontFamilies
 import com.youapps.designsystem.components.text.PlaceholderText
 import com.youapps.designsystem.onBackgroundShadedDarkMode
 import com.youapps.designsystem.onBackgroundShadedLightMode
 
 @Composable
-fun SesameTextField(
+fun OBTextField(
     modifier: Modifier =Modifier,
     text: String,
     label: String,
@@ -85,7 +84,7 @@ fun SesameTextField(
                     }) ,
                     imageVector = ImageVector.vectorResource(this),
                     contentDescription = "",
-                    tint = if (isSystemInDarkTheme()) LightGreyBlue else MaterialTheme.colorScheme.secondary
+                    tint =  MaterialTheme.colorScheme.secondary
                 )
             }
         },
@@ -102,18 +101,18 @@ fun SesameTextField(
                     },
                     imageVector = ImageVector.vectorResource(this),
                     contentDescription = "",
-                    tint = if (isSystemInDarkTheme()) LightGreyBlue else MaterialTheme.colorScheme.primary
+                    tint =  MaterialTheme.colorScheme.primary
                 )
             }
         },
         visualTransformation = visualTransformation,
         colors = OutlinedTextFieldDefaults.colors(
             focusedContainerColor = Color.Unspecified,
-            cursorColor = if (isSystemInDarkTheme()) LightGreyBlue else MaterialTheme.colorScheme.primary,
-            focusedLabelColor = if (isSystemInDarkTheme()) LightGreyBlue else MaterialTheme.colorScheme.primary,
+            cursorColor =   MaterialTheme.colorScheme.primary,
+            focusedLabelColor =  MaterialTheme.colorScheme.primary,
             focusedTrailingIconColor = Color.Unspecified,
             unfocusedContainerColor = Color.Unspecified,
-            focusedBorderColor = if (isSystemInDarkTheme()) LightGreyBlue else MaterialTheme.colorScheme.primary,
+            focusedBorderColor = MaterialTheme.colorScheme.primary,
             unfocusedLabelColor = if (isSystemInDarkTheme()) onBackgroundShadedDarkMode else onBackgroundShadedLightMode
         ),
         onValueChange = onTextChanged

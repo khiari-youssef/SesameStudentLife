@@ -26,7 +26,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
-import com.youapps.designsystem.LightGreyBlue
 import com.youapps.designsystem.R
 
 
@@ -89,7 +88,7 @@ fun DetailsScreenTemplate(
                        fontSize = 18.sp,
                        fontFamily = FontFamily(Font(R.font.roboto_medium)),
                        fontWeight = FontWeight(500),
-                       color = if (isSystemInDarkTheme()) LightGreyBlue else MaterialTheme.colorScheme.secondary,
+                       color = MaterialTheme.colorScheme.secondary,
                        textAlign = TextAlign.Center,
                    )
 

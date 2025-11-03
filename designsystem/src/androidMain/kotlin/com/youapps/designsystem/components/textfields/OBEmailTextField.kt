@@ -5,7 +5,7 @@ import androidx.compose.ui.res.stringResource
 import com.youapps.designsystem.R
 
 @Composable
-fun SesameEmailTextField(
+fun OBEmailTextField(
     modifier : Modifier = Modifier,
     text: String,
     isEnabled: Boolean,
@@ -16,7 +16,7 @@ fun SesameEmailTextField(
     onRightIconResClicked : (()->Unit)?=null,
     onEmailChanged: (text: String) -> Unit
 ) {
-   SesameTextField(
+   OBTextField(
        modifier = modifier,
        text = text,
        label = stringResource(id = R.string.email_address_label) ,
@@ -27,8 +27,7 @@ fun SesameEmailTextField(
        isError = isError ,
        rightIconRes =rightIconRes,
        onRightIconResClicked = onRightIconResClicked,
-       onTextChanged =  onEmailChanged,
-
+       onTextChanged =  onEmailChanged
    )
 
 }

@@ -45,6 +45,18 @@ fun MainActivity.MainNavigation(
     homeDestinations : State<OBBottomNavigationBarDefaults>,
     skipLogin : Boolean = false
 ) {
+    val isAppExistPopupShown = remember {
+        mutableStateOf(false)
+    }
+    AppExitPopup(
+        isShown =isAppExistPopupShown.value,
+        onConfirmAppExit = {
+            this@MainNavigation.finishAffinity()
+        },
+        onCancelled = {
+            isAppExistPopupShown.value = false
+        }
+    )
     NavHost(
         modifier = modifier,
         route = "MainGraph",
@@ -70,6 +82,9 @@ fun MainActivity.MainNavigation(
                     }
                 } )
 
+                BackHandler {
+                    isAppExistPopupShown.value = true
+                }
                 LoginScreen(
                     modifier = Modifier
                         .semantics {
@@ -96,18 +111,7 @@ fun MainActivity.MainNavigation(
             composable(
                 route = "MainNavigation"
             ){ _->
-                val isAppExistPopupShown = remember {
-                    mutableStateOf(false)
-                }
-                AppExitPopup(
-                    isShown =isAppExistPopupShown.value,
-                    onConfirmAppExit = {
-                        this@MainNavigation.finishAffinity()
-                    },
-                    onCancelled = {
-                        isAppExistPopupShown.value = false
-                    }
-                )
+
                 HomeScreen(
                     homeDestinations = homeDestinations.value,
                     onHomeExit = {destination->

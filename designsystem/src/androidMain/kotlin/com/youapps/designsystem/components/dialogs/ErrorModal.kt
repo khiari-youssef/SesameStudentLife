@@ -30,7 +30,7 @@ import com.youapps.designsystem.onBackgroundShadedLightMode
 fun ErrorModal(
     title : String,
     details : String,
-    imgRes : Int,
+    imgRes : Int?=null,
     onRetryAction : ()->Unit
 ) {
    Card(
@@ -90,13 +90,14 @@ fun ErrorModal(
                   overflow = TextOverflow.Ellipsis
               )
           }
-           Image(
-               imageVector = ImageVector.vectorResource(imgRes) ,
-               contentDescription = "",
-          )
-           OBButton(
+           imgRes?.run {
+               Image(
+                   imageVector = ImageVector.vectorResource(imgRes) ,
+                   contentDescription = "",
+               )
+           }
+           OBButtonContainedSecondary(
                text = stringResource(id = R.string.retry),
-               theme = OBButtonTheme.ContainedSecondary,
                isEnabled = true,
                isLoading = false,
                onClick = onRetryAction

@@ -24,8 +24,7 @@ fun OBTheme(
         darkColorScheme(
             primary = RoseEbony,
             secondary = BrickRed,
-            tertiary = BlueHosta,
-            surfaceVariant = Charcoal2,
+            tertiary = PumpkinOrangeShaded,
             surface = Alabaster,
             primaryContainer = TonedDark,
             background = Dark,
@@ -35,8 +34,7 @@ fun OBTheme(
         lightColorScheme(
             primary = RoseEbony,
             secondary = BrickRed,
-            tertiary = BlueHosta,
-            surfaceVariant = AliceBlue,
+            tertiary = PumpkinOrangeShaded,
             surface = Alabaster,
             primaryContainer = ShadedWhite
         )

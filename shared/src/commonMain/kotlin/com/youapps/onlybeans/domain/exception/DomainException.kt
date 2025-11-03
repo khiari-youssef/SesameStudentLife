@@ -7,7 +7,8 @@ enum class DomainErrorType{
     AccountLocked,
     Undefined,
     IllegalEntityAttributes,
-    Unauthorized
+    Unauthorized,
+    NotFound
 }
  class DomainException(
     override val cause: Throwable?=null,

@@ -12,9 +12,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
-import com.youapps.designsystem.AliceBlue
+import com.youapps.designsystem.Alabaster
 import com.youapps.designsystem.Licorice
-import com.youapps.designsystem.LightGreyBlue
 import com.youapps.designsystem.RoseEbony
 import java.time.LocalDateTime
 
@@ -28,14 +27,14 @@ fun OBDateRangePicker(
 ) {
 
  val colors = DatePickerDefaults.colors(
-   containerColor = AliceBlue,
+   containerColor = Alabaster,
      todayContentColor = RoseEbony,
      todayDateBorderColor = RoseEbony,
      selectedDayContainerColor = RoseEbony,
      selectedDayContentColor = if (isSystemInDarkTheme()) Color(0xFFB6B6B6)
      else Color.White,
-     selectedYearContainerColor = AliceBlue,
-     dayInSelectionRangeContainerColor = if (isSystemInDarkTheme()) LightGreyBlue else Licorice,
+     selectedYearContainerColor = Alabaster,
+     dayInSelectionRangeContainerColor = Licorice,
      dayInSelectionRangeContentColor = MaterialTheme.colorScheme.surfaceVariant,
      dayContentColor = MaterialTheme.colorScheme.onBackground
  )

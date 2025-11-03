@@ -16,7 +16,7 @@ import kotlinx.serialization.encoding.Encoder
 import kotlinx.serialization.json.Json
 
 
-internal data class CoffeeSpace(
+internal data class OBCoffeeSpaceDTO(
     val id: String,
     val data : Any
 ) {
@@ -34,13 +34,13 @@ internal const val OBCoffeeShopID : String = "ob_coffee_shop"
 internal const val OBCoffeeCompanyID : String = "ob_coffee_company"
 internal const val OBCoffeeFarmID : String = "ob_coffee_farm"
 
-internal  class  CoffeeSpaceSerialize() : KSerializer<CoffeeSpace> {
+internal  class  CoffeeSpaceSerialize() : KSerializer<OBCoffeeSpaceDTO> {
 
     override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("CoffeeSpace", PrimitiveKind.STRING)
 
     override fun serialize(
         encoder: Encoder,
-        value: CoffeeSpace
+        value: OBCoffeeSpaceDTO
     ) {
         when(value.id) {
             OBHomeCoffeeBarID -> {
@@ -67,9 +67,9 @@ internal  class  CoffeeSpaceSerialize() : KSerializer<CoffeeSpace> {
         }
     }
 
-    override fun deserialize(decoder: Decoder): CoffeeSpace {
+    override fun deserialize(decoder: Decoder): OBCoffeeSpaceDTO {
        val decodedString = decoder.decodeString()
-        val coffeeSpace : CoffeeSpace= Json.decodeFromString<CoffeeSpace>(decodedString)
+        val coffeeSpace : OBCoffeeSpaceDTO= Json.decodeFromString<OBCoffeeSpaceDTO>(decodedString)
         return coffeeSpace
     }
 
@@ -104,7 +104,7 @@ internal data class OBCoffeeShopDTO(
     @SerialName("spaceId")  val spaceId : String,
     @SerialName("userEmail") val userEmail : String,
     @SerialName("description") val description : String,
-    @SerialName("gallery") val gallery : List<String>
+    @SerialName("gallery") val gallery : List<String>,
 ) {
     fun toDomainModel() : OBCoffeeShop = OBCoffeeShop(
         spaceId = this.spaceId,

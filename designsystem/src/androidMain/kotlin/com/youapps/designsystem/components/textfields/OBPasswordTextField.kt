@@ -30,7 +30,7 @@ fun SesamePasswordTextField(
             } else PasswordVisualTransformation()
         }
     }
-    SesameTextField(
+    OBTextField(
         modifier =modifier,
         text = password,
         label = label ,

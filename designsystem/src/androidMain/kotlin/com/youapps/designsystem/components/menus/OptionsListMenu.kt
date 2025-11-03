@@ -24,7 +24,6 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.youapps.designsystem.LightGreyBlue
 import com.youapps.designsystem.OBFontFamilies
 
 @Stable
@@ -57,7 +56,7 @@ fun OptionsListMenu(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        val itemColor = if (isSystemInDarkTheme()) LightGreyBlue else MaterialTheme.colorScheme.secondary
+        val itemColor =  MaterialTheme.colorScheme.secondary
         menuOptions.options.forEachIndexed { index, option->
             Row(
                 modifier = Modifier

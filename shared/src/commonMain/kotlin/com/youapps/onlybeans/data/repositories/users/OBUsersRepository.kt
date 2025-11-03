@@ -16,22 +16,37 @@ internal class OBUsersRepository(
     override suspend fun loginWithEmailAndPassword(email: String, password: String): OBUserProfile {
         return toDomainAuthenticationError(withCredentials = true) {
             val result = usersRemoteDAO.fetchEmailAndPasswordLoginAPI(email, password)
-            val hasTransactionSucceeded = usersLocalDAO.saveUserData(result.token, result.data)
-            val userData = result.data.toDomainModel()
-            if (hasTransactionSucceeded) userData else throw IllegalStateException(
-                "Error while saving user data! in the device"
+            runCatching {
+                return@runCatching  result.data.toDomainModel()
+            }.getOrNull()?.let {profile->
+                val hasTransactionSucceeded = usersLocalDAO.saveUserData(result.token, result.data)
+                if (hasTransactionSucceeded) profile else throw IllegalStateException(
+                    "Error while saving user data! in the device"
+                )
+            } ?:throw IllegalStateException(
+                "Invalid DTO to domain mapping"
             )
+
         }
     }
 
     override suspend fun loginWithToken(token: String): OBUserProfile {
         return  toDomainAuthenticationError(withCredentials = false){
             val result = usersRemoteDAO.fetchTokenLoginAPI(token)
-            val hasTransactionSucceeded = usersLocalDAO.saveUserData(result.token, result.data)
-            val userData = result.data.toDomainModel()
-            if (hasTransactionSucceeded) userData else throw IllegalStateException(
-                "Error while saving user data! in the device"
+            runCatching {
+               return@runCatching result.data.toDomainModel()
+            }.getOrNull()?.let { profile->
+                val hasTransactionSucceeded = usersLocalDAO.saveUserData(result.token, result.data)
+                result.data.myCoffeeSpace?.run {
+                    usersLocalDAO.saveCoffeeSpace(this)
+                }
+                    if (hasTransactionSucceeded) profile else throw IllegalStateException(
+                        "Error while saving user data! in the device"
+                    )
+            } ?: throw IllegalStateException(
+                "Invalid DTO to domain mapping"
             )
+
         }
 
     }

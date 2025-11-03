@@ -30,5 +30,7 @@
     <string name="error_toast_unauthorized">Action non autorisée !</string>
     <string name="error_toast_locked">Compte verouillé !</string>
     <string name="description_placeholder">Description indisponible !</string>
+    <string name="expand_to_read_more">Lire plus</string>
+    <string name="collapse_to_read_less">Lire moins</string>
 
 </resources>

@@ -33,4 +33,6 @@
     <string name="error_toast_unauthorized">Action unauthorized</string>
     <string name="error_toast_locked">Account locked !</string>
     <string name="description_placeholder">No description available _</string>
+    <string name="expand_to_read_more">Read more</string>
+    <string name="collapse_to_read_less">Read less</string>
 </resources>

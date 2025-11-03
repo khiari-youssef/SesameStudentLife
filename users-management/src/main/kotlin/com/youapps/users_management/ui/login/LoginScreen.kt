@@ -4,11 +4,12 @@ package com.youapps.users_management.ui.login
 import AppTitleLogo
 import AppVersion
 import OBButton
-import OBButtonTheme
-import SesameEmailTextField
+import OBButtonContainedPrimary
+import OBEmailTextField
 import SesamePasswordTextField
 import android.content.res.Configuration
 import android.widget.Toast
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.focusGroup
 import androidx.compose.foundation.layout.Arrangement
@@ -19,8 +20,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.text.KeyboardActions
-import androidx.compose.material.Text
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
@@ -64,6 +65,7 @@ fun LoginScreen(
     onLoginClicked : ()->Unit
 
 ) {
+
    val isLargeScreen  = LocalConfiguration.current.run {
        (orientation == Configuration.ORIENTATION_LANDSCAPE) or (this.screenWidthDp >= 600)
    }
@@ -150,7 +152,7 @@ ConstraintLayout(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(8.dp,Alignment.CenterHorizontally)
     ) {
-       OBButton(
+       OBButtonContainedPrimary(
            modifier = Modifier
                .semantics {
                    contentDescription = "LoginButton"
@@ -158,7 +160,6 @@ ConstraintLayout(
                .wrapContentHeight()
                .fillMaxWidth(0.9f),
            text = stringResource(id = DSR.string.login),
-           theme = OBButtonTheme.ContainedPrimary,
            isEnabled = true,
            isLoading = loginUIStateHolder.loginRequestResult.value is LoginState.Loading,
            onClick = onLoginClicked
@@ -279,7 +280,7 @@ fun LoginForm(
      horizontalAlignment = Alignment.CenterHorizontally,
      verticalArrangement = Arrangement.spacedBy(16.dp, Alignment.CenterVertically)
  ) {
-     SesameEmailTextField(
+     OBEmailTextField(
          modifier = Modifier
              .focusGroup()
              .fillMaxWidth()

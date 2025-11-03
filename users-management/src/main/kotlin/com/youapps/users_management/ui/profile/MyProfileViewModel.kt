@@ -1,22 +1,48 @@
 package com.youapps.users_management.ui.profile
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.youapps.onlybeans.contracts.UseCaseContractReadOnly
 import com.youapps.onlybeans.domain.entities.users.OBUserProfile
+import com.youapps.onlybeans.domain.exception.DomainErrorType
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.getAndUpdate
+import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 
 class MyProfileViewModel(
     private val oBUserGetProfileUseCase: UseCaseContractReadOnly<OBUserProfile?>,
     private val obUserLogoutUseCase: UseCaseContractReadOnly<Boolean>
 ) : ViewModel() {
 
-  fun getMyProfile() : Flow<OBUserProfile?> = flow{
+    private val _profileState = MutableStateFlow<ProfileScreenState>(ProfileScreenState.Loading())
+     val profileState : StateFlow<ProfileScreenState> = _profileState
+
+    init {
+        getMyProfile()
+    }
+
+  fun getMyProfile(withPullToRefresh : Boolean = false) {
+      viewModelScope.launch {
+          _profileState.update { it->
+              ProfileScreenState.Loading(withPullToRefresh)
+          }
           val profile = oBUserGetProfileUseCase.execute()
-          emit(profile)
-  }.flowOn(Dispatchers.Main)
+          _profileState.update { it->
+              profile?.run {
+                  ProfileScreenState.Loaded(profile)
+              } ?: run {
+                  ProfileScreenState.Error(error = DomainErrorType.NotFound)
+              }
+          }
+      }
+  }
 
     fun logOutCurrentUser() : Flow<Boolean> = flow {
         emit(obUserLogoutUseCase.execute())

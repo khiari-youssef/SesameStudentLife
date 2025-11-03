@@ -13,7 +13,7 @@ fun DateInputField(
     isEnabled : Boolean = false,
     onDateChanged : (date : String)->Unit
 ) {
-  SesameTextField(
+    OBTextField(
       text = date,
       label = label,
       placeholder = "" ,

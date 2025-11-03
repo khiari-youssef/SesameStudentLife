@@ -44,7 +44,7 @@ fun OBCircleImage(
          )
          .clip(CircleShape)
          .requiredSize(size)
-         .shimmerEffect(isLoading.value),
+         .shimmerEffect(isLoading.value || uri.toString().isBlank()),
      model = ImageRequest
      .Builder(currentContext)
      .data(uri)

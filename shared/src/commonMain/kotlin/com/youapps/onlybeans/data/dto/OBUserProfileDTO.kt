@@ -25,7 +25,7 @@ internal data class OBUserProfileDTO(
     @SerialName("profilePicture")  val profilePicture : String,
     @SerialName("coverPicture")  val coverPicture : String,
     @Serializable(with = CoffeeSpaceSerialize::class)
-    @SerialName("myCoffeeSpace")  val myCoffeeSpace : CoffeeSpace?
+    @SerialName("myCoffeeSpace")  val myCoffeeSpace : OBCoffeeSpaceDTO?
 ) {
     fun toDomainModel() : OBUserProfile = OBUserProfile(
         email = email,

@@ -16,7 +16,9 @@ import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.State
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
@@ -44,6 +46,7 @@ import com.youapps.onlybeans.android.ui.notifications.NotificationScreenStateHol
 import com.youapps.onlybeans.android.ui.notifications.NotificationsScreen
 import com.youapps.onlybeans.android.ui.notifications.NotificationsViewModel
 import com.youapps.users_management.ui.profile.MyProfileViewModel
+import com.youapps.users_management.ui.profile.ProfileScreenState
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
 
@@ -103,6 +106,9 @@ fun HomeScreen(
         },
         content = { paddingValues ->
             NavHost(
+                modifier = Modifier
+                    .padding(paddingValues)
+                    .fillMaxSize(),
                 navController = homeNavController,
                 route = NavigationRoutingData.Home.ROOT,
                 startDestination = initialRoute.value
@@ -165,37 +171,23 @@ fun HomeScreen(
                             .padding(paddingValues),
                         onExitNavigation = { onHomeExit(NavigationRoutingData.ExitAppRoute) },
                     ) { modifier ->
-                        val myProfile  = profileViewModel.getMyProfile().collectAsStateWithLifecycle(
-                            initialValue = null
+                        val myProfileState : State<ProfileScreenState> = profileViewModel.profileState.collectAsStateWithLifecycle(
+                            initialValue = ProfileScreenState.Loading()
                         )
-                         val menuOptions = MenuOptions(buildList {
-
-
-                        addAll(listOf(
-                            MenuOption(
-                                id = "privacy_policy",
-                                iconRes = com.youapps.designsystem.R.drawable.ic_policy ,
-                                label = stringResource(id = com.youapps.users_management.R.string.profile_policy)
-                            ),
-                            MenuOption(
-                                id = "settings",
-                                iconRes = com.youapps.designsystem.R.drawable.ic_settings ,
-                                label = stringResource(id = com.youapps.users_management.R.string.profile_settings)
-                            )
-                        ))
-                    })
                         val profileScreenCoScope = rememberCoroutineScope()
                         val currentContext = LocalContext.current
-                        myProfile.value?.run {
                             val scrollState = rememberScrollState()
-                            ProfileScreen( 
+
+                            ProfileScreen(
                                 modifier = modifier
                                     .verticalScroll(state = scrollState)
                                     .fillMaxSize(),
-                                oBUserProfile = this ,
-                                menuOptions = menuOptions,
-                                onMenuItemClicked = {optionIndex->
-
+                                screenState = myProfileState.value,
+                                onRefreshProfile = {
+                                    profileViewModel.getMyProfile()
+                                },
+                                onPullToRefreshProfile = {
+                                    profileViewModel.getMyProfile(withPullToRefresh = true)
                                 },
                                 onLogOutClicked = {
                                     profileScreenCoScope.launch {
@@ -210,8 +202,6 @@ fun HomeScreen(
                                 }
                             )
                         }
-
-                    }
                 }
             }
         }
