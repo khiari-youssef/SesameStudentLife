@@ -28,7 +28,7 @@ fun SettingsScreen(
        verticalArrangement = Arrangement
            .spacedBy(12.dp,Alignment.CenterVertically)
    ) {
-       SesameCheckableSettingsOption(
+       OBCheckableSettingsOption(
            modifier = Modifier
                .fillMaxWidth()
                .wrapContentHeight(),

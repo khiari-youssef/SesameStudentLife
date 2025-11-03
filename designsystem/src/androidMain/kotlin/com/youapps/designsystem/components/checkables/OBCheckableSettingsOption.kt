@@ -15,8 +15,10 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import com.youapps.designsystem.OBFontFamilies
 
+
+
 @Composable
-fun SesameCheckableSettingsOption(
+fun OBCheckableSettingsOption(
     modifier: Modifier = Modifier,
     label : String,
     isSelected : Boolean,

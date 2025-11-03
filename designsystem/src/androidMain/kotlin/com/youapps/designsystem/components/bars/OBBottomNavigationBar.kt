@@ -10,8 +10,6 @@ import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.BadgedBox
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.NavigationBarDefaults
-import androidx.compose.material3.NavigationBarItemColors
 import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -41,7 +39,7 @@ value class OBBottomNavigationBarDefaults(
 }
 
 @Composable
-fun SesameBottomNavigationBar(
+fun OBBottomNavigationBar(
     selectedItemIndex : Int,
     modifier: Modifier = Modifier,
     properties : OBBottomNavigationBarDefaults,
