@@ -6,6 +6,7 @@
     <string name="no">Non</string>
     <string name="ok">OK</string>
     <string name="app_exit_popup_title">Voulez vous vraiment quitter l\'application ?</string>
+    <string name="app_logout_popup_title">Voulez vous vraiment vous déconnecter ?</string>
     <string name="confirm">Confirmer</string>
     <string name="cancel">Annuler</string>
     <string name="email_address_label">Addresse Email</string>

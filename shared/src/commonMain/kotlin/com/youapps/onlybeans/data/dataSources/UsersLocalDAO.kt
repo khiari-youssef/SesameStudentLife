@@ -174,6 +174,7 @@ internal class UsersLocalDAO(
 
 suspend fun deleteLoggedINUser() : Boolean{
     return withContext(Dispatchers.IO){
+        preferences.clearUserData()
         onlyBeansDatabase.onlyBeansDatabaseQueries.run {
            return@run transactionWithResult {
                 deleteOBUsers() > 0

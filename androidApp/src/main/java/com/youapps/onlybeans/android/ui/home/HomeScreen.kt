@@ -20,11 +20,13 @@ import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
 import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
@@ -41,6 +43,7 @@ import com.youapps.designsystem.components.bars.SesameBottomNavigationBar
 import com.youapps.designsystem.components.bars.OBBottomNavigationBarDefaults
 import com.youapps.designsystem.components.menus.MenuOption
 import com.youapps.designsystem.components.menus.MenuOptions
+import com.youapps.designsystem.components.popups.LogoutPopup
 import com.youapps.onlybeans.android.base.NavigationRoutingData
 import com.youapps.onlybeans.android.ui.notifications.NotificationScreenStateHolder
 import com.youapps.onlybeans.android.ui.notifications.NotificationsScreen
@@ -164,6 +167,30 @@ fun HomeScreen(
                 }
                 composable(NavigationRoutingData.Home.Profile) {
                     val profileViewModel : MyProfileViewModel = koinViewModel()
+                    var isLogoutPopupVisible by remember {
+                        mutableStateOf(false)
+                    }
+                    val profileScreenCoScope = rememberCoroutineScope()
+                    val currentContext = LocalContext.current
+
+                    LogoutPopup(
+                        isShown = isLogoutPopupVisible,
+                        onCancelled =  {
+                            isLogoutPopupVisible = false
+                        },
+                        onConfirmAppExit = {
+                            profileScreenCoScope.launch {
+                                profileViewModel.logOutCurrentUser().collect { isLoggedOut->
+                                    if (isLoggedOut) {
+                                    onHomeExit(NavigationRoutingData.Login)
+                                    } else {
+                                        Toast.makeText(currentContext, "Could not logout user !", Toast.LENGTH_LONG).show()
+                                    }
+                                    isLogoutPopupVisible = false
+                                }
+                            }
+                        }
+                    )
 
                     NavigationBarScreenTemplate(
                         modifier = Modifier
@@ -174,8 +201,7 @@ fun HomeScreen(
                         val myProfileState : State<ProfileScreenState> = profileViewModel.profileState.collectAsStateWithLifecycle(
                             initialValue = ProfileScreenState.Loading()
                         )
-                        val profileScreenCoScope = rememberCoroutineScope()
-                        val currentContext = LocalContext.current
+
                             val scrollState = rememberScrollState()
 
                             ProfileScreen(
@@ -190,16 +216,9 @@ fun HomeScreen(
                                     profileViewModel.getMyProfile(withPullToRefresh = true)
                                 },
                                 onLogOutClicked = {
-                                    profileScreenCoScope.launch {
-                                        profileViewModel.logOutCurrentUser().collect { isLoggedOut->
-                                            if (isLoggedOut) {
-                                                onHomeExit(NavigationRoutingData.Login)
-                                            } else {
-                                                Toast.makeText(currentContext, "Could not logout user !", Toast.LENGTH_LONG).show()
-                                            }
-                                        }
-                                    }
+                                    isLogoutPopupVisible = true
                                 }
+
                             )
                         }
                 }

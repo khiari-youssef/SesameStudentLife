@@ -8,6 +8,7 @@
     <string name="no">No</string>
     <string name="ok">OK</string>
     <string name="app_exit_popup_title">Do you really want to quit the app ?</string>
+    <string name="app_logout_popup_title">Do you really want to logout ?</string>
     <string name="confirm">Confirm</string>
     <string name="cancel">Cancel</string>
     <string name="email_address_label">Email address</string>

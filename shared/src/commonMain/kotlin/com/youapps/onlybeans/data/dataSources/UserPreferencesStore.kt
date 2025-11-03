@@ -41,5 +41,13 @@ class UserPreferencesStore(
         }
     }
 
+    suspend fun clearUserData() {
+        withContext(Dispatchers.IO) {
+            preferences.edit { mutablePrefs ->
+                mutablePrefs.clear()
+            }
+        }
+    }
+
 
 }

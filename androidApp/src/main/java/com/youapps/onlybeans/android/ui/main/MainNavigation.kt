@@ -1,6 +1,5 @@
 package com.youapps.onlybeans.android.ui.main
 
-import AppExitPopup
 import SettingsScreen
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Box
@@ -24,6 +23,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.youapps.designsystem.components.bars.OBBottomNavigationBarDefaults
 import com.youapps.designsystem.components.dialogs.NavigationNotFoundModal
+import com.youapps.designsystem.components.popups.AppExitPopup
 import com.youapps.designsystem.navigateBack
 import com.youapps.onlybeans.android.base.NavigationRoutingData
 import com.youapps.onlybeans.android.ui.home.HomeScreen

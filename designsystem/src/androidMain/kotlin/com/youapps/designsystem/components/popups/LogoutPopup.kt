@@ -6,14 +6,14 @@ import androidx.compose.ui.res.stringResource
 import com.youapps.designsystem.R
 
 @Composable
-fun AppExitPopup(
+fun LogoutPopup(
     isShown : Boolean,
    onConfirmAppExit : ()->Unit,
    onCancelled : ()->Unit
 ) {
     DualButtonPopup(
         isShown =isShown,
-        title = stringResource(id = R.string.app_exit_popup_title),
+        title = stringResource(id = R.string.app_logout_popup_title),
         onDismissRequest = onCancelled,
         onNegativeButtonClicked = onCancelled,
         onPositiveButtonClicked =onConfirmAppExit,
