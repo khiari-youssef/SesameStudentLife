@@ -2,11 +2,8 @@ package com.youapps.onlybeans.data.dataSources
 
 import com.youapps.onlybeans.OnlyBeansDatabase
 import com.youapps.onlybeans.data.dto.OBAddressDTO
-import com.youapps.onlybeans.data.dto.OBCoffeeCompanyDTO
 import com.youapps.onlybeans.data.dto.OBCoffeeCompanyID
-import com.youapps.onlybeans.data.dto.OBCoffeeFarmDTO
 import com.youapps.onlybeans.data.dto.OBCoffeeFarmID
-import com.youapps.onlybeans.data.dto.OBCoffeeShopDTO
 import com.youapps.onlybeans.data.dto.OBCoffeeShopID
 import com.youapps.onlybeans.data.dto.OBCoffeeSpaceDTO
 import com.youapps.onlybeans.data.dto.OBHomeCoffeeBarDTO
@@ -18,14 +15,11 @@ import com.youapps.onlybeans.domain.entities.products.OBCoffeeSpace
 import com.youapps.onlybeans.domain.entities.products.OBHomeCoffeeBar
 import com.youapps.onlybeans.domain.entities.products.OBProductListItem
 import com.youapps.onlybeans.domain.entities.users.OBUserProfile
-import com.youapps.onlybeans.domain.valueobjects.UserSex
 import com.youapps.onlybeans.domain.valueobjects.decodeToUserSex
-import io.ktor.util.logging.Logger
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.withContext
-import kotlinx.serialization.SerializationException
 import kotlinx.serialization.json.Json
 
 

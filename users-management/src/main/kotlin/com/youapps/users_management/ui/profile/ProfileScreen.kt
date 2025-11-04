@@ -13,7 +13,6 @@ import androidx.compose.material3.pulltorefresh.PullToRefreshDefaults.Indicator
 import androidx.compose.material3.pulltorefresh.rememberPullToRefreshState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
-
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -24,7 +23,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.unit.dp
-import com.youapps.designsystem.R as ds
 import com.youapps.designsystem.components.dialogs.ImageViewerDialog
 import com.youapps.designsystem.components.lists.CarouselState
 import com.youapps.designsystem.components.lists.OBCarousel
@@ -35,6 +33,7 @@ import com.youapps.users_management.R
 import com.youapps.users_management.ui.profile.ProfileScreenState
 import com.youapps.users_management.ui.profile.UserProfilePreview
 import com.youapps.users_management.ui.profile.UserProfilePreviewLoader
+import com.youapps.designsystem.R as ds
 
 
 @Composable

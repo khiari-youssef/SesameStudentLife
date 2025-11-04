@@ -7,7 +7,6 @@ import com.youapps.onlybeans.domain.entities.users.OBUserProfilePreView
 import com.youapps.onlybeans.domain.valueobjects.decodeToUserSex
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 
 
