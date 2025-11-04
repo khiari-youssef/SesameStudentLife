@@ -59,8 +59,16 @@ internal class OBUsersRepository(
         return usersLocalDAO.deleteLoggedINUser()
     }
 
-    override suspend fun getCurrentUserData(): OBUserProfile? = runCatching {
-        usersLocalDAO.getCurrentUserData()
+    override suspend fun getCurrentUserData(withRefresh : Boolean): OBUserProfile? = runCatching {
+        if (withRefresh) {
+            userPreferencesStore.getUserToken().firstOrNull()?.let { token->
+                usersRemoteDAO.fetchUserProfileData(
+                    token = token
+                )?.toDomainModel()
+            }
+        } else {
+            usersLocalDAO.getCurrentUserData()
+        }
     }.onFailure {
         it.printStackTrace()
     }.getOrNull()

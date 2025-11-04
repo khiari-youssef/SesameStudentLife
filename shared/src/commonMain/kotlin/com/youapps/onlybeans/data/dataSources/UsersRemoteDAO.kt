@@ -82,4 +82,9 @@ internal class UsersRemoteDAO(
         ) else throw CustomHttpException(errorType = HttpErrorType.UnauthorizedAccess)
     }
 
+    suspend fun fetchUserProfileData(token : String) : OBUserProfileDTO? {
+        delay(300)
+        return  _mockUser
+    }
+
 }

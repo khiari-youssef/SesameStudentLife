@@ -208,7 +208,7 @@ fun HomeScreen(
                                     profileViewModel.getMyProfile()
                                 },
                                 onPullToRefreshProfile = {
-                                    profileViewModel.getMyProfile(withPullToRefresh = true)
+                                    profileViewModel.getMyProfile(withRefresh = true)
                                 },
                                 onLogOutClicked = {
                                     isLogoutPopupVisible = true

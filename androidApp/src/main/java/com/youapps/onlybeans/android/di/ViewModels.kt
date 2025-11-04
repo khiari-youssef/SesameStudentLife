@@ -2,7 +2,6 @@ package com.youapps.onlybeans.android.di
 
 import com.youapps.onlybeans.android.ui.main.MainActivityViewModel
 import com.youapps.onlybeans.android.ui.notifications.NotificationsViewModel
-import com.youapps.onlybeans.di.OBUserGetProfileUseCaseTag
 import com.youapps.onlybeans.di.OBUserLoginUseCaseTag
 import com.youapps.onlybeans.di.OBUserLogoutUseCaseTag
 import com.youapps.onlybeans.di.UsersRepositoryTag
@@ -23,7 +22,7 @@ val viewModelsModule = module {
         NotificationsViewModel()
     }
     viewModel {
-        MyProfileViewModel(get(OBUserGetProfileUseCaseTag),get(
+        MyProfileViewModel(get(UsersRepositoryTag),get(
             OBUserLogoutUseCaseTag
         ))
     }

@@ -13,7 +13,7 @@ interface OBUsersRepositoryInterface {
 
     suspend fun clearUsersFromLocalStorage() : Boolean
 
-    suspend fun getCurrentUserData() : OBUserProfile?
+    suspend fun getCurrentUserData(withRefresh : Boolean = false) : OBUserProfile?
 
 
 }
