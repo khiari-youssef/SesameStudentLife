@@ -15,10 +15,10 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material.ChipDefaults
 import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.FilterChip
-import androidx.compose.material.FloatingActionButton
-import androidx.compose.material.Icon
 import androidx.compose.material3.FilterChip
+import androidx.compose.material3.FilterChipDefaults
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -71,24 +71,25 @@ fun OBFilterItem(
         modifier = modifier,
         selected = isSelected,
         enabled = isEnabled,
-        colors = ChipDefaults.filterChipColors(
-            selectedBackgroundColor = data.selectedBackgroundColor,
-            backgroundColor = data.unSelectedBackgroundColor,
+        colors = FilterChipDefaults.filterChipColors(
+            selectedContainerColor = data.selectedBackgroundColor,
+            containerColor = data.unSelectedBackgroundColor,
         ),
         border = if (isSelected) data.selectedBorderStroke else data.unSelectedBorderStroke,
-        onClick = onClick
-    ) {
-        Text(
-            data.label,
-            style = TextStyle(
-                fontSize = 12.sp,
-                fontWeight = FontWeight.Medium,
-                fontFamily = OBFontFamilies.MainMediumFontFamily,
-                color = if (isSelected) data.selectedTextColor else data.unSelectedTextColor
-            ),
-            textAlign = TextAlign.Center
-        )
-    }
+        onClick = onClick,
+        label = {
+            Text(
+                data.label,
+                style = TextStyle(
+                    fontSize = 12.sp,
+                    fontWeight = FontWeight.Medium,
+                    fontFamily = OBFontFamilies.MainMediumFontFamily,
+                    color = if (isSelected) data.selectedTextColor else data.unSelectedTextColor
+                ),
+                textAlign = TextAlign.Center
+            )
+        }
+    )
 }
 
 
@@ -124,13 +125,19 @@ internal enum class FilterMenuState{
 }
 
 
+@Immutable
+data class OBExpandableFilterActionButton(
+    val actionButtonIconRes : Int,
+    val actionButtonBackgroundColor : Color,
+    val actionButtonIconColor : Color,
+)
+
+
 @Composable
 fun OBExpandableFilterMenu(
     modifier: Modifier = Modifier,
     menu : OBFilterMenuData,
-    actionButtonIconRes : Int,
-    actionButtonBackgroundColor : Color,
-    actionButtonIconColor : Color,
+    oBExpandableFilterActionButton : OBExpandableFilterActionButton,
     selectedItemIndex : Int?=null,
     onItemSelected : (index : Int)-> Unit
 ) {
@@ -145,7 +152,7 @@ fun OBExpandableFilterMenu(
         verticalAlignment = Alignment.Top
     ) {
         FloatingActionButton(
-            backgroundColor = actionButtonBackgroundColor,
+            containerColor = oBExpandableFilterActionButton.actionButtonBackgroundColor,
             onClick = {
                 if (transition.currentState == FilterMenuState.Collapsed) {
                     currentState.targetState = FilterMenuState.Expanded
@@ -155,9 +162,9 @@ fun OBExpandableFilterMenu(
             }
         ) {
             Icon(
-                imageVector = ImageVector.vectorResource(id = actionButtonIconRes),
+                imageVector = ImageVector.vectorResource(id = oBExpandableFilterActionButton.actionButtonIconRes),
                 contentDescription = "",
-                tint = actionButtonIconColor
+                tint = oBExpandableFilterActionButton.actionButtonIconColor
             )
         }
         transition.AnimatedVisibility(
