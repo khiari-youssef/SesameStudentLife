@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.FloatingActionButton
 import androidx.compose.material.Icon
+import androidx.compose.material.Text
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.material3.pulltorefresh.PullToRefreshDefaults.Indicator
@@ -22,13 +23,18 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.youapps.designsystem.components.dialogs.ImageViewerDialog
 import com.youapps.designsystem.components.lists.CarouselState
 import com.youapps.designsystem.components.lists.OBCarousel
-import com.youapps.designsystem.components.loading.shimmerEffect
+import com.youapps.onlybeans.ui.ProductOverViewItem
+import com.youapps.designsystem.components.menus.OBKeywordsList
 import com.youapps.designsystem.components.text.OBParagraphMode
 import com.youapps.designsystem.components.text.OBParagraphText
+import com.youapps.onlybeans.domain.entities.products.OBProductListItem
+import com.youapps.onlybeans.ui.ProductOverViewList
+import com.youapps.onlybeans.ui.ProductOverViewListData
 import com.youapps.users_management.R
 import com.youapps.users_management.ui.profile.ProfileScreenState
 import com.youapps.users_management.ui.profile.UserProfilePreview
@@ -41,7 +47,6 @@ fun ProfileScreen(
 modifier: Modifier = Modifier,
 screenState: ProfileScreenState,
 onRefreshProfile :  ()->Unit,
-onPullToRefreshProfile :  ()->Unit,
 onLogOutClicked :  ()->Unit
 ) {
     val isLargeScreen = LocalConfiguration.current.run {
@@ -61,7 +66,7 @@ onLogOutClicked :  ()->Unit
     )
     PullToRefreshBox(
         isRefreshing = screenState is ProfileScreenState.Loading && screenState.withPullToRefresh,
-        onRefresh = onPullToRefreshProfile,
+        onRefresh = onRefreshProfile,
         state = ptrState,
         indicator = {
             Indicator(
@@ -84,66 +89,140 @@ onLogOutClicked :  ()->Unit
                 when (screenState) {
                     is ProfileScreenState.Error -> {
                         ErrorModal(
+                            modifier = Modifier
+                                .padding(
+                                    top = 32.dp
+                                ),
                             title = stringResource(R.string.profile_data_error),
                             details = "",
                             onRetryAction = onRefreshProfile
                         )
+                        return@Column
                     }
                     is ProfileScreenState.Loading -> {
                         UserProfilePreviewLoader(
                             modifier = Modifier
                                 .fillMaxWidth()
                         )
+                        Column(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(
+                                    horizontal = 16.dp
+                                ),
+                            horizontalAlignment = Alignment.Start,
+                            verticalArrangement = Arrangement.spacedBy(12.dp, Alignment.Top)
+                        ){
+                            Box(
+                                modifier = Modifier
+                                    .height(30.dp)
+                                    .fillMaxWidth(),
+                            )
+                            OBCarousel(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .height(206.dp),
+                                state = CarouselState.Loading,
+                                itemSpacing = 8.dp,
+                                preferredItemWidth = 320.dp,
+                                onItemClicked = { url->
+                                    imageViewerContent.value = url
+                                }
+                            )
+
+                        }
                     }
                     is ProfileScreenState.Loaded -> {
                         UserProfilePreview(
                             modifier = Modifier
                                 .fillMaxWidth(),
                             oBUserProfile = screenState.profile.profilePreView,
-                            actionButtonText = stringResource(com.youapps.users_management.R.string.edit_profile),
+                            actionButtonText = stringResource(R.string.edit_profile),
                             onProfileActionClicked = {
 
                             }
                         )
-                    }
+                        Column(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(
+                                    horizontal = 16.dp
+                                ),
+                            horizontalAlignment = Alignment.Start,
+                            verticalArrangement = Arrangement.spacedBy(12.dp, Alignment.Top)
+                        ) {
+                            OBParagraphText(
+                                modifier = Modifier
+                                    .fillMaxWidth(),
+                                text =  screenState.profile.profileDescription,
+                                placeholderRes = ds.string.description_placeholder,
+                                expandMode = OBParagraphMode.Expandable(
+                                    expandActionText = stringResource(ds.string.expand_to_read_more),
+                                    collapseActionText =  stringResource(ds.string.collapse_to_read_less),
+                                    textStyle = SpanStyle(color = MaterialTheme.colorScheme.secondary)
+                                )
+                            )
+                            Text(
+                                modifier = Modifier.fillMaxWidth(),
+                                text = stringResource(R.string.profile_gallery),
+                                color = MaterialTheme.colorScheme.onSurface,
+                                style = MaterialTheme.typography.titleLarge,
+                                textAlign = TextAlign.Start
+                            )
+                            OBCarousel(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .height(206.dp),
+                                state = CarouselState.Loaded(
+                                    images = screenState.profile.myCoffeeSpace?.gallery ?: emptyList()
+                                ),
+                                itemSpacing = 8.dp,
+                                preferredItemWidth = 320.dp,
+                                onItemClicked = { url->
+                                    imageViewerContent.value = url
+                                }
+                            )
+                            Text(
+                                modifier = Modifier.fillMaxWidth(),
+                                text = stringResource(R.string.profile_keywords),
+                                color = MaterialTheme.colorScheme.onSurface,
+                                style = MaterialTheme.typography.titleLarge,
+                                textAlign = TextAlign.Start
+                            )
+                            OBKeywordsList(
+                                modifier = Modifier.fillMaxWidth(),
+                                keywords = screenState.profile.keywords ?: emptyList()
+                            )
 
+                                val coffeeGearData = ProductOverViewListData(
+                                    items = screenState.profile.myCoffeeSpace?.coffeeGear ?: emptyList()
+                                )
+                                ProductOverViewList(
+                                    data = coffeeGearData,
+                                    sectionTitle = stringResource(R.string.profile_coffee_beans),
+                                    maxRows = 2,
+                                    onItemClick = {
+
+                                    }
+                                )
+
+                                val coffeeBeansData = ProductOverViewListData(
+                                    items = screenState.profile.myCoffeeSpace?.coffeeBeans ?: emptyList()
+                                )
+                                ProductOverViewList(
+                                    data = coffeeBeansData,
+                                    sectionTitle = stringResource(R.string.profile_coffee_beans),
+                                    maxRows = 2,
+                                    onItemClick = {
+
+                                    }
+                                )
+
+                        }
+                    }
                 }
-                OBParagraphText(
-                    modifier = Modifier
-                        .shimmerEffect(screenState is ProfileScreenState.Loading)
-                        .padding(
-                            horizontal = 16.dp
-                        )
-                        .fillMaxWidth(),
-                    text = if (screenState is ProfileScreenState.Loaded) screenState.profile.profileDescription else "",
-                    placeholderRes = ds.string.description_placeholder,
-                    expandMode = OBParagraphMode.Expandable(
-                        expandActionText = stringResource(ds.string.expand_to_read_more),
-                        collapseActionText =  stringResource(ds.string.collapse_to_read_less),
-                        textStyle = SpanStyle(color = MaterialTheme.colorScheme.secondary)
-                    )
-                )
 
-                OBCarousel(
-                    modifier = Modifier
-                        .padding(
-                            horizontal = 16.dp
-                        )
-                        .fillMaxWidth()
-                        .height(206.dp),
-                    state =  when (screenState) {
-                        is ProfileScreenState.Error ->  CarouselState.Loaded(images = emptyList())
-                        is ProfileScreenState.Loading ->  CarouselState.Loading
-                        is ProfileScreenState.Loaded -> CarouselState.Loaded(
-                            images = screenState.profile.myCoffeeSpace?.gallery ?: emptyList()
-                        )
-                    },
-                    itemSpacing = 8.dp,
-                    preferredItemWidth = 320.dp,
-                    onItemClicked = { url->
-                        imageViewerContent.value = url
-                    }
-                )
+
             }
         Box(
             modifier = Modifier

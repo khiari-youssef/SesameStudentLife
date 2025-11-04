@@ -20,5 +20,15 @@
     <string name="login_sign_up_action">Inscrivez-vous</string>
     <string name="edit_profile">Modifier le profil</string>
     <string name="profile_data_error">Erreur de chargement des données du profil !</string>
+    <string name="profile_gallery">Galerie</string>
+    <string name="profile_keywords">Mots-clés</string>
+    <string name="profile_coffee_gear">Équipement de café</string>
+    <string name="profile_coffee_beans">Grains de café</string>
+
+
+    <!--  Accessibility   -->
+
+    <string name="content_description_product_image_preview">Image du produit : %s</string>
+    <string name="content_description_product_action">Action sur le produit : %s</string>
 
 </resources>

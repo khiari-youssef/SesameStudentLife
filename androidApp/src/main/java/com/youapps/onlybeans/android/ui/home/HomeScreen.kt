@@ -205,9 +205,6 @@ fun HomeScreen(
                                     .fillMaxSize(),
                                 screenState = myProfileState.value,
                                 onRefreshProfile = {
-                                    profileViewModel.getMyProfile()
-                                },
-                                onPullToRefreshProfile = {
                                     profileViewModel.getMyProfile(withRefresh = true)
                                 },
                                 onLogOutClicked = {

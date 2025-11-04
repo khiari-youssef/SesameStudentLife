@@ -105,12 +105,16 @@ internal data class OBCoffeeShopDTO(
     @SerialName("userEmail") val userEmail : String,
     @SerialName("description") val description : String,
     @SerialName("gallery") val gallery : List<String>,
+    @SerialName("coffeeGear")  val coffeeGear : List<OBProductListItemDTO>,
+    @SerialName("coffeeBeans")  val coffeeBeans : List<OBProductListItemDTO>
 ) {
     fun toDomainModel() : OBCoffeeShop = OBCoffeeShop(
         spaceId = this.spaceId,
         userEmail = this.userEmail,
         description = this.description,
-        gallery = this.gallery
+        gallery = this.gallery,
+        coffeeGear = this.coffeeGear.map { it.toDomain() },
+        coffeeBeans = this.coffeeBeans.map { it.toDomain() }
     )
 
 }
@@ -120,13 +124,17 @@ internal data class OBCoffeeCompanyDTO(
     @SerialName("spaceId")  val spaceId : String,
     @SerialName("userEmail") val userEmail : String,
     @SerialName("description") val description : String,
-    @SerialName("gallery") val gallery : List<String>
+    @SerialName("gallery") val gallery : List<String>,
+    @SerialName("coffeeGear")  val coffeeGear : List<OBProductListItemDTO>,
+    @SerialName("coffeeBeans")  val coffeeBeans : List<OBProductListItemDTO>
 ) {
     fun toDomainModel() : OBCoffeeCompany = OBCoffeeCompany(
         spaceId = this.spaceId,
         userEmail = this.userEmail,
         description = this.description,
-        gallery = this.gallery
+        gallery = this.gallery,
+        coffeeGear = this.coffeeGear.map { it.toDomain() },
+        coffeeBeans = this.coffeeBeans.map { it.toDomain() }
     )
 }
 
@@ -135,12 +143,16 @@ internal data class OBCoffeeFarmDTO(
     @SerialName("spaceId")  val spaceId : String,
     @SerialName("userEmail") val userEmail : String,
     @SerialName("description") val description : String,
-    @SerialName("gallery") val gallery : List<String>
+    @SerialName("gallery") val gallery : List<String>,
+    @SerialName("coffeeGear")  val coffeeGear : List<OBProductListItemDTO>,
+    @SerialName("coffeeBeans")  val coffeeBeans : List<OBProductListItemDTO>
 ) {
     fun toDomainModel() : OBCoffeeFarm = OBCoffeeFarm(
         spaceId = this.spaceId,
         userEmail = this.userEmail,
         description = this.description,
-        gallery = this.gallery
+        gallery = this.gallery,
+        coffeeGear = this.coffeeGear.map { it.toDomain() },
+        coffeeBeans = this.coffeeBeans.map { it.toDomain() }
     )
 }

@@ -27,6 +27,7 @@ fun OBTheme(
             tertiary = PumpkinOrangeShaded,
             surface = Alabaster,
             primaryContainer = TonedDark,
+            surfaceContainerHigh = Color.Black,
             background = Dark,
             onBackground = Color(0xFFB6B6B6)
         )
@@ -35,6 +36,7 @@ fun OBTheme(
             primary = RoseEbony,
             secondary = BrickRed,
             tertiary = PumpkinOrangeShaded,
+            surfaceContainerHigh = Color.White,
             surface = Alabaster,
             primaryContainer = ShadedWhite
         )

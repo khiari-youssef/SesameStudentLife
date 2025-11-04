@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.kotlinXSer)
     alias(libs.plugins.sqldelight)
+    alias(libs.plugins.compose.compiler)
 }
 
 kotlin {
@@ -51,6 +52,8 @@ kotlin {
             implementation(libs.androidx.security.identity.credential)
             implementation(libs.androidx.security.app.authenticator)
             implementation(libs.jetpack.viewmodel.core)
+            implementation(libs.bundles.composelibs)
+            implementation(projects.designsystem)
         }
         iosMain.dependencies {
             implementation(libs.stately.common)

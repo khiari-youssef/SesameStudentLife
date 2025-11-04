@@ -26,15 +26,18 @@ import com.youapps.designsystem.R
 import com.youapps.designsystem.onBackgroundShadedDarkMode
 import com.youapps.designsystem.onBackgroundShadedLightMode
 
+
+
 @Composable
 fun ErrorModal(
+    modifier: Modifier = Modifier,
     title : String,
     details : String,
     imgRes : Int?=null,
     onRetryAction : ()->Unit
 ) {
    Card(
-       modifier = Modifier
+       modifier = modifier
            .fillMaxWidth()
            .wrapContentHeight(),
        colors = CardDefaults.cardColors(
@@ -74,21 +77,23 @@ fun ErrorModal(
                       textAlign = TextAlign.Center
                   )
               )
-              Text(
-                  modifier = Modifier
-                      .fillMaxWidth()
-                      .wrapContentHeight(),
-                  text = details,
-                  style = TextStyle(
-                      fontSize = 16.sp,
-                      fontFamily = OBFontFamilies.MainMediumFontFamily,
-                      fontWeight = FontWeight(500),
-                      color = if (isSystemInDarkTheme()) onBackgroundShadedDarkMode else onBackgroundShadedLightMode,
-                      textAlign = TextAlign.Center
-                  ),
-                  maxLines = 3,
-                  overflow = TextOverflow.Ellipsis
-              )
+              if (details.isNotBlank()){
+                  Text(
+                      modifier = Modifier
+                          .fillMaxWidth()
+                          .wrapContentHeight(),
+                      text = details,
+                      style = TextStyle(
+                          fontSize = 16.sp,
+                          fontFamily = OBFontFamilies.MainMediumFontFamily,
+                          fontWeight = FontWeight(500),
+                          color = if (isSystemInDarkTheme()) onBackgroundShadedDarkMode else onBackgroundShadedLightMode,
+                          textAlign = TextAlign.Center
+                      ),
+                      maxLines = 3,
+                      overflow = TextOverflow.Ellipsis
+                  )
+              }
           }
            imgRes?.run {
                Image(

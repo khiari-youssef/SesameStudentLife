@@ -5,9 +5,11 @@ import com.youapps.onlybeans.data.dto.OBCoffeeSpaceDTO
 import com.youapps.onlybeans.data.dto.OBHomeCoffeeBarDTO
 import com.youapps.onlybeans.data.dto.OBHomeCoffeeBarID
 import com.youapps.onlybeans.data.dto.OBLoginResponseWrapper
+import com.youapps.onlybeans.data.dto.OBProductListItemDTO
 import com.youapps.onlybeans.data.dto.OBUserProfileDTO
 import com.youapps.onlybeans.data.exceptions.CustomHttpException
 import com.youapps.onlybeans.data.exceptions.HttpErrorType
+import com.youapps.onlybeans.domain.entities.products.OBProductListItem
 import io.ktor.client.HttpClient
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
@@ -40,6 +42,7 @@ internal class UsersRemoteDAO(
         profileDescription = "aaaaaaaa".repeat(12).repeat(4),
         coverPicture = "https://images.unsplash.com/photo-1601813913455-118810e79277?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1170",
         profilePicture = "https://avatar.iran.liara.run/public",
+        keywords = listOf("Espresso","Nomad barista","Outin nano","Drip coffee","Colombian coffee"),
         myCoffeeSpace = OBCoffeeSpaceDTO(
               id = OBHomeCoffeeBarID,
             data = OBHomeCoffeeBarDTO(
@@ -52,8 +55,22 @@ internal class UsersRemoteDAO(
                     "https://images.unsplash.com/photo-1610889556528-9a770e32642f?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1315",
                     "https://images.unsplash.com/photo-1581068106019-5aa70c6ab424?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1171"
                 ),
-                coffeeGear = listOf(),
-                coffeeBeans = listOf()
+                coffeeGear = List(4){ id->
+                    OBProductListItemDTO(
+                        productID = "productID$id",
+                        productName = "productName$id",
+                        productDescription = "productName$id".repeat(6),
+                        productImagePreview = "https://www.lamarzocco.com/fr/wp-content/uploads/2024/01/Linea-Mini-Rossa-front.png"
+                    )
+                },
+                coffeeBeans = List(4){ id->
+                    OBProductListItemDTO(
+                        productID = "productID$id",
+                        productName = "productName$id",
+                        productDescription = "productName$id".repeat(6),
+                        productImagePreview = "https://m.media-amazon.com/images/I/71wr1tWBudL._AC_UF894,1000_QL80_.jpg"
+                    )
+                }
             )
         )
     )

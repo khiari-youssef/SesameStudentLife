@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="see_all_button">Voir tout</string>
+
+    <!--  Accessibility   -->
+
+    <string name="content_description_product_image_preview">Image du produit : %s</string>
+    <string name="content_description_product_action">Action sur le produit : %s</string>
+
+</resources>

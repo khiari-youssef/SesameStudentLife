@@ -1,4 +1,4 @@
-package com.youapps.onlybeans.ui
+package com.youapps.onlybeans.security
 
 import android.content.Intent
 import android.os.Build

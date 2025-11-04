@@ -10,7 +10,7 @@ import com.youapps.onlybeans.android.R
 import com.youapps.onlybeans.security.BiometricAuthService
 import com.youapps.onlybeans.security.BiometricLauncherService
 import com.youapps.onlybeans.security.SupportedDeviceAuthenticationMethods
-import com.youapps.onlybeans.ui.getRegistrationBiometricIdentityIntent
+import com.youapps.onlybeans.security.getRegistrationBiometricIdentityIntent
 import org.koin.compose.koinInject
 
 @Composable

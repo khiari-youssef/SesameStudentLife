@@ -20,5 +20,11 @@
     <string name="login_sign_up_action">Sign up here</string>
     <string name="edit_profile">Edit profile</string>
     <string name="profile_data_error">Error loading profile data !</string>
+    <string name="profile_gallery">Gallery</string>
+    <string name="profile_keywords">Keywords</string>
+    <string name="profile_coffee_gear">Coffee gear</string>
+    <string name="profile_coffee_beans">Coffee beans</string>
+
+
 
 </resources>

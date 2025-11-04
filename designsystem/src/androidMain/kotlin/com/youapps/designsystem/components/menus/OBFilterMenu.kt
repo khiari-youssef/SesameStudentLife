@@ -7,22 +7,30 @@ import androidx.compose.animation.core.rememberTransition
 import androidx.compose.animation.expandHorizontally
 import androidx.compose.animation.shrinkHorizontally
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material3.Card
 import androidx.compose.material3.FilterChip
 import androidx.compose.material3.FilterChipDefaults
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
@@ -86,9 +94,53 @@ fun OBFilterItem(
 
 
 @Composable
+fun OBKeywordsList(
+    modifier: Modifier = Modifier,
+    keywords : List<String>,
+) {
+    if (keywords.isNotEmpty()) {
+        FlowRow(
+            modifier = modifier.fillMaxWidth(),
+            maxItemsInEachRow = 4,
+            maxLines = 3,
+            horizontalArrangement = Arrangement.spacedBy(4.dp, Alignment.Start),
+            verticalArrangement = Arrangement.spacedBy(8.dp, Alignment.CenterVertically),
+            itemVerticalAlignment = Alignment.CenterVertically
+        ) {
+            val borderShape = RoundedCornerShape(8.dp)
+            keywords.forEach { item ->
+                Box(
+                    modifier = Modifier
+                        .background(color = MaterialTheme.colorScheme.primary, shape = borderShape)
+                        .clip(borderShape)
+                        .wrapContentSize()
+                ) {
+                    Text(
+                        modifier = Modifier
+                            .padding(
+                                vertical = 4.dp,
+                                horizontal = 12.dp
+                            ),
+                        text = item,
+                        style = TextStyle(
+                            fontSize = 12.sp,
+                            fontWeight = FontWeight.Medium,
+                            fontFamily = OBFontFamilies.MainMediumFontFamily,
+                            color = Color.White
+                        ),
+                        textAlign = TextAlign.Center
+                    )
+                }
+            }
+        }
+    }
+
+}
+
+@Composable
 fun OBFilterMenu(
     modifier: Modifier = Modifier,
-    menu : OBFilterMenuData ,
+    menu : OBFilterMenuData,
     selectedItemIndex : Int?=null,
     onItemSelected : (index : Int)-> Unit
 ) {

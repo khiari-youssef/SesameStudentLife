@@ -20,4 +20,14 @@
     <string name="login_sign_up_action">Regístrate aquí</string>
     <string name="edit_profile">Editar perfil</string>
     <string name="profile_data_error">Error al cargar los datos del perfil !</string>
+    <string name="profile_gallery">Galería</string>
+    <string name="profile_keywords">Palabras clave</string>
+    <string name="profile_coffee_gear">Equipo de café</string>
+    <string name="profile_coffee_beans">Granos de café</string>
+
+    <!--  Accessibility   -->
+
+    <string name="content_description_product_image_preview">Imagen del producto: %s</string>
+    <string name="content_description_product_action">Acción al hacer clic en el producto: %s</string>
+
 </resources>

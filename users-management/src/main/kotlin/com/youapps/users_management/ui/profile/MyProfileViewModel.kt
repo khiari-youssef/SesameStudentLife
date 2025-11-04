@@ -43,7 +43,7 @@ class MyProfileViewModel(
               }
           } else {
               val profile = usersRepository.getCurrentUserData()
-                  profile?.run {
+               profile?.run {
                       _profileState.update { it->
                           ProfileScreenState.Loaded(profile)
                       }

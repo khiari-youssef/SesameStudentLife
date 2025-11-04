@@ -15,6 +15,7 @@ class OBUserProfile(
     val profileDescription : String,
      val profilePicture : String,
      val coverPicture : String,
+      val keywords: List<String>?=null,
      val myCoffeeSpace : OBCoffeeSpace?
 ) {
     val fullName = "$firstName $secondName"
