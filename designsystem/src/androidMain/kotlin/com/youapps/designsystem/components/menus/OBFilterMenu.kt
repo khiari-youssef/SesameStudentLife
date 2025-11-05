@@ -9,6 +9,7 @@ import androidx.compose.animation.shrinkHorizontally
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.FlowRow
@@ -97,11 +98,11 @@ fun OBFilterItem(
 fun OBKeywordsList(
     modifier: Modifier = Modifier,
     keywords : List<String>,
+    onKeyWordClicked: (String)-> Unit
 ) {
     if (keywords.isNotEmpty()) {
         FlowRow(
             modifier = modifier.fillMaxWidth(),
-            maxItemsInEachRow = 4,
             maxLines = 3,
             horizontalArrangement = Arrangement.spacedBy(4.dp, Alignment.Start),
             verticalArrangement = Arrangement.spacedBy(8.dp, Alignment.CenterVertically),
@@ -111,6 +112,9 @@ fun OBKeywordsList(
             keywords.forEach { item ->
                 Box(
                     modifier = Modifier
+                        .clickable {
+                            onKeyWordClicked(item)
+                        }
                         .background(color = MaterialTheme.colorScheme.primary, shape = borderShape)
                         .clip(borderShape)
                         .wrapContentSize()

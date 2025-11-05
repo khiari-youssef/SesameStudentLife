@@ -60,7 +60,8 @@ fun LoginScreen(
     onEmailChanged: (email: String) -> Unit,
     onPasswordChanged: (password: String) -> Unit,
     onSetIdleState : ()->Unit,
-    onLoginClicked : ()->Unit
+    onLoginClicked : ()->Unit,
+    onSignUpClicked : ()->Unit
 
 ) {
 
@@ -132,8 +133,8 @@ ConstraintLayout(
                 link = LinkAnnotation.Clickable(
                     tag = "SignUpActionText",
                     styles = TextLinkStyles(SpanStyle(color = primaryColor)),
-                    linkInteractionListener = {
-                        Toast.makeText(context, "SignUpActionText", Toast.LENGTH_SHORT).show()
+                    linkInteractionListener = { it->
+                        onSignUpClicked()
                     },
                 )
             ){

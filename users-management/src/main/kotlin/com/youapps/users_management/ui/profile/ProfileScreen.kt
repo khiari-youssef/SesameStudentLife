@@ -6,8 +6,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.FloatingActionButton
-import androidx.compose.material.Icon
-import androidx.compose.material.Text
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.material3.pulltorefresh.PullToRefreshDefaults.Indicator
@@ -25,6 +25,7 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.youapps.designsystem.components.PageSection
 import com.youapps.designsystem.components.dialogs.ImageViewerDialog
 import com.youapps.designsystem.components.lists.CarouselState
 import com.youapps.designsystem.components.lists.OBCarousel
@@ -44,10 +45,13 @@ import com.youapps.designsystem.R as ds
 
 @Composable
 fun ProfileScreen(
-modifier: Modifier = Modifier,
-screenState: ProfileScreenState,
-onRefreshProfile :  ()->Unit,
-onLogOutClicked :  ()->Unit
+    modifier: Modifier = Modifier,
+    screenState: ProfileScreenState,
+    onRefreshProfile :  ()->Unit,
+    onLogOutClicked :  ()->Unit,
+    onEditProfileClicked: ()-> Unit,
+    onKeywordClicked: (String)->Unit,
+    onProductClicked: (OBProductListItem)->Unit
 ) {
     val isLargeScreen = LocalConfiguration.current.run {
         (orientation == Configuration.ORIENTATION_LANDSCAPE) or (this.screenWidthDp >= 600)
@@ -138,9 +142,7 @@ onLogOutClicked :  ()->Unit
                                 .fillMaxWidth(),
                             oBUserProfile = screenState.profile.profilePreView,
                             actionButtonText = stringResource(R.string.edit_profile),
-                            onProfileActionClicked = {
-
-                            }
+                            onProfileActionClicked = onEditProfileClicked
                         )
                         Column(
                             modifier = Modifier
@@ -162,48 +164,45 @@ onLogOutClicked :  ()->Unit
                                     textStyle = SpanStyle(color = MaterialTheme.colorScheme.secondary)
                                 )
                             )
-                            Text(
+                            PageSection(
                                 modifier = Modifier.fillMaxWidth(),
-                                text = stringResource(R.string.profile_gallery),
-                                color = MaterialTheme.colorScheme.onSurface,
-                                style = MaterialTheme.typography.titleLarge,
-                                textAlign = TextAlign.Start
-                            )
-                            OBCarousel(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .height(206.dp),
-                                state = CarouselState.Loaded(
-                                    images = screenState.profile.myCoffeeSpace?.gallery ?: emptyList()
-                                ),
-                                itemSpacing = 8.dp,
-                                preferredItemWidth = 320.dp,
-                                onItemClicked = { url->
-                                    imageViewerContent.value = url
-                                }
-                            )
-                            Text(
+                                sectionTitle = stringResource(R.string.profile_gallery),
+                            ) {
+                                OBCarousel(
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .height(206.dp),
+                                    state = CarouselState.Loaded(
+                                        images = screenState.profile.myCoffeeSpace?.gallery ?: emptyList()
+                                    ),
+                                    itemSpacing = 8.dp,
+                                    preferredItemWidth = 320.dp,
+                                    onItemClicked = { url->
+                                        imageViewerContent.value = url
+                                    }
+                                )
+                            }
+
+
+                            PageSection(
                                 modifier = Modifier.fillMaxWidth(),
-                                text = stringResource(R.string.profile_keywords),
-                                color = MaterialTheme.colorScheme.onSurface,
-                                style = MaterialTheme.typography.titleLarge,
-                                textAlign = TextAlign.Start
-                            )
-                            OBKeywordsList(
-                                modifier = Modifier.fillMaxWidth(),
-                                keywords = screenState.profile.keywords ?: emptyList()
-                            )
+                                sectionTitle = stringResource(R.string.profile_keywords),
+                            ) {
+                                OBKeywordsList(
+                                    modifier = Modifier.fillMaxWidth(),
+                                    keywords = screenState.profile.keywords ?: emptyList(),
+                                    onKeyWordClicked = onKeywordClicked
+                                )
+                            }
 
                                 val coffeeGearData = ProductOverViewListData(
                                     items = screenState.profile.myCoffeeSpace?.coffeeGear ?: emptyList()
                                 )
                                 ProductOverViewList(
                                     data = coffeeGearData,
-                                    sectionTitle = stringResource(R.string.profile_coffee_beans),
+                                    sectionTitle = stringResource(R.string.profile_coffee_gear),
                                     maxRows = 2,
-                                    onItemClick = {
-
-                                    }
+                                    onItemClick = onProductClicked
                                 )
 
                                 val coffeeBeansData = ProductOverViewListData(
@@ -212,10 +211,8 @@ onLogOutClicked :  ()->Unit
                                 ProductOverViewList(
                                     data = coffeeBeansData,
                                     sectionTitle = stringResource(R.string.profile_coffee_beans),
-                                    maxRows = 2,
-                                    onItemClick = {
-
-                                    }
+                                    maxRows = 4,
+                                    onItemClick = onProductClicked
                                 )
 
                         }

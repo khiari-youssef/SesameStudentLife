@@ -31,10 +31,10 @@ import com.youapps.users_management.ui.login.LoginScreen
 import com.youapps.users_management.ui.login.LoginState
 import com.youapps.users_management.ui.login.LoginUIStateHolder
 import com.youapps.users_management.ui.login.LoginViewModel
+import com.youapps.users_management.ui.registration.OBRegistrationScreen
 import com.youapps.users_management.ui.settings.AppSettingsStateHolder
 import com.youapps.users_management.ui.settings.SettingsViewModel
-import com.youapps.users_management.ui.settings.mygrades.MyGradesScreen
-import com.youapps.users_management.ui.settings.mysubscriptions.MySubscriptionsScreen
+
 import com.youapps.users_management.ui.settings.privacypolicy.PrivacyPolicyScreen
 import org.koin.androidx.compose.koinViewModel
 
@@ -60,11 +60,11 @@ fun MainActivity.MainNavigation(
     NavHost(
         modifier = modifier,
         route = "MainGraph",
-        startDestination = if (skipLogin) "MainNavigation" else NavigationRoutingData.Login,
+        startDestination = if (skipLogin) "MainNavigation" else NavigationRoutingData.LOGIN,
         navController = rootNavController,
         builder = {
             composable(
-                route = NavigationRoutingData.Login
+                route = NavigationRoutingData.LOGIN
             ){
                 val viewModel : LoginViewModel = koinViewModel()
                 val loginUIState = LoginUIStateHolder.rememberLoginUIState(
@@ -100,13 +100,19 @@ fun MainActivity.MainNavigation(
                     },
                     onSetIdleState = {
                         viewModel.setLoginIdleState()
+                    },
+                    onLoginClicked = {
+                        viewModel.loginWithEmailAndPassword(
+                            loginUIState.loginEmail.value,
+                            loginUIState.loginPassword.value
+                        )
+
+                    },
+                    onSignUpClicked = {
+                        rootNavController.navigate(NavigationRoutingData.REGISTRATION_SCREEN)
                     }
-                ){
-                    viewModel.loginWithEmailAndPassword(
-                        loginUIState.loginEmail.value,
-                        loginUIState.loginPassword.value
-                    )
-                }
+                )
+
             }
             composable(
                 route = "MainNavigation"
@@ -116,14 +122,14 @@ fun MainActivity.MainNavigation(
                     homeDestinations = homeDestinations.value,
                     onHomeExit = {destination->
                         when (destination){
-                            NavigationRoutingData.ExitAppRoute->{
+                            NavigationRoutingData.EXIT_APP_ROUTE->{
                                 isAppExistPopupShown.value = true
                             }
-                            NavigationRoutingData.Login->{
+                            NavigationRoutingData.LOGIN->{
                                 rootNavController.navigate(
                                     destination,
                                     NavOptions.Builder()
-                                        .setPopUpTo(NavigationRoutingData.Login,true)
+                                        .setPopUpTo(NavigationRoutingData.LOGIN,true)
                                         .build()
                                 )
                             }
@@ -138,15 +144,7 @@ fun MainActivity.MainNavigation(
                 }
             }
             composable(
-                route = "${NavigationRoutingData.MyProjects}/{userID}",
-                arguments = listOf(navArgument("userID") {
-                    type = NavType.StringType
-                })
-            ) { backStackEntry->
-
-            }
-            composable(
-                route = NavigationRoutingData.NavigationNotFound
+                route = NavigationRoutingData.NAVIGATION_NOT_FOUND
             ){
                 Box(
                     modifier = Modifier.fillMaxSize(),
@@ -158,30 +156,22 @@ fun MainActivity.MainNavigation(
                 }
             }
             composable(
-                route = NavigationRoutingData.MyClasses
+                route = NavigationRoutingData.EDIT_PROFILE_SCREEN
             ){
 
             }
             composable(
-                route = NavigationRoutingData.MySubscriptions
+                route = NavigationRoutingData.VIEW_SCREEN_PRODUCT
             ){
-                MySubscriptionsScreen(
-                    onBackPressed = {
-                        rootNavController.navigateBack()
-                    }
-                )
+
             }
             composable(
-                route = NavigationRoutingData.MyGrades
+                route = NavigationRoutingData.REGISTRATION_SCREEN
             ){
-                MyGradesScreen(
-                    onBackPressed = {
-                        rootNavController.navigateBack()
-                    }
-                )
+                OBRegistrationScreen()
             }
             composable(
-                route = NavigationRoutingData.PrivacyPolicyScreen
+                route = NavigationRoutingData.PRIVACY_POLICY_SCREEN
             ){
                 PrivacyPolicyScreen(
                     onBackPressed = {
@@ -190,7 +180,7 @@ fun MainActivity.MainNavigation(
                 )
             }
             composable(
-                route = NavigationRoutingData.Settings
+                route = NavigationRoutingData.SETTINGS
             ){
                 val viewModel : SettingsViewModel = koinViewModel()
                 val uiState = AppSettingsStateHolder

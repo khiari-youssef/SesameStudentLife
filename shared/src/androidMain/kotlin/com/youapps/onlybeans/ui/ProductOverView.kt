@@ -4,6 +4,7 @@ import OBButton
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -49,7 +50,6 @@ fun ProductOverViewList(
     modifier: Modifier = Modifier,
     data: ProductOverViewListData,
     sectionTitle : String,
-    displayInGridMode : Boolean = false,
     maxRows : Int = 4,
     onItemClick : (OBProductListItem)->Unit
 ){
@@ -66,9 +66,6 @@ fun ProductOverViewList(
                 style = MaterialTheme.typography.titleLarge,
                 textAlign = TextAlign.Start
             )
-            if (displayInGridMode) {
-                TODO()
-            } else {
                 List(listData.size){ index->
                     val item : OBProductListItem? = listData[index]
                     item?.run {
@@ -99,7 +96,7 @@ fun ProductOverViewList(
                         }
                     }
                 }
-            }
+
 
         }
     }

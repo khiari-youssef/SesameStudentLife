@@ -16,6 +16,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.State
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
@@ -34,6 +35,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.youapps.designsystem.components.NavigationBarScreenTemplate
 import com.youapps.designsystem.components.bars.OBBottomNavigationBar
@@ -56,9 +58,18 @@ fun HomeScreen(
 ) {
     val homeNavController = rememberNavController()
 
+
     val selectedHomeDestinationIndex = rememberSaveable {
         mutableIntStateOf(0)
     }
+
+    homeNavController.addOnDestinationChangedListener { controller, destination, arguments ->
+        destination.route?.run {
+            selectedHomeDestinationIndex.intValue = NavigationRoutingData.Home.mapRouteToIndex(this)
+        }
+    }
+
+
 
     val initialRoute = remember {
        derivedStateOf {
@@ -93,7 +104,6 @@ fun HomeScreen(
                     selectedItemIndex = selectedHomeDestinationIndex.intValue,
                     properties = homeDestinations,
                     onItemSelected = { index ->
-                        selectedHomeDestinationIndex.intValue = index
                         homeNavController.navigate(
                             route = NavigationRoutingData.Home.mapIndexToRoute(index),
                             navOptions = navOpts
@@ -111,13 +121,13 @@ fun HomeScreen(
                 route = NavigationRoutingData.Home.ROOT,
                 startDestination = initialRoute.value
             ) {
-                composable(NavigationRoutingData.Home.Calendar) {
+                composable(NavigationRoutingData.Home.NETWORK) {
                     NavigationBarScreenTemplate(
                         modifier = Modifier
                             .padding(paddingValues),
                         onExitNavigation = remember {
                             {
-                                onHomeExit(NavigationRoutingData.ExitAppRoute)
+                                onHomeExit(NavigationRoutingData.EXIT_APP_ROUTE)
                             }
                         },
                         content = remember {
@@ -128,11 +138,11 @@ fun HomeScreen(
                     )
                 }
                 composable(
-                    route = NavigationRoutingData.Home.News
+                    route = NavigationRoutingData.Home.MARKETPLACE
                 ) {
 
                 }
-                composable(NavigationRoutingData.Home.Notifications) {
+                composable(NavigationRoutingData.Home.NOTIFICATIONS) {
                     val viewModel = koinViewModel<NotificationsViewModel>()
                     val screenState =  NotificationScreenStateHolder
                         .rememberNotificationScreenState(
@@ -142,17 +152,14 @@ fun HomeScreen(
                             }
                         )
                     NavigationBarScreenTemplate(
-                        modifier = Modifier
-                            .padding(paddingValues),
-                        onExitNavigation = { onHomeExit(NavigationRoutingData.ExitAppRoute) },
+                        modifier = Modifier,
+                        onExitNavigation = { onHomeExit(NavigationRoutingData.EXIT_APP_ROUTE) },
                     ) { modifier ->
                         NotificationsScreen(
                             modifier = modifier,
                             screenState =  screenState,
                             onProjectReferenceClicked = {projectRef->
-                                if (projectRef.isNotBlank()){
-                                    onHomeExit("${NavigationRoutingData.ProjectJoinProcedure.ProjectDetailsScreen}/$projectRef")
-                                }
+
                             },
                             onRefreshNotifications = {
                                 viewModel.getLastNotifications(isRefresh = true)
@@ -160,7 +167,7 @@ fun HomeScreen(
                         )
                     }
                 }
-                composable(NavigationRoutingData.Home.Profile) {
+                composable(NavigationRoutingData.Home.PROFILE) {
                     val profileViewModel : MyProfileViewModel = koinViewModel()
                     var isLogoutPopupVisible by remember {
                         mutableStateOf(false)
@@ -177,7 +184,7 @@ fun HomeScreen(
                             profileScreenCoScope.launch {
                                 profileViewModel.logOutCurrentUser().collect { isLoggedOut->
                                     if (isLoggedOut) {
-                                    onHomeExit(NavigationRoutingData.Login)
+                                    onHomeExit(NavigationRoutingData.LOGIN)
                                     } else {
                                         Toast.makeText(currentContext, "Could not logout user !", Toast.LENGTH_LONG).show()
                                     }
@@ -191,7 +198,7 @@ fun HomeScreen(
                         modifier = Modifier
                             .systemBarsPadding()
                             .padding(paddingValues),
-                        onExitNavigation = { onHomeExit(NavigationRoutingData.ExitAppRoute) },
+                        onExitNavigation = { onHomeExit(NavigationRoutingData.EXIT_APP_ROUTE) },
                     ) { modifier ->
                         val myProfileState : State<ProfileScreenState> = profileViewModel.profileState.collectAsStateWithLifecycle(
                             initialValue = ProfileScreenState.Loading()
@@ -209,8 +216,16 @@ fun HomeScreen(
                                 },
                                 onLogOutClicked = {
                                     isLogoutPopupVisible = true
+                                },
+                                onEditProfileClicked = {
+                                    onHomeExit(NavigationRoutingData.EDIT_PROFILE_SCREEN)
+                                },
+                                onKeywordClicked = {
+                                    homeNavController.navigate(NavigationRoutingData.Home.NETWORK)
+                                },
+                                onProductClicked = {
+                                    onHomeExit(NavigationRoutingData.VIEW_SCREEN_PRODUCT)
                                 }
-
                             )
                         }
                 }
