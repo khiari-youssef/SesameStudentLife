@@ -51,7 +51,8 @@ fun ProductOverViewList(
     data: ProductOverViewListData,
     sectionTitle : String,
     maxRows : Int = 4,
-    onItemClick : (OBProductListItem)->Unit
+    onItemClick : (OBProductListItem)->Unit,
+    onSeeAllClick : ()->Unit
 ){
     data.items.takeIf { it.isNotEmpty() }?.take(maxRows)?.let { listData->
         Column (
@@ -90,10 +91,10 @@ fun ProductOverViewList(
                     ) {
                         OBButton(
                             backgroundColor = Color(0xFF3A3A3A),
-                            text = stringResource(com.youapps.onlybeans.R.string.see_all_button)
-                        ) {
+                            text = stringResource(com.youapps.onlybeans.R.string.see_all_button),
+                            onClick = onSeeAllClick
+                        )
 
-                        }
                     }
                 }
 

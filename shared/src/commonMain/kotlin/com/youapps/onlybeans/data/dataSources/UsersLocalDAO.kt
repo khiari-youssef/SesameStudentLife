@@ -8,6 +8,7 @@ import com.youapps.onlybeans.data.dto.OBCoffeeShopID
 import com.youapps.onlybeans.data.dto.OBCoffeeSpaceDTO
 import com.youapps.onlybeans.data.dto.OBHomeCoffeeBarDTO
 import com.youapps.onlybeans.data.dto.OBHomeCoffeeBarID
+import com.youapps.onlybeans.data.dto.OBProductListItemDTO
 import com.youapps.onlybeans.data.dto.OBUserProfileDTO
 import com.youapps.onlybeans.di.fromDBJsonRow
 import com.youapps.onlybeans.di.toDBJsonRow
@@ -16,11 +17,13 @@ import com.youapps.onlybeans.domain.entities.products.OBHomeCoffeeBar
 import com.youapps.onlybeans.domain.entities.products.OBProductListItem
 import com.youapps.onlybeans.domain.entities.users.OBUserProfile
 import com.youapps.onlybeans.domain.valueobjects.decodeToUserSex
+import com.youapps.onlybeans.utilities.KMPLogger
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.json.Json
+import org.koin.core.logger.Logger
 
 
 internal class UsersLocalDAO(
@@ -49,7 +52,8 @@ internal class UsersLocalDAO(
                            address = obUser.address.toJson(),
                            coverPicture = obUser.coverPicture,
                            profileDescription = obUser.profileDescription,
-                           coffeeSpaceTypeID = obUser.myCoffeeSpace?.id
+                           coffeeSpaceTypeID = obUser.myCoffeeSpace?.id,
+                           keywords = obUser.keywords?.joinToString("-")
                        )
                    }
 
@@ -75,43 +79,16 @@ internal class UsersLocalDAO(
           }
     }
 
+
     suspend fun getCurrentUserData(): OBUserProfile? = withContext(Dispatchers.IO) {
         val userEmail : String? = preferences.getUserEmail().firstOrNull()
         return@withContext  userEmail?.run {
              onlyBeansDatabase.onlyBeansDatabaseQueries.selectCurrentUserProfile(email = userEmail).executeAsOneOrNull()?.let { result->
                  val myCoffeeSpace : OBCoffeeSpace? =   result.coffeeSpaceTypeID?.run {
-                            when(result.coffeeSpaceTypeID) {
-                         OBHomeCoffeeBarID -> {
-                             val coffeeBarDTO = onlyBeansDatabase.onlyBeansDatabaseQueries.selectHomeCoffeeBar().executeAsOneOrNull()
-                             coffeeBarDTO?.run {
-                                 OBHomeCoffeeBar(
-                                     spaceId = coffeeBarDTO.spaceId,
-                                     userEmail = coffeeBarDTO.userEmail,
-                                     coffeeGear = coffeeBarDTO.coffeeGear.runCatching {
-                                         Json.decodeFromString<List<OBProductListItem>>(this)
-                                     }.getOrNull() ?: emptyList(),
-                                     coffeeBeans = coffeeBarDTO.coffeeBeans.runCatching {
-                                         Json.decodeFromString<List<OBProductListItem>>(this)
-                                     }.getOrNull() ?: emptyList(),
-                                     gallery = coffeeBarDTO.gallery.runCatching {
-                                         fromDBJsonRow()
-                                     }.getOrNull(),
-                                     description = coffeeBarDTO.description
-                                 )
-                             }
-                         }
-                         OBCoffeeShopID -> {
-                             TODO()
-                         }
-                         OBCoffeeCompanyID -> {
-                             TODO()
-                         }
-                         OBCoffeeFarmID -> {
-                             TODO()
-                         }
-                         else ->  null
-                     }
+                     getCoffeeSpace(result.coffeeSpaceTypeID)
                  }
+
+
 
                 OBUserProfile(
                     firstName = result.firstName,
@@ -125,12 +102,51 @@ internal class UsersLocalDAO(
                     address = OBAddressDTO.fromJson(result.address)?.toDomainModel(),
                     profileDescription = result.profileDescription,
                     coverPicture = result.coverPicture,
-                    myCoffeeSpace = myCoffeeSpace
+                    myCoffeeSpace = myCoffeeSpace,
+                    keywords = result.keywords?.split("-")
                     )
             }
         }
     }
 
+    suspend fun getCoffeeSpace(typeID : String) : OBHomeCoffeeBar? = withContext(Dispatchers.IO){
+            when(typeID) {
+                OBHomeCoffeeBarID -> {
+                    val coffeeBarDTO = onlyBeansDatabase.onlyBeansDatabaseQueries.selectHomeCoffeeBar().executeAsOneOrNull()
+                    KMPLogger.i("myCoffeeSpaceBeans",coffeeBarDTO?.coffeeBeans.toString())
+                    KMPLogger.i("myCoffeeSpaceGear",coffeeBarDTO?.coffeeGear.toString())
+                    coffeeBarDTO?.run {
+                        OBHomeCoffeeBar(
+                            spaceId = coffeeBarDTO.spaceId,
+                            userEmail = coffeeBarDTO.userEmail,
+                            coffeeGear = coffeeBarDTO.coffeeGear.runCatching {
+                                Json.decodeFromString<List<OBProductListItemDTO>>(coffeeBarDTO.coffeeGear).map { itemDTO -> itemDTO.toDomain() }
+                            }.getOrNull() ?: emptyList(),
+                            coffeeBeans = coffeeBarDTO.coffeeBeans.runCatching {
+                              Json.decodeFromString<List<OBProductListItemDTO>>(this).map { itemDTO -> itemDTO.toDomain() }
+                            }.getOrNull() ?: emptyList(),
+                            gallery = coffeeBarDTO.gallery.runCatching {
+                                fromDBJsonRow()
+                            }.getOrNull(),
+                            description = coffeeBarDTO.description
+                        )
+                    }
+
+
+                }
+                OBCoffeeShopID -> {
+                    TODO()
+                }
+                OBCoffeeCompanyID -> {
+                    TODO()
+                }
+                OBCoffeeFarmID -> {
+                    TODO()
+                }
+                else ->  null
+            }
+
+    }
 
     suspend fun saveCoffeeSpace(coffeeBarDTO: OBCoffeeSpaceDTO) : Boolean{
         return  when(coffeeBarDTO.id) {

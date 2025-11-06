@@ -13,6 +13,7 @@ address Text NOT NULL,
 profileDescription TEXT NOT NULL ,
 coverPicture Text NOT NULL,
 profilePicture Text NOT NULL,
+keywords Text,
 coffeeSpaceTypeID Text
 );
 
@@ -38,7 +39,7 @@ coffeeBeans Text NOT NULL
 
 
 insertOBUser:
-INSERT OR REPLACE INTO OBUserDB VALUES(?,?,?,?,?,?,?,?,?,?,?,?);
+INSERT OR REPLACE INTO OBUserDB VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?);
 
 
 selectCurrentUserProfile:

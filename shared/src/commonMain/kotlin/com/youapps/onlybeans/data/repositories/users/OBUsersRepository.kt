@@ -62,9 +62,14 @@ internal class OBUsersRepository(
     override suspend fun getCurrentUserData(withRefresh : Boolean): OBUserProfile? = runCatching {
         if (withRefresh) {
             userPreferencesStore.getUserToken().firstOrNull()?.let { token->
-                usersRemoteDAO.fetchUserProfileData(
+               val result = usersRemoteDAO.fetchUserProfileData(
                     token = token
-                )?.toDomainModel()
+                )
+                result?.myCoffeeSpace?.run {
+                    usersLocalDAO.saveCoffeeSpace(result.myCoffeeSpace)
+                }
+                usersLocalDAO.saveUserData(token,result!!)
+                result.toDomainModel()
             }
         } else {
             usersLocalDAO.getCurrentUserData()

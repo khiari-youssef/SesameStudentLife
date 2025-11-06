@@ -51,7 +51,8 @@ fun ProfileScreen(
     onLogOutClicked :  ()->Unit,
     onEditProfileClicked: ()-> Unit,
     onKeywordClicked: (String)->Unit,
-    onProductClicked: (OBProductListItem)->Unit
+    onProductClicked: (OBProductListItem)->Unit,
+    onSeeAllClicked :  ()->Unit,
 ) {
     val isLargeScreen = LocalConfiguration.current.run {
         (orientation == Configuration.ORIENTATION_LANDSCAPE) or (this.screenWidthDp >= 600)
@@ -184,15 +185,17 @@ fun ProfileScreen(
                             }
 
 
-                            PageSection(
-                                modifier = Modifier.fillMaxWidth(),
-                                sectionTitle = stringResource(R.string.profile_keywords),
-                            ) {
-                                OBKeywordsList(
+                            screenState.profile.keywords?.takeIf { it.isNotEmpty() }?.let { keywords->
+                                PageSection(
                                     modifier = Modifier.fillMaxWidth(),
-                                    keywords = screenState.profile.keywords ?: emptyList(),
-                                    onKeyWordClicked = onKeywordClicked
-                                )
+                                    sectionTitle = stringResource(R.string.profile_keywords),
+                                ) {
+                                    OBKeywordsList(
+                                        modifier = Modifier.fillMaxWidth(),
+                                        keywords = keywords,
+                                        onKeyWordClicked = onKeywordClicked
+                                    )
+                                }
                             }
 
                                 val coffeeGearData = ProductOverViewListData(
@@ -202,7 +205,8 @@ fun ProfileScreen(
                                     data = coffeeGearData,
                                     sectionTitle = stringResource(R.string.profile_coffee_gear),
                                     maxRows = 2,
-                                    onItemClick = onProductClicked
+                                    onItemClick = onProductClicked,
+                                    onSeeAllClick = onSeeAllClicked
                                 )
 
                                 val coffeeBeansData = ProductOverViewListData(
@@ -212,7 +216,8 @@ fun ProfileScreen(
                                     data = coffeeBeansData,
                                     sectionTitle = stringResource(R.string.profile_coffee_beans),
                                     maxRows = 4,
-                                    onItemClick = onProductClicked
+                                    onItemClick = onProductClicked,
+                                    onSeeAllClick = onSeeAllClicked
                                 )
 
                         }

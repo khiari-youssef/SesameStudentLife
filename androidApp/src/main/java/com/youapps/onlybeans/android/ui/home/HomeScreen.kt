@@ -225,6 +225,9 @@ fun HomeScreen(
                                 },
                                 onProductClicked = {
                                     onHomeExit(NavigationRoutingData.VIEW_SCREEN_PRODUCT)
+                                },
+                                onSeeAllClicked = {
+
                                 }
                             )
                         }
