@@ -113,8 +113,6 @@ internal class UsersLocalDAO(
             when(typeID) {
                 OBHomeCoffeeBarID -> {
                     val coffeeBarDTO = onlyBeansDatabase.onlyBeansDatabaseQueries.selectHomeCoffeeBar().executeAsOneOrNull()
-                    KMPLogger.i("myCoffeeSpaceBeans",coffeeBarDTO?.coffeeBeans.toString())
-                    KMPLogger.i("myCoffeeSpaceGear",coffeeBarDTO?.coffeeGear.toString())
                     coffeeBarDTO?.run {
                         OBHomeCoffeeBar(
                             spaceId = coffeeBarDTO.spaceId,
