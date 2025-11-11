@@ -1,6 +1,7 @@
 package com.youapps.onlybeans.android.ui.main
 
 import android.os.Bundle
+import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
@@ -17,7 +18,7 @@ import com.youapps.users_management.ui.login.LoginState
 import kotlinx.coroutines.flow.map
 import org.koin.androidx.viewmodel.ext.android.getViewModel
 
-class MainActivity : FragmentActivity() {
+class MainActivity : ComponentActivity() {
 
     private  lateinit var _viewModel : MainActivityViewModel
 

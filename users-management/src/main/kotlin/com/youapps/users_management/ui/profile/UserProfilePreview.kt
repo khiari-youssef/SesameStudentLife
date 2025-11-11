@@ -2,7 +2,6 @@ package com.youapps.users_management.ui.profile
 
 import OBButtonContainedSecondary
 import OBButtonSize
-import OBCircleImageXL
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -27,6 +26,7 @@ import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import com.youapps.designsystem.R
+import com.youapps.designsystem.components.images.OBCircleImageXL
 import com.youapps.designsystem.components.images.OBCoverPhoto
 import com.youapps.designsystem.components.loading.shimmerEffect
 import com.youapps.onlybeans.domain.entities.users.OBUserProfilePreView

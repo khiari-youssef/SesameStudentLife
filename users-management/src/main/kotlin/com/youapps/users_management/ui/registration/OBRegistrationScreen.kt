@@ -6,6 +6,19 @@ import androidx.compose.ui.Modifier
 @Composable
 fun OBRegistrationScreen(
     modifier: Modifier = Modifier,
+    screenUpdateState : OBRegistrationStateHolder,
+    onProfilePictureClicked: ()-> Unit,
+    onCoverPictureClicked: ()-> Unit,
+    onStatusChanged: (status : String)-> Unit,
+    onProfileDescriptionChanged: (profile : String)-> Unit
 ) {
-
+    RegistrationForm(
+        modifier = modifier,
+        screenState = screenUpdateState,
+        onStatusChanged = onStatusChanged,
+        onProfilePictureClicked = onProfilePictureClicked,
+        onCoverPictureClicked = onCoverPictureClicked,
+        onProfileDescriptionChanged = onProfileDescriptionChanged
+    )
 }
+

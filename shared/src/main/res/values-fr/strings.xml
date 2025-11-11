@@ -2,6 +2,8 @@
 <resources>
 
     <string name="see_all_button">Voir tout</string>
+    <string name="image_picker_error_message">Erreur lors de la sélection de l\'image</string>
+
 
     <!--  Accessibility   -->
 

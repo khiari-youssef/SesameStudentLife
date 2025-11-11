@@ -10,6 +10,7 @@ import com.youapps.onlybeans.di.domainModule
 import com.youapps.onlybeans.di.repositoriesModule
 import com.youapps.users_management.ui.login.LoginViewModel
 import com.youapps.users_management.ui.profile.MyProfileViewModel
+import com.youapps.users_management.ui.registration.OBRegistrationViewModel
 import com.youapps.users_management.ui.settings.SettingsViewModel
 import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
@@ -38,5 +39,8 @@ val viewModelsModule = module {
             get(OBUserLoginUseCaseTag),
             get()
         )
+    }
+    viewModel {
+        OBRegistrationViewModel(get(),get(UsersRepositoryTag))
     }
 }

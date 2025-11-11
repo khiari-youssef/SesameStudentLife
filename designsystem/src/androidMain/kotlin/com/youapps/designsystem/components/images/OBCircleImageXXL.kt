@@ -6,18 +6,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun OBCircleImageXL(
+fun OBCircleImageXXL(
     modifier: Modifier = Modifier,
     uri : Any,
     placeholderRes : Int,
-    errorRes : Int
+    errorRes : Int,
 ) {
     OBCircleImage(
         modifier = modifier,
         uri = uri,
         placeholderRes = placeholderRes,
         errorRes = errorRes,
-        size = 72.dp
+        size = 144.dp
     )
 }
 

@@ -24,6 +24,11 @@
     <string name="profile_keywords">Mots-clés</string>
     <string name="profile_coffee_gear">Équipement de café</string>
     <string name="profile_coffee_beans">Grains de café</string>
+    <string name="profile_next">Suivant</string>
+    <string name="profile_save">Sauvegarder</string>
+    <string name="profile_edit_hint">Cliquez sur l\'image à modifier</string>
+    <string name="profile_general">Géneral</string>
+
 
 
     <!--  Accessibility   -->

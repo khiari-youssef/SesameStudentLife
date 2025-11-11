@@ -16,7 +16,7 @@ import com.youapps.designsystem.components.loading.shimmerEffect
 @Composable
 fun OBCoverPhoto(
     modifier: Modifier = Modifier,
-    url : String,
+    url : String?,
     contentDescription : String?=null
 ) {
     val isLoading = remember {

@@ -64,14 +64,17 @@ fun NotificationsScreen(
        LazyColumn(
            modifier = modifier
                .padding(
-                   top = 8.dp
+                   top = 8.dp,
+               )
+               .padding(
+                   horizontal = 12.dp
                )
                .background(
                    color = MaterialTheme.colorScheme.surfaceVariant
                ),
            horizontalAlignment = Alignment.CenterHorizontally,
            verticalArrangement = Arrangement.spacedBy(
-               4.dp,Alignment.CenterVertically
+               8.dp,Alignment.CenterVertically
            ),
            state = listState
        ){

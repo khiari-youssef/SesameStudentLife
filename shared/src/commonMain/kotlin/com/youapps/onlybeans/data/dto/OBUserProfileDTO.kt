@@ -40,7 +40,7 @@ internal data class OBUserProfileDTO(
         sex = sex?.decodeToUserSex(),
         coverPicture = coverPicture,
         phone = phone,
-        keywords = keywords,
+        keywords = keywords
     )
 }
 

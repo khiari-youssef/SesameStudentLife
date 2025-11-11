@@ -2,9 +2,11 @@
 <resources>
 
     <string name="see_all_button">See all</string>
+    <string name="image_picker_error_message">Could not pick image !</string>
 
     <!--  Accessibility   -->
 
     <string name="content_description_product_image_preview">Product Image : %s</string>
     <string name="content_description_product_action">Product click action: %s</string>
+
 </resources>

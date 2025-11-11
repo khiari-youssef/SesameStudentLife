@@ -24,6 +24,13 @@
     <string name="profile_keywords">Keywords</string>
     <string name="profile_coffee_gear">Coffee gear</string>
     <string name="profile_coffee_beans">Coffee beans</string>
+    <string name="profile_next">Next</string>
+    <string name="profile_save">Save changes</string>
+    <string name="profile_edit_hint">Click on the picture to want to edit</string>
+    <string name="profile_general">General</string>
+
+    <string name="content_description_product_image_preview">Product image: %s</string>
+    <string name="content_description_product_action">Production click action: %s</string>
 
 
 

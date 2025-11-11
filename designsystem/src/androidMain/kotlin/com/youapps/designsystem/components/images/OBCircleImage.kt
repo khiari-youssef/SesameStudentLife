@@ -26,7 +26,8 @@ fun OBCircleImage(
     placeholderRes : Int = R.drawable.profile_placeholder,
     errorRes : Int = R.drawable.profile_placeholder,
     size : Dp,
-    borderStroke: BorderStroke = BorderStroke(width = 0.dp, color = Color.Unspecified)
+    borderStroke: BorderStroke = BorderStroke(width = 0.dp, color = Color.Unspecified),
+    background : Color = Color.Unspecified
 ) {
     val currentContext = LocalContext.current
     val isLoading = remember {
@@ -39,7 +40,7 @@ fun OBCircleImage(
              shape = CircleShape
          )
          .background(
-             color = Color.Unspecified,
+             color = background,
              shape = CircleShape
          )
          .clip(CircleShape)
