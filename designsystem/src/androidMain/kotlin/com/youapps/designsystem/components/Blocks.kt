@@ -2,6 +2,7 @@ package com.youapps.designsystem.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -16,7 +17,7 @@ import androidx.compose.ui.unit.dp
 fun PageSection(
     modifier: Modifier = Modifier,
     sectionTitle : String,
-    content : @Composable ()-> Unit
+    content : @Composable ColumnScope.()-> Unit
 ) {
 
     Column (

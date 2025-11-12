@@ -55,7 +55,7 @@ fun MainActivity.MainNavigation(
     modifier: Modifier = Modifier,
     rootNavController : NavHostController,
     homeDestinations : State<OBBottomNavigationBarDefaults>,
-    skipLogin : Boolean = false
+    autoLoginState : LoginState
 ) {
     val isAppExistPopupShown = remember {
         mutableStateOf(false)
@@ -69,10 +69,13 @@ fun MainActivity.MainNavigation(
             isAppExistPopupShown.value = false
         }
     )
+    if (autoLoginState is LoginState.Loading){
+        return
+    }
     NavHost(
         modifier = modifier,
         route = "MainGraph",
-        startDestination = if (skipLogin) "MainNavigation" else NavigationRoutingData.LOGIN,
+        startDestination = if (autoLoginState is LoginState.Success) "MainNavigation" else NavigationRoutingData.LOGIN,
         navController = rootNavController,
         builder = {
             composable(

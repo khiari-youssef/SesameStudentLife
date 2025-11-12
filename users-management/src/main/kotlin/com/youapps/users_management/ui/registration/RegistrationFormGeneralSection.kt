@@ -5,10 +5,15 @@ import OBTextField
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.ime
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.windowInsetsBottomHeight
 import androidx.compose.material.Text
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
@@ -96,16 +101,15 @@ fun RegistrationFormGeneralSection(
                         text = screenState.profileStatus.value ?: "",
                         label = stringResource(R.string.profile_status),
                         placeholder = "",
-                        onTextChanged = {}
+                        onTextChanged = onStatusChanged
                     )
                     OBTextArea(
                         modifier = Modifier.fillMaxWidth(),
                         label = stringResource(R.string.profile_description),
-                        initialText = "",
-                        onValueChange = {
-
-                        }
+                        initialText = screenState.profileDescription.value,
+                        onValueChange = onProfileDescriptionChanged
                     )
+                    Spacer(Modifier.windowInsetsBottomHeight(WindowInsets.ime))
                 }
             }
 

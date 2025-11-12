@@ -20,12 +20,13 @@ import org.koin.androidx.viewmodel.ext.android.getViewModel
 
 class MainActivity : ComponentActivity() {
 
-    private  lateinit var _viewModel : MainActivityViewModel
+    private lateinit var _viewModel: MainActivityViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _viewModel = getViewModel()
-        installSplashScreen().setKeepOnScreenCondition {
+        val splashScreen = installSplashScreen()
+        splashScreen.setKeepOnScreenCondition {
             _viewModel.autoLoginState.value == LoginState.Loading
         }
         setContent {
@@ -35,7 +36,7 @@ class MainActivity : ComponentActivity() {
                 .rememberMainActivityState(
                     biometricSupportState = _viewModel.biometricCapabilitiesState
                         .collectAsStateWithLifecycle(),
-                    rootNavController =rememberNavController() ,
+                    rootNavController = rememberNavController(),
                     homeDestinations = _viewModel.navigationBarState.map {
                         OBBottomNavigationBarDefaults(it)
                     }.collectAsState(OBBottomNavigationBarDefaults.DEFAULT)
@@ -50,15 +51,17 @@ class MainActivity : ComponentActivity() {
                         modifier = Modifier.fillMaxSize(),
                         rootNavController = uiState.rootNavController,
                         homeDestinations = uiState.homeDestinations,
-                        skipLogin = autoLoginState.value is LoginState.Success
+                        autoLoginState = autoLoginState.value
                     )
                 }
             }
         }
+
+
     }
 
-      fun updateBadgeCount(itemIndex : Int,count : Int){
-        _viewModel.updateBadgeCount(itemIndex,count)
+    fun updateBadgeCount(itemIndex: Int, count: Int) {
+        _viewModel.updateBadgeCount(itemIndex, count)
     }
 }
 

@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.requiredHeightIn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.text.input.InputTransformation
 import androidx.compose.foundation.text.input.InputTransformation.Companion.transformInput
@@ -50,7 +51,7 @@ fun OBTextArea(
     val textFieldScrollState = rememberScrollState()
 
 
-    LaunchedEffect(key1 = textFieldState) {
+    LaunchedEffect(key1 = textFieldState.text) {
         onValueChange(textFieldState.text.toString())
     }
     Column(
@@ -90,7 +91,8 @@ fun OBTextArea(
             ),
             keyboardOptions = KeyboardOptions(
                 keyboardType = KeyboardType.Text,
-                imeAction = ImeAction.Done
+                imeAction = ImeAction.Unspecified,
+                showKeyboardOnFocus = true
             )
         )
         Row(

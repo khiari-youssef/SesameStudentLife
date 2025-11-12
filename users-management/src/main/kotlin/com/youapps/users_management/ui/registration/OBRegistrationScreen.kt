@@ -1,5 +1,6 @@
 package com.youapps.users_management.ui.registration
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.ime
 import androidx.compose.foundation.layout.imePadding
@@ -35,9 +36,6 @@ fun OBRegistrationScreen(
     val pagerState = rememberPagerState(pageCount = {
         3
     })
-    val density = LocalDensity.current
-
-
 
     val pagerCoroutineScope = rememberCoroutineScope()
 
@@ -49,8 +47,7 @@ fun OBRegistrationScreen(
             val scrollState = rememberScrollState()
 
             OBFormPage(
-                modifier = Modifier
-                    .imePadding(),
+                modifier = Modifier,
                 content = {
                     when(pagerState.currentPage) {
                         0 -> RegistrationFormGeneralSection(
