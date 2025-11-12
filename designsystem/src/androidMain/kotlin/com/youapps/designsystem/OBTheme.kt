@@ -38,7 +38,7 @@ fun OBTheme(
             tertiary = PumpkinOrangeShaded,
             surfaceContainerHigh = Color.White,
             surface = Alabaster,
-            primaryContainer = ShadedWhite
+            primaryContainer = Isabelline
         )
     }
     val typography = Typography(

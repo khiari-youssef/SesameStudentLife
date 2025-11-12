@@ -24,10 +24,13 @@
     <string name="profile_keywords">Palabras clave</string>
     <string name="profile_coffee_gear">Equipo de café</string>
     <string name="profile_coffee_beans">Granos de café</string>
-    <string name="profile_next">Siguiente</string>
-    <string name="profile_save">Guardar cambios</string>
     <string name="profile_edit_hint">Haz clic en la imagen que quieras editar</string>
     <string name="profile_general">General</string>
+    <string name="profile_firstName">Nombre</string>
+    <string name="profile_lastName">Apellido</string>
+    <string name="profile_status">Estado</string>
+    <string name="profile_description">Descripción del perfil</string>
+    <string name="profile_cannot_edit">No puede editar estos campos.</string>
 
     <!--  Accessibility   -->
 

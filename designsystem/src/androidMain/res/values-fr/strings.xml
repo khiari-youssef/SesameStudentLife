@@ -33,5 +33,7 @@
     <string name="description_placeholder">Description indisponible !</string>
     <string name="expand_to_read_more">Lire plus</string>
     <string name="collapse_to_read_less">Lire moins</string>
+    <string name="profile_next">Suivant</string>
+    <string name="profile_save">Sauvegarder</string>
 
 </resources>

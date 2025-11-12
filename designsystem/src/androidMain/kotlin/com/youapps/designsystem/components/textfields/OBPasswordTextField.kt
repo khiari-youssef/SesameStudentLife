@@ -36,7 +36,6 @@ fun SesamePasswordTextField(
         label = label ,
         placeholder = placeholder,
         isEnabled = isEnabled,
-        isReadOnly = false ,
         isError = isError,
         keyboardActions = keyboardActions,
         visualTransformation = visualTransformation.value ,

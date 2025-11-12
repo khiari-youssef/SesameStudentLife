@@ -170,6 +170,7 @@ fun MainActivity.MainNavigation(
             composable(
                 route = NavigationRoutingData.EDIT_PROFILE_SCREEN
             ){
+
                 val viewModel : OBRegistrationViewModel = getViewModel<OBRegistrationViewModel>()
 
                 val screenState : OBRegistrationStateHolder = OBRegistrationStateHolder.rememberOBRegistrationState(
@@ -202,7 +203,6 @@ fun MainActivity.MainNavigation(
                     }
                 }
                 OBRegistrationScreen(
-                    modifier = Modifier.fillMaxSize(),
                     screenUpdateState = screenState,
                     onCoverPictureClicked = {
                         coverPicturePicker.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly), options = ActivityOptionsCompat
@@ -219,6 +219,9 @@ fun MainActivity.MainNavigation(
                     },
                     onStatusChanged = { text->
                         viewModel.updateStatus(text)
+                    },
+                    onExit = {
+                        rootNavController.popBackStack()
                     }
                 )
 
