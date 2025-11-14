@@ -28,7 +28,7 @@ import androidx.compose.ui.unit.sp
 import com.youapps.designsystem.BrickRed
 import com.youapps.designsystem.OBFontFamilies
 import com.youapps.designsystem.RoseEbony
-import com.youapps.designsystem.components.loading.SesameCircularProgressBar
+import com.youapps.designsystem.components.loading.OBCircularProgressBar
 
 
 
@@ -111,6 +111,7 @@ fun OBButton(
     modifier: Modifier = Modifier,
     text : String,
     icon : Int?=null,
+    iconDescription : String?=null,
     backgroundColor : Color,
     border : BorderStroke?=null,
     size : OBButtonSize = OBButtonSize.Medium,
@@ -150,10 +151,10 @@ fun OBButton(
            animationSpec = spring()
        ) {
            if (it){
-               SesameCircularProgressBar(
+               OBCircularProgressBar(
                    modifier = Modifier
                        .semantics {
-                           contentDescription = "SesameButtonLoadingCircularProgressBar"
+                           contentDescription = "OBButtonLoadingCircularProgressBar"
                        }
                        .size(20.dp),
                    strokeWidth = 2.dp,
@@ -168,7 +169,7 @@ fun OBButton(
                    ) {
                         Icon(
                             imageVector = ImageVector.vectorResource(id = icon) ,
-                            contentDescription = null,
+                            contentDescription = iconDescription,
                             tint = fontColor,
                             modifier = Modifier.size(20.dp)
                         )

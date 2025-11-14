@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Icon
@@ -86,6 +87,7 @@ fun  OBFormPage(
              .padding(
                  horizontal = 16.dp
              )
+             .imePadding()
              .align(Alignment.BottomCenter)
              .fillMaxWidth(),
          verticalAlignment = Alignment.CenterVertically,
@@ -96,7 +98,7 @@ fun  OBFormPage(
                     modifier = Modifier
                         .weight(if (onNextStep != null) 0.5f else 1f)
                         .fillMaxWidth(),
-                    text = stringResource(ds.string.profile_save),
+                    text = stringResource(ds.string.save),
                     onClick = onSaveChanges
                 )
             }

@@ -8,7 +8,6 @@ import android.content.pm.PackageManager
 import android.os.Build
 import android.util.Log
 import android.widget.Toast
-import com.youapps.android_services.PlaygroundActivity
 import com.youapps.android_services.services.notificationService.CustomNotificationService
 import com.youapps.android_services.services.notificationService.SesameNotification
 import com.youapps.designsystem.R

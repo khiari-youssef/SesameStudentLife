@@ -1,10 +1,13 @@
 package com.youapps.users_management.ui.registration
 
+import OBButton
 import OBEmailTextField
 import OBTextField
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
@@ -12,14 +15,29 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.ime
 import androidx.compose.foundation.layout.imePadding
+import androidx.compose.foundation.layout.isImeVisible
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.windowInsetsBottomHeight
+import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Chip
+import androidx.compose.material.ChipDefaults
+import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.Icon
 import androidx.compose.material.Text
+import androidx.compose.material3.AssistChip
+import androidx.compose.material3.AssistChipDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
@@ -30,9 +48,15 @@ import com.youapps.designsystem.components.images.OBCircleImageXXL
 import com.youapps.users_management.R
 import com.youapps.designsystem.R as ds
 import com.youapps.designsystem.components.images.OBCoverPhoto
+import com.youapps.designsystem.components.menus.DropDownMenuData
+import com.youapps.designsystem.components.menus.DropDownMenuItemData
+import com.youapps.designsystem.components.menus.OBDropDownMenu
 import com.youapps.designsystem.components.text.OBTextArea
+import com.youapps.designsystem.components.textfields.OBAutoCompleteTextField
+import com.youapps.onlybeans.ui.EnableLocationChip
 
 
+@OptIn(ExperimentalLayoutApi::class, ExperimentalMaterialApi::class)
 @Composable
 fun RegistrationFormGeneralSection(
     modifier: Modifier = Modifier,
@@ -58,8 +82,7 @@ fun RegistrationFormGeneralSection(
                 modifier = Modifier
                     .padding(
                         horizontal = 12.dp
-                    )
-                    .fillMaxSize(),
+                    ),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.spacedBy(8.dp,Alignment.Top)
             ){
@@ -109,8 +132,63 @@ fun RegistrationFormGeneralSection(
                         initialText = screenState.profileDescription.value,
                         onValueChange = onProfileDescriptionChanged
                     )
-                    Spacer(Modifier.windowInsetsBottomHeight(WindowInsets.ime))
+                    Spacer(modifier = Modifier
+                        .imePadding()
+                    )
                 }
+                PageSection(
+                    modifier = Modifier.fillMaxWidth(),
+                    sectionTitle = stringResource(R.string.profile_address),
+                ) {
+
+                    OBAutoCompleteTextField(
+                        modifier = Modifier.fillMaxWidth(),
+                        text = "aaaa",
+                        label = stringResource(R.string.profile_country),
+                        placeholder = "",
+                        data = DropDownMenuData(
+                            items = List(5){
+                                DropDownMenuItemData(
+                                    label = "label$it"
+                                )
+                            }
+                        )
+                    )
+                    OBAutoCompleteTextField(
+                        modifier = Modifier.fillMaxWidth(),
+                        text = "aaaa",
+                        label = stringResource(R.string.profile_city),
+                        placeholder = "",
+                        data = DropDownMenuData(
+                            items = List(5){
+                                DropDownMenuItemData(
+                                    label = "label$it"
+                                )
+                            }
+                        )
+                    )
+                    Text(
+                        text = stringResource(R.string.profile_pick_exact_location),
+                        textAlign = TextAlign.Start,
+                        style = MaterialTheme.typography.titleMedium
+                    )
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.Center,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        EnableLocationChip(
+                            onLocationEnabled = {
+
+                            }
+                        )
+
+                    }
+                    Spacer(
+                        modifier = Modifier
+                            .height(400.dp)
+                    )
+                 }
             }
 
         }

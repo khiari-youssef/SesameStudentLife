@@ -31,6 +31,10 @@
     <string name="profile_status">Estado</string>
     <string name="profile_description">Descripción del perfil</string>
     <string name="profile_cannot_edit">No puede editar estos campos.</string>
+    <string name="profile_address">Dirección</string>
+    <string name="profile_country">País</string>
+    <string name="profile_city">Ciudad</string>
+    <string name="profile_pick_exact_location">Elegir una ubicación exacta en el mapa :</string>
 
     <!--  Accessibility   -->
 

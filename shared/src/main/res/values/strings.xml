@@ -3,10 +3,14 @@
 
     <string name="see_all_button">See all</string>
     <string name="image_picker_error_message">Could not pick image !</string>
+    <string name="enable_location_service">Enable location service</string>
+    <string name="random_error">An error has occurred !</string>
+    <string name="permission_required">Permission required !</string>
 
     <!--  Accessibility   -->
 
     <string name="content_description_product_image_preview">Product Image : %s</string>
     <string name="content_description_product_action">Product click action: %s</string>
+    <string name="content_description_enable_location_service">Enable location service Button</string>
 
 </resources>

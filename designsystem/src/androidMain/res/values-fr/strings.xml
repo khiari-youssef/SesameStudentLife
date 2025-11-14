@@ -33,7 +33,12 @@
     <string name="description_placeholder">Description indisponible !</string>
     <string name="expand_to_read_more">Lire plus</string>
     <string name="collapse_to_read_less">Lire moins</string>
-    <string name="profile_next">Suivant</string>
-    <string name="profile_save">Sauvegarder</string>
+    <string name="next">Suivant</string>
+    <string name="save">Sauvegarder</string>
+
+
+    <!-- Content description-->
+    <string name="content_description_drop_down_item">Élément de la liste déroulante : %s</string>
+
 
 </resources>

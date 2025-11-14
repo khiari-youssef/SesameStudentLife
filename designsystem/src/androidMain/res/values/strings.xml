@@ -36,6 +36,12 @@
     <string name="description_placeholder">No description available _</string>
     <string name="expand_to_read_more">Read more</string>
     <string name="collapse_to_read_less">Read less</string>
-    <string name="profile_next">Next</string>
-    <string name="profile_save">Save changes</string>
+    <string name="next">Next</string>
+    <string name="save">Save changes</string>
+
+
+
+     <!-- Content description-->
+    <string name="content_description_drop_down_item">Drop down item : %s</string>
+
 </resources>

@@ -3,8 +3,12 @@
 
     <string name="see_all_button">Ver todo</string>
     <string name="image_picker_error_message">No se pudo seleccionar la imagen.</string>
+    <string name="enable_location_service">Habilitar servicio de ubicación</string>
+    <string name="random_error">¡Ha ocurrido un error!</string>
+    <string name="permission_required">¡Permiso requerido!</string>
 
     <string name="content_description_product_image_preview">Imagen del producto: %s</string>
     <string name="content_description_product_action">Acción al hacer clic en el producto: %s</string>
+    <string name="content_description_enable_location_service">Botón Habilitar servicio de ubicación</string>
 
 </resources>

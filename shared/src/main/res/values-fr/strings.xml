@@ -3,11 +3,14 @@
 
     <string name="see_all_button">Voir tout</string>
     <string name="image_picker_error_message">Erreur lors de la sélection de l\'image</string>
+    <string name="enable_location_service">Activer le service de localisation</string>
+    <string name="random_error">Une erreur est survenue !</string>
+    <string name="permission_required">Permission requise !</string>
 
 
     <!--  Accessibility   -->
 
     <string name="content_description_product_image_preview">Image du produit : %s</string>
     <string name="content_description_product_action">Action sur le produit : %s</string>
-
+    <string name="content_description_enable_location_service">Bouton Activer le service de localisation</string>
 </resources>

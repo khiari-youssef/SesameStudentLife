@@ -18,10 +18,7 @@ android {
 
 dependencies {
     api(projects.shared)
-    api(projects.designsystem)
     implementation(projects.designsystem)
-    implementation(projects.usersManagement)
-    implementation(projects.searchModule)
     implementation(libs.bundles.composelibs)
     implementation(libs.kotlinx.datetime)
     implementation(libs.kotlin.coroutines)

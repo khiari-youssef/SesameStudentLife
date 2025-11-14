@@ -9,7 +9,7 @@ import androidx.compose.ui.unit.dp
 
 
 @Composable
-fun SesameCircularProgressBar(
+fun OBCircularProgressBar(
     modifier: Modifier = Modifier,
     color : Color,
     strokeWidth : Dp = 1.dp
