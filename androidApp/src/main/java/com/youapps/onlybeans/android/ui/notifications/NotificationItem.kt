@@ -174,7 +174,7 @@ fun NotificationRequestItem(
                         fontSize = 16.sp,
                         fontFamily = OBFontFamilies.MainBoldFontFamily,
                         fontWeight = FontWeight(700),
-                        color = ErrorColor,
+                        color = MaterialTheme.colorScheme.error,
                         textAlign = TextAlign.End
                     )
                 )
@@ -211,7 +211,7 @@ fun NotificationResponseItem(
                             id = if (isAccepted) R.drawable.success else R.drawable.ic_clear
                         ),
                         contentDescription = "",
-                        tint = if (isAccepted) SuccessColor else ErrorColor
+                        tint = if (isAccepted) SuccessColor else MaterialTheme.colorScheme.error
                     )
                     Text(
                         modifier = Modifier

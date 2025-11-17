@@ -6,8 +6,11 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.youapps.onlybeans.data.repositories.users.OBUsersRepositoryInterface
+import com.youapps.onlybeans.domain.entities.users.OBLocation
 import com.youapps.onlybeans.domain.entities.users.OBUserProfile
 import com.youapps.onlybeans.domain.exception.DomainErrorType
+import com.youapps.onlybeans.domain.services.InputRuleType
+import com.youapps.onlybeans.domain.services.OBFormValidator
 import com.youapps.users_management.ui.profile.ProfileScreenState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -25,7 +28,7 @@ class OBRegistrationViewModel(
 )  : ViewModel() {
 
     private val _profileState = MutableStateFlow<OBRegistrationScreenState>(OBRegistrationScreenState.Loading)
-    val profileState : StateFlow<OBRegistrationScreenState> = _profileState
+
 
     init {
         fetchMyProfile()
@@ -45,6 +48,18 @@ class OBRegistrationViewModel(
                 updateCoverPicture(uri = data.coverPicture)
                 updateProfileDescription(text = data.profileDescription)
                 updateStatus(status = data.status)
+                data.address?.let {
+                    updateCountry(country = it.country)
+                    it.city?.run {
+                        updateCity(city = this)
+                    }
+                    it.location?.run {
+                        updateLocation(location = this)
+                    }
+                }
+                data.phone?.run {
+                    updatePhoneNumber(phone = this)
+                }
                 _profileState.update {
                     OBRegistrationScreenState.Success(userProfile = data)
                 }
@@ -84,13 +99,113 @@ class OBRegistrationViewModel(
         }
     }
 
+    fun updateCountry(country : String) {
+        viewModelScope.launch {
+            withContext(Dispatchers.IO){
+                savedStateHandle[PROFILE_COUNTRY_KEY] = country
+            }
+        }
+    }
+
+    fun updateCity(city : String) {
+        viewModelScope.launch {
+            withContext(Dispatchers.IO){
+                savedStateHandle[PROFILE_CITY_KEY] = city
+            }
+        }
+    }
+
+    fun updateLocation(location : OBLocation) {
+        viewModelScope.launch {
+            withContext(Dispatchers.IO){
+                savedStateHandle[PROFILE_LOCATION_KEY] = location
+            }
+        }
+    }
+
+    fun updatePhoneNumber(phone : String) {
+        viewModelScope.launch {
+            withContext(Dispatchers.IO){
+                savedStateHandle[PROFILE_PHONE_KEY] = phone
+            }
+        }
+    }
+
      fun getProfilePicture() :  Flow<String?> = savedStateHandle.getStateFlow(key = PROFILE_PICTURE_KEY,null)
 
      fun getCoverPicture() : Flow<String?> =  savedStateHandle.getStateFlow(key = COVER_PICTURE_KEY,null)
 
-     fun getProfileDescription() : Flow<String?> = savedStateHandle.getStateFlow(key = PROFILE_DESC_KEY,null)
+    fun getProfileStatus() : Flow<InputRuleCheckState> = savedStateHandle.getStateFlow<String?>(key = PROFILE_STATUS_KEY,null).map { data->
+        return@map  data?.takeIf {
+            OBFormValidator.matchesRequiredRule(it)
+        }?.run {
+            if (OBFormValidator.matchesOnlyLettersRule(this)){
+                InputRuleCheckState.Valid(
+                    input = data
+                )
+            } else {
+                InputRuleCheckState.Invalid(
+                    input = data,
+                    brokenRule = InputRuleType.LETTERS_ONLY
+                )
+            }
 
-     fun getProfileStatus() : Flow<String?> = savedStateHandle.getStateFlow(key = PROFILE_STATUS_KEY,null)
+        } ?: InputRuleCheckState.Invalid(
+            input = data,
+            brokenRule = InputRuleType.REQUIRED
+        )
+    }
+
+     fun getProfileDescription() : Flow<InputRuleCheckState> = savedStateHandle.getStateFlow<String?>(key = PROFILE_DESC_KEY,null).map { data->
+         return@map  data?.takeIf {
+             OBFormValidator.matchesRequiredRule(it)
+         }?.run {
+             if (OBFormValidator.matchesMinCharsRule(this)){
+                 if (OBFormValidator.matchesMaxCharsRule(this)){
+                     InputRuleCheckState.Valid(
+                         input = data
+                     )
+                 } else {
+                     InputRuleCheckState.Invalid(
+                         input = data,
+                         brokenRule = InputRuleType.MAX_LENGTH
+                     )
+                 }
+
+             } else {
+                 InputRuleCheckState.Invalid(
+                     input = data,
+                     brokenRule = InputRuleType.MIN_LENGTH
+                 )
+             }
+         } ?: InputRuleCheckState.Invalid(
+             input = data,
+             brokenRule = InputRuleType.REQUIRED
+         )
+     }
+
+
+    fun getPhone() : Flow<InputRuleCheckState> = savedStateHandle.getStateFlow<String?>(key = PROFILE_PHONE_KEY,null).map { data->
+        return@map  data?.takeIf {
+            OBFormValidator.matchesRequiredRule(it)
+        }?.run {
+            if (OBFormValidator.matchesOnlyDigitsRule(this)){
+                InputRuleCheckState.Valid(
+                    input = data
+                )
+            } else {
+                InputRuleCheckState.Invalid(
+                    input = data,
+                    brokenRule = InputRuleType.PHONE_FORMAT
+                )
+            }
+
+        } ?: InputRuleCheckState.Invalid(
+            input = data,
+            brokenRule = InputRuleType.REQUIRED
+        )
+    }
+
 
     fun getFistName() : Flow<String?> = _profileState.map {
         if (it is OBRegistrationScreenState.Success) {
@@ -112,11 +227,73 @@ class OBRegistrationViewModel(
 
 
 
+    fun getCountry() : Flow<InputRuleCheckState> = savedStateHandle.getStateFlow<String?>(key = PROFILE_COUNTRY_KEY,null).map { data->
+        return@map  data?.takeIf {
+            OBFormValidator.matchesRequiredRule(it)
+        }?.run {
+            if (OBFormValidator.matchesOnlyLettersRule(this)){
+                InputRuleCheckState.Valid(
+                    input = data
+                )
+            } else {
+                InputRuleCheckState.Invalid(
+                    input = data,
+                    brokenRule = InputRuleType.LETTERS_ONLY
+                )
+            }
+        } ?: InputRuleCheckState.Invalid(
+            input = data,
+            brokenRule = InputRuleType.REQUIRED
+        )
+    }
+
+    fun getCity() : Flow<InputRuleCheckState> = savedStateHandle.getStateFlow<String?>(key = PROFILE_CITY_KEY,null).map { data->
+        return@map  data?.takeIf {
+            OBFormValidator.matchesRequiredRule(it)
+        }?.run {
+            if (OBFormValidator.matchesOnlyLettersRule(this)){
+                InputRuleCheckState.Valid(
+                    input = data
+                )
+            } else {
+                InputRuleCheckState.Invalid(
+                    input = data,
+                    brokenRule = InputRuleType.LETTERS_ONLY
+                )
+            }
+        } ?: InputRuleCheckState.Invalid(
+            input = data,
+            brokenRule = InputRuleType.REQUIRED
+        )
+    }
+    fun getLocation() : Flow<OBLocation?> = savedStateHandle.getStateFlow<String?>(key = PROFILE_LOCATION_KEY,null).map { encodedLocation->
+        encodedLocation?.run {
+            OBLocation.fromString(encodedLocation)
+        }
+      }
+
+
+
+
+
+
+
+
+
+
     companion object{
         private const val PROFILE_PICTURE_KEY = "profile_picture"
         private const val COVER_PICTURE_KEY = "cover_picture"
         private const val PROFILE_DESC_KEY = "profile_desc"
         private const val PROFILE_STATUS_KEY = "profile_status"
+
+        private const val PROFILE_COUNTRY_KEY = "profile_country"
+
+        private const val PROFILE_CITY_KEY = "profile_city_"
+
+        private const val PROFILE_LOCATION_KEY = "profile_location"
+
+        private const val PROFILE_PHONE_KEY = "profile_phone"
     }
 
 

@@ -7,6 +7,32 @@
     <string name="random_error">¡Ha ocurrido un error!</string>
     <string name="permission_required">¡Permiso requerido!</string>
 
+
+
+
+        <string name="input_required_error_message">Este campo es obligatorio.</string>
+
+        <string name="input_email_format_error_message">Por favor, introduce una dirección de correo electrónico válida.</string>
+        <string name="input_phone_format_error_message">Por favor, introduce un número de teléfono válido.</string>
+        <string name="input_date_formats_error_message">Por favor, utiliza el formato AAAA-MM-DD.</string>
+
+        <string name="input_letters_only_error_message">Solo se permiten letras (a-z) en este campo.</string>
+        <string name="input_numbers_only_error_message">Solo se permiten números en este campo.</string>
+        <string name="input_digits_only_error_message">Solo se permiten números enteros (dígitos 0-9).</string>
+
+        <string name="input_password_policy_error_message">La contraseña debe tener al menos 8 caracteres e incluir un número y un símbolo.</string>
+
+        <string name="text_area_min_characters_error_message">Debe tener al menos 10 caracteres.</string>
+        <string name="text_area_max_characters_error_message">No puede exceder 255 caracteres.</string>
+
+        <string name="input_password_mismatch_error_message">Las contraseñas no coinciden.</string>
+        <string name="input_already_exists_error_message">Este valor ya existe. Por favor, prueba con otro.</string>
+        <string name="input_range_error_message">El valor debe estar entre %1$d y %2$d.</string>
+        <string name="input_url_format_error_message">Por favor, introduce una dirección web (URL) válida.</string>
+
+
+
+
     <string name="content_description_product_image_preview">Imagen del producto: %s</string>
     <string name="content_description_product_action">Acción al hacer clic en el producto: %s</string>
     <string name="content_description_enable_location_service">Botón Habilitar servicio de ubicación</string>

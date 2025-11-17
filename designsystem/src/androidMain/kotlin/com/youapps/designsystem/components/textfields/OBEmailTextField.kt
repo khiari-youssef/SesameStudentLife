@@ -9,7 +9,7 @@ fun OBEmailTextField(
     modifier : Modifier = Modifier,
     text: String,
     isEnabled: Boolean = true,
-    isError: Boolean = false,
+    errorMessage : String?=null,
     rightIconRes : Int?=null,
     keyboardActions: KeyboardActions = KeyboardActions.Default,
     onRightIconResClicked : (()->Unit)?=null,
@@ -22,7 +22,7 @@ fun OBEmailTextField(
        placeholder = stringResource(id = R.string.email_address_placeholder)  ,
        isEnabled = isEnabled,
        keyboardActions= keyboardActions,
-       isError = isError ,
+       errorMessage = errorMessage,
        rightIconRes =rightIconRes,
        onRightIconResClicked = onRightIconResClicked,
        onTextChanged =  onEmailChanged

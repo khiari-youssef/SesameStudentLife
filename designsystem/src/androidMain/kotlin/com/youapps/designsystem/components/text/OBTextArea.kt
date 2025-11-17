@@ -29,9 +29,12 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import com.youapps.designsystem.TonedDark
 
@@ -42,7 +45,9 @@ fun OBTextArea(
     initialText : String?=null,
     isEnabled: Boolean = true,
     maxChars : Int = 255,
-    onValueChange: (String) -> Unit
+    onValueChange: (String) -> Unit,
+    isRequired : Boolean = true,
+    errorMessage : String?=null
 ) {
 
     val textFieldState = rememberTextFieldState(
@@ -62,7 +67,16 @@ fun OBTextArea(
         Text(
             modifier = modifier
                 .fillMaxWidth(),
-            text = label,
+            text =   buildAnnotatedString {
+                append("$label:")
+                if (isRequired) {
+                    withStyle(
+                        style = SpanStyle(color = MaterialTheme.colorScheme.error)
+                    ){
+                        append("*")
+                    }
+                }
+            },
             style = MaterialTheme.typography.bodyMedium.copy(
                 color = if (isEnabled) MaterialTheme.colorScheme.onSurface else Color(0xFFB3B3B3)
             ),
@@ -93,7 +107,17 @@ fun OBTextArea(
                 keyboardType = KeyboardType.Text,
                 imeAction = ImeAction.Unspecified,
                 showKeyboardOnFocus = true
-            )
+            ),
+            isError = errorMessage != null,
+            supportingText = errorMessage?.run {
+                {
+                    Text(
+                        text = errorMessage,
+                        style = MaterialTheme.typography.labelMedium,
+                        textAlign = TextAlign.Start,
+                    )
+                }
+            }
         )
         Row(
             modifier = Modifier.fillMaxWidth(),

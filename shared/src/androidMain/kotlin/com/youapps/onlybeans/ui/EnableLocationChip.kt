@@ -1,6 +1,7 @@
 package com.youapps.onlybeans.ui
 
 import android.Manifest.permission.ACCESS_COARSE_LOCATION
+import android.app.Activity.RESULT_CANCELED
 import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -50,7 +51,7 @@ fun EnableLocationChip(
     val locationSettingsLauncher : ActivityResultLauncher<Intent> = rememberLauncherForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) { (resultCode, _) ->
-        if (resultCode == RESULT_OK && locationService.isLocationEnabled()){
+        if (resultCode == RESULT_CANCELED && locationService.isLocationEnabled()){
                 onLocationEnabled()
         } else {
             Toast.makeText(localContext, localContext.getString(R.string.random_error), Toast.LENGTH_SHORT)

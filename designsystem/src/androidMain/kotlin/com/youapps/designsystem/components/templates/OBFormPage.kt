@@ -39,6 +39,7 @@ import com.youapps.designsystem.R as ds
 @Composable
 fun  OBFormPage(
     modifier: Modifier = Modifier,
+    canSubmitChanges : Boolean = true,
     onNextStep: (() -> Unit)?=null,
     onPreviousStep: (()-> Unit)?=null,
     onSaveChanges : (()-> Unit)?=null,
@@ -99,7 +100,8 @@ fun  OBFormPage(
                         .weight(if (onNextStep != null) 0.5f else 1f)
                         .fillMaxWidth(),
                     text = stringResource(ds.string.save),
-                    onClick = onSaveChanges
+                    onClick = onSaveChanges,
+                    isEnabled = canSubmitChanges
                 )
             }
             onNextStep?.run {

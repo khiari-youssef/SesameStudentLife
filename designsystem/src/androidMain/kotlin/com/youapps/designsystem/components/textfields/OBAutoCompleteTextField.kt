@@ -7,6 +7,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import com.youapps.designsystem.components.menus.DropDownMenuData
+import com.youapps.designsystem.components.menus.DropDownMenuItemData
 import com.youapps.designsystem.components.menus.OBDropDownMenu
 
 
@@ -16,7 +17,10 @@ fun OBAutoCompleteTextField(
     label : String,
     placeholder : String?=null,
     text : String?=null,
-    data : DropDownMenuData
+    errorMessage: String? = null,
+    isRequired: Boolean = false,
+    data : DropDownMenuData,
+    customFilter: ((item : DropDownMenuItemData)-> Boolean)?=null
 ) {
     val isExpanded = remember{
         mutableStateOf(false)
@@ -32,18 +36,20 @@ fun OBAutoCompleteTextField(
 
     OBTextField(
         modifier = modifier,
+        isRequired = isRequired,
         text = currentText.value,
         label = label,
         placeholder = placeholder ?: "",
         onTextChanged = { text->
-            filteredData.value = filteredData.value.copy(
-                items = data.items.filter {
-                    it.label.contains(text)
-                }
-            )
+                filteredData.value = filteredData.value.copy(
+                    items = data.items.filter(customFilter ?: {
+                        it.label.contains(text)
+                    })
+                )
             currentText.value = text
             isExpanded.value = filteredData.value.items.isNotEmpty()
-        }
+        },
+        errorMessage =errorMessage
     )
     OBDropDownMenu(
         modifier = Modifier.fillMaxWidth(),

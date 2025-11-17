@@ -35,10 +35,12 @@ import com.youapps.designsystem.navigateBack
 import com.youapps.onlybeans.R
 import com.youapps.onlybeans.android.base.NavigationRoutingData
 import com.youapps.onlybeans.android.ui.home.HomeScreen
+import com.youapps.onlybeans.domain.services.InputRuleType
 import com.youapps.users_management.ui.login.LoginScreen
 import com.youapps.users_management.ui.login.LoginState
 import com.youapps.users_management.ui.login.LoginUIStateHolder
 import com.youapps.users_management.ui.login.LoginViewModel
+import com.youapps.users_management.ui.registration.InputRuleCheckState
 import com.youapps.users_management.ui.registration.OBRegistrationScreen
 import com.youapps.users_management.ui.registration.OBRegistrationScreenState
 import com.youapps.users_management.ui.registration.OBRegistrationStateHolder
@@ -177,13 +179,17 @@ fun MainActivity.MainNavigation(
                 val viewModel : OBRegistrationViewModel = getViewModel<OBRegistrationViewModel>()
 
                 val screenState : OBRegistrationStateHolder = OBRegistrationStateHolder.rememberOBRegistrationState(
-                    profileDescription = viewModel.getProfileDescription().collectAsStateWithLifecycle(initialValue = null),
+                    profileDescription = viewModel.getProfileDescription().collectAsStateWithLifecycle(initialValue =  InputRuleCheckState.Initial),
                     profilePicture = viewModel.getProfilePicture().collectAsStateWithLifecycle(initialValue = null),
-                    profileStatus = viewModel.getProfileStatus().collectAsStateWithLifecycle(initialValue = null),
+                    profileStatus = viewModel.getProfileStatus().collectAsStateWithLifecycle(initialValue =  InputRuleCheckState.Initial),
                     coverPicture = viewModel.getCoverPicture().collectAsStateWithLifecycle(initialValue = null),
                     firstName = viewModel.getFistName().collectAsStateWithLifecycle(initialValue = null),
                     lastName= viewModel.getLastName().collectAsStateWithLifecycle(initialValue = null),
                     email = viewModel.getEmail().collectAsStateWithLifecycle(initialValue = null),
+                    country = viewModel.getCountry().collectAsStateWithLifecycle(initialValue = InputRuleCheckState.Initial),
+                    city = viewModel.getCity().collectAsStateWithLifecycle(initialValue =  InputRuleCheckState.Initial),
+                    location = viewModel.getLocation().collectAsStateWithLifecycle(initialValue = null),
+                    phone = viewModel.getPhone().collectAsStateWithLifecycle(initialValue =  InputRuleCheckState.Initial)
                 )
                 val currentContext = LocalContext.current
 

@@ -20,6 +20,9 @@ internal class OBUsersRepository(
                 return@runCatching  result.data.toDomainModel()
             }.getOrNull()?.let {profile->
                 val hasTransactionSucceeded = usersLocalDAO.saveUserData(result.token, result.data)
+                result.data.myCoffeeSpace?.run {
+                    usersLocalDAO.saveCoffeeSpace(this)
+                }
                 if (hasTransactionSucceeded) profile else throw IllegalStateException(
                     "Error while saving user data! in the device"
                 )

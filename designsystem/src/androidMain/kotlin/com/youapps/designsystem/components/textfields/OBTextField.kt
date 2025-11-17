@@ -15,10 +15,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.youapps.designsystem.OBFontFamilies
@@ -27,14 +30,19 @@ import com.youapps.designsystem.components.text.PlaceholderText
 import com.youapps.designsystem.onBackgroundShadedDarkMode
 import com.youapps.designsystem.onBackgroundShadedLightMode
 
+
+
+
+
 @Composable
 fun OBTextField(
     modifier: Modifier =Modifier,
     text: String,
     label: String,
     placeholder: String,
+    isRequired: Boolean = false,
     isEnabled: Boolean = true,
-    isError: Boolean = false,
+    errorMessage: String? = null,
     keyboardActions: KeyboardActions = KeyboardActions.Default,
     visualTransformation : VisualTransformation = VisualTransformation.None,
     leftIconRes : Int?=null,
@@ -50,7 +58,16 @@ fun OBTextField(
         verticalArrangement = Arrangement.spacedBy(4.dp, Alignment.CenterVertically)
     ) {
         Text(
-            text = label,
+            text = buildAnnotatedString {
+                append("$label:")
+                if (isRequired) {
+                 withStyle(
+                     style = SpanStyle(color = MaterialTheme.colorScheme.error)
+                 ){
+                     append("*")
+                 }
+                }
+            },
             style = MaterialTheme.typography.bodyMedium.copy(
                color = if (isEnabled) MaterialTheme.colorScheme.onSurface else Color(0xFFB3B3B3)
             )
@@ -74,8 +91,17 @@ fun OBTextField(
                 )
             },
             enabled = isEnabled,
-            isError = isError,
+            isError = errorMessage != null,
             singleLine = true,
+            supportingText = errorMessage?.run {
+                {
+                   Text(
+                       text = errorMessage,
+                       style = MaterialTheme.typography.labelMedium,
+                       textAlign = TextAlign.Start,
+                   )
+                }
+            },
             leadingIcon = leftIconRes?.run{
                 {
                     Icon(

@@ -1,59 +1,41 @@
 package com.youapps.users_management.ui.registration
 
-import OBButton
 import OBEmailTextField
 import OBTextField
+import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.ime
 import androidx.compose.foundation.layout.imePadding
-import androidx.compose.foundation.layout.isImeVisible
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.windowInsetsBottomHeight
-import androidx.compose.foundation.layout.wrapContentSize
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Chip
-import androidx.compose.material.ChipDefaults
 import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.Icon
 import androidx.compose.material.Text
-import androidx.compose.material3.AssistChip
-import androidx.compose.material3.AssistChipDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
-import com.youapps.designsystem.ErrorColor
 import com.youapps.designsystem.components.PageSection
 import com.youapps.designsystem.components.images.OBCircleImageXXL
-import com.youapps.users_management.R
-import com.youapps.designsystem.R as ds
 import com.youapps.designsystem.components.images.OBCoverPhoto
 import com.youapps.designsystem.components.menus.DropDownMenuData
 import com.youapps.designsystem.components.menus.DropDownMenuItemData
-import com.youapps.designsystem.components.menus.OBDropDownMenu
 import com.youapps.designsystem.components.text.OBTextArea
 import com.youapps.designsystem.components.textfields.OBAutoCompleteTextField
+import com.youapps.onlybeans.domain.services.InputRuleType
 import com.youapps.onlybeans.ui.EnableLocationChip
+import com.youapps.users_management.R
+import com.youapps.designsystem.R as ds
 
 
 @OptIn(ExperimentalLayoutApi::class, ExperimentalMaterialApi::class)
@@ -116,21 +98,24 @@ fun RegistrationFormGeneralSection(
                         modifier = Modifier.fillMaxWidth(),
                         text = stringResource(R.string.profile_cannot_edit),
                         style = MaterialTheme.typography.bodyLarge,
-                        color = ErrorColor,
+                        color = MaterialTheme.colorScheme.error,
                         textAlign = TextAlign.Center
                     )
                     OBTextField(
                         modifier = Modifier.fillMaxWidth(),
-                        text = screenState.profileStatus.value ?: "",
+                        text =  screenState.profileStatus.value.displayContent(),
                         label = stringResource(R.string.profile_status),
                         placeholder = "",
-                        onTextChanged = onStatusChanged
+                        onTextChanged = onStatusChanged,
+                        isRequired = true,
+                        errorMessage = screenState.profileStatus.value.getErrorMessageResID()
                     )
                     OBTextArea(
                         modifier = Modifier.fillMaxWidth(),
                         label = stringResource(R.string.profile_description),
-                        initialText = screenState.profileDescription.value,
-                        onValueChange = onProfileDescriptionChanged
+                        initialText = screenState.profileDescription.value.displayContent(),
+                        onValueChange = onProfileDescriptionChanged,
+                        errorMessage = screenState.profileDescription.value.getErrorMessageResID()
                     )
                     Spacer(modifier = Modifier
                         .imePadding()
@@ -142,8 +127,9 @@ fun RegistrationFormGeneralSection(
                 ) {
 
                     OBAutoCompleteTextField(
+                        isRequired = true,
                         modifier = Modifier.fillMaxWidth(),
-                        text = "aaaa",
+                        text = screenState.country.value.displayContent(),
                         label = stringResource(R.string.profile_country),
                         placeholder = "",
                         data = DropDownMenuData(
@@ -152,11 +138,13 @@ fun RegistrationFormGeneralSection(
                                     label = "label$it"
                                 )
                             }
-                        )
+                        ),
+                        errorMessage = screenState.profileDescription.value.getErrorMessageResID()
                     )
                     OBAutoCompleteTextField(
+                        isRequired = true,
                         modifier = Modifier.fillMaxWidth(),
-                        text = "aaaa",
+                        text = screenState.city.value.displayContent(),
                         label = stringResource(R.string.profile_city),
                         placeholder = "",
                         data = DropDownMenuData(
@@ -165,13 +153,15 @@ fun RegistrationFormGeneralSection(
                                     label = "label$it"
                                 )
                             }
-                        )
+                        ),
+                        errorMessage = screenState.profileDescription.value.getErrorMessageResID()
                     )
                     Text(
                         text = stringResource(R.string.profile_pick_exact_location),
                         textAlign = TextAlign.Start,
                         style = MaterialTheme.typography.titleMedium
                     )
+                    val ctx= LocalContext.current
                     Row(
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.Center,
@@ -179,7 +169,7 @@ fun RegistrationFormGeneralSection(
                     ) {
                         EnableLocationChip(
                             onLocationEnabled = {
-
+                                Toast.makeText(ctx, "enabled", Toast.LENGTH_SHORT).show()
                             }
                         )
 
@@ -215,8 +205,9 @@ private fun ProfileHeader(
                 .clickable(onClick = onCoverPictureClicked)
                 .height(
                     height = 128.dp
-                ).fillMaxWidth()
-                .constrainAs(coverImageRef){
+                )
+                .fillMaxWidth()
+                .constrainAs(coverImageRef) {
                     top.linkTo(parent.top)
                     start.linkTo(parent.start)
                     end.linkTo(parent.end)
@@ -226,11 +217,12 @@ private fun ProfileHeader(
         )
         OBCircleImageXXL(
             modifier = Modifier
-                .clickable(onClick = onProfilePictureClicked).constrainAs(profileAvatarPicture){
-                start.linkTo(parent.start)
-                end.linkTo(parent.end)
-                top.linkTo(coverImageRef.bottom,(-72).dp)
-            } ,
+                .clickable(onClick = onProfilePictureClicked)
+                .constrainAs(profileAvatarPicture) {
+                    start.linkTo(parent.start)
+                    end.linkTo(parent.end)
+                    top.linkTo(coverImageRef.bottom, (-72).dp)
+                } ,
             uri =profilePictureUri ?: "",
             placeholderRes = ds.drawable.ic_profile_placeholder_male,
             errorRes = ds.drawable.ic_profile_placeholder_male,
@@ -249,3 +241,25 @@ private fun ProfileHeader(
         )
     }
 }
+
+
+fun InputRuleCheckState.displayContent(defaultValue : String = "") : String = when(this){
+    is InputRuleCheckState.Initial -> defaultValue
+    is InputRuleCheckState.Invalid -> input ?: defaultValue
+    is InputRuleCheckState.Valid -> input
+}
+
+@Composable
+fun InputRuleCheckState.getErrorMessageResID(defaultValue : String? = null) : String? = if (this is InputRuleCheckState.Invalid){
+    when(brokenRule){
+        InputRuleType.REQUIRED -> stringResource(com.youapps.onlybeans.R.string.input_required_error_message)
+        InputRuleType.EMAIL_FORMAT ->  stringResource(com.youapps.onlybeans.R.string.input_email_format_error_message)
+        InputRuleType.PHONE_FORMAT ->  stringResource(com.youapps.onlybeans.R.string.input_phone_format_error_message)
+        InputRuleType.PASSWORD_POLICY ->  stringResource(com.youapps.onlybeans.R.string.input_password_policy_error_message)
+        InputRuleType.LETTERS_ONLY ->  stringResource(com.youapps.onlybeans.R.string.input_letters_only_error_message)
+        InputRuleType.NUMBERS_ONLY ->  stringResource(com.youapps.onlybeans.R.string.input_digits_only_error_message)
+        InputRuleType.DATE_FORMAT ->  stringResource(com.youapps.onlybeans.R.string.input_date_formats_error_message)
+        InputRuleType.MIN_LENGTH ->  stringResource(com.youapps.onlybeans.R.string.text_area_min_characters_error_message)
+        InputRuleType.MAX_LENGTH ->  stringResource(com.youapps.onlybeans.R.string.text_area_max_characters_error_message)
+    }
+} else defaultValue

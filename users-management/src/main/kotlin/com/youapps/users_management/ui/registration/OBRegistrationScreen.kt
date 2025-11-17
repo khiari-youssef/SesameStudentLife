@@ -48,6 +48,7 @@ fun OBRegistrationScreen(
 
             OBFormPage(
                 modifier = Modifier,
+                canSubmitChanges = screenUpdateState.isFormReadyToSubmitState().value,
                 content = {
                     when(pagerState.currentPage) {
                         0 -> RegistrationFormGeneralSection(

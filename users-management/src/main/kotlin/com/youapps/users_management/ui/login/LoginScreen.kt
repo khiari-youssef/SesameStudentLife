@@ -289,7 +289,6 @@ fun LoginForm(
              },
          text = email,
          isEnabled = true,
-         isError = false,
          rightIconRes = DSR.drawable.ic_clear,
          keyboardActions = KeyboardActions.Default,
          onRightIconResClicked ={
@@ -310,7 +309,6 @@ fun LoginForm(
          placeholder =stringResource(id = DSR.string.password_placeholder),
          keyboardActions = KeyboardActions.Default,
          isEnabled = true,
-         isError = false,
          onPasswordChanged = onPasswordChanged
      )
  }

@@ -55,4 +55,17 @@ data class OBLocation(
     fun toDMS() : String = TODO()
 
     override fun toString(): String = "$latitude:$longitude"
+
+    companion object{
+
+        fun fromString(input: String) : OBLocation? = runCatching{
+            val decodedString = input.split(":").map {
+                it.toDoubleOrNull()
+            }
+            OBLocation(
+                latitude = decodedString[0]!!,
+                longitude = decodedString[1]!!
+            )
+        }.getOrNull()
+    }
 }

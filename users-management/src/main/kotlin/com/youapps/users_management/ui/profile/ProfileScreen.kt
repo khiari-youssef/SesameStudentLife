@@ -169,19 +169,21 @@ fun ProfileScreen(
                                 modifier = Modifier.fillMaxWidth(),
                                 sectionTitle = stringResource(R.string.profile_gallery),
                             ) {
-                                OBCarousel(
-                                    modifier = Modifier
-                                        .fillMaxWidth()
-                                        .height(206.dp),
-                                    state = CarouselState.Loaded(
-                                        images = screenState.profile.myCoffeeSpace?.gallery ?: emptyList()
-                                    ),
-                                    itemSpacing = 8.dp,
-                                    preferredItemWidth = 320.dp,
-                                    onItemClicked = { url->
-                                        imageViewerContent.value = url
-                                    }
-                                )
+                                screenState.profile.myCoffeeSpace?.gallery?.let { gallery->
+                                    OBCarousel(
+                                        modifier = Modifier
+                                            .fillMaxWidth()
+                                            .height(206.dp),
+                                        state = CarouselState.Loaded(
+                                            images = gallery
+                                        ),
+                                        itemSpacing = 8.dp,
+                                        preferredItemWidth = 320.dp,
+                                        onItemClicked = { url->
+                                            imageViewerContent.value = url
+                                        }
+                                    )
+                                }
                             }
 
 

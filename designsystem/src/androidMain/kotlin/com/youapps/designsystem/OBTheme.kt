@@ -29,7 +29,8 @@ fun OBTheme(
             primaryContainer = TonedDark,
             surfaceContainerHigh = Color.Black,
             background = Dark,
-            onBackground = Color(0xFFB6B6B6)
+            onBackground = Color(0xFFB6B6B6),
+            error = ErrorColor
         )
     } else {
         lightColorScheme(
@@ -38,7 +39,8 @@ fun OBTheme(
             tertiary = PumpkinOrangeShaded,
             surfaceContainerHigh = Color.White,
             surface = Alabaster,
-            primaryContainer = Isabelline
+            primaryContainer = Isabelline,
+            error = ErrorColor
         )
     }
     val typography = Typography(

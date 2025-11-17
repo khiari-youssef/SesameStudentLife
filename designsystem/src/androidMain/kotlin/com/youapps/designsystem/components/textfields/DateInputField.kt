@@ -8,7 +8,7 @@ fun DateInputField(
     modifier: Modifier = Modifier,
     date : String,
     label : String,
-    isError : Boolean = false,
+    errorMessage : String?=null,
     isEnabled : Boolean = false,
     onDateChanged : (date : String)->Unit
 ) {
@@ -18,7 +18,7 @@ fun DateInputField(
       label = label,
       placeholder = "" ,
       isEnabled = isEnabled,
-      isError = isError ,
+      errorMessage = errorMessage ,
       onTextChanged = onDateChanged,
       rightIconRes = R.drawable.ic_calendar_outlined
   )

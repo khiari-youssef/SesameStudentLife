@@ -16,7 +16,7 @@ fun SesamePasswordTextField(
     label : String,
     placeholder : String,
     isEnabled : Boolean,
-    isError : Boolean,
+    errorMessage : String?=null,
     keyboardActions: KeyboardActions = KeyboardActions.Default,
     onPasswordChanged : (text : String)->Unit
 ) {
@@ -36,7 +36,7 @@ fun SesamePasswordTextField(
         label = label ,
         placeholder = placeholder,
         isEnabled = isEnabled,
-        isError = isError,
+        errorMessage = errorMessage,
         keyboardActions = keyboardActions,
         visualTransformation = visualTransformation.value ,
         rightIconRes = if (isPasswordRevealed.value) R.drawable.ic_password_revealed else R.drawable.ic_password_hidden,
