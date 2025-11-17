@@ -5,6 +5,7 @@ import androidx.compose.runtime.Stable
 import androidx.compose.runtime.State
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.remember
+import com.youapps.designsystem.components.menus.DropDownMenuData
 import com.youapps.onlybeans.domain.entities.users.OBLocation
 import com.youapps.onlybeans.domain.entities.users.OBUserProfile
 import com.youapps.onlybeans.domain.exception.DomainErrorType
@@ -55,7 +56,9 @@ data class OBRegistrationStateHolder(
     val country : State<InputRuleCheckState>,
     val city : State<InputRuleCheckState>,
     val location : State<OBLocation?>,
-    val phone : State<InputRuleCheckState>
+    val phone : State<InputRuleCheckState>,
+    val countriesListData : State<DropDownMenuData?>,
+    val citiesListData : State<DropDownMenuData?>
 ){
 
     @Composable
@@ -82,10 +85,25 @@ data class OBRegistrationStateHolder(
               country : State<InputRuleCheckState>,
               city : State<InputRuleCheckState>,
               location : State<OBLocation?>,
-              phone : State<InputRuleCheckState>
-        ) : OBRegistrationStateHolder = remember(profilePicture,coverPicture,profileDescription,profileStatus,firstName,lastName,email,country,city,location) {
+              phone : State<InputRuleCheckState>,
+             countriesListData : State<DropDownMenuData?>,
+            citiesListData : State<DropDownMenuData?>
+        ) : OBRegistrationStateHolder = remember(
+            profilePicture,
+            coverPicture,
+            profileDescription,
+            profileStatus,
+            firstName,
+            lastName,
+            email,
+            country,
+            city,
+            location,
+            countriesListData,
+            citiesListData
+        ) {
             OBRegistrationStateHolder(
-                profilePicture,coverPicture,profileDescription,profileStatus,firstName,lastName,email,country,city,location,phone
+                profilePicture,coverPicture,profileDescription,profileStatus,firstName,lastName,email,country,city,location,phone,countriesListData,citiesListData
             )
         }
 

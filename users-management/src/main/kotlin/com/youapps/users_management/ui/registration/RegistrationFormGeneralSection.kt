@@ -46,7 +46,9 @@ fun RegistrationFormGeneralSection(
     onProfilePictureClicked: ()-> Unit,
     onCoverPictureClicked: ()-> Unit,
     onStatusChanged: (status : String)-> Unit,
-    onProfileDescriptionChanged: (profile : String)-> Unit
+    onProfileDescriptionChanged: (profile : String)-> Unit,
+    onCountrySelected : (String)-> Unit,
+    onCitySelected : (String)-> Unit
 ) {
         Column(
             modifier = modifier,
@@ -131,30 +133,20 @@ fun RegistrationFormGeneralSection(
                         modifier = Modifier.fillMaxWidth(),
                         text = screenState.country.value.displayContent(),
                         label = stringResource(R.string.profile_country),
-                        placeholder = "",
-                        data = DropDownMenuData(
-                            items = List(5){
-                                DropDownMenuItemData(
-                                    label = "label$it"
-                                )
-                            }
-                        ),
-                        errorMessage = screenState.profileDescription.value.getErrorMessageResID()
+                        placeholder = stringResource(R.string.profile_country),
+                        data = screenState.countriesListData.value,
+                        onValueChanged = onCountrySelected,
+                        errorMessage = screenState.country.value.getErrorMessageResID()
                     )
                     OBAutoCompleteTextField(
                         isRequired = true,
                         modifier = Modifier.fillMaxWidth(),
                         text = screenState.city.value.displayContent(),
                         label = stringResource(R.string.profile_city),
-                        placeholder = "",
-                        data = DropDownMenuData(
-                            items = List(5){
-                                DropDownMenuItemData(
-                                    label = "label$it"
-                                )
-                            }
-                        ),
-                        errorMessage = screenState.profileDescription.value.getErrorMessageResID()
+                        placeholder = stringResource(R.string.profile_city),
+                        data = screenState.citiesListData.value,
+                        errorMessage = screenState.city.value.getErrorMessageResID(),
+                        onValueChanged = onCitySelected
                     )
                     Text(
                         text = stringResource(R.string.profile_pick_exact_location),

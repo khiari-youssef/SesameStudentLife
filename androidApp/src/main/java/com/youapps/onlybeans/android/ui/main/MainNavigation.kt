@@ -189,7 +189,9 @@ fun MainActivity.MainNavigation(
                     country = viewModel.getCountry().collectAsStateWithLifecycle(initialValue = InputRuleCheckState.Initial),
                     city = viewModel.getCity().collectAsStateWithLifecycle(initialValue =  InputRuleCheckState.Initial),
                     location = viewModel.getLocation().collectAsStateWithLifecycle(initialValue = null),
-                    phone = viewModel.getPhone().collectAsStateWithLifecycle(initialValue =  InputRuleCheckState.Initial)
+                    phone = viewModel.getPhone().collectAsStateWithLifecycle(initialValue =  InputRuleCheckState.Initial),
+                    countriesListData = viewModel.getCountriesList().collectAsStateWithLifecycle(initialValue = null),
+                    citiesListData =viewModel.getCitiesList().collectAsStateWithLifecycle(initialValue = null)
                 )
                 val currentContext = LocalContext.current
 
@@ -228,6 +230,12 @@ fun MainActivity.MainNavigation(
                     },
                     onStatusChanged = { text->
                         viewModel.updateStatus(text)
+                    },
+                    onCountrySelected = {
+                        viewModel.updateCountry(it)
+                    },
+                    onCitySelected = {
+                        viewModel.updateCity(it)
                     },
                     onExit = {
                         rootNavController.popBackStack()

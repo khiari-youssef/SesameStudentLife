@@ -16,10 +16,11 @@ fun OBAutoCompleteTextField(
     modifier: Modifier = Modifier,
     label : String,
     placeholder : String?=null,
-    text : String?=null,
+    text : String,
     errorMessage: String? = null,
     isRequired: Boolean = false,
-    data : DropDownMenuData,
+    data : DropDownMenuData?=null,
+    onValueChanged : (String)-> Unit,
     customFilter: ((item : DropDownMenuItemData)-> Boolean)?=null
 ) {
     val isExpanded = remember{
@@ -30,37 +31,39 @@ fun OBAutoCompleteTextField(
         mutableStateOf(data)
     }
 
-    val currentText = remember {
-        mutableStateOf(text ?: "")
-    }
 
     OBTextField(
         modifier = modifier,
         isRequired = isRequired,
-        text = currentText.value,
+        text = text,
         label = label,
         placeholder = placeholder ?: "",
         onTextChanged = { text->
-                filteredData.value = filteredData.value.copy(
-                    items = data.items.filter(customFilter ?: {
+            data?.items?.takeIf { it.isNotEmpty() }?.run {
+                filteredData.value = filteredData.value?.copy(
+                    items = this.filter(customFilter ?: {
                         it.label.contains(text)
                     })
                 )
-            currentText.value = text
-            isExpanded.value = filteredData.value.items.isNotEmpty()
+                isExpanded.value = filteredData.value?.items?.isNotEmpty() ?: false
+            }
+            onValueChanged(text)
         },
         errorMessage =errorMessage
     )
-    OBDropDownMenu(
-        modifier = Modifier.fillMaxWidth(),
-        isExpanded = isExpanded.value,
-        onExpandedChange = {
-            isExpanded.value = it
-        },
-        onClick = {
-            currentText.value = it.label
-            isExpanded.value = false
-        },
-        data = filteredData.value
-    )
+    filteredData.value?.run {
+        OBDropDownMenu(
+            modifier = Modifier.fillMaxWidth(),
+            isExpanded = isExpanded.value,
+            onExpandedChange = {
+                isExpanded.value = it
+            },
+            onClick = {
+                onValueChanged(it.label)
+                isExpanded.value = false
+            },
+            data = this
+        )
+    }
+
 }

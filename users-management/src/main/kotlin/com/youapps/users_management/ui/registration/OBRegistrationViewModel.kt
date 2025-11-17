@@ -5,6 +5,8 @@ import androidx.compose.ui.Modifier
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.youapps.designsystem.components.menus.DropDownMenuData
+import com.youapps.designsystem.components.menus.DropDownMenuItemData
 import com.youapps.onlybeans.data.repositories.users.OBUsersRepositoryInterface
 import com.youapps.onlybeans.domain.entities.users.OBLocation
 import com.youapps.onlybeans.domain.entities.users.OBUserProfile
@@ -16,6 +18,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -223,6 +226,26 @@ class OBRegistrationViewModel(
         if (it is OBRegistrationScreenState.Success) {
             it.userProfile.email
         } else null
+    }
+
+    fun getCountriesList() : Flow<DropDownMenuData> = flow {
+         emit(DropDownMenuData(
+             items = List(5){
+                 DropDownMenuItemData(
+                     label = "label$it"
+                 )
+             }
+         ))
+    }
+
+    fun getCitiesList() : Flow<DropDownMenuData> = flow {
+        emit(DropDownMenuData(
+            items = List(5){
+                DropDownMenuItemData(
+                    label = "label$it"
+                )
+            }
+        ))
     }
 
 

@@ -31,6 +31,8 @@ fun OBRegistrationScreen(
     onCoverPictureClicked: ()-> Unit,
     onStatusChanged: (status : String)-> Unit,
     onProfileDescriptionChanged: (profile : String)-> Unit,
+    onCountrySelected : (String)-> Unit,
+    onCitySelected : (String)-> Unit,
     onExit : ()-> Unit
 ) {
     val pagerState = rememberPagerState(pageCount = {
@@ -58,7 +60,9 @@ fun OBRegistrationScreen(
                             onStatusChanged = onStatusChanged,
                             onProfilePictureClicked = onProfilePictureClicked,
                             onCoverPictureClicked = onCoverPictureClicked,
-                            onProfileDescriptionChanged = onProfileDescriptionChanged
+                            onProfileDescriptionChanged = onProfileDescriptionChanged,
+                            onCitySelected = onCitySelected,
+                            onCountrySelected = onCountrySelected
                         )
                         1 -> {
 
