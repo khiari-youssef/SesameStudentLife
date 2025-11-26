@@ -29,6 +29,9 @@
     <string name="profile_country">Country</string>
     <string name="profile_city">City</string>
     <string name="profile_pick_exact_location">Pick an exact location on map :</string>
+    <string name="profile_missing_profile_picture">Missing profile picture!</string>
+    <string name="profile_missing_cover_picture">Missing cover picture!</string>
+    <string name="profile_coffee_space">My coffee corner</string>
 
 
 

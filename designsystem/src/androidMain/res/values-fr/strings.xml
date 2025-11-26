@@ -35,10 +35,15 @@
     <string name="collapse_to_read_less">Lire moins</string>
     <string name="next">Suivant</string>
     <string name="save">Sauvegarder</string>
+    <string name="phone_number_label">Téléphone</string>
+    <string name="phone_number_placeholder">XXX-XXX-XXX</string>
+    <string name="phone_number_country_placeholder">XXX</string>
 
 
     <!-- Content description-->
     <string name="content_description_drop_down_item">Élément de la liste déroulante : %s</string>
+    <string name="content_description_back_button">Icone button retour</string>
+    <string name="content_description_delete_button">Icone button supprimer</string>
 
 
 </resources>

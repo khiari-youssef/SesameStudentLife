@@ -11,7 +11,7 @@ android.run {
 }
 
 dependencies {
-    implementation(projects.shared)
+    implementation(projects.core)
     implementation(projects.designsystem)
     implementation(libs.kotlinx.datetime)
     implementation(libs.kotlin.coroutines)

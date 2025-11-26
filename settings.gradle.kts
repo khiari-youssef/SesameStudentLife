@@ -19,7 +19,7 @@ dependencyResolutionManagement {
 
 rootProject.name = "OnlyBeans"
 include(":androidApp")
-include(":shared")
+include(":core")
 include(":designsystem")
 include(":users-management")
 include(":androidTestApp")

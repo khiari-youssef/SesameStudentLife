@@ -13,7 +13,7 @@ android.run {
 }
 
 dependencies {
-    api(projects.shared)
+    api(projects.core)
     implementation(projects.designsystem)
     implementation(projects.usersManagement)
     implementation(libs.bundles.composelibs)

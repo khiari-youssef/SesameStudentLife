@@ -30,7 +30,8 @@ fun OBTheme(
             surfaceContainerHigh = Color.Black,
             background = Dark,
             onBackground = Color(0xFFB6B6B6),
-            error = ErrorColor
+            error = ErrorColor,
+            onSurfaceVariant = ShadedWhite
         )
     } else {
         lightColorScheme(
@@ -40,7 +41,8 @@ fun OBTheme(
             surfaceContainerHigh = Color.White,
             surface = Alabaster,
             primaryContainer = Isabelline,
-            error = ErrorColor
+            error = ErrorColor,
+            onSurfaceVariant = TonedDark
         )
     }
     val typography = Typography(

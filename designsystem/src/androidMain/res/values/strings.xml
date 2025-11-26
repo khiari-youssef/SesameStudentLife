@@ -38,10 +38,16 @@
     <string name="collapse_to_read_less">Read less</string>
     <string name="next">Next</string>
     <string name="save">Save changes</string>
+    <string name="phone_number_label">Phone</string>
+    <string name="phone_number_placeholder">XXX-XXX-XXX</string>
+    <string name="phone_number_country_placeholder">XXX</string>
 
 
 
      <!-- Content description-->
     <string name="content_description_drop_down_item">Drop down item : %s</string>
+    <string name="content_description_back_button">Back button icon</string>
+    <string name="content_description_delete_button">Delete button icon</string>
+
 
 </resources>

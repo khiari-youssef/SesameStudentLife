@@ -1,36 +1,63 @@
 package com.youapps.users_management.ui.registration
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.State
-import androidx.compose.ui.Modifier
+import android.content.Context
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.youapps.designsystem.components.lists.CarouselState
 import com.youapps.designsystem.components.menus.DropDownMenuData
 import com.youapps.designsystem.components.menus.DropDownMenuItemData
+import com.youapps.designsystem.components.menus.ImageMediaType
+import com.youapps.onlybeans.R
 import com.youapps.onlybeans.data.repositories.users.OBUsersRepositoryInterface
 import com.youapps.onlybeans.domain.entities.users.OBLocation
-import com.youapps.onlybeans.domain.entities.users.OBUserProfile
 import com.youapps.onlybeans.domain.exception.DomainErrorType
 import com.youapps.onlybeans.domain.services.InputRuleType
 import com.youapps.onlybeans.domain.services.OBFormValidator
-import com.youapps.users_management.ui.profile.ProfileScreenState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.util.Locale
 
 
 class OBRegistrationViewModel(
+    private val applicationContext : Context,
     private val savedStateHandle: SavedStateHandle,
     private val usersRepository : OBUsersRepositoryInterface
 )  : ViewModel() {
 
     private val _profileState = MutableStateFlow<OBRegistrationScreenState>(OBRegistrationScreenState.Loading)
+
+
+    private val _countriesList : MutableStateFlow<DropDownMenuData> = MutableStateFlow<DropDownMenuData>(DropDownMenuData(
+        items = List(5){
+            DropDownMenuItemData(
+                label = "label$it"
+            )
+        }
+    ))
+
+    private val _citiesList : MutableStateFlow<DropDownMenuData> = MutableStateFlow<DropDownMenuData>(DropDownMenuData(
+        items = List(5){
+            DropDownMenuItemData(
+                label = "label$it"
+            )
+        }
+    ))
+
+    val countryCodes: Map<String, String> =
+        applicationContext.resources.getStringArray(R.array.country_codes_to_prefixes_and_names)
+            .associate {
+                it.split("|").let { (key, value) ->
+                    key to value
+                }
+            }
+
 
 
     init {
@@ -63,6 +90,9 @@ class OBRegistrationViewModel(
                 data.phone?.run {
                     updatePhoneNumber(phone = this)
                 }
+                data.myCoffeeSpace?.gallery?.run {
+                    updateCoffeeSpaceCarouselImages(this)
+                }
                 _profileState.update {
                     OBRegistrationScreenState.Success(userProfile = data)
                 }
@@ -77,6 +107,7 @@ class OBRegistrationViewModel(
            }
        }
     }
+
 
     fun updateCoverPicture(uri : String) {
         viewModelScope.launch {
@@ -130,6 +161,37 @@ class OBRegistrationViewModel(
         viewModelScope.launch {
             withContext(Dispatchers.IO){
                 savedStateHandle[PROFILE_PHONE_KEY] = phone
+            }
+        }
+    }
+
+    fun setSelectedCountryPrefix(data : DropDownMenuItemData) {
+        viewModelScope.launch {
+            withContext(Dispatchers.IO){
+                savedStateHandle[PROFILE_PHONE_COUNTRY_PREFIX_KEY] = "${data.label}|${data.icon.toString()}"
+            }
+        }
+    }
+
+
+
+    fun updateCoffeeSpaceCarouselImages(coffeeSpaceImages  : List<String>) {
+        viewModelScope.launch {
+            withContext(Dispatchers.IO){
+                savedStateHandle[COFFEE_SPACE_CAROUSEL_KEY] = coffeeSpaceImages.joinToString("||")
+            }
+        }
+    }
+
+    fun deleteCoffeeSpaceCarouselImage(index: Int) {
+        viewModelScope.launch {
+            withContext(Dispatchers.IO){
+             val newUpdate = getCoffeeSpaceCarouselImages().firstOrNull()?.images?.filterIndexed { currentIndex, string ->
+                 currentIndex != index
+             }
+             newUpdate?.run {
+              savedStateHandle[COFFEE_SPACE_CAROUSEL_KEY] = newUpdate.joinToString("||")
+             }
             }
         }
     }
@@ -209,6 +271,18 @@ class OBRegistrationViewModel(
         )
     }
 
+    fun getSelectedPhonePrefix() : Flow<DropDownMenuItemData?>
+    = savedStateHandle.getStateFlow<String?>(key = PROFILE_PHONE_COUNTRY_PREFIX_KEY,Locale.getDefault().run {
+        "${countryCodes[country]}|${applicationContext.getString(R.string.countries_api_url,country)}"
+    }).map {
+        it?.split("|").runCatching {
+            DropDownMenuItemData(
+                label = this!![0],
+                icon = ImageMediaType.Url(url = this[1])
+            )
+        }.getOrNull()
+    }
+
 
     fun getFistName() : Flow<String?> = _profileState.map {
         if (it is OBRegistrationScreenState.Success) {
@@ -228,25 +302,13 @@ class OBRegistrationViewModel(
         } else null
     }
 
-    fun getCountriesList() : Flow<DropDownMenuData> = flow {
-         emit(DropDownMenuData(
-             items = List(5){
-                 DropDownMenuItemData(
-                     label = "label$it"
-                 )
-             }
-         ))
-    }
 
-    fun getCitiesList() : Flow<DropDownMenuData> = flow {
-        emit(DropDownMenuData(
-            items = List(5){
-                DropDownMenuItemData(
-                    label = "label$it"
-                )
-            }
-        ))
-    }
+
+    fun getCountriesList() : Flow<DropDownMenuData> = _countriesList
+
+    fun getCitiesList() : Flow<DropDownMenuData> = _citiesList
+
+
 
 
 
@@ -295,6 +357,26 @@ class OBRegistrationViewModel(
         }
       }
 
+    fun getCoffeeSpaceCarouselImages() : Flow<CarouselState.Loaded> = savedStateHandle.getStateFlow<String?>(key = COFFEE_SPACE_CAROUSEL_KEY,null).map {
+        CarouselState.Loaded(it?.split("||") ?: listOf())
+    }
+
+    fun getCountryCodesDropDownMenuData() : Flow<DropDownMenuData?> = flow {
+
+        emit(DropDownMenuData(
+            items = Locale.getAvailableLocales().filter {
+                it.country.isNotBlank() && countryCodes[it.country] != null
+            }.map {
+                DropDownMenuItemData(
+                    label = "${countryCodes[it.country]}",
+                    icon = ImageMediaType.Url(
+                        url = applicationContext.getString(R.string.countries_api_url,it.country)
+                    )
+                )
+            }
+        ))
+    }
+
 
 
 
@@ -317,6 +399,10 @@ class OBRegistrationViewModel(
         private const val PROFILE_LOCATION_KEY = "profile_location"
 
         private const val PROFILE_PHONE_KEY = "profile_phone"
+
+        private const val PROFILE_PHONE_COUNTRY_PREFIX_KEY = "profile_phone_country_prefix"
+
+        private const val COFFEE_SPACE_CAROUSEL_KEY = "coffee_space_carousel"
     }
 
 

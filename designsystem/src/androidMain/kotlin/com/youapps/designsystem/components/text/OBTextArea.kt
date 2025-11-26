@@ -17,9 +17,11 @@ import androidx.compose.foundation.text.input.InputTransformation
 import androidx.compose.foundation.text.input.InputTransformation.Companion.transformInput
 import androidx.compose.foundation.text.input.OutputTransformation
 import androidx.compose.foundation.text.input.TextFieldBuffer
+import androidx.compose.foundation.text.input.TextFieldState
 import androidx.compose.foundation.text.input.maxLength
 import androidx.compose.foundation.text.input.placeCursorAtEnd
 import androidx.compose.foundation.text.input.rememberTextFieldState
+import androidx.compose.foundation.text.input.toTextFieldBuffer
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
@@ -42,23 +44,14 @@ import com.youapps.designsystem.TonedDark
 fun OBTextArea(
     modifier: Modifier = Modifier,
     label : String,
-    initialText : String?=null,
+    text : String?=null,
     isEnabled: Boolean = true,
     maxChars : Int = 255,
-    onValueChange: (String) -> Unit,
     isRequired : Boolean = true,
-    errorMessage : String?=null
+    errorMessage : String?=null,
+    onTextChanged : (String)->Unit
 ) {
 
-    val textFieldState = rememberTextFieldState(
-        initialText = initialText ?: ""
-    )
-    val textFieldScrollState = rememberScrollState()
-
-
-    LaunchedEffect(key1 = textFieldState.text) {
-        onValueChange(textFieldState.text.toString())
-    }
     Column(
         modifier = modifier,
         horizontalAlignment = Alignment.Start,
@@ -83,13 +76,12 @@ fun OBTextArea(
             textAlign = TextAlign.Start
         )
         OutlinedTextField(
-            scrollState = textFieldScrollState,
             modifier = modifier
                 .fillMaxWidth()
                 .requiredHeightIn(max = 120.dp)
                 .fillMaxHeight(),
-            state = textFieldState,
-            inputTransformation = InputTransformation.maxLength(maxLength = maxChars),
+            onValueChange = onTextChanged,
+            value = text ?: "",
             enabled = isEnabled,
             shape = RoundedCornerShape(8.dp),
             textStyle = MaterialTheme.typography.bodyMedium,
@@ -126,7 +118,7 @@ fun OBTextArea(
         ) {
            Text(
                modifier = Modifier.fillMaxWidth(),
-               text = "${textFieldState.text.length}/$maxChars",
+               text = "${text?.length ?: 0}/$maxChars",
                textAlign = TextAlign.End,
                style = MaterialTheme.typography.labelSmall.copy(
                    color = Color(0xFF757575)

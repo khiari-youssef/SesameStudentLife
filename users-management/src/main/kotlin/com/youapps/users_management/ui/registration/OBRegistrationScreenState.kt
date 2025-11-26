@@ -5,7 +5,9 @@ import androidx.compose.runtime.Stable
 import androidx.compose.runtime.State
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.remember
+import com.youapps.designsystem.components.lists.CarouselState
 import com.youapps.designsystem.components.menus.DropDownMenuData
+import com.youapps.designsystem.components.menus.DropDownMenuItemData
 import com.youapps.onlybeans.domain.entities.users.OBLocation
 import com.youapps.onlybeans.domain.entities.users.OBUserProfile
 import com.youapps.onlybeans.domain.exception.DomainErrorType
@@ -58,7 +60,10 @@ data class OBRegistrationStateHolder(
     val location : State<OBLocation?>,
     val phone : State<InputRuleCheckState>,
     val countriesListData : State<DropDownMenuData?>,
-    val citiesListData : State<DropDownMenuData?>
+    val citiesListData : State<DropDownMenuData?>,
+    val coffeeSpaceCarouselState : State<CarouselState.Loaded>,
+    val countryCodesDropDownMenuData: State<DropDownMenuData?>,
+    val selectedCountryCode: State<DropDownMenuItemData?>,
 ){
 
     @Composable
@@ -87,7 +92,10 @@ data class OBRegistrationStateHolder(
               location : State<OBLocation?>,
               phone : State<InputRuleCheckState>,
              countriesListData : State<DropDownMenuData?>,
-            citiesListData : State<DropDownMenuData?>
+             citiesListData : State<DropDownMenuData?>,
+             coffeeSpaceCarouselState : State<CarouselState.Loaded>,
+             countryCodesDropDownMenuData : State<DropDownMenuData?>,
+             selectedCountryCode: State<DropDownMenuItemData?>,
         ) : OBRegistrationStateHolder = remember(
             profilePicture,
             coverPicture,
@@ -100,10 +108,13 @@ data class OBRegistrationStateHolder(
             city,
             location,
             countriesListData,
-            citiesListData
+            citiesListData,
+            coffeeSpaceCarouselState,
+            countryCodesDropDownMenuData,
+            selectedCountryCode
         ) {
             OBRegistrationStateHolder(
-                profilePicture,coverPicture,profileDescription,profileStatus,firstName,lastName,email,country,city,location,phone,countriesListData,citiesListData
+                profilePicture,coverPicture,profileDescription,profileStatus,firstName,lastName,email,country,city,location,phone,countriesListData,citiesListData,coffeeSpaceCarouselState,countryCodesDropDownMenuData,selectedCountryCode
             )
         }
 

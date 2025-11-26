@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="countries_api_url" translatable="false">"https://flagsapi.com/%s/flat/64.png"</string>
+    <string-array name="country_codes_to_prefixes_and_names">
+        <item>AF|+93|Afghanistan</item>
+        <item>AL|+355|Albania</item>
+        <item>DZ|+213|Algeria</item>
+        <item>AS|+1-684|American Samoa</item>
+        <item>AD|+376|Andorra</item>
+        <item>AO|+244|Angola</item>
+        <item>AI|+1-264|Anguilla</item>
+        <item>AG|+1-268|Antigua &amp; Barbuda</item>
+        <item>AR|+54|Argentina</item>
+        <item>AM|+374|Armenia</item>
+        <item>AW|+297|Aruba</item>
+        <item>AU|+61|Australia</item>
+        <item>AT|+43|Austria</item>
+        <item>AZ|+994|Azerbaijan</item>
+        <item>BS|+1-242|Bahamas</item>
+        <item>BH|+973|Bahrain</item>
+        <item>BD|+880|Bangladesh</item>
+        <item>BB|+1-246|Barbados</item>
+        <item>BY|+375|Belarus</item>
+        <item>BE|+32|Belgium</item>
+        <item>BZ|+501|Belize</item>
+        <item>BJ|+229|Benin</item>
+        <item>BM|+1-441|Bermuda</item>
+        <item>BT|+975|Bhutan</item>
+        <item>BO|+591|Bolivia</item>
+        <item>BA|+387|Bosnia &amp; Herzegovina</item>
+        <item>BW|+267|Botswana</item>
+        <item>BR|+55|Brazil</item>
+        <item>VG|+1-284|British Virgin Islands</item>
+        <item>BN|+673|Brunei</item>
+        <item>BG|+359|Bulgaria</item>
+        <item>BF|+226|Burkina Faso</item>
+        <item>BI|+257|Burundi</item>
+        <item>CV|+238|Cape Verde</item>
+        <item>KH|+855|Cambodia</item>
+        <item>CM|+237|Cameroon</item>
+        <item>CA|+1|Canada</item>
+        <item>KY|+1-345|Cayman Islands</item>
+        <item>CF|+236|Central African Republic</item>
+        <item>TD|+235|Chad</item>
+        <item>CL|+56|Chile</item>
+        <item>CN|+86|China</item>
+        <item>CO|+57|Colombia</item>
+        <item>KM|+269|Comoros</item>
+        <item>CG|+242|Congo - Brazzaville</item>
+        <item>CD|+243|Congo - Kinshasa</item>
+        <item>CR|+506|Costa Rica</item>
+        <item>CI|+225|Côte d’Ivoire</item>
+        <item>HR|+385|Croatia</item>
+        <item>CU|+53|Cuba</item>
+        <item>CW|+599|Curaçao</item>
+        <item>CY|+357|Cyprus</item>
+        <item>CZ|+420|Czechia</item>
+        <item>DK|+45|Denmark</item>
+        <item>DJ|+253|Djibouti</item>
+        <item>DM|+1-767|Dominica</item>
+        <item>DO|+1-849|Dominican Republic</item>
+        <item>EC|+593|Ecuador</item>
+        <item>EG|+20|Egypt</item>
+        <item>SV|+503|El Salvador</item>
+        <item>GQ|+240|Equatorial Guinea</item>
+        <item>ER|+291|Eritrea</item>
+        <item>EE|+372|Estonia</item>
+        <item>SZ|+268|Eswatini</item>
+        <item>ET|+251|Ethiopia</item>
+        <item>FK|+500|Falkland Islands</item>
+        <item>FO|+298|Faroe Islands</item>
+        <item>FJ|+679|Fiji</item>
+        <item>FI|+358|Finland</item>
+        <item>FR|+33|France</item>
+        <item>GF|+594|French Guiana</item>
+        <item>GA|+241|Gabon</item>
+        <item>GM|+220|Gambia</item>
+        <item>GE|+995|Georgia</item>
+        <item>DE|+49|Germany</item>
+        <item>GH|+233|Ghana</item>
+        <item>GI|+350|Gibraltar</item>
+        <item>GR|+30|Greece</item>
+        <item>GL|+299|Greenland</item>
+        <item>GD|+1-473|Grenada</item>
+        <item>GP|+590|Guadeloupe</item>
+        <item>GU|+1-671|Guam</item>
+        <item>GT|+502|Guatemala</item>
+        <item>GN|+224|Guinea</item>
+        <item>GW|+245|Guinea-Bissau</item>
+        <item>GY|+592|Guyana</item>
+        <item>HT|+509|Haiti</item>
+        <item>VA|+379|Vatican City</item>
+        <item>HN|+504|Honduras</item>
+        <item>HK|+852|Hong Kong SAR China</item>
+        <item>HU|+36|Hungary</item>
+        <item>IS|+354|Iceland</item>
+        <item>IN|+91|India</item>
+        <item>ID|+62|Indonesia</item>
+        <item>IR|+98|Iran</item>
+        <item>IQ|+964|Iraq</item>
+        <item>IE|+353|Ireland</item>
+        <item>IL|+972|Israel</item>
+        <item>IT|+39|Italy</item>
+        <item>JM|+1-876|Jamaica</item>
+        <item>JP|+81|Japan</item>
+        <item>JO|+962|Jordan</item>
+        <item>KZ|+7|Kazakhstan</item>
+        <item>KE|+254|Kenya</item>
+        <item>KI|+686|Kiribati</item>
+        <item>XK|+383|Kosovo</item>
+        <item>KW|+965|Kuwait</item>
+        <item>KG|+996|Kyrgyzstan</item>
+        <item>LA|+856|Laos</item>
+        <item>LV|+371|Latvia</item>
+        <item>LB|+961|Lebanon</item>
+        <item>LS|+266|Lesotho</item>
+        <item>LR|+231|Liberia</item>
+        <item>LY|+218|Libya</item>
+        <item>LI|+423|Liechtenstein</item>
+        <item>LT|+370|Lithuania</item>
+        <item>LU|+352|Luxembourg</item>
+        <item>MO|+853|Macao SAR China</item>
+        <item>MG|+261|Madagascar</item>
+        <item>MW|+265|Malawi</item>
+        <item>MY|+60|Malaysia</item>
+        <item>MV|+960|Maldives</item>
+        <item>ML|+223|Mali</item>
+        <item>MT|+356|Malta</item>
+        <item>MH|+692|Marshall Islands</item>
+        <item>MQ|+596|Martinique</item>
+        <item>MR|+222|Mauritania</item>
+        <item>MU|+230|Mauritius</item>
+        <item>YT|+262|Mayotte</item>
+        <item>MX|+52|Mexico</item>
+        <item>FM|+691|Micronesia</item>
+        <item>MD|+373|Moldova</item>
+        <item>MC|+377|Monaco</item>
+        <item>MN|+976|Mongolia</item>
+        <item>ME|+382|Montenegro</item>
+        <item>MS|+1-664|Montserrat</item>
+        <item>MA|+212|Morocco</item>
+        <item>MZ|+258|Mozambique</item>
+        <item>MM|+95|Myanmar (Burma)</item>
+        <item>NA|+264|Namibia</item>
+        <item>NR|+674|Nauru</item>
+        <item>NP|+977|Nepal</item>
+        <item>NL|+31|Netherlands</item>
+        <item>NC|+687|New Caledonia</item>
+        <item>NZ|+64|New Zealand</item>
+        <item>NI|+505|Nicaragua</item>
+        <item>NE|+227|Niger</item>
+        <item>NG|+234|Nigeria</item>
+        <item>KP|+850|North Korea</item>
+        <item>MK|+389|North Macedonia</item>
+        <item>NO|+47|Norway</item>
+        <item>OM|+968|Oman</item>
+        <item>PK|+92|Pakistan</item>
+        <item>PW|+680|Palau</item>
+        <item>PS|+970|Palestinian Territories</item>
+        <item>PA|+507|Panama</item>
+        <item>PG|+675|Papua New Guinea</item>
+        <item>PY|+595|Paraguay</item>
+        <item>PE|+51|Peru</item>
+        <item>PH|+63|Philippines</item>
+        <item>PL|+48|Poland</item>
+        <item>PT|+351|Portugal</item>
+        <item>PR|+1-787|Puerto Rico</item>
+        <item>QA|+974|Qatar</item>
+        <item>RE|+262|Réunion</item>
+        <item>RO|+40|Romania</item>
+        <item>RU|+7|Russia</item>
+        <item>RW|+250|Rwanda</item>
+        <item>SH|+290|St. Helena</item>
+        <item>KN|+1-869|St. Kitts &amp; Nevis</item>
+        <item>LC|+1-758|St. Lucia</item>
+        <item>MF|+590|St. Martin</item>
+        <item>PM|+508|St. Pierre &amp; Miquelon</item>
+        <item>VC|+1-784|St. Vincent &amp; Grenadines</item>
+        <item>WS|+685|Samoa</item>
+        <item>SM|+378|San Marino</item>
+        <item>ST|+239|São Tomé &amp; Príncipe</item>
+        <item>SA|+966|Saudi Arabia</item>
+        <item>SN|+221|Senegal</item>
+        <item>RS|+381|Serbia</item>
+        <item>SC|+248|Seychelles</item>
+        <item>SL|+232|Sierra Leone</item>
+        <item>SG|+65|Singapore</item>
+        <item>SX|+1-721|Sint Maarten</item>
+        <item>SK|+421|Slovakia</item>
+        <item>SI|+386|Slovenia</item>
+        <item>SB|+677|Solomon Islands</item>
+        <item>SO|+252|Somalia</item>
+        <item>ZA|+27|South Africa</item>
+        <item>KR|+82|South Korea</item>
+        <item>SS|+211|South Sudan</item>
+        <item>ES|+34|Spain</item>
+        <item>LK|+94|Sri Lanka</item>
+        <item>SD|+249|Sudan</item>
+        <item>SR|+597|Suriname</item>
+        <item>SE|+46|Sweden</item>
+        <item>CH|+41|Switzerland</item>
+        <item>SY|+963|Syria</item>
+        <item>TW|+886|Taiwan</item>
+        <item>TJ|+992|Tajikistan</item>
+        <item>TZ|+255|Tanzania</item>
+        <item>TH|+66|Thailand</item>
+        <item>TL|+670|Timor-Leste</item>
+        <item>TG|+228|Togo</item>
+        <item>TO|+676|Tonga</item>
+        <item>TT|+1-868|Trinidad &amp; Tobago</item>
+        <item>TN|+216|Tunisia</item>
+        <item>TR|+90|Turkey</item>
+        <item>TM|+993|Turkmenistan</item>
+        <item>TV|+688|Tuvalu</item>
+        <item>UG|+256|Uganda</item>
+        <item>UA|+380|Ukraine</item>
+        <item>AE|+971|United Arab Emirates</item>
+        <item>GB|+44|United Kingdom</item>
+        <item>US|+1|United States</item>
+        <item>UY|+598|Uruguay</item>
+        <item>UZ|+998|Uzbekistan</item>
+        <item>VU|+678|Vanuatu</item>
+        <item>VE|+58|Venezuela</item>
+        <item>VN|+84|Vietnam</item>
+        <item>YE|+967|Yemen</item>
+        <item>ZM|+260|Zambia</item>
+        <item>ZW|+263|Zimbabwe</item>
+    </string-array>
+</resources>

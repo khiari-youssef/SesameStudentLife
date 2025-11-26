@@ -17,7 +17,7 @@ android {
 
 
 dependencies {
-    api(projects.shared)
+    api(projects.core)
     implementation(projects.designsystem)
     implementation(libs.bundles.composelibs)
     implementation(libs.kotlinx.datetime)

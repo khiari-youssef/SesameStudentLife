@@ -41,6 +41,6 @@ val viewModelsModule = module {
         )
     }
     viewModel {
-        OBRegistrationViewModel(get(),get(UsersRepositoryTag))
+        OBRegistrationViewModel(get(),get(),get(UsersRepositoryTag))
     }
 }

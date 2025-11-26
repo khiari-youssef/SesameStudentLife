@@ -35,7 +35,9 @@
     <string name="profile_country">País</string>
     <string name="profile_city">Ciudad</string>
     <string name="profile_pick_exact_location">Elegir una ubicación exacta en el mapa :</string>
-
+    <string name="profile_missing_profile_picture">Falta la imagen de perfil!</string>
+    <string name="profile_missing_cover_picture">Falta la imagen de portada!</string>
+    <string name="profile_coffee_space">Mi rincon de café</string>
     <!--  Accessibility   -->
 
     <string name="content_description_product_image_preview">Imagen del producto: %s</string>

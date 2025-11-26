@@ -29,7 +29,9 @@
     <string name="profile_country">Pays</string>
     <string name="profile_city">Ville</string>
     <string name="profile_pick_exact_location">Choisir un emplacement précis sur la carte :</string>
-
+    <string name="profile_missing_profile_picture">Photo de profile manquante!</string>
+    <string name="profile_missing_cover_picture">Photo de couverture manquante!</string>
+    <string name="profile_coffee_space">Mon Coin café</string>
 
 
     <!--  Accessibility   -->

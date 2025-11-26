@@ -12,7 +12,7 @@ android.run {
 }
 
 dependencies {
-    implementation(projects.shared)
+    implementation(projects.core)
     implementation(projects.designsystem)
     //implementation(projects.androidServices)
     implementation(libs.kotlinx.datetime)
