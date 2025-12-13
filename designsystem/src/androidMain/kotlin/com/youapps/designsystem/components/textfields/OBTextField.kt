@@ -140,6 +140,7 @@ fun OBTextField(
             colors = OutlinedTextFieldDefaults.colors(
                 focusedContainerColor = if (isSystemInDarkTheme()) TonedDark else Color.White,
                 unfocusedContainerColor = if (isSystemInDarkTheme()) TonedDark else Color.White,
+                errorContainerColor = if (isSystemInDarkTheme()) TonedDark else Color.White,
                 cursorColor =   MaterialTheme.colorScheme.primary,
                 focusedLabelColor =  MaterialTheme.colorScheme.primary,
                 focusedTrailingIconColor = Color.Unspecified,

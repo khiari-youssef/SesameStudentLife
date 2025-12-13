@@ -12,6 +12,7 @@ import com.youapps.onlybeans.domain.entities.users.OBLocation
 import com.youapps.onlybeans.domain.entities.users.OBUserProfile
 import com.youapps.onlybeans.domain.exception.DomainErrorType
 import com.youapps.onlybeans.domain.services.InputRuleType
+import com.youapps.onlybeans.domain.valueobjects.UserSex
 
 
 sealed interface InputRuleCheckState{
@@ -54,6 +55,7 @@ data class OBRegistrationStateHolder(
     val profileStatus : State<InputRuleCheckState>,
     val firstName : State<String?>,
     val lastName : State<String?>,
+    val userSex: State<UserSex?>,
     val email : State<String?>,
     val country : State<InputRuleCheckState>,
     val city : State<InputRuleCheckState>,
@@ -64,6 +66,7 @@ data class OBRegistrationStateHolder(
     val coffeeSpaceCarouselState : State<CarouselState.Loaded>,
     val countryCodesDropDownMenuData: State<DropDownMenuData?>,
     val selectedCountryCode: State<DropDownMenuItemData?>,
+    val link : State<InputRuleCheckState>
 ){
 
     @Composable
@@ -86,6 +89,7 @@ data class OBRegistrationStateHolder(
              profileStatus : State<InputRuleCheckState>,
               firstName : State<String?>,
               lastName : State<String?>,
+              userSex: State<UserSex?>,
               email : State<String?>,
               country : State<InputRuleCheckState>,
               city : State<InputRuleCheckState>,
@@ -96,6 +100,7 @@ data class OBRegistrationStateHolder(
              coffeeSpaceCarouselState : State<CarouselState.Loaded>,
              countryCodesDropDownMenuData : State<DropDownMenuData?>,
              selectedCountryCode: State<DropDownMenuItemData?>,
+             link : State<InputRuleCheckState>
         ) : OBRegistrationStateHolder = remember(
             profilePicture,
             coverPicture,
@@ -103,6 +108,7 @@ data class OBRegistrationStateHolder(
             profileStatus,
             firstName,
             lastName,
+            userSex,
             email,
             country,
             city,
@@ -111,10 +117,11 @@ data class OBRegistrationStateHolder(
             citiesListData,
             coffeeSpaceCarouselState,
             countryCodesDropDownMenuData,
-            selectedCountryCode
+            selectedCountryCode,
+            link
         ) {
             OBRegistrationStateHolder(
-                profilePicture,coverPicture,profileDescription,profileStatus,firstName,lastName,email,country,city,location,phone,countriesListData,citiesListData,coffeeSpaceCarouselState,countryCodesDropDownMenuData,selectedCountryCode
+                profilePicture,coverPicture,profileDescription,profileStatus,firstName,lastName,userSex,email,country,city,location,phone,countriesListData,citiesListData,coffeeSpaceCarouselState,countryCodesDropDownMenuData,selectedCountryCode,link
             )
         }
 

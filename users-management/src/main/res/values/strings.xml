@@ -32,6 +32,8 @@
     <string name="profile_missing_profile_picture">Missing profile picture!</string>
     <string name="profile_missing_cover_picture">Missing cover picture!</string>
     <string name="profile_coffee_space">My coffee corner</string>
+    <string name="profile_sex_male">Male</string>
+    <string name="profile_sex_female">Female</string>
 
 
 

@@ -28,6 +28,7 @@ import kotlinx.coroutines.launch
 fun OBRegistrationScreen(
     modifier: Modifier = Modifier,
     screenUpdateState : OBRegistrationStateHolder,
+    onSexChecked: (checkedItemIndex: Int)-> Unit,
     onProfilePictureClicked: ()-> Unit,
     onCoverPictureClicked: ()-> Unit,
     onStatusChanged: (status : String)-> Unit,
@@ -39,6 +40,10 @@ fun OBRegistrationScreen(
     onGalleryItemDeleted: (Int)-> Unit,
     onPhoneNumberChanged: (String) -> Unit,
     onCountryCodeChanged: (DropDownMenuItemData) -> Unit,
+    onRequestDropDownRefresh: ()-> Unit,
+    onDropDownDismissed: ()-> Unit,
+    onLinkChanged: (link: String) -> Unit,
+    onValidLinkClicked : (link: String) -> Unit,
     onExit : ()-> Unit
 ) {
     val pagerState = rememberPagerState(pageCount = {
@@ -83,6 +88,7 @@ fun OBRegistrationScreen(
                                 modifier = Modifier
                                     .verticalScroll(scrollState),
                                 screenState = screenUpdateState,
+                                onSexChecked = onSexChecked,
                                 onStatusChanged = onStatusChanged,
                                 onProfilePictureClicked = onProfilePictureClicked,
                                 onCoverPictureClicked = onCoverPictureClicked,
@@ -90,7 +96,11 @@ fun OBRegistrationScreen(
                                 onCitySelected = onCitySelected,
                                 onCountrySelected = onCountrySelected,
                                 onPhoneNumberChanged = onPhoneNumberChanged,
-                                onCountryCodeChanged = onCountryCodeChanged
+                                onCountryCodeChanged = onCountryCodeChanged,
+                                onRequestDropDownRefresh = onRequestDropDownRefresh,
+                                onDropDownDismissed = onDropDownDismissed,
+                                onLinkChanged = onLinkChanged,
+                                onValidLinkClicked = onValidLinkClicked
                             )
                         }
                         1 -> {

@@ -22,8 +22,10 @@
 
         <string name="text_area_min_characters_error_message">Doit contenir au moins 10 caractères.</string>
         <string name="text_area_max_characters_error_message">Ne peut pas dépasser 255 caractères.</string>
+       <string name="input_link_format_error_message">Veuillez entrer un lien valide !</string>
 
-        <string name="input_password_mismatch_error_message">Les mots de passe ne correspondent pas.</string>
+
+    <string name="input_password_mismatch_error_message">Les mots de passe ne correspondent pas.</string>
         <string name="input_already_exists_error_message">Cette valeur existe déjà. Veuillez en essayer une autre.</string>
         <string name="input_range_error_message">La valeur doit être comprise entre %1$d et %2$d.</string>
         <string name="input_url_format_error_message">Veuillez entrer une adresse web (URL) valide.</string>

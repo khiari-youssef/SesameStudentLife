@@ -20,13 +20,30 @@ class AppMetaDataSource(
 ) {
 
 
-suspend fun getCountriesList() : List<OBCountry> = withContext(Dispatchers.IO){
-       onlyBeansDatabase.onlyBeansDatabaseQueries.getCountries().executeAsList().map { db->
+suspend fun getCountriesList(limit: Int,offset: Int) : List<OBCountry> = withContext(Dispatchers.IO){
+       onlyBeansDatabase.onlyBeansDatabaseQueries.getCountries(
+           limitparam = limit.toLong(),
+           offsetparam = offset.toLong()
+       ).executeAsList().map { db->
         OBCountry(
             countryCode = db.countryCode,
             phonePrefix = db.phonePrefix,
             countryName = db.countryName,
             countryFlag = db.countryFlag
+        )
+    }
+}
+
+
+suspend fun getCountryByCode(countryCode: String) : OBCountry? = withContext(Dispatchers.IO) {
+    onlyBeansDatabase.onlyBeansDatabaseQueries.getCountriesByCode(
+        countryCode = countryCode
+    ).executeAsOneOrNull()?.let { (countryCode, phonePrefix, countryName, countryFlag) ->
+        OBCountry(
+            countryCode = countryCode,
+            phonePrefix = phonePrefix,
+            countryName = countryName,
+            countryFlag = countryFlag
         )
     }
 }

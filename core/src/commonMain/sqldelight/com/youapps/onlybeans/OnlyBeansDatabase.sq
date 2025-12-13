@@ -46,7 +46,10 @@ insertCountries:
 INSERT OR REPLACE INTO OBCountriesDB VALUES (?,?,?,?);
 
 getCountries:
-SELECT * FROM OBCountriesDB ORDER BY countryCode;
+SELECT * FROM OBCountriesDB ORDER BY countryCode  LIMIT :limitparam OFFSET :offsetparam;
+
+getCountriesByCode:
+SELECT * FROM OBCountriesDB WHERE countryCode = :countryCode LIMIT 1;
 
 insertOBUser:
 INSERT OR REPLACE INTO OBUserDB VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?);

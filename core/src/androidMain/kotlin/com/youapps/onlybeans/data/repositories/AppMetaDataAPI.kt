@@ -10,12 +10,14 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.withContext
 
 
- class AppMetaDataAPI(
+
+
+ internal actual class AppMetaDataAPIImpl(
     private val applicationContext: Context,
     private val dataSource : AppMetaDataSource
-){
+) : AppMetaDataAPI {
 
-     suspend fun initAppData() {
+     actual override suspend fun initAppData() {
         val countryCodes: List<OBCountry> = withContext(Dispatchers.Default) {
             applicationContext.resources.getStringArray(R.array.country_codes_to_prefixes_and_names)
                 .map {
@@ -34,8 +36,10 @@ import kotlinx.coroutines.withContext
         }
     }
 
-     suspend fun getCountriesList() : Flow<List<OBCountry>> = flow{
-        val countries = dataSource.getCountriesList()
+     actual override fun getCountriesList(limit: Int,offset: Int) : Flow<List<OBCountry>> = flow{
+        val countries = dataSource.getCountriesList(limit = limit, offset = offset)
         emit(countries)
     }
-}
+
+     actual override suspend fun getCountryByCode(countryCode: String): OBCountry? =dataSource.getCountryByCode(countryCode = countryCode)
+ }

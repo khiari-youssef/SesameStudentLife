@@ -4,6 +4,7 @@ enum class InputRuleType{
     REQUIRED,
     EMAIL_FORMAT,
     PHONE_FORMAT,
+    LINK_FORMAT,
     PASSWORD_POLICY,
     LETTERS_ONLY,
     NUMBERS_ONLY,

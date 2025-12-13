@@ -38,6 +38,9 @@
     <string name="profile_missing_profile_picture">Falta la imagen de perfil!</string>
     <string name="profile_missing_cover_picture">Falta la imagen de portada!</string>
     <string name="profile_coffee_space">Mi rincon de café</string>
+    <string name="profile_sex_male">Masculino</string>
+    <string name="profile_sex_female">Femenino</string>
+
     <!--  Accessibility   -->
 
     <string name="content_description_product_image_preview">Imagen del producto: %s</string>

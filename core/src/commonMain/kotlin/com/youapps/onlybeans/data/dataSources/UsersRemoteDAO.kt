@@ -30,15 +30,15 @@ internal class UsersRemoteDAO(
     private val _mockUser = OBUserProfileDTO(
         email = "khiari.youssef98@gmail.com",
         firstName = "Youssef",
-        secondName = "Khiari",
+        secondName = "",
         sex = "m",
-        status = "Home barista",
+        status = "",
         nationality = "Tunisian",
         address = OBAddressDTO(
             country = "Tunisia",
             city = "Tunis"
         ),
-        phone = "25080060",
+        phone = "",
         profileDescription = "aaaaaaaa".repeat(12).repeat(4),
         coverPicture = "https://images.unsplash.com/photo-1601813913455-118810e79277?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1170",
         profilePicture = "https://avatar.iran.liara.run/public",

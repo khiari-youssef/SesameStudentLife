@@ -3,6 +3,7 @@ package com.youapps.onlybeans.di
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.PreferenceDataStoreFactory
 import androidx.datastore.preferences.core.Preferences
+import com.youapps.onlybeans.data.dataSources.AppMetaDataSource
 import com.youapps.onlybeans.data.dataSources.UserPreferencesStore
 import com.youapps.onlybeans.data.dataSources.UsersLocalDAO
 import com.youapps.onlybeans.data.dataSources.UsersRemoteDAO
@@ -36,6 +37,12 @@ internal val dataSourcesModule = module {
     }
     factory {
         UsersRemoteDAO(get(RestClientImplTag))
+    }
+    factory {
+        AppMetaDataSource(
+            get(),
+            get(RestClientImplTag)
+        )
     }
 
 }

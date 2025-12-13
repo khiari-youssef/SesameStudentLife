@@ -8,16 +8,19 @@ import com.youapps.designsystem.components.menus.DropDownMenuData
 import com.youapps.designsystem.components.menus.DropDownMenuItemData
 import com.youapps.designsystem.components.menus.ImageMediaType
 import com.youapps.onlybeans.R
+import com.youapps.onlybeans.data.repositories.AppMetaDataAPI
 import com.youapps.onlybeans.data.repositories.users.OBUsersRepositoryInterface
 import com.youapps.onlybeans.domain.entities.users.OBLocation
 import com.youapps.onlybeans.domain.exception.DomainErrorType
 import com.youapps.onlybeans.domain.services.InputRuleType
 import com.youapps.onlybeans.domain.services.OBFormValidator
+import com.youapps.onlybeans.domain.valueobjects.UserSex
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.firstOrNull
-import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.getAndUpdate
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -28,10 +31,16 @@ import java.util.Locale
 class OBRegistrationViewModel(
     private val applicationContext : Context,
     private val savedStateHandle: SavedStateHandle,
-    private val usersRepository : OBUsersRepositoryInterface
+    private val usersRepository : OBUsersRepositoryInterface,
+    private val appMetaDataAPI : AppMetaDataAPI
 )  : ViewModel() {
 
     private val _profileState = MutableStateFlow<OBRegistrationScreenState>(OBRegistrationScreenState.Loading)
+
+    private val _countryCodesDropDownMenuDataStateFlow : MutableStateFlow<DropDownMenuData?> = MutableStateFlow(null)
+     val countryCodesDropDownMenuDataStateFlow : StateFlow<DropDownMenuData?> = _countryCodesDropDownMenuDataStateFlow
+
+    private val _COUNTRIES_PAGE_SIZE : Int = 10
 
 
     private val _countriesList : MutableStateFlow<DropDownMenuData> = MutableStateFlow<DropDownMenuData>(DropDownMenuData(
@@ -62,6 +71,7 @@ class OBRegistrationViewModel(
 
     init {
         fetchMyProfile()
+        loadCountriesMenuNextPage()
     }
 
 
@@ -183,6 +193,23 @@ class OBRegistrationViewModel(
         }
     }
 
+
+    fun setProfileLink(link : String) {
+        viewModelScope.launch {
+            withContext(Dispatchers.IO){
+                savedStateHandle[PROFILE_LINK_KEY] = link
+            }
+        }
+    }
+
+    fun onSexChecked(userSex: UserSex){
+        viewModelScope.launch {
+            withContext(Dispatchers.IO){
+                savedStateHandle[USER_SEX_KEY] = userSex.toString()
+            }
+        }
+    }
+
     fun deleteCoffeeSpaceCarouselImage(index: Int) {
         viewModelScope.launch {
             withContext(Dispatchers.IO){
@@ -196,91 +223,124 @@ class OBRegistrationViewModel(
         }
     }
 
-     fun getProfilePicture() :  Flow<String?> = savedStateHandle.getStateFlow(key = PROFILE_PICTURE_KEY,null)
+
+    fun getProfilePicture() :  Flow<String?> = savedStateHandle.getStateFlow(key = PROFILE_PICTURE_KEY,null)
 
      fun getCoverPicture() : Flow<String?> =  savedStateHandle.getStateFlow(key = COVER_PICTURE_KEY,null)
 
     fun getProfileStatus() : Flow<InputRuleCheckState> = savedStateHandle.getStateFlow<String?>(key = PROFILE_STATUS_KEY,null).map { data->
-        return@map  data?.takeIf {
-            OBFormValidator.matchesRequiredRule(it)
-        }?.run {
-            if (OBFormValidator.matchesOnlyLettersRule(this)){
-                InputRuleCheckState.Valid(
-                    input = data
-                )
-            } else {
+        return@map  data?.run {
+            if (OBFormValidator.matchesRequiredRule(this).not()){
                 InputRuleCheckState.Invalid(
                     input = data,
                     brokenRule = InputRuleType.LETTERS_ONLY
                 )
             }
+            if (OBFormValidator.matchesOnlyLettersRule(this).not()){
+                InputRuleCheckState.Invalid(
+                    input = data,
+                    brokenRule = InputRuleType.LETTERS_ONLY
+                )
+            }
+            InputRuleCheckState.Valid(
+                input = data
+            )
 
-        } ?: InputRuleCheckState.Invalid(
-            input = data,
-            brokenRule = InputRuleType.REQUIRED
-        )
+        } ?: InputRuleCheckState.Initial
     }
 
      fun getProfileDescription() : Flow<InputRuleCheckState> = savedStateHandle.getStateFlow<String?>(key = PROFILE_DESC_KEY,null).map { data->
-         return@map  data?.takeIf {
-             OBFormValidator.matchesRequiredRule(it)
-         }?.run {
-             if (OBFormValidator.matchesMinCharsRule(this)){
-                 if (OBFormValidator.matchesMaxCharsRule(this)){
-                     InputRuleCheckState.Valid(
-                         input = data
-                     )
-                 } else {
-                     InputRuleCheckState.Invalid(
-                         input = data,
-                         brokenRule = InputRuleType.MAX_LENGTH
-                     )
-                 }
-
-             } else {
+         return@map  data?.run {
+             if (OBFormValidator.matchesRequiredRule(this).not()){
+                 InputRuleCheckState.Invalid(
+                     input = data,
+                     brokenRule = InputRuleType.REQUIRED
+                 )
+             }
+             if (OBFormValidator.matchesMinCharsRule(this).not()){
                  InputRuleCheckState.Invalid(
                      input = data,
                      brokenRule = InputRuleType.MIN_LENGTH
                  )
              }
-         } ?: InputRuleCheckState.Invalid(
-             input = data,
-             brokenRule = InputRuleType.REQUIRED
-         )
+             if (OBFormValidator.matchesMaxCharsRule(this).not()){
+                 InputRuleCheckState.Invalid(
+                     input = data,
+                     brokenRule = InputRuleType.MAX_LENGTH
+                 )
+             }
+             InputRuleCheckState.Valid(
+                 input = data
+             )
+         } ?: InputRuleCheckState.Initial
      }
 
 
     fun getPhone() : Flow<InputRuleCheckState> = savedStateHandle.getStateFlow<String?>(key = PROFILE_PHONE_KEY,null).map { data->
-        return@map  data?.takeIf {
-            OBFormValidator.matchesRequiredRule(it)
-        }?.run {
-            if (OBFormValidator.matchesOnlyDigitsRule(this)){
-                InputRuleCheckState.Valid(
-                    input = data
+        return@map  data?.run {
+            if (OBFormValidator.matchesRequiredRule(this).not()){
+                return@run   InputRuleCheckState.Invalid(
+                    input = data,
+                    brokenRule = InputRuleType.REQUIRED
                 )
-            } else {
-                InputRuleCheckState.Invalid(
+            }
+            if (OBFormValidator.matchesOnlyDigitsRule(this).not()){
+                return@run    InputRuleCheckState.Invalid(
                     input = data,
                     brokenRule = InputRuleType.PHONE_FORMAT
                 )
             }
+            return@run   InputRuleCheckState.Valid(input = data)
 
-        } ?: InputRuleCheckState.Invalid(
-            input = data,
-            brokenRule = InputRuleType.REQUIRED
-        )
+        } ?: InputRuleCheckState.Initial
     }
 
     fun getSelectedPhonePrefix() : Flow<DropDownMenuItemData?>
-    = savedStateHandle.getStateFlow<String?>(key = PROFILE_PHONE_COUNTRY_PREFIX_KEY,Locale.getDefault().run {
-        "${countryCodes[country]}|${applicationContext.getString(R.string.countries_api_url,country)}"
-    }).map {
-        it?.split("|").runCatching {
-            DropDownMenuItemData(
-                label = this!![0],
-                icon = ImageMediaType.Url(url = this[1])
+    = savedStateHandle.getStateFlow<String?>(key = PROFILE_PHONE_COUNTRY_PREFIX_KEY,null).map { value->
+        value?.run {
+            split("|").runCatching {
+                DropDownMenuItemData(
+                    label = this[0],
+                    icon = ImageMediaType.Url(url = this[1])
+                )
+            }.getOrNull()
+        } ?: run {
+            val localCacheDefault =  appMetaDataAPI.getCountryByCode(Locale.getDefault().country)?.run {
+                DropDownMenuItemData(
+                    label = phonePrefix,
+                    icon = ImageMediaType.Url(url = countryFlag)
+                )
+            }
+            localCacheDefault ?: Locale.getDefault().runCatching {
+                DropDownMenuItemData(
+                    label = countryCodes[country]!!,
+                    icon = ImageMediaType.Url(url = applicationContext.getString(R.string.countries_api_url,country))
+                )
+            }.getOrNull()
+        }
+
+    }
+
+
+
+    fun getProfileLink() : Flow<InputRuleCheckState> = savedStateHandle.getStateFlow<String?>(key = PROFILE_LINK_KEY,null).map { data->
+        return@map  data?.run {
+            if(OBFormValidator.matchesRequiredRule(this).not()){
+                return@run  InputRuleCheckState.Invalid(
+                    input = data,
+                    brokenRule = InputRuleType.REQUIRED
+                )
+            }
+            if (OBFormValidator.matchesLinkRule(this).not()){
+                return@run  InputRuleCheckState.Invalid(
+                    input = data,
+                    brokenRule = InputRuleType.LINK_FORMAT
+                )
+            }
+            return@run  InputRuleCheckState.Valid(
+                input = data
             )
-        }.getOrNull()
+        } ?: InputRuleCheckState.Initial
     }
 
 
@@ -296,11 +356,19 @@ class OBRegistrationViewModel(
         } else null
     }
 
+    fun getUserSex() : Flow<UserSex?> = savedStateHandle.getStateFlow<String?>(key = USER_SEX_KEY,null).map {
+      it?.run {
+          UserSex.valueOf(it)
+      }
+    }
+
     fun getEmail() : Flow<String?> = _profileState.map {
         if (it is OBRegistrationScreenState.Success) {
             it.userProfile.email
         } else null
     }
+
+
 
 
 
@@ -361,20 +429,32 @@ class OBRegistrationViewModel(
         CarouselState.Loaded(it?.split("||") ?: listOf())
     }
 
-    fun getCountryCodesDropDownMenuData() : Flow<DropDownMenuData?> = flow {
-
-        emit(DropDownMenuData(
-            items = Locale.getAvailableLocales().filter {
-                it.country.isNotBlank() && countryCodes[it.country] != null
-            }.map {
-                DropDownMenuItemData(
-                    label = "${countryCodes[it.country]}",
-                    icon = ImageMediaType.Url(
-                        url = applicationContext.getString(R.string.countries_api_url,it.country)
+    fun loadCountriesMenuNextPage(
+        offset : Int = 0,
+        withRefresh : Boolean = false
+    ) {
+        viewModelScope.launch {
+            appMetaDataAPI.getCountriesList(
+                limit = _COUNTRIES_PAGE_SIZE,
+                offset = offset
+            ).firstOrNull()?.let { countries ->
+                _countryCodesDropDownMenuDataStateFlow.getAndUpdate { currentData->
+                    val newItems = countries.map { (countryCode, phonePrefix, countryName, countryFlag) ->
+                        DropDownMenuItemData(
+                            label = phonePrefix,
+                            icon = ImageMediaType.Url(
+                                url = countryFlag
+                            )
+                        )
+                    }
+                     DropDownMenuData(
+                        items = currentData?.run {
+                            if (withRefresh) newItems else  items + newItems
+                        } ?: newItems
                     )
-                )
+                }
             }
-        ))
+        }
     }
 
 
@@ -403,6 +483,10 @@ class OBRegistrationViewModel(
         private const val PROFILE_PHONE_COUNTRY_PREFIX_KEY = "profile_phone_country_prefix"
 
         private const val COFFEE_SPACE_CAROUSEL_KEY = "coffee_space_carousel"
+
+        private const val PROFILE_LINK_KEY = "profile_link"
+
+        private const val USER_SEX_KEY = "user_sex_link"
     }
 
 

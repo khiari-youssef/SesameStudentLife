@@ -41,6 +41,8 @@
     <string name="phone_number_label">Phone</string>
     <string name="phone_number_placeholder">XXX-XXX-XXX</string>
     <string name="phone_number_country_placeholder">XXX</string>
+    <string name="links_label">Links</string>
+    <string name="links_placeholder" translatable="false">https://www.mywebsite.com</string>
 
 
 
@@ -48,6 +50,8 @@
     <string name="content_description_drop_down_item">Drop down item : %s</string>
     <string name="content_description_back_button">Back button icon</string>
     <string name="content_description_delete_button">Delete button icon</string>
+    <string name="content_description_link_button">Icon which redirects to link: %s</string>
+
 
 
 </resources>

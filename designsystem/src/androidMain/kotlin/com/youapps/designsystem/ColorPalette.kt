@@ -17,3 +17,5 @@ internal val Charcoal2 = Color(0xFF36454F)
 internal val Dark = Color(0xFF272727)
 internal val TonedDark = Color(0xFF444444)
 internal val ShadedWhite = Color(0xFFF5F5F5)
+
+internal val LinkColor = Color(0xFF124183)

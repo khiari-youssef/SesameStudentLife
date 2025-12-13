@@ -1,6 +1,8 @@
 package com.youapps.onlybeans.android.ui.main
 
 import SettingsScreen
+import android.content.Intent
+import android.net.Uri
 import android.widget.Toast
 import androidx.activity.compose.BackHandler
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -35,6 +37,7 @@ import com.youapps.designsystem.navigateBack
 import com.youapps.onlybeans.R
 import com.youapps.onlybeans.android.base.NavigationRoutingData
 import com.youapps.onlybeans.android.ui.home.HomeScreen
+import com.youapps.onlybeans.domain.valueobjects.UserSex
 import com.youapps.users_management.ui.login.LoginScreen
 import com.youapps.users_management.ui.login.LoginState
 import com.youapps.users_management.ui.login.LoginUIStateHolder
@@ -45,10 +48,10 @@ import com.youapps.users_management.ui.registration.OBRegistrationStateHolder
 import com.youapps.users_management.ui.registration.OBRegistrationViewModel
 import com.youapps.users_management.ui.settings.AppSettingsStateHolder
 import com.youapps.users_management.ui.settings.SettingsViewModel
-
 import com.youapps.users_management.ui.settings.privacypolicy.PrivacyPolicyScreen
 import org.koin.androidx.compose.koinViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
+
 
 @Composable
 fun MainActivity.MainNavigation(
@@ -183,6 +186,7 @@ fun MainActivity.MainNavigation(
                     coverPicture = viewModel.getCoverPicture().collectAsStateWithLifecycle(initialValue = null),
                     firstName = viewModel.getFistName().collectAsStateWithLifecycle(initialValue = null),
                     lastName= viewModel.getLastName().collectAsStateWithLifecycle(initialValue = null),
+                    userSex = viewModel.getUserSex().collectAsStateWithLifecycle(initialValue = null),
                     email = viewModel.getEmail().collectAsStateWithLifecycle(initialValue = null),
                     country = viewModel.getCountry().collectAsStateWithLifecycle(initialValue = InputRuleCheckState.Initial),
                     city = viewModel.getCity().collectAsStateWithLifecycle(initialValue =  InputRuleCheckState.Initial),
@@ -191,8 +195,9 @@ fun MainActivity.MainNavigation(
                     countriesListData = viewModel.getCountriesList().collectAsStateWithLifecycle(initialValue = null),
                     citiesListData =viewModel.getCitiesList().collectAsStateWithLifecycle(initialValue = null),
                     coffeeSpaceCarouselState = viewModel.getCoffeeSpaceCarouselImages().collectAsStateWithLifecycle(initialValue = CarouselState.Loaded(emptyList())),
-                    countryCodesDropDownMenuData = viewModel.getCountryCodesDropDownMenuData().collectAsStateWithLifecycle(initialValue = null),
-                    selectedCountryCode = viewModel.getSelectedPhonePrefix().collectAsStateWithLifecycle(initialValue = null)
+                    countryCodesDropDownMenuData = viewModel.countryCodesDropDownMenuDataStateFlow.collectAsStateWithLifecycle(initialValue = null),
+                    selectedCountryCode = viewModel.getSelectedPhonePrefix().collectAsStateWithLifecycle(initialValue = null),
+                    link = viewModel.getProfileLink().collectAsStateWithLifecycle(initialValue = InputRuleCheckState.Initial)
                 )
                 val currentContext = LocalContext.current
 
@@ -241,6 +246,12 @@ fun MainActivity.MainNavigation(
 
                 OBRegistrationScreen(
                     screenUpdateState = screenState,
+                    onSexChecked = { checkedItemIndex ->
+                            when(checkedItemIndex){
+                                0 -> viewModel.onSexChecked(UserSex.Male)
+                                1 -> viewModel.onSexChecked(UserSex.Female)
+                           }
+                    },
                     onCoverPictureClicked = {
                         coverPicturePicker.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly), options = ActivityOptionsCompat
                             .makeBasic()
@@ -264,14 +275,33 @@ fun MainActivity.MainNavigation(
                         if (allowedImagesToAdd > 0){
                             galleryPicturePicker.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly, maxItems = allowedImagesToAdd), options = ActivityOptionsCompat.makeBasic())
                         } else {
-                            Toast.makeText(currentContext,"you can't add more",Toast.LENGTH_LONG)
+                            Toast.makeText(currentContext,"you can't add more",Toast.LENGTH_LONG).show()
                         }
                     },
                     onExit = {
                         rootNavController.popBackStack()
                     },
                     onPhoneNumberChanged = viewModel::updatePhoneNumber,
-                    onCountryCodeChanged = viewModel::setSelectedCountryPrefix
+                    onCountryCodeChanged = viewModel::setSelectedCountryPrefix,
+                    onRequestDropDownRefresh = {
+                        viewModel.loadCountriesMenuNextPage(
+                            offset = screenState.countryCodesDropDownMenuData.value?.items?.size ?: 0
+                        )
+                    },
+                    onDropDownDismissed = {
+                        viewModel.loadCountriesMenuNextPage(
+                            offset = 0,
+                            withRefresh = true
+                        )
+                    },
+                    onLinkChanged = {link->
+                        viewModel.setProfileLink(link)
+                    },
+                    onValidLinkClicked = { link->
+                        val browserIntent =
+                            Intent(Intent.ACTION_VIEW, Uri.parse(link))
+                        startActivity(browserIntent)
+                    }
                 )
 
             }

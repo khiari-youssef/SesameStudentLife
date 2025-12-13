@@ -24,6 +24,7 @@
 
         <string name="text_area_min_characters_error_message">Debe tener al menos 10 caracteres.</string>
         <string name="text_area_max_characters_error_message">No puede exceder 255 caracteres.</string>
+          <string name="input_link_format_error_message">Por favor, introduzca un enlace válido</string>
 
         <string name="input_password_mismatch_error_message">Las contraseñas no coinciden.</string>
         <string name="input_already_exists_error_message">Este valor ya existe. Por favor, prueba con otro.</string>

@@ -3,6 +3,7 @@ package com.youapps.designsystem.components.textfields
 import OBTextField
 import android.util.Log
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -16,6 +17,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
@@ -76,6 +78,8 @@ fun OBPhoneInput(
     isRequired: Boolean = false,
     isEnabled: Boolean = true,
     errorMessage : String?=null,
+    dropDownScrollState: ScrollState = rememberScrollState(),
+    onDropDownDismissed: ()-> Unit,
     onPhoneNumberChanged: (number : String) -> Unit,
     onCountryCodeChanged: (DropDownMenuItemData) -> Unit,
 ) {
@@ -167,13 +171,18 @@ fun OBPhoneInput(
                 )
                 OBDropDownMenu(
                     modifier = Modifier.fillMaxWidth(),
+                    scrollState = dropDownScrollState,
                     isExpanded = isExpanded.value,
                     onExpandedChange = {
                         isExpanded.value = it
+                        if (!it) {
+                            onDropDownDismissed()
+                        }
                     },
                     onClick = { data->
                         onCountryCodeChanged(data)
                         isExpanded.value = false
+                        onDropDownDismissed()
                     },
                     data = countryCodesDropDownMenuData
                 )
@@ -205,6 +214,7 @@ fun OBPhoneInput(
                 colors = OutlinedTextFieldDefaults.colors(
                     focusedContainerColor = if (isSystemInDarkTheme()) TonedDark else Color.White,
                     unfocusedContainerColor = if (isSystemInDarkTheme()) TonedDark else Color.White,
+                    errorContainerColor = if (isSystemInDarkTheme()) TonedDark else Color.White,
                     cursorColor =   MaterialTheme.colorScheme.primary,
                     focusedLabelColor =  MaterialTheme.colorScheme.primary,
                     focusedTrailingIconColor = Color.Unspecified,

@@ -2,6 +2,7 @@ package com.youapps.onlybeans.di
 
 import com.youapps.onlybeans.data.repositories.users.OBUsersRepository
 import com.youapps.onlybeans.data.repositories.users.OBUsersRepositoryInterface
+import org.koin.core.module.Module
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
@@ -11,4 +12,7 @@ val repositoriesModule = module {
     factory<OBUsersRepositoryInterface>(UsersRepositoryTag) {
         OBUsersRepository(get(), get(), get())
     }
+    includes(sharedRepositories)
 }
+
+expect val sharedRepositories : Module

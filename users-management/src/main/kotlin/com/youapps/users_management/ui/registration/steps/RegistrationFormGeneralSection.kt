@@ -13,10 +13,15 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.Text
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -25,16 +30,21 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
+import androidx.lifecycle.compose.LocalLifecycleOwner
 import com.youapps.designsystem.components.PageSection
+import com.youapps.designsystem.components.checkables.OBRadioGroup
+import com.youapps.designsystem.components.checkables.OBRadioGroupData
 import com.youapps.designsystem.components.images.OBCircleImageXXL
 import com.youapps.designsystem.components.images.OBCoverPhoto
 import com.youapps.designsystem.components.menus.DropDownMenuData
 import com.youapps.designsystem.components.menus.DropDownMenuItemData
 import com.youapps.designsystem.components.menus.ImageMediaType
 import com.youapps.designsystem.components.text.OBTextArea
+import com.youapps.designsystem.components.textfields.LinkInputField
 import com.youapps.designsystem.components.textfields.OBAutoCompleteTextField
 import com.youapps.designsystem.components.textfields.OBPhoneInput
 import com.youapps.onlybeans.domain.services.InputRuleType
+import com.youapps.onlybeans.domain.valueobjects.UserSex
 import com.youapps.onlybeans.ui.EnableLocationChip
 import com.youapps.users_management.R
 import com.youapps.users_management.ui.registration.InputRuleCheckState
@@ -48,6 +58,7 @@ import com.youapps.designsystem.R as ds
 fun RegistrationFormGeneralSection(
     modifier: Modifier = Modifier,
     screenState: OBRegistrationStateHolder,
+    onSexChecked: (checkedItemIndex: Int)-> Unit,
     onProfilePictureClicked: ()-> Unit,
     onCoverPictureClicked: ()-> Unit,
     onStatusChanged: (status : String)-> Unit,
@@ -56,6 +67,10 @@ fun RegistrationFormGeneralSection(
     onCitySelected : (String)-> Unit,
     onPhoneNumberChanged: (String) -> Unit,
     onCountryCodeChanged: (DropDownMenuItemData) -> Unit,
+    onRequestDropDownRefresh: ()-> Unit,
+    onDropDownDismissed: ()-> Unit,
+    onLinkChanged: (link: String) -> Unit,
+    onValidLinkClicked : (link: String) -> Unit
 ) {
         Column(
             modifier = modifier,
@@ -102,6 +117,22 @@ fun RegistrationFormGeneralSection(
                         isEnabled = false,
                         text = screenState.email.value ?: "",
                         onEmailChanged = {}
+                    )
+                    OBRadioGroup(
+                        modifier = Modifier.fillMaxWidth(),
+                        data = OBRadioGroupData(
+                            items = listOf(
+                                stringResource(R.string.profile_sex_male),
+                                stringResource(R.string.profile_sex_female)
+                            ),
+                            checkedItemIndex = when(screenState.userSex.value){
+                                UserSex.Female -> 1
+                               UserSex.Male -> 0
+                                else -> -1
+                            },
+                            disabledItemsIndexes = listOf(0,1),
+                        ),
+                        onSexChecked = onSexChecked
                     )
                     Text(
                         modifier = Modifier.fillMaxWidth(),
@@ -174,6 +205,13 @@ fun RegistrationFormGeneralSection(
                         )
                     }
                     screenState.countryCodesDropDownMenuData.value?.let {data ->
+                        val dropDownScrollState = rememberScrollState()
+                        LaunchedEffect(key1 = dropDownScrollState.canScrollForward) {
+                            if (dropDownScrollState.canScrollForward.not()) {
+                                 onRequestDropDownRefresh()
+                            }
+                        }
+
                         OBPhoneInput(
                             modifier = Modifier.fillMaxWidth(),
                             phoneNumber = screenState.phone.value.displayContent(),
@@ -181,10 +219,18 @@ fun RegistrationFormGeneralSection(
                             countryCodesDropDownMenuData = data,
                             onPhoneNumberChanged = onPhoneNumberChanged,
                             onCountryCodeChanged = onCountryCodeChanged,
-                            selectedCountryCode = screenState.selectedCountryCode
+                            selectedCountryCode = screenState.selectedCountryCode,
+                            dropDownScrollState = dropDownScrollState,
+                            onDropDownDismissed = onDropDownDismissed
                         )
                     }
-
+                    LinkInputField(
+                        modifier = Modifier.fillMaxWidth(),
+                        link = screenState.link.value.displayContent(),
+                        errorMessage = screenState.link.value.getErrorMessageForErrorType(),
+                        onLinkChanged =onLinkChanged,
+                        onValidLinkClicked = onValidLinkClicked
+                    )
                     Spacer(
                         modifier = Modifier
                             .height(400.dp)
@@ -272,5 +318,6 @@ fun InputRuleCheckState.getErrorMessageForErrorType(defaultValue : String? = nul
         InputRuleType.DATE_FORMAT ->  stringResource(com.youapps.onlybeans.R.string.input_date_formats_error_message)
         InputRuleType.MIN_LENGTH ->  stringResource(com.youapps.onlybeans.R.string.text_area_min_characters_error_message)
         InputRuleType.MAX_LENGTH ->  stringResource(com.youapps.onlybeans.R.string.text_area_max_characters_error_message)
+        InputRuleType.LINK_FORMAT -> stringResource(com.youapps.onlybeans.R.string.input_link_format_error_message)
     }
 } else defaultValue

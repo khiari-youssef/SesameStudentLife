@@ -1,5 +1,6 @@
 package com.youapps.designsystem.components.menus
 
+import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -8,6 +9,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuBox
@@ -46,6 +48,14 @@ data class DropDownMenuItemData(
     val icon : ImageMediaType?=null,
 )
 
+
+sealed interface DropDownMenuDataState {
+    data object Loading : DropDownMenuDataState
+    data object Error : DropDownMenuDataState
+
+    @Immutable
+    data class Success(val items : List<DropDownMenuItemData>) : DropDownMenuDataState
+}
 @Immutable
 data class DropDownMenuData(
     val items : List<DropDownMenuItemData>
@@ -59,6 +69,7 @@ fun OBDropDownMenu(
     modifier: Modifier = Modifier,
     data : DropDownMenuData,
     isExpanded : Boolean,
+    scrollState: ScrollState = rememberScrollState(),
     onExpandedChange : (Boolean)-> Unit,
     onClick : (DropDownMenuItemData) -> Unit
 ) {
@@ -73,6 +84,7 @@ fun OBDropDownMenu(
                     .background(color = MaterialTheme.colorScheme.primaryContainer)
                     .fillMaxWidth()
                     .wrapContentHeight(),
+                scrollState = scrollState,
                 expanded = isExpanded,
                 onDismissRequest = {
                     onExpandedChange(false)
