@@ -12,9 +12,7 @@ import android.location.LocationRequest.QUALITY_BALANCED_POWER_ACCURACY
 import android.location.LocationRequest.QUALITY_HIGH_ACCURACY
 import android.os.CancellationSignal
 import android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS
-import android.widget.Toast
 import androidx.annotation.RequiresPermission
-import com.youapps.onlybeans.R
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow

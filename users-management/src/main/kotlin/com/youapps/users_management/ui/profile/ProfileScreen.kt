@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.FloatingActionButton
-import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.pulltorefresh.PullToRefreshBox
@@ -23,13 +22,11 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.SpanStyle
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.youapps.designsystem.components.PageSection
 import com.youapps.designsystem.components.dialogs.ImageViewerDialog
 import com.youapps.designsystem.components.lists.CarouselState
 import com.youapps.designsystem.components.lists.OBCarousel
-import com.youapps.onlybeans.ui.ProductOverViewItem
 import com.youapps.designsystem.components.menus.OBKeywordsList
 import com.youapps.designsystem.components.text.OBParagraphMode
 import com.youapps.designsystem.components.text.OBParagraphText

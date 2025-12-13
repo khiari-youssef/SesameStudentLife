@@ -15,12 +15,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.youapps.designsystem.components.menus.DropDownMenuItemData
-import com.youapps.designsystem.R as ds
-import com.youapps.users_management.R
 import com.youapps.designsystem.components.templates.OBFormPage
+import com.youapps.users_management.R
 import com.youapps.users_management.ui.registration.steps.RegistrationFormCoffeeSpaceSection
 import com.youapps.users_management.ui.registration.steps.RegistrationFormGeneralSection
 import kotlinx.coroutines.launch
+import com.youapps.designsystem.R as ds
 
 
 @OptIn(ExperimentalLayoutApi::class)

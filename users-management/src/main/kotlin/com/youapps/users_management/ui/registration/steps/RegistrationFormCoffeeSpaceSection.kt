@@ -14,8 +14,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.youapps.designsystem.components.PageSection
-import com.youapps.designsystem.components.lists.CarouselState
-import com.youapps.designsystem.components.lists.OBCarousel
 import com.youapps.designsystem.components.lists.OBCarouselEditable
 import com.youapps.users_management.R
 import com.youapps.users_management.ui.registration.OBRegistrationStateHolder

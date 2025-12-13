@@ -1,6 +1,5 @@
 package com.youapps.onlybeans.di
 
-import com.youapps.onlybeans.data.dataSources.AppMetaDataSource
 import com.youapps.onlybeans.data.repositories.AppMetaDataAPI
 import com.youapps.onlybeans.data.repositories.AppMetaDataAPIImpl
 import org.koin.core.module.Module

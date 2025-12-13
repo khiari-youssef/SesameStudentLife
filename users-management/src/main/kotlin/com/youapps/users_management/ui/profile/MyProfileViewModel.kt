@@ -4,7 +4,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.youapps.onlybeans.contracts.UseCaseContractReadOnly
 import com.youapps.onlybeans.data.repositories.users.OBUsersRepositoryInterface
-import com.youapps.onlybeans.domain.entities.users.OBUserProfile
 import com.youapps.onlybeans.domain.exception.DomainErrorType
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow

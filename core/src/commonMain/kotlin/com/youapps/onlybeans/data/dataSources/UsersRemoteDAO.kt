@@ -9,7 +9,6 @@ import com.youapps.onlybeans.data.dto.OBProductListItemDTO
 import com.youapps.onlybeans.data.dto.OBUserProfileDTO
 import com.youapps.onlybeans.data.exceptions.CustomHttpException
 import com.youapps.onlybeans.data.exceptions.HttpErrorType
-import com.youapps.onlybeans.domain.entities.products.OBProductListItem
 import io.ktor.client.HttpClient
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO

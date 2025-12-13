@@ -33,10 +33,8 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withLink
 import androidx.compose.ui.text.withStyle
-import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.youapps.designsystem.ErrorColor
 import com.youapps.designsystem.LinkColor
 import com.youapps.designsystem.OBFontFamilies
 import com.youapps.designsystem.R
@@ -44,8 +42,6 @@ import com.youapps.designsystem.TonedDark
 import com.youapps.designsystem.components.text.PlaceholderText
 import com.youapps.designsystem.onBackgroundShadedDarkMode
 import com.youapps.designsystem.onBackgroundShadedLightMode
-import java.util.regex.Pattern
-
 
 
 internal class LinkVisualTransformation(

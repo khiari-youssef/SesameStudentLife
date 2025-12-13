@@ -2,7 +2,6 @@ package com.youapps.onlybeans.ui
 
 import android.Manifest.permission.ACCESS_COARSE_LOCATION
 import android.app.Activity.RESULT_CANCELED
-import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.widget.Toast
@@ -15,7 +14,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material.Chip
-import androidx.compose.material.ChipColors
 import androidx.compose.material.ChipDefaults
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Icon
@@ -31,10 +29,9 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.youapps.onlybeans.R
-import com.youapps.designsystem.R as ds
 import com.youapps.onlybeans.platform.OBLocationService
 import org.koin.compose.koinInject
-import org.koin.core.Koin
+import com.youapps.designsystem.R as ds
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable

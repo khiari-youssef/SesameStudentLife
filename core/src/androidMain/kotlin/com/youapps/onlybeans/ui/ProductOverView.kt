@@ -4,7 +4,6 @@ import OBButton
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -38,7 +37,6 @@ import coil.request.ImageRequest
 import com.youapps.designsystem.R
 import com.youapps.designsystem.components.loading.shimmerEffect
 import com.youapps.onlybeans.domain.entities.products.OBProductListItem
-import kotlin.math.max
 
 @Immutable
 data class ProductOverViewListData(

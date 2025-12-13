@@ -1,5 +1,4 @@
 package com.youapps.onlybeans.utilities
-import com.youapps.onlybeans.BuildConfig
 import android.util.Log
 
 actual object KMPLogger {

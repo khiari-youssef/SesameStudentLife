@@ -18,10 +18,7 @@ import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.derivedStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -30,15 +27,12 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
-import androidx.lifecycle.compose.LocalLifecycleOwner
 import com.youapps.designsystem.components.PageSection
 import com.youapps.designsystem.components.checkables.OBRadioGroup
 import com.youapps.designsystem.components.checkables.OBRadioGroupData
 import com.youapps.designsystem.components.images.OBCircleImageXXL
 import com.youapps.designsystem.components.images.OBCoverPhoto
-import com.youapps.designsystem.components.menus.DropDownMenuData
 import com.youapps.designsystem.components.menus.DropDownMenuItemData
-import com.youapps.designsystem.components.menus.ImageMediaType
 import com.youapps.designsystem.components.text.OBTextArea
 import com.youapps.designsystem.components.textfields.LinkInputField
 import com.youapps.designsystem.components.textfields.OBAutoCompleteTextField
@@ -49,7 +43,6 @@ import com.youapps.onlybeans.ui.EnableLocationChip
 import com.youapps.users_management.R
 import com.youapps.users_management.ui.registration.InputRuleCheckState
 import com.youapps.users_management.ui.registration.OBRegistrationStateHolder
-import java.util.Locale
 import com.youapps.designsystem.R as ds
 
 

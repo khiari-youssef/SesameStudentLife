@@ -14,16 +14,13 @@ import com.youapps.onlybeans.di.fromDBJsonRow
 import com.youapps.onlybeans.di.toDBJsonRow
 import com.youapps.onlybeans.domain.entities.products.OBCoffeeSpace
 import com.youapps.onlybeans.domain.entities.products.OBHomeCoffeeBar
-import com.youapps.onlybeans.domain.entities.products.OBProductListItem
 import com.youapps.onlybeans.domain.entities.users.OBUserProfile
 import com.youapps.onlybeans.domain.valueobjects.decodeToUserSex
-import com.youapps.onlybeans.utilities.KMPLogger
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.json.Json
-import org.koin.core.logger.Logger
 
 
 internal class UsersLocalDAO(
