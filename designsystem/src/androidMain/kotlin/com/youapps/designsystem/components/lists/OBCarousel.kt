@@ -1,5 +1,6 @@
 package com.youapps.designsystem.components.lists
 
+import OBButtonContainedNeutral
 import OBButtonContainedPrimary
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -32,7 +33,8 @@ import androidx.compose.ui.unit.dp
 import com.youapps.designsystem.R
 import com.youapps.designsystem.components.images.OBCoverPhoto
 import com.youapps.designsystem.components.loading.shimmerEffect
-
+import com.youapps.designsystem.components.text.PlaceholderText
+import com.youapps.designsystem.R as ds
 
 sealed interface CarouselState{
     @Immutable
@@ -157,6 +159,24 @@ fun OBCarouselEditable(
                     textAlign = TextAlign.Center
                 )
             }
+        }
+    } else {
+        Column(
+            modifier = Modifier.padding(
+                vertical = 32.dp
+            ).fillMaxWidth(),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(
+                16.dp, Alignment.CenterVertically
+            )
+        ) {
+            PlaceholderText(
+                text = stringResource(ds.string.carousel_placeholder)
+            )
+            OBButtonContainedNeutral(
+                text = stringResource(ds.string.add_images),
+                onClick = onGalleryItemAdd
+            )
         }
     }
 }

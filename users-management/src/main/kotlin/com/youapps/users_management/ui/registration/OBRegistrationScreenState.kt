@@ -8,6 +8,7 @@ import androidx.compose.runtime.remember
 import com.youapps.designsystem.components.lists.CarouselState
 import com.youapps.designsystem.components.menus.DropDownMenuData
 import com.youapps.designsystem.components.menus.DropDownMenuItemData
+import com.youapps.designsystem.components.menus.KeywordsData
 import com.youapps.onlybeans.domain.entities.users.OBLocation
 import com.youapps.onlybeans.domain.entities.users.OBUserProfile
 import com.youapps.onlybeans.domain.exception.DomainErrorType
@@ -66,7 +67,8 @@ data class OBRegistrationStateHolder(
     val coffeeSpaceCarouselState : State<CarouselState.Loaded>,
     val countryCodesDropDownMenuData: State<DropDownMenuData?>,
     val selectedCountryCode: State<DropDownMenuItemData?>,
-    val link : State<InputRuleCheckState>
+    val link : State<InputRuleCheckState>,
+    val keywords: State<KeywordsData?>
 ){
 
     @Composable
@@ -100,7 +102,8 @@ data class OBRegistrationStateHolder(
              coffeeSpaceCarouselState : State<CarouselState.Loaded>,
              countryCodesDropDownMenuData : State<DropDownMenuData?>,
              selectedCountryCode: State<DropDownMenuItemData?>,
-             link : State<InputRuleCheckState>
+             link : State<InputRuleCheckState>,
+             keywords: State<KeywordsData?>
         ) : OBRegistrationStateHolder = remember(
             profilePicture,
             coverPicture,
@@ -118,10 +121,11 @@ data class OBRegistrationStateHolder(
             coffeeSpaceCarouselState,
             countryCodesDropDownMenuData,
             selectedCountryCode,
-            link
+            link,
+            keywords
         ) {
             OBRegistrationStateHolder(
-                profilePicture,coverPicture,profileDescription,profileStatus,firstName,lastName,userSex,email,country,city,location,phone,countriesListData,citiesListData,coffeeSpaceCarouselState,countryCodesDropDownMenuData,selectedCountryCode,link
+                profilePicture,coverPicture,profileDescription,profileStatus,firstName,lastName,userSex,email,country,city,location,phone,countriesListData,citiesListData,coffeeSpaceCarouselState,countryCodesDropDownMenuData,selectedCountryCode,link,keywords
             )
         }
 

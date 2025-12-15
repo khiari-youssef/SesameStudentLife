@@ -18,4 +18,8 @@ internal val Dark = Color(0xFF272727)
 internal val TonedDark = Color(0xFF444444)
 internal val ShadedWhite = Color(0xFFF5F5F5)
 
+internal val DisabledOnSurfaceColorLightMode = Color(0xFF707070)
+
+internal val DisabledOnSurfaceColorDarkMode = Color(0xFFAD9D9D)
+
 internal val LinkColor = Color(0xFF124183)

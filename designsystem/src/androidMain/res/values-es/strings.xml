@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">OnlyBeans</string>
+    <string name="app_brand_text_primary" translatable="false">SESAME</string>
+    <string name="app_brand_text_secondary" translatable="false">Student Life</string>
+    <string name="version_placeholder">Versión %s</string>
+
+    <string name="yes">Sí</string>
+    <string name="no">No</string>
+    <string name="ok">Aceptar</string>
+    <string name="confirm">Confirmar</string>
+    <string name="cancel">Cancelar</string>
+    <string name="login">Iniciar sesión</string>
+    <string name="retry">Reintentar</string>
+    <string name="search">Buscar</string>
+    <string name="next_step">Siguiente</string>
+    <string name="next">Siguiente</string>
+    <string name="save">Guardar cambios</string>
+
+    <string name="app_exit_popup_title">¿Realmente quieres salir de la aplicación?</string>
+    <string name="app_logout_popup_title">¿Realmente quieres cerrar la sesión?</string>
+
+    <string name="email_address_label">Correo electrónico</string>
+    <string name="email_address_placeholder" translatable="false">user@xxx.xx</string>
+    <string name="password_label">Contraseña</string>
+    <string name="password_placeholder">Tu contraseña…</string>
+    <string name="phone_number_label">Teléfono</string>
+    <string name="phone_number_placeholder">XXX-XXX-XXX</string>
+    <string name="phone_number_country_placeholder">XXX</string>
+    <string name="links_label">Enlaces</string>
+    <string name="links_placeholder" translatable="false">https://www.mywebsite.com</string>
+
+    <string name="result_not_found">¡No hay resultados!</string>
+    <string name="accepted">Aceptado</string>
+    <string name="rejected">Rechazado</string>
+
+    <string name="sex_male">Masculino</string>
+    <string name="sex_female">Femenino</string>
+
+    <string name="error_network_title">Error de red</string>
+    <string name="error_network_internal_server_details">Error interno del servidor</string>
+    <string name="error_network_no_internet_details">¡La conexión a internet no está disponible!</string>
+
+    <string name="error_toast_unknown">Ha ocurrido un error</string>
+    <string name="error_toast_invalid_credentials">¡Inicio de sesión inválido!</string>
+    <string name="error_toast_unauthorized">Acción no autorizada</string>
+    <string name="error_toast_locked">¡Cuenta bloqueada!</string>
+
+    <string name="error_destination_not_found_title">Error de navegación</string>
+    <string name="error_destination_not_found_detail">Ruta no encontrada</string>
+
+    <string name="description_placeholder">No hay descripción disponible _</string>
+    <string name="expand_to_read_more">Leer más</string>
+    <string name="collapse_to_read_less">Leer menos</string>
+
+    <string name="carousel_placeholder">¡Aún no hay imágenes en tu galería!</string>
+    <string name="add_images">Añadir imágenes</string>
+    <string name="keywords">Palabras clave</string>
+
+
+    <string name="content_description_drop_down_item">Elemento de lista desplegable: %s</string>
+    <string name="content_description_back_button">Icono de botón de retroceso</string>
+    <string name="content_description_delete_button">Icono de botón de eliminar</string>
+    <string name="content_description_link_button">Icono que redirige al enlace: %s</string>
+    <string name="content_description_remove_keyword_button">Icono para eliminar palabra clave: %s</string>
+    <string name="content_description_remove_cancel_keyword_button">Icono para cancelar la acción de eliminar palabra clave</string>
+
+
+</resources>

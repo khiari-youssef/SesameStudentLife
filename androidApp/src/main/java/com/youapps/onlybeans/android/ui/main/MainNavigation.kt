@@ -51,6 +51,7 @@ import com.youapps.users_management.ui.settings.SettingsViewModel
 import com.youapps.users_management.ui.settings.privacypolicy.PrivacyPolicyScreen
 import org.koin.androidx.compose.koinViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import androidx.core.net.toUri
 
 
 @Composable
@@ -197,7 +198,8 @@ fun MainActivity.MainNavigation(
                     coffeeSpaceCarouselState = viewModel.getCoffeeSpaceCarouselImages().collectAsStateWithLifecycle(initialValue = CarouselState.Loaded(emptyList())),
                     countryCodesDropDownMenuData = viewModel.countryCodesDropDownMenuDataStateFlow.collectAsStateWithLifecycle(initialValue = null),
                     selectedCountryCode = viewModel.getSelectedPhonePrefix().collectAsStateWithLifecycle(initialValue = null),
-                    link = viewModel.getProfileLink().collectAsStateWithLifecycle(initialValue = InputRuleCheckState.Initial)
+                    link = viewModel.getProfileLink().collectAsStateWithLifecycle(initialValue = InputRuleCheckState.Initial),
+                    keywords = viewModel.getProfileKeywordsList().collectAsStateWithLifecycle(initialValue = null)
                 )
                 val currentContext = LocalContext.current
 
@@ -299,8 +301,14 @@ fun MainActivity.MainNavigation(
                     },
                     onValidLinkClicked = { link->
                         val browserIntent =
-                            Intent(Intent.ACTION_VIEW, Uri.parse(link))
+                            Intent(Intent.ACTION_VIEW, link.toUri())
                         startActivity(browserIntent)
+                    },
+                    onKeywordAdded = { keyword->
+                        viewModel.addNewProfileKeyword(keyword)
+                    },
+                    onKeyWordDeleted = {keyword->
+                        viewModel.deleteProfileKeyword(keyword)
                     }
                 )
 

@@ -1,19 +1,24 @@
 package com.youapps.designsystem.components.checkables
 
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.wrapContentSize
-import androidx.compose.material.RadioButton
-import androidx.compose.material.RadioButtonDefaults
-import androidx.compose.material.Text
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.RadioButton
+import androidx.compose.material3.RadioButtonDefaults
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.youapps.designsystem.DisabledOnSurfaceColorDarkMode
+import com.youapps.designsystem.DisabledOnSurfaceColorLightMode
+import com.youapps.designsystem.ShadedWhite
+import com.youapps.designsystem.TonedDark
 
 @Stable
 data class OBRadioGroupData(
@@ -36,6 +41,7 @@ fun OBRadioButton(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.Start)
     ) {
+        val disabledTextColor = if (isSystemInDarkTheme()) DisabledOnSurfaceColorDarkMode else DisabledOnSurfaceColorLightMode
         RadioButton(
             modifier = modifier,
             enabled = isCheckable,
@@ -44,12 +50,16 @@ fun OBRadioButton(
                 onClick(isChecked.not())
             },
             colors = RadioButtonDefaults.colors(
-                selectedColor = MaterialTheme.colorScheme.primary
+                selectedColor = MaterialTheme.colorScheme.primary,
+                disabledSelectedColor = disabledTextColor,
+                disabledUnselectedColor = disabledTextColor
             )
         )
         Text(
             text = label,
-            textAlign = TextAlign.Start
+            textAlign = TextAlign.Start,
+            style = MaterialTheme.typography.labelMedium,
+            color = if(isCheckable) MaterialTheme.colorScheme.onSurface else disabledTextColor
         )
     }
 }

@@ -27,6 +27,7 @@ import com.youapps.designsystem.components.PageSection
 import com.youapps.designsystem.components.dialogs.ImageViewerDialog
 import com.youapps.designsystem.components.lists.CarouselState
 import com.youapps.designsystem.components.lists.OBCarousel
+import com.youapps.designsystem.components.menus.KeywordsData
 import com.youapps.designsystem.components.menus.OBKeywordsList
 import com.youapps.designsystem.components.text.OBParagraphMode
 import com.youapps.designsystem.components.text.OBParagraphText
@@ -185,13 +186,16 @@ fun ProfileScreen(
 
 
                             screenState.profile.keywords?.takeIf { it.isNotEmpty() }?.let { keywords->
+                                val data = KeywordsData(
+                                    keywords = keywords
+                                )
                                 PageSection(
                                     modifier = Modifier.fillMaxWidth(),
                                     sectionTitle = stringResource(R.string.profile_keywords),
                                 ) {
                                     OBKeywordsList(
                                         modifier = Modifier.fillMaxWidth(),
-                                        keywords = keywords,
+                                        data = data,
                                         onKeyWordClicked = onKeywordClicked
                                     )
                                 }

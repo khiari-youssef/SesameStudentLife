@@ -7,6 +7,7 @@ import com.youapps.designsystem.components.lists.CarouselState
 import com.youapps.designsystem.components.menus.DropDownMenuData
 import com.youapps.designsystem.components.menus.DropDownMenuItemData
 import com.youapps.designsystem.components.menus.ImageMediaType
+import com.youapps.designsystem.components.menus.KeywordsData
 import com.youapps.onlybeans.R
 import com.youapps.onlybeans.data.repositories.AppMetaDataAPI
 import com.youapps.onlybeans.data.repositories.users.OBUsersRepositoryInterface
@@ -15,6 +16,7 @@ import com.youapps.onlybeans.domain.exception.DomainErrorType
 import com.youapps.onlybeans.domain.services.InputRuleType
 import com.youapps.onlybeans.domain.services.OBFormValidator
 import com.youapps.onlybeans.domain.valueobjects.UserSex
+import com.youapps.onlybeans.domain.valueobjects.decodeToUserSex
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -223,7 +225,41 @@ class OBRegistrationViewModel(
         }
     }
 
+    fun addNewProfileKeyword(keyword : String) {
+        viewModelScope.launch {
+            withContext(Dispatchers.IO){
+                val currentKeywordsList : Set<String> = buildSet {
+                    savedStateHandle.get<String>(PROFILE_KEYWORDS)?.split("|")?.run {
+                        addAll(this)
+                    }
+                    this.add(keyword)
+                }
+                val newKeywordsList = currentKeywordsList + keyword
+                savedStateHandle[PROFILE_KEYWORDS] = newKeywordsList.joinToString("|")
+            }
+        }
+    }
 
+    fun deleteProfileKeyword(keyword : String) {
+        viewModelScope.launch {
+            withContext(Dispatchers.IO){
+                val updatedKeywordsList = savedStateHandle.get<String>(PROFILE_KEYWORDS)?.split("|")?.filter {
+                    it != keyword
+                }
+                savedStateHandle[PROFILE_KEYWORDS] = updatedKeywordsList?.joinToString("|")
+            }
+        }
+    }
+
+
+
+    fun getProfileKeywordsList() : Flow<KeywordsData?> = savedStateHandle.getStateFlow<String?>(PROFILE_KEYWORDS, initialValue = null).map {
+        it?.split("|")?.run {
+            KeywordsData(
+                keywords = this
+            )
+        }
+    }
     fun getProfilePicture() :  Flow<String?> = savedStateHandle.getStateFlow(key = PROFILE_PICTURE_KEY,null)
 
      fun getCoverPicture() : Flow<String?> =  savedStateHandle.getStateFlow(key = COVER_PICTURE_KEY,null)
@@ -356,11 +392,7 @@ class OBRegistrationViewModel(
         } else null
     }
 
-    fun getUserSex() : Flow<UserSex?> = savedStateHandle.getStateFlow<String?>(key = USER_SEX_KEY,null).map {
-      it?.run {
-          UserSex.valueOf(it)
-      }
-    }
+    fun getUserSex() : Flow<UserSex?> = savedStateHandle.getStateFlow<String?>(key = USER_SEX_KEY,null).map { it?.decodeToUserSex() }
 
     fun getEmail() : Flow<String?> = _profileState.map {
         if (it is OBRegistrationScreenState.Success) {
@@ -425,8 +457,8 @@ class OBRegistrationViewModel(
         }
       }
 
-    fun getCoffeeSpaceCarouselImages() : Flow<CarouselState.Loaded> = savedStateHandle.getStateFlow<String?>(key = COFFEE_SPACE_CAROUSEL_KEY,null).map {
-        CarouselState.Loaded(it?.split("||") ?: listOf())
+    fun getCoffeeSpaceCarouselImages() : Flow<CarouselState.Loaded> = savedStateHandle.getStateFlow<String?>(key = COFFEE_SPACE_CAROUSEL_KEY,null).map { it ->
+        CarouselState.Loaded(it?.split("||")?.filter { it.isNotBlank() } ?: listOf())
     }
 
     fun loadCountriesMenuNextPage(
@@ -487,6 +519,8 @@ class OBRegistrationViewModel(
         private const val PROFILE_LINK_KEY = "profile_link"
 
         private const val USER_SEX_KEY = "user_sex_link"
+
+        private const val PROFILE_KEYWORDS = "profile_keywords"
     }
 
 

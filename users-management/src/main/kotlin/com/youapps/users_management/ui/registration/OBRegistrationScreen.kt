@@ -44,6 +44,8 @@ fun OBRegistrationScreen(
     onDropDownDismissed: ()-> Unit,
     onLinkChanged: (link: String) -> Unit,
     onValidLinkClicked : (link: String) -> Unit,
+    onKeywordAdded: (String)-> Unit,
+    onKeyWordDeleted: (String)-> Unit,
     onExit : ()-> Unit
 ) {
     val pagerState = rememberPagerState(pageCount = {
@@ -115,7 +117,9 @@ fun OBRegistrationScreen(
                                 screenState = screenUpdateState,
                                 onGalleryItemAdd = onGalleryItemAdd,
                                 onGalleryItemClicked = onGalleryItemClicked,
-                                onGalleryItemDeleted = onGalleryItemDeleted
+                                onGalleryItemDeleted = onGalleryItemDeleted,
+                                onKeywordAdded = onKeywordAdded,
+                                onKeyWordDeleted = onKeyWordDeleted
                             )
                         }
                         2->{

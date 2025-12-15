@@ -39,13 +39,17 @@
     <string name="phone_number_placeholder">XXX-XXX-XXX</string>
     <string name="phone_number_country_placeholder">XXX</string>
     <string name="links_label">Liens</string>
-
+    <string name="carousel_placeholder">Aucune image dans votre galerie pour l\'instant !</string>
+    <string name="add_images">Ajouter des images</string>
+    <string name="keywords">Mots-clés</string>
 
     <!-- Content description-->
     <string name="content_description_drop_down_item">Élément de la liste déroulante : %s</string>
     <string name="content_description_back_button">Icone button retour</string>
     <string name="content_description_delete_button">Icone button supprimer</string>
     <string name="content_description_link_button">Icone qui vous redirige vers le lien : %s</string>
+    <string name="content_description_remove_keyword_button">Icône pour supprimer le mot-clé : %s</string>
+    <string name="content_description_remove_cancel_keyword_button">Icône pour annuler l\'action de suppression du mot-clé</string>
 
 
 </resources>
